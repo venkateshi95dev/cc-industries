@@ -1,0 +1,73 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+namespace Magedelight\Megamenu\Controller\Adminhtml\Menu;
+
+use Magento\Backend\App\Action;
+use Magento\Backend\Model\View\Result\Redirect;
+use Magento\Framework\Controller\ResultFactory;
+use Magento\Backend\App\Action\Context;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Ui\Component\MassAction\Filter;
+use Magedelight\Megamenu\Model\ResourceModel\Menu\CollectionFactory;
+
+class MassEnable extends Action
+{
+    /**
+     * @var Filter
+     */
+    protected $filter;
+
+    /**
+     * @var CollectionFactory
+     */
+    protected $collectionFactory;
+
+    /**
+     * Constructor
+     *
+     * @param Context $context
+     * @param Filter $filter
+     * @param CollectionFactory $collectionFactory
+     */
+    public function __construct(
+        Context $context,
+        Filter $filter,
+        CollectionFactory $collectionFactory
+    ) {
+        parent::__construct($context);
+        $this->filter = $filter;
+        $this->collectionFactory = $collectionFactory;
+    }
+
+    /**
+     * Execute action
+     *
+     * @return Redirect
+     * @throws LocalizedException|\Exception
+     */
+    public function execute()
+    {
+        $collection = $this->filter->getCollection($this->collectionFactory->create());
+
+        foreach ($collection as $item) {
+            $item->setIsActive(true);
+            $item->save();
+        }
+
+        $this->messageManager->addSuccessMessage(
+            __(
+                'A total of %1 record(s) have been enabled.',
+                $collection->getSize()
+            )
+        );
+
+        /** @var Redirect $resultRedirect */
+        $resultRedirect = $this->resultFactory->create(ResultFactory::TYPE_REDIRECT);
+        return $resultRedirect->setPath('*/*/');
+    }
+}

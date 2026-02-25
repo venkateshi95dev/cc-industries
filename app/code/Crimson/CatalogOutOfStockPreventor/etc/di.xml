@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\CatalogInventory\Model\ResourceModel\Stock\Item">
+        <plugin name="PreventOutOfStockStatus" type="Crimson\CatalogOutOfStockPreventor\Plugin\Magento\CatalogInventory\Model\ResourceModel\Stock\Item\PreventOutOfStockStatus" />
+    </type>
+
+    <type name="Magento\Inventory\Model\ResourceModel\SourceItem">
+        <plugin name="PreventOutOfStockStatus" type="Crimson\CatalogOutOfStockPreventor\Plugin\Magento\Inventory\Model\ResourceModel\SourceItem\PreventOutOfStockStatus" />
+    </type>
+
+    <type name="Magento\InventoryApi\Api\SourceItemsSaveInterface">
+        <plugin name="PreventOutOfStockStatus" type="Crimson\CatalogOutOfStockPreventor\Plugin\Magento\InventoryApi\Api\SourceItemsSaveInterface\PreventOutOfStockStatus" />
+    </type>
+</config>

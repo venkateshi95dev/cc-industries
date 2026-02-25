@@ -1,0 +1,30 @@
+{
+    "name": "crimson/aheadworks-nmi-customizations",
+    "description": "",
+    "require": {
+        "php": ">=8.1",
+        "aheadworks/module-nmi-subscription": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\AheadworksNmiCustomizations\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/AheadworksNmiCustomizations"
+            ]
+        ]
+    }
+}

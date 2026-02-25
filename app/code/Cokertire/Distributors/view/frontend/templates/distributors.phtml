@@ -1,0 +1,105 @@
+<?php
+    $collection =  $this->getDistributors();
+    $countryList = $this->getCountries();
+?>
+<div class="col-xs-12 col-sm-8 col-md-9 col-lg-9 padding0 mobile100 mobpad1">
+    <div id="distributor-list-page" class="padding_top1 padding_l1r1 col-sm-12">
+        <div class="page-title">
+            <h1 class="brown_font uppercase font20">Coker Tire Distributor List</h1>
+        </div>
+        <div class="margin_top1">
+            <div class="list-title margin_btm1">
+                <h2 class="margin0 padding_t05b05 brown_font font16 bold">Domestic Distributors</h2>
+            </div>
+             <?php if(count($collection)): ?>
+                <ul id="us_list" class="distributorList margin0 padding0">
+                <?php foreach ($collection as $distributors): ?>
+                <li class="distributor padding_btm1 col-sm-4">
+                <div class="panel padding1">
+                <?php echo $distributors->getCompany(); ?>
+                <br> <?php echo $distributors->getData("address1"); ?>
+                <br> Phone: <?php echo $distributors->getData("phone1"); ?>
+                <br>Fax: <?php echo $distributors->getFax(); ?>
+                <br><a class="distributor-link" href="<?php echo $distributors->getWebsite(); ?>" target="_blank" title=" <?php echo $distributors->getCompany(); ?>"><?php echo $distributors->getWebsite(); ?></a><br></div>
+                </li>
+            <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="list-title margin_btm1">
+            <h2 class="margin0 padding_t05b05 brown_font font16 bold">International Distributors</h2>
+        </div>
+        <div class="padding0">
+            <div class="brown_separator"></div>
+        </div>
+        <div class="padding_t1b1">
+            <p>For international distributors information, please fill out the form below. We will get back to you as soon as possible.</p>
+            <small>Distributor prices will be higher than those reflected on this web site due to international shipping costs, import duties, taxes, and brokerage fees.</small>
+        </div>
+        <div class="padding_t1b1 margin_btm2 clearfix">
+            <div class="col-sm-8 col-sm-offset-2">
+                <form action="" method="post" enctype="multipart/form-data" id="distcountry" data-mage-init='{"validation":{}}'>
+                    <input type="hidden" value="dist_form_64f138eb9224714ccc4399f5bb9b24897e7ed716" name="unique_id">
+                    <div class="fieldset panel padding1">
+                        <div class="form-title">
+                            <h2 class="margin0 padding_t05b05 brown_font font16 bold">Request Additional Info</h2>
+                            <div class="padding0">
+                                <div class="brown_separator"></div>
+                            </div>
+                        </div>
+                        <div class="messages"></div>
+                        <ul class="form-list margin0 padding0 margin_top2">
+                            <li class="fields">
+                                <div class="field">
+                                    <label for="name" class="required"><em>*</em>Name</label>
+                                    <div class="input-box">
+                                        <input name="name" id="name" title="Name" value="" class="input-text required-entry form-control" type="text" data-validate="{required:true}">
+                                    </div>
+                                </div>
+                                <div class="padding_top05">
+                                    <label for="email" class="required"><em>*</em>Email</label>
+                                    <div class="input-box">
+                                        <input name="email" id="email" title="Email" value="" class="input-text form-control" type="text" data-validate="{required:true, 'validate-email':true}">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="padding_top05">
+                                <label for="telephone">Telephone</label>
+                                <div class="input-box">
+                                    <input name="telephone" id="telephone" title="Telephone" value="" class="input-text form-control" type="text">
+                                </div>
+                            </li>
+                            <li class="padding_top05">
+                                <label for="country">Country</label>
+                                <div class="input-box">
+                                    <?php echo $countryList;?>
+                                </div>
+                            </li>
+                            <li class="padding_top05">
+                                <label for="business">Business</label>
+                                <div class="input-box">
+                                    <input name="business" id="business" title="Business" value="" class="input-text form-control" type="text">
+                                </div>
+                            </li>
+                            <li class="padding_top05">
+                                <label for="comments" class="required"><em>*</em>Questions/Comments</label>
+                                <div class="input-box">
+                                    <textarea name="comments" id="comments" title="Comments" class="required-entry input-text form-control" cols="5" rows="3" data-validate="{required:true}"></textarea>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="buttons-set padding_top05">
+                        <p class="required">* Required Fields</p>
+                        <div class="col-sm-6 padding0">
+                            <button type="submit" title="Submit" class="button btn btn-danger btn-lg btn-block dist_reqst"><span><span>Submit</span></span></button>
+                        </div>
+                    </div>
+                    <?= $block->getChildHtml('form_additional_info') ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2021 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <i95dev_messagequeue>
+            <I95DevConnect_credentials>
+                <encryption_pass>jZjneNba78tqCuB8l8eQrXoAigmbjIwwngYfjEdnnLg=</encryption_pass>
+            </I95DevConnect_credentials>
+        </i95dev_messagequeue>
+    </default>
+</config>

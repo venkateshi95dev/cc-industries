@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+/**
+* Add the EBizCharge payment method to the checkout page.
+*
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="head.additional">
+            <block
+                ifconfig="payment/ebizcharge_ebizcharge/active" after="-"
+                class="Magento\Framework\View\Element\Template"
+                name="ebizcharge_ebizcharge.html.checkout.css"
+                template="Ebizcharge_Ebizcharge::html/checkout/checkout.phtml"
+            />
+        </referenceContainer>
+        <referenceContainer name="after.body.start">
+            <block ifconfig="payment/ebizcharge_ebizcharge/active"
+                   class="Magento\Framework\View\Element\Template"
+                   name="checkout.messages"
+                   template="Magento_Theme::html/messages.phtml"
+                   before="-"/>
+        </referenceContainer>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="messages" xsi:type="array">
+                                    <item name="component" xsi:type="string">Magento_Ui/js/view/messages</item>
+                                    <item name="displayArea" xsi:type="string">messages</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="messageContainer" xsi:type="string">Magento_Ui/js/model/messageList</item>
+                                    </item>
+                                </item>
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="renders" xsi:type="array">
+                                                            <!-- merge payment method renders here -->
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="ebizcharge" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">
+                                                                        Ebizcharge_Ebizcharge/js/view/payment/method-renderer
+                                                                    </item>
+                                                                    <item name="methods" xsi:type="array">
+                                                                        <item name="ebizcharge_ebizcharge"
+                                                                              xsi:type="array">
+                                                                            <item name="isBillingAddressRequired"
+                                                                                  xsi:type="boolean">true
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="ebiz-surcharge" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Ebizcharge_Ebizcharge/js/view/checkout/summary/ebiz-surcharge</item>
+                                                            <item name="sortOrder" xsi:type="string">11</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Surcharge</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="cart_items" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="details" xsi:type="array">
+                                                            <item name="component" xsi:type="string">
+                                                                Ebizcharge_Ebizcharge/js/view/summary/item/details
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Ebizcharge\Ebizcharge\Block\Customer\Account\AddCard" name="ebizcharge.cards.validate"
+                   template="Ebizcharge_Ebizcharge::accounts/cards/popup/validation-response.phtml"
+                   ifconfig="payment/ebizcharge_ebizcharge/active" after="-">
+                <arguments>
+                    <argument name="pciComplianceViewModel" xsi:type="object">Ebizcharge\Ebizcharge\ViewModel\PciCompliance</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+    </body>
+</page>

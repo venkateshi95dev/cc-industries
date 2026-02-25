@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ConfigurableProducts
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="I95DevConnect_CancelOrder::cancelorder" title="Cancel Order Settings"
+             module="I95DevConnect_CancelOrder" sortOrder="35" parent="I95DevConnect_MessageQueue::i95devconfig"
+             action="adminhtml/system_config/edit/section/i95devconnect_CancelOrder" resource="I95DevConnect_CancelOrder::settings"/>
+    </menu>
+</config>

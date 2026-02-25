@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="i95dev_customer_discount_group" resource="default" engine="innodb" comment="I95Dev Customer Discount Group">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Customer Discount Group ID"/>
+    <column xsi:type="varchar" name="cdg_code" nullable="false" length="255" default="" comment="Customer Discount Group Code"/>
+    <column xsi:type="varchar" name="cdg_description" nullable="false" length="255" default="" comment="Customer Discount Group Description"/>
+    <column xsi:type="timestamp" name="created_dt" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Created Date"/>
+    <column xsi:type="timestamp" name="updated_dt" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Updated Date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_item_discount_group" resource="default" engine="innodb" comment="I95Dev Item Discount Group">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Item Discount Group ID"/>
+    <column xsi:type="varchar" name="idg_code" nullable="false" length="255" default="" comment="Discount Group Code"/>
+    <column xsi:type="varchar" name="idg_description" nullable="false" length="255" default="" comment="Item Discount Group Description"/>
+    <column xsi:type="timestamp" name="created_dt" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Created Date"/>
+    <column xsi:type="timestamp" name="updated_dt" on_update="true" nullable="true" default="CURRENT_TIMESTAMP" comment="Updated Date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_discount_calculation" resource="default" engine="innodb" comment="I95Dev Discount Calculation">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="int" name="sales_type" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Sales Type"/>
+    <column xsi:type="varchar" name="sales_code" nullable="false" length="40" default="" comment="Sales Code"/>
+    <column xsi:type="int" name="type" padding="11" unsigned="false" nullable="false" identity="false" default="0" comment="Type"/>
+    <column xsi:type="varchar" name="code" nullable="false" length="40" default="" comment="Code"/>
+    <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="false" default="1" comment="QTY"/>
+    <column xsi:type="decimal" name="price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="PRICE"/>
+    <column xsi:type="date" name="start_dt" comment="Start Date"/>
+    <column xsi:type="date" name="end_dt" comment="End Date"/>
+    <column xsi:type="timestamp" name="created_dt" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Created Date"/>
+    <column xsi:type="timestamp" name="updated_dt" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Updated Date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="quote_item" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="quote_address_item" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="quote_address" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="sales_order_item" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="sales_order" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="sales_invoice_item" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="sales_invoice" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="sales_creditmemo_item" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+  <table name="sales_creditmemo" resource="default">
+    <column xsi:type="decimal" name="base_discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Base Discount Group Amt"/>
+    <column xsi:type="decimal" name="discount_group_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="Discount Group Amt"/>
+  </table>
+</schema>

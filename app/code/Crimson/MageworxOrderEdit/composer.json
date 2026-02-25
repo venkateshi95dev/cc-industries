@@ -1,0 +1,28 @@
+{
+    "name": "crimson/mageworxorderedit",
+    "description": "",
+    "require": {
+        "php": "~8.1.0|~8.2.0",
+        "mageworx/module-ordersbase": "2.0.2",
+
+        "magento/magento-composer-installer": "*"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\MageworxOrderEdit\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/MageworxOrderEdit"
+            ]
+        ]
+    }
+}

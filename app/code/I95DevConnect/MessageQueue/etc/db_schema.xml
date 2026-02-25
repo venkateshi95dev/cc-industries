@@ -1,0 +1,200 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="i95dev_customer_group" resource="default" engine="innodb" comment="i95dev_customer_group">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="id"/>
+    <column xsi:type="varchar" name="target_group_id" nullable="true" length="255" comment="Target Group Id"/>
+    <column xsi:type="varchar" name="pricelevel_id" nullable="true" length="255" comment="Price Level Id "/>
+    <column xsi:type="smallint" name="customer_group_id" padding="6" unsigned="false" nullable="true" identity="false" comment="Customer Group Id"/>
+    <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" comment="Created Date"/>
+    <column xsi:type="datetime" name="updated_at" on_update="false" nullable="false" comment="Updated Date"/>
+    <column xsi:type="varchar" name="update_by" nullable="true" length="255" comment="Updated By"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="I95DEV_CUSTOMER_GROUP_ID">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_erp_data" resource="default" engine="innodb" comment="i95dev erp data">
+    <column xsi:type="bigint" name="data_id" padding="20" unsigned="false" nullable="false" identity="true" comment="Data Id"/>
+    <column xsi:type="bigint" name="msg_id" padding="20" unsigned="false" nullable="false" identity="false" comment="Message Id"/>
+    <column xsi:type="mediumtext" name="data_string" nullable="true" comment="Data String"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="data_id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_entity" resource="default" engine="innodb" comment="Entity Details">
+    <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true" comment="Entity ID"/>
+    <column xsi:type="varchar" name="entity_name" nullable="false" length="255" comment="Entity Name"/>
+    <column xsi:type="boolean" name="support_for_inbound" nullable="false" comment="Support For Inbound"/>
+    <column xsi:type="boolean" name="support_for_outbound" nullable="false" comment="Support For Outbound"/>
+    <column xsi:type="varchar" name="entity_code" nullable="false" length="255" comment="Entity Code"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Updated DateTime"/>
+    <column xsi:type="decimal" name="sort_order" scale="1" precision="10" unsigned="false" nullable="false" default="0" onCreate="migrateDataFrom(sort_order)"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="entity_code"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="I95DEV_ENTITY_ENTITY_ID">
+      <column name="entity_id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_erp_messagequeue" resource="default" engine="innodb" comment="Erp Messagequeue Details">
+    <column xsi:type="bigint" name="msg_id" padding="20" unsigned="false" nullable="false" identity="true" comment="MSG ID"/>
+    <column xsi:type="varchar" name="erp_code" nullable="false" length="255" comment="Erp Code"/>
+    <column xsi:type="varchar" name="entity_code" nullable="false" length="255" comment="Entity Type Code"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Updated DateTime"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" comment="status"/>
+    <column xsi:type="varchar" name="magento_id" nullable="false" length="255" comment="magento id"/>
+    <column xsi:type="varchar" name="target_id" nullable="false" length="255" comment="Target_Id"/>
+    <column xsi:type="bigint" name="error_id" padding="20" unsigned="false" nullable="false" identity="false" comment="error id"/>
+    <column xsi:type="smallint" name="counter" padding="6" unsigned="false" nullable="false" identity="false" comment="counter"/>
+    <column xsi:type="varchar" name="ref_name" nullable="false" length="255" comment="ref name"/>
+    <column xsi:type="smallint" name="is_data_error" padding="6" unsigned="false" nullable="false" identity="false" comment="Is Data Error"/>
+    <column xsi:type="int" name="parent_msg_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Parent Msg Id"/>
+    <column xsi:type="bigint" name="destination_msg_id" padding="20" unsigned="false" nullable="false" identity="false" comment="Erp Msg id"/>
+    <column xsi:type="text" name="additional_info" nullable="true"/>
+    <column xsi:type="smallint" name="response_counter" padding="6" unsigned="false" nullable="false" identity="false" comment="response counter" default="0"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="msg_id"/>
+    </constraint>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_ERP_CODE_ENTITY_CODE_MAGENTO_ID" indexType="btree">
+      <column name="erp_code"/>
+      <column name="entity_code"/>
+      <column name="magento_id"/>
+    </index>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_STATUS" indexType="btree">
+      <column name="status"/>
+    </index>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_TARGET_ID" indexType="btree">
+      <column name="target_id"/>
+    </index>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_ERROR_ID" indexType="btree">
+      <column name="error_id"/>
+    </index>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_COUNTER" indexType="btree">
+      <column name="counter"/>
+    </index>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_PARENT_MSG_ID" indexType="btree">
+      <column name="parent_msg_id"/>
+    </index>
+    <index referenceId="I95DEV_ERP_MESSAGEQUEUE_DESTINATION_MSG_ID" indexType="btree">
+      <column name="destination_msg_id"/>
+    </index>
+  </table>
+  <table name="i95dev_magento_messagequeue" resource="default" engine="innodb" comment="Magento Messagequeue Details">
+    <column xsi:type="bigint" name="msg_id" padding="20" unsigned="false" nullable="false" identity="true" comment="MSG ID"/>
+    <column xsi:type="varchar" name="erp_code" nullable="false" length="255" comment="Erp Code"/>
+    <column xsi:type="varchar" name="entity_code" nullable="false" length="255" comment="Entity Type Code"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Updated DateTime"/>
+    <column xsi:type="smallint" name="status" padding="6" unsigned="false" nullable="false" identity="false" comment="status"/>
+    <column xsi:type="varchar" name="magento_id" nullable="false" length="255" comment="magento id"/>
+    <column xsi:type="varchar" name="target_id" nullable="false" length="255" comment="Target_Id"/>
+    <column xsi:type="varchar" name="updated_by" nullable="false" length="255" comment="Updated By"/>
+    <column xsi:type="bigint" name="error_id" padding="20" unsigned="false" nullable="false" identity="false" comment="Error Id"/>
+    <column xsi:type="bigint" name="destination_msg_id" padding="20" unsigned="false" nullable="false" identity="false" comment="Erp Msg id"/>
+    <column xsi:type="text" name="additional_info" nullable="true"/>
+    <column xsi:type="smallint" name="counter" padding="6" unsigned="false" nullable="false" identity="false" comment="counter" default="0"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="msg_id"/>
+    </constraint>
+    <index referenceId="I95DEV_MAGENTO_MESSAGEQUEUE_ERP_CODE_ENTITY_CODE_MAGENTO_ID" indexType="btree">
+      <column name="erp_code"/>
+      <column name="entity_code"/>
+      <column name="magento_id"/>
+    </index>
+  </table>
+  <table name="i95dev_error_report" resource="default" engine="innodb" comment="i95dev_error_report">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="msg" nullable="false" length="255" comment="msg"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_sales_flat_order" resource="default" engine="innodb" comment="i95dev_sales_flat_order">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="id"/>
+    <column xsi:type="varchar" name="target_order_id" nullable="true" length="255" comment="Target Order Id"/>
+    <column xsi:type="varchar" name="source_order_id" nullable="true" length="255" comment="Target Order Id "/>
+    <column xsi:type="varchar" name="target_order_status" nullable="true" length="255" comment="Target Order Status "/>
+    <column xsi:type="varchar" name="origin" nullable="true" length="255" comment="Origin"/>
+    <column xsi:type="text" name="additional_info" nullable="true" comment="Additional Info "/>
+    <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" comment="Created Date"/>
+    <column xsi:type="datetime" name="updated_at" on_update="false" nullable="false" comment="Updated Date"/>
+    <column xsi:type="varchar" name="update_by" nullable="true" length="255" comment="Updated By"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="I95DEV_SALES_FLAT_ORDER_ID">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="I95DEV_SALES_FLAT_ORDER_SOURCE_ORDER_ID" indexType="btree">
+      <column name="source_order_id"/>
+    </index>
+    <index referenceId="I95DEV_SALES_FLAT_ORDER_TARGET_ORDER_ID" indexType="btree">
+      <column name="target_order_id"/>
+    </index>
+  </table>
+  <table name="i95dev_sales_flat_order_payment" resource="default" engine="innodb" comment="i95dev_sales_flat_order_payment">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="id"/>
+    <column xsi:type="varchar" name="target_order_id" nullable="true" length="255" comment="Target Order Id"/>
+    <column xsi:type="varchar" name="target_cheque_number" nullable="true" length="255" comment="Ttarget Cheque Number"/>
+    <column xsi:type="bigint" name="source_order_id" padding="20" unsigned="false" nullable="false" identity="false" comment="Source Order Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_sales_flat_invoice" resource="default" engine="innodb" comment="i95dev sales flat invoice">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="target_invoice_id" nullable="false" length="255" comment="Target Invoice Id"/>
+    <column xsi:type="varchar" name="source_invoice_id" nullable="false" length="255" comment="Source Invoice Id"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Updated DateTime"/>
+    <column xsi:type="varchar" name="update_by" nullable="false" length="255" comment="Updated By"/>
+    <column xsi:type="smallint" name="target_invoiced_qty" padding="5" unsigned="true" nullable="false" identity="false" default="0" comment="Target Invoiced Qty"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="I95DEV_SALES_FLAT_INVOICE_SOURCE_INVOICE_ID" indexType="btree">
+      <column name="source_invoice_id"/>
+    </index>
+    <index referenceId="I95DEV_SALES_FLAT_INVOICE_TARGET_INVOICE_ID" indexType="btree">
+      <column name="target_invoice_id"/>
+    </index>
+  </table>
+  <table name="i95dev_sales_flat_shipment" resource="default" engine="innodb" comment="i95dev sales flat shipment">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="varchar" name="target_shipment_id" nullable="false" length="255" comment="Target Shipment Id"/>
+    <column xsi:type="varchar" name="source_shipment_id" nullable="false" length="255" comment="Source Shipment Id"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Updated DateTime"/>
+    <column xsi:type="varchar" name="update_by" nullable="false" length="255" comment="Updated By"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <index referenceId="I95DEV_SALES_FLAT_SHIPMENT_TARGET_SHIPMENT_ID" indexType="btree">
+      <column name="target_shipment_id"/>
+    </index>
+    <index referenceId="I95DEV_SALES_FLAT_SHIPMENT_SOURCE_SHIPMENT_ID" indexType="btree">
+      <column name="source_shipment_id"/>
+    </index>
+  </table>
+  <table name="i95dev_sales_invoice_history" resource="default" engine="innodb" comment="i95dev invoice history to track partial invoices done to captured payments">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="text" name="target_invoice_id" nullable="false" comment="Target Invoice Id"/>
+    <column xsi:type="text" name="target_order_id" nullable="false" comment="Target Order Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_sales_invoice_item_history" resource="default" engine="innodb" comment="i95dev invoice item history to track items of partial invoices done to captured payments">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="text" name="invoice_entity_id" nullable="false" comment="Invoice Entity ID"/>
+    <column xsi:type="varchar" name="item_sku" nullable="false" length="255" comment="Item sku"/>
+    <column xsi:type="bigint" name="item_qty" padding="20" unsigned="false" nullable="false" identity="false" comment="item qty"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

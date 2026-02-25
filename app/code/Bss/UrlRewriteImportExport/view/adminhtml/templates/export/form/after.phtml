@@ -1,0 +1,139 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_UrlRewriteImportExport
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Bss\UrlRewriteImportExport\Block\Adminhtml\Form\After
+ */
+?>
+<div class="entry-edit form-inline">
+    <form id="export_filter_form" method="post">
+        <div><input name="form_key" type="hidden" value="<?php echo $block->getFormKey() ?>"></div>
+        <fieldset class="fieldset admin__fieldset " id="export_filter_container" style="display:none;">
+            <legend class="admin__legend">
+                <span><?php echo __('Entity Attributes'); ?></span>
+            </legend>
+            <div id="export-type" name="export-type" class="admin__field field attributes">
+                <label class="label admin__field-label" for="export-type"><span><?php echo __('Export By'); ?></span></label>
+                <select
+                        id="export-by"
+                        name="export-by"
+                        class="select admin__control-select"
+                        style="margin-left: 30px"
+                >
+                    <option value="all"  selected="selected"><?php echo __('All'); ?></option>
+                    <option value="entity-type"><?php echo __('Entity Type'); ?></option>
+                    <option value="store-id"><?php echo __('Store View'); ?></option>
+                    <option value="redirect-type"><?php echo __('Redirect Type'); ?></option>
+                </select>
+            </div>
+
+            <div id="entity-type" class="admin__field field attributes" style="display: none">
+                <label class="label admin__field-label" for="entity-type"><span><?php echo __('Choose Entity Type'); ?></span></label>
+                <select
+                        name="entity-type"
+                        class="select admin__control-select"
+                        style="margin-left: 30px"
+                >
+                    <option value="all"  selected="selected"><?php echo __('All'); ?></option>
+                    <option value="product"><?php echo __('Product'); ?></option>
+                    <option value="category"><?php echo __('Category'); ?></option>
+                    <option value="cms-page"><?php echo __('Cms Page'); ?></option>
+					<option value="custom"><?php echo __('Custom'); ?></option>
+                </select>
+            </div>
+
+            <div id="store-id" class="admin__field field attributes" style="display: none">
+                <label class="label admin__field-label" for="store-id"><span><?php echo __('Choose Store'); ?></span></label>
+                <select
+                        name="store-id"
+                        class="select admin__control-select"
+                        style="margin-left: 30px"
+                >
+                    <option value="all"  selected="selected"><?php echo __('All'); ?></option>
+                    <?php
+                    $stores = $block->getAllStores();
+                    foreach ($stores as $store) {
+                        ?>
+                        <option value="<?php echo $store->getStoreId(); ?>"><?php echo __($store->getName()); ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+            </div>
+
+            <div id="redirect-type" class="admin__field field attributes" style="display: none">
+                <label class="label admin__field-label" for="redirect-type"><span><?php echo __('Choose Redirect Type'); ?></span></label>
+                <select
+                        name="redirect-type"
+                        class="select admin__control-select"
+                        style="margin-left: 30px"
+                >
+                    <option value="all"  selected="selected"><?php echo __('All'); ?></option>
+                    <option value=0><?php echo __('No'); ?></option>
+                    <option value=301><?php echo __('Yes (301 Moved Permanently)'); ?></option>
+                    <option value=302><?php echo __('Yes (302 found)'); ?></option>
+                </select>
+            </div>
+
+            <button class="action-scalable" type="submit">
+                <span><?php
+                     echo __('Continue')
+                    ?>
+                </span>
+            </button>
+        </fieldset>
+    </form>
+</div>
+<div id="bss-version"><br><?php echo __("Version 1.0.5"); ?></div>
+<div class="download-link">
+
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Bss_UrlRewriteImportExport/js/export":{}
+        }
+    }
+</script>
+<script>
+    require(['jquery'],function(){
+        jQuery(document).ready(function() {
+            jQuery("#export_filter_form").submit(function(){
+                var exportByValue = jQuery("select[name='export-by']").val();
+                var entityTypeValue = jQuery("select[name='entity-type']").val();
+                var storeIdValue = jQuery("select[name='store-id']").val();
+                var redirectTypeValue = jQuery("select[name='redirect-type']").val();
+                var url = "<?php echo $block->getUrl('bssimportxeport/export/export') ?>";
+                jQuery.ajax({
+                    url: url,
+                    type: "POST",
+                    showLoader: true,
+                    data: {exportBy:exportByValue,entityType:entityTypeValue,storeId:storeIdValue,redirectType:redirectTypeValue},
+                    cache: false,
+                    success: function(response){
+                        jQuery('.download-link').html(response.output);
+                    }
+                });
+                return false;
+            });
+        });
+    });
+</script>

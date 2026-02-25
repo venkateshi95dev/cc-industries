@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>        
+        <referenceContainer name="order_additional_info">
+        <block class="I95DevConnect\MessageQueue\Block\Adminhtml\Order\View\Info"
+                name="i95dev_custom_nav_info"
+                template="I95DevConnect_MessageQueue::order/view/i95dev_custom_info.phtml"
+                before="-"/>
+        </referenceContainer>
+</body>
+</page>
+
+ 

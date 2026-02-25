@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <flatrate_prepaid>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Crimson\CorvetteCentralFlatRatePrepaid\Model\Carrier\FlatRatePrepaid</model>
+                <name>Fixed</name>
+                <price>0.00</price>
+                <title>Flat Rate Prepaid</title>
+                <type>I</type>
+                <sallowspecific>1</sallowspecific>
+                <specificcountry>CA,US</specificcountry>
+                <atypical_us_regions>AK,AS,AE,AA,AP,FM,GU,HI,MH,MP,PR,VI</atypical_us_regions>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+                <handling_type>F</handling_type>
+            </flatrate_prepaid>
+        </carriers>
+    </default>
+</config>

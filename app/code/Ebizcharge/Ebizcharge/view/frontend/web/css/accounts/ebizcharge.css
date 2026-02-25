@@ -1,0 +1,965 @@
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted #000000FF;
+    /* If you want dots under the hoverable text */
+}
+.subscription-payment-history-title{
+    float:left;
+    margin-top:25px !important;
+    margin-bottom:25px;
+    clear: both;
+}
+.approved-payment{
+    color:#0a6767;
+    font-size: 10px;
+}
+.end-date-txt{
+    margin-top:3px;
+}
+
+/* Tooltip text */
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    /* Position the tooltip text */
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.account .table-wrapper {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #cccccc;
+    overflow-x: auto;
+}
+
+.table-order-items{
+    margin-top:0px;
+}
+.searchTabCustom {
+    width: 100%;
+    border-bottom: solid 1px;
+    border-color: #ccc;
+    float: left;
+}
+
+.searchTabCustom li {
+    cursor: pointer;
+}
+
+.current {
+    background-color: #ccc;
+}
+
+.searchDelCustomHistory {
+    width: 50%;
+    clear: both;
+    margin-left: 0%;
+    margin-top: 5%;
+}
+
+.searchDelCustom {
+    width: 34%;
+    float: right;
+}
+
+.dot_green {
+    height: 8px;
+    width: 8px;
+    background-color: #089D2C;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.searchRowDelCustom {
+    width: 50%;
+    float: left;
+    margin-top:18px;
+}
+
+.statusSeelctBox {
+    max-width: 100%;
+    padding-bottom: 0;
+    height: 30px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.dot_red {
+    height: 8px;
+    width: 8px;
+    background-color: #F30C10;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+}
+.dot_red_cancelled {
+    height: 8px;
+    width: 8px;
+    background-color: #7d2717;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 5px;
+}
+.cancelled-row{
+    font-size:10px;
+    text-decoration: line-through;
+    color:#7d2717;
+}
+
+
+.clearAll {
+    clear: both;
+    margin-top: 20px;
+
+}
+
+
+.tablink:hover {
+    background-color: #777;
+}
+
+.tablinksNotSelect {
+    all: initial;
+    background: #fff none;
+    color: #555;
+    border: 0;
+    cursor: pointer;
+    display: inline-block;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    margin: 0;
+    padding: 7px 15px;
+    font-size: 1.4rem;
+    line-height: 1.6rem;
+    box-sizing: border-box;
+    vertical-align: middle;
+    border-bottom: 4px solid transparent;
+}
+
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+div.subscribe {
+    font-size: 12px;
+    padding: 2px;
+}
+
+.subscribed {
+    font-size: 12px;
+}
+
+.sub_item {
+    padding: 0 0 2px 0;
+}
+
+.red-asterisk:after {
+    content: " *";
+    color: #ff0000;
+}
+
+.order-links .item.current {
+    background-color: #ccc;
+    margin-bottom: 0px;
+    color: #000;
+    cursor: pointer !important;
+
+}
+.payment-tab{
+    padding:5px 10px;
+}
+
+.order-links .item strong {
+    background: transparent;
+
+
+}
+
+order-links .item {
+    border: 1px solid;
+    padding-right: 1px;
+    margin: unset;
+}
+
+.del_btn {
+    width: 30% !important;
+}
+
+.left-margin {
+    margin-left: 2px;
+}
+
+.icons {
+    font-size: 22px;
+    float: left;
+    margin-top: -5px;
+    margin-right: 3px;
+
+}
+
+.icon-cross {
+    color: #ff0101;
+    font-size: 25px;
+
+}
+
+.card-images {
+    vertical-align: middle;
+    width: 45px
+}
+
+.margin-top {
+    margin-top: 15px;
+}
+
+.action-width {
+    width: 12%;
+}
+
+.float-td {
+    float: left;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+
+.float-left {
+    float: left
+}
+
+.delete-button-icon {
+    background-color: transparent;
+    border: 0px;
+    padding: 5px 5px;
+    float: left;
+    margin-top: -12px;
+}
+
+.delete-button-icon:hover {
+    background-color: transparent;
+    border: 0px;
+    padding: 5px 5px;
+    float: left;
+    color: #0a0a0a;
+    margin-top: -12px;
+}
+
+.delete-action-button{
+    background-color: transparent;
+    border: 0px;
+    padding: 5px 5px;
+    float: left;
+    margin-top: -1px;
+}
+.delete-action-button:hover{
+    background-color: transparent;
+    border: 0px;
+    padding: 5px 5px;
+    float: left;
+    color: #0a0a0a;
+    margin-top: -1px;
+}
+
+.message.info {
+    margin: 0 0 10px;
+    padding: 12px 20px 12px 25px;
+    display: block;
+    font-size: 1.5rem;
+    background: #fff;
+    color: #333333;
+    padding-left: 45px;
+    position: relative;
+}
+
+.action-buttons-separator {
+    font-size: 12px;
+    float: left;
+    padding: 5px 8px;
+    color: #999999;
+    margin-top: -3px;
+
+}
+
+.data-list-table-subscriptions {
+    clear: both;
+    margin-top: 15px;
+}
+
+.data-list-table {
+    clear: both;
+    margin-top: 15px;
+}
+
+.data-list-table-headings {
+    padding: 2px 2px;
+}
+
+.data-list-table-headings-subscriptions tr {
+    background-color:#efefef;
+    border:1px solid #efefef;
+}
+
+.data-list-table-listings-subscriptions td {
+    padding-top: 20px;
+    padding-bottom: 12px
+}
+
+.data-list-table-headings tr {
+    background-color: #efefef;
+}
+
+.data-list-table-listings td {
+    padding-top: 15px;
+    padding-bottom: 12px
+}
+
+.fieldset {
+    margin: 0 0 8px !important;
+}
+
+.left {
+    width: 39%;
+    float: left;
+}
+
+.right {
+    width: 45%;
+    float: left;
+}
+
+.indefinitely {
+    clear: both;
+}
+
+.recurring-options-wrapper {
+    background: #f4f4f4;
+    padding: 15px;
+    margin: 0 0 20px 0;
+}
+
+.recurring-options-wrapper.fieldset {
+    margin-bottom: 0;
+}
+
+.date-picker {
+    width: 165px !important;
+}
+
+.modal-inner-wrap {
+    width: 500px !important;
+}
+
+
+.field-row {
+    margin-bottom: 10px;
+}
+
+.product-add-form .product-options-wrapper .field .control {
+    width: 100% !important;
+}
+
+#rec_sdate {
+    margin-right: 0;
+}
+
+#rec_edate {
+    margin-right: 0;
+}
+
+.ui-datepicker-trigger.v-middle {
+    margin: -3px 0 0 -28px !important;
+}
+
+.ui-datepicker-trigger {
+    margin: -3px 0 0 -28px !important;
+}
+
+#modal-content-1 {
+    width: 440px;
+}
+
+#rec_sdate-error {
+    position: absolute;
+    margin: 3px 0;
+}
+
+.field-error, div.mage-error[generated] {
+    margin-top: 2px;
+}
+
+.mage-error {
+    clear: both;
+    color: #ff0000;
+    padding-bottom: 3px;
+}
+
+input[type="radio"] {
+    margin: 4px 5px 0 0;
+}
+
+#select_rec_frequency {
+    width: auto;
+    min-width: 75%;
+}
+
+.custom-legen-bottm {
+    margin-bottom: 4px !important;
+}
+
+.custom-color-item {
+    color: #2a62bc
+}
+
+.subscribed-item {
+    font-size: 10px;
+}
+
+.default-not-visible {
+    display: none;
+}
+.message-cvv-error{
+    font-size: 12px;
+    color: #ff0000;
+    padding-top: 10px;
+}
+.cvv-label{
+    margin-top: 28px;
+    display: inherit;
+    text-align: right;
+    margin-right: 20px;
+}
+.required-cvv-star{
+    color:#ff0000;
+}
+.validate-cvv-error {
+    border:1px solid #FF0000FF !important;
+}
+.validate-cvv{
+    display: none;
+}
+
+.subscribe-to-products-buttons {
+    margin-top: 10%;
+}
+
+.customer-register-button {
+    margin-left: 10%;
+}
+
+.buttons-seperator {
+    margin-left: 10%;
+}
+
+.qty-width {
+    width: 40px !important;
+}
+.cvv-width{
+    width: 50px !important;
+    margin-top:20px;
+}
+
+
+.subscription-main-div {
+    width: 100%;
+}
+
+.subscription-main-div .main-table-heading {
+    background-color: #efefef;
+    border-bottom: 1px solid #cccccc;
+}
+
+.start.label .end.label {
+    width: 70px;
+    float: left;
+}
+
+.new-line {
+    clear: both;
+}
+
+.subscription-panel {
+    padding: 10px 0px 10px 0px;
+    background-color: #F8F8F8;
+    padding: 15px;
+    clear: both;
+    margin: 15px 0px 10px 0px;
+    float: left;
+    border:1px solid #efefef;
+    width: 100%;
+    height: auto;
+}
+
+.subscription-panel address {
+    font-style: normal;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.subscription-panel select {
+    width: auto;
+    min-width: 60%;
+    max-width: 60%;
+    margin: 5px 0px 5px 0px;
+}
+
+.subscription-panel input[type=text] {
+    width: auto;
+    min-width: 60%;
+    max-width: 60%;
+    margin: 5px 0px 5px 0px;
+}
+
+.subscription-panel input[type=checkbox] {
+    width: auto;
+    margin: 5px 0px 5px 0px;
+}
+
+
+.left-panel {
+    float: left;
+    clear: both;
+    width: auto;
+    min-width: 28%;
+}
+
+.right-panel {
+    float: left;
+    width: auto;
+    min-width: 60%;
+}
+
+.panel-sub-title {
+    clear: both;
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0px 0px 20px 0px;
+
+}
+
+
+.modal-popup .modal-inner-wrap {
+    width: 40% !important;
+}
+
+
+.zero {
+    margin: 0;
+    padding: 0;
+}
+
+
+.background {
+    background: #fff;
+}
+
+
+button:not(.primary) {
+    box-shadow: none;
+}
+
+.actions-toolbar {
+    margin: 12px 0 0 0;
+    clear:both;
+    z-index: 99999;
+}
+
+.field.required {
+    width: 100%;
+    float: left;
+
+}
+
+.table-grid-label {
+    padding: 10px 10px;
+    display: inline-block;
+    margin-top:20px;
+}
+
+.label.field-label {
+    float: left;
+    padding: 5px 0;
+}
+
+.label-required {
+    color: #ff0101;
+    padding-left: 5px;
+}
+
+.field-control.control {
+    width: 65%;
+    float: right;
+}
+
+.field-control.outer {
+    width: 100%;
+}
+
+#payment_exp_new {
+    width: auto;
+    min-width: 29%;
+    float: left;
+}
+
+#payment_exp_yr_new {
+    width: auto;
+    min-width: 30%;
+    float: left;
+}
+
+#payment_msg, #payment_msgcNum, #payment_msgCvv, #payment_msgCardExpDate {
+    color: #FF0000FF;
+    margin: 0 0 20px 0;
+    float: left;
+    width: 100%;
+}
+
+.recurring-edit .year {
+    margin-left: 6px;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.msgUnsub {
+    width: 100%;
+    color: #FF0000FF;
+    font-style: italic;
+}
+
+.main-block-payment {
+    width: 97%;
+    display: inline-block;
+    clear: both;
+}
+
+.width-pin {
+    width: 50px;
+}
+
+.width-payment {
+    width: 130px;
+}
+
+
+.move-right {
+    float: right;
+    width: 98%;
+}
+
+.width-fifty {
+    width: 50%;
+}
+
+.cancel-btn {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    padding: 14px 17px;
+}
+
+.margin-top-card {
+    margin-top: 10px
+}
+
+.font-default {
+    font-weight: 600;
+}
+
+.custom-cancel-button {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    padding: 14px 17px;
+}
+
+.float-td {
+    float: left;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+
+.float-left {
+    float: left
+}
+
+
+.message.info {
+    margin: 0 0 10px;
+    padding: 12px 20px 12px 25px;
+    display: block;
+    font-size: 1.5rem;
+    background: #fff;
+    color: #333333;
+    padding-left: 45px;
+    position: relative;
+}
+
+.action-buttons-separator {
+    font-size: 12px;
+    float: left;
+    padding: 5px 8px;
+    color: #999999;
+    margin-top: -3px;
+
+}
+
+.data-list-table-subscriptions {
+    clear: both;
+    margin-top: 15px;
+}
+
+.data-list-table {
+    clear: both;
+    margin-top: 15px;
+}
+
+.data-list-table-headings {
+    padding: 2px 2px;
+}
+
+.data-list-table-headings-subscriptions tr {
+    background-color:#efefef;
+    border:1px solid #efefef;
+}
+
+.data-list-table-listings-subscriptions td {
+    padding-top: 20px;
+    padding-bottom: 12px
+}
+
+.data-list-table-headings tr {
+    background-color: #efefef;
+}
+
+.data-list-table-listings td {
+    padding-top: 15px;
+    padding-bottom: 12px
+}
+.data-list-table-listings tr {
+    cursor: pointer;
+}
+.data-list-table-listings tr:hover {
+    cursor: pointer;
+    background-color:#fffceb;
+}
+
+.fieldset {
+    margin: 0 0 8px !important;
+}
+.text-align-center{
+    text-align:center;
+}
+.tick-icon-yes{
+    font-size:12px;
+    color:#2b542c;
+}
+.tick-icon-no{
+    font-size:16px;
+    color:#f47b20;
+}
+.account-title{
+    font-size:14px;
+    color:midnightblue;
+}
+.row-form-field{
+    margin:5px 5px;
+    padding:2px 2px;
+    clear: both;
+}
+.row-form-field input[type=text]{
+    height: 40px;
+}
+.row-form-field select{
+    height: 40px;
+}
+.actions-toolbar-buttons{
+    margin-top:40px !important;
+}
+
+.payment-info{
+    color:#f47b20;
+    font-weight: normal;
+    font-size:12px;
+}
+.action-buttons{
+    font-size:12px;
+    width:auto;
+    min-width:150px;
+}
+.payment-methods-dropdown{
+    display: none;
+}
+.clear-line{
+    clear: both; margin:5px 0px 5px;
+}
+.payment-error{
+    color:#ff0000;
+    font-size:15px;
+}
+.payment-method-tab-left-column{
+    clear:both;
+    width: auto;
+    min-width: 25%;
+    max-width: 25%;
+    float: left;
+    padding-top: 10px;
+}
+.payment-method-tab-right-column{
+    width: auto;
+    min-width: 60%;
+    max-width: 60%;
+    float: left;
+}
+.payment-method-panel{
+    clear:both;
+    width:auto;
+    min-width:100%;
+    max-width:100%;
+}
+.re-subscribed-row{
+    clear: both;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    margin-left:5px;
+}
+.active-tab{
+    font-weight: bold;
+}
+
+.close-cvv-avs-button{
+    float: right;
+    width: 25px;
+    height: 23px;
+    border: 2px solid #FF0000FF;
+    text-align: center;
+    color: #fff;
+    background-color: #FF0000FF;
+    position:relative;
+    top:-15px;
+    cursor:pointer;
+}
+.security-msg-title{
+    float: left;
+    width:300px;
+    height: auto;
+}
+.avs-cvv-warnings-panel {
+    display: none;
+    margin-top: 5%;
+    margin-left: 0%;
+
+}
+.cvv-avs-warnings-box{
+    border: 1px solid #f19898;
+    padding:10px 10px;
+}
+.security-messages-left{
+    width:auto;
+    min-width:45%;
+    max-width:45%;
+    float: left;
+}
+.security-messages-right{
+    width:auto;
+    min-width:50%;
+    max-width:50%;
+    float: left;
+}
+.security-messages-right p{
+    text-align: justify;
+}
+.buttons-panel{
+    float: left;
+    clear: both;
+}
+.clear-line{
+    clear:both;
+}
+.security-msg-title{
+    color:#ff0000;
+}
+.ui-datepicker-trigger span{
+    display:none;
+}
+.re-subscribe-info{
+    clear: both;
+    margin-top:20px;
+}
+.re-subscribe-info label{
+    cursor: pointer;
+}
+.re-subscribe-info input{
+    cursor: pointer;
+}
+.small-title{
+    padding-left:5px;
+    color: #FF0000FF;
+    font-size:9px;
+
+}
+.card-response-warning-message{
+    color: #FF0000FF;
+    display: none;
+}
+.payment-error-message-container{
+    border:1px solid #ff0000;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Store/etc/config.xsd">
+    <default>
+        <magedelight>
+            <general>
+                <megamenu_status>0</megamenu_status>
+                <animation_time>0.7</animation_time>
+                <menu_custom_enabled>1</menu_custom_enabled>
+            </general>
+            <logs_settings>
+                <enable_logs>1</enable_logs>
+            </logs_settings>
+        </magedelight>
+    </default>
+</config>

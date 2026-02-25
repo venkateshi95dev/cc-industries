@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Silk\CKDocument\Api\Data\CKDocumentSearchResultsInterface"
+                type="Silk\CKDocument\Model\CKDocumentSearchResults" />
+    <preference for="Silk\CKDocument\Api\Data\CKDocumentInterface" type="Silk\CKDocument\Model\CKDocument" />
+    <preference for="Silk\CKDocument\Api\CKDocumentRepositoryInterface" type="Silk\CKDocument\Model\CKDocumentRepository" />
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cms_document_listing_data_source" xsi:type="string">Silk\CKDocument\Model\ResourceModel\CKDocument\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Silk\CKDocument\Model\ResourceModel\CKDocument\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">cms_document</argument>
+            <argument name="eventPrefix" xsi:type="string">cms_document_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">document_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Silk\CKDocument\Model\ResourceModel\CKDocument</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Silk\CKDocument\Api\Data\CKDocumentInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">cms_document</item>
+                    <item name="identifierField" xsi:type="string">document_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Silk\CKDocument\Model\Api\SearchCriteria\CollectionProcessor\CKDocumentFilterProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor\FilterProcessor">
+        <arguments>
+            <argument name="customFilters" xsi:type="array">
+                <item name="store_id" xsi:type="object">Silk\CKDocument\Model\Api\SearchCriteria\CollectionProcessor\FilterProcessor\CKDocumentFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Silk\CKDocument\Model\Api\SearchCriteria\CKDocumentCollectionProcessor" type="Magento\Framework\Api\SearchCriteria\CollectionProcessor">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="filters" xsi:type="object">Silk\CKDocument\Model\Api\SearchCriteria\CollectionProcessor\CKDocumentFilterProcessor</item>
+                <item name="sorting" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\SortingProcessor</item>
+                <item name="pagination" xsi:type="object">Magento\Framework\Api\SearchCriteria\CollectionProcessor\PaginationProcessor</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

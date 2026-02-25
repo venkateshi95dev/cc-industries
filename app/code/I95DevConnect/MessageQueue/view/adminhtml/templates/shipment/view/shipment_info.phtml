@@ -1,0 +1,52 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+?>
+<?php
+$targetPaymentIds = $block->getTargetPaymentIds();
+$component = $block->getComponent();
+$isEnabled = $block->isEnabled();
+$targetShipmentId = $block->getTargetShipmentId();
+
+if ($isEnabled) {
+    ?>
+<div class="admin__page-section-title">
+    <span class="title"><?= /* @noEscape */  __('Target Shipment Information') ?></span></div>
+    <table class="admin__table-secondary order-information-table">
+        <caption>&nbsp;</caption>
+    <?php
+    if ($targetShipmentId != '') {
+        ?>
+<tr>
+    <th><?= /* @noEscape */  __('Target Shipment ID') ?></th>
+    <td><?= /* @noEscape */  $targetShipmentId ?></td>
+</tr>
+        <?php
+    } else {
+        ?>
+<tr>
+    <th><?= /* @noEscape */  __('No data found') ?></th>
+</tr>
+        <?php
+    }
+    ?>
+</table>
+    <?php
+} elseif ($component == 'NAV' && $targetPaymentIds != '') {
+    ?>
+    <div class="admin__page-section-title">
+        <span class="title"><?= /* @noEscape */  __('Target Information') ?></span></div>
+    <table class="admin__table-secondary order-information-table">
+        <caption>&nbsp;</caption>
+
+        <tr>
+            <th><?= /* @noEscape */  __('Target Payment ID') ?></th>
+            <td><?= /* @noEscape */  $targetPaymentIds ?></td>
+        </tr>
+        <?php
+}
+?>
+</table>

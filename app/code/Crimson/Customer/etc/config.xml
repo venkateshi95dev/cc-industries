@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer>
+            <catalog_request_redirect>
+                <enabled>0</enabled>
+            </catalog_request_redirect>
+        </customer>
+        <company>
+            <billing_address>
+                <use_company_address_as_billing_address>0</use_company_address_as_billing_address>
+            </billing_address>
+        </company>
+    </default>
+</config>

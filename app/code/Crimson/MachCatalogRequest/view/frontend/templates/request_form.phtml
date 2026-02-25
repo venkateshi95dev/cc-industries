@@ -1,0 +1,213 @@
+<?php
+use Crimson\MachCatalogRequest\Block\Form;
+
+/** @var Form $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<?php if ($block->isCustomerLoggedIn()): ?>
+    <form class="form form-catalog-request"
+          id="catalog-request-form"
+          action="<?= /* @escapeNotVerified */ $block->getActionUrl() ?>"
+          method="post"
+          data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>">
+        <?= /* @noEscape */ $block->getBlockHtml('formkey'); ?>
+        <fieldset class="fieldset">
+            <legend class="admin__legend"><span><?= __('PLEASE SELECT ONE OR MORE CATALOGS:') ?></span></legend>
+            <br>
+
+            <div class="available-catalogs">
+                <?php foreach ($block->getAvailableCatalogs() as $availableCatalog): ?>
+                    <div class="field available-catalog">
+                        <?php
+                        $value = $block->getCatalogValue($availableCatalog);
+                        $label = $block->getCatalogLabel($availableCatalog);
+                        if (!$value || !$label) {
+                            continue;
+                        }
+
+                        $image = $block->getCatalogImageUrl($availableCatalog);
+
+                        $htmlId = $block->getHtmlId($value);
+                        ?>
+                        <img alt="<?= $escaper->escapeHtmlAttr($label) ?>" src="<?= $escaper->escapeHtmlAttr($image) ?>"
+                             height="125" width="94"/>
+                        <div class="field_block">
+                            <div class="checkbox field">
+                            <span>
+                                <input type="checkbox" class="input-checkbox" id="<?= $escaper->escapeHtmlAttr($htmlId) ?>"
+                                       <?php if($block->isCatalogSelected($value)): ?>checked="checked"<?php endif; ?>
+                                       name="catalog[]" value="<?= $escaper->escapeHtmlAttr($value) ?>" />
+                                <label class="label" for="<?= $escaper->escapeHtmlAttr($htmlId) ?>">
+                                    <span><?= $escaper->escapeHtml($label) ?></span>
+                                </label>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="field name required">
+                <label class="label" for="name"><span><?= __('Name') ?></span></label>
+
+                <div class="control">
+                    <input type="text" class="input-text"
+                           id="name"
+                           value="<?= $escaper->escapeHtmlAttr($block->getFormData()->getName()) ?>"
+                           name="<?= \Crimson\MachCatalogRequest\Api\Data\CatalogRequestInterface::NAME ?>"
+                           data-validate="{required:true}"/>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+                <div class="control">
+                    <input type="email" name="<?= \Crimson\MachCatalogRequest\Api\Data\CatalogRequestInterface::EMAIL ?>"
+                           autocomplete="email" id="email_address" value="<?= $block->escapeHtmlAttr($block->getFormData()->getEmail()) ?>"
+                           title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>"
+                           class="input-text"
+                           data-mage-init='{"mage/trim-input":{}}'
+                           data-validate="{required:true, 'validate-email':true}">
+                </div>
+            </div>
+
+            <?php $_streetValidationClass = $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('street'); ?>
+            <?php $_streetLineCount = 2; ?>
+            <div class="field street required">
+                <label for="street_1" class="label"><span><?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('street')) ?></span></label>
+                <div class="control">
+                    <input type="text" name="street[]" value="<?= $escaper->escapeHtmlAttr($block->getFormData()->getStreet(0)) ?>"
+                           title="<?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('street')) ?>"
+                           id="street_1"
+                           class="input-text <?= $escaper->escapeHtmlAttr($_streetValidationClass) ?>">
+                    <div class="nested">
+                        <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
+                        <?php for ($_i = 2, $_n = $_streetLineCount; $_i <= $_n; $_i++): ?>
+                            <div class="field additional">
+                                <label class="label" for="street_<?= /* @noEscape */ $_i ?>">
+                                    <span><?= $escaper->escapeHtml(__('Address')) ?></span>
+                                </label>
+                                <div class="control">
+                                    <input type="text" name="street[]"
+                                           value="<?= $escaper->escapeHtml($block->getFormData()->getStreetLine($_i - 1)) ?>"
+                                           title="<?= $escaper->escapeHtmlAttr(__('Street Address %1', $_i)) ?>"
+                                           id="street_<?= /* @noEscape */ $_i ?>"
+                                           class="input-text <?= $escaper->escapeHtmlAttr($_streetValidationClass) ?>">
+                                </div>
+                            </div>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field required">
+                <label for="city" class="label"><span><?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('city')) ?></span></label>
+                <div class="control">
+                    <input type="text" name="<?= \Crimson\MachCatalogRequest\Api\Data\CatalogRequestInterface::CITY ?>"
+                           value="<?= $escaper->escapeHtmlAttr($block->getFormData()->getCity()) ?>"
+                           title="<?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('city')) ?>"
+                           class="input-text <?= $escaper->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('city')) ?>"
+                           id="city">
+                </div>
+            </div>
+
+            <div class="field country required">
+                <label for="country" class="label"><span><?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('country_id')) ?></span></label>
+                <div class="control">
+                    <select id="country" class="required-entry" name="country_id" title="Country" data-validate="{'validate-select':true}" aria-required="true">
+                        <option value=""> </option>
+                        <?php foreach ($block->getAllCountries() as $country): ?>
+                            <?php if ($country->getFullNameEnglish()): ?>
+                                <option value="<?=$country->getId()?>" <?php if ($country->getId() === 'US') echo 'selected="selected"';?>><?=$country->getFullNameEnglish()?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field region required">
+                <label for="region_id" class="label"><span><?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('region')) ?></span></label>
+                <div class="control">
+                    <select id="region_id" name="region_id" title="<?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('region')) ?>"
+                            class="validate-select" style="display:none;">
+                        <option value=""><?= $escaper->escapeHtml(__('Please select a region, state or province.')) ?></option>
+                        <?php
+                        /**
+                         * @var \Magento\Directory\Api\Data\RegionInformationInterface $state
+                         */
+                        ?>
+                        <?php foreach ($block->getAllStates() as $state) : ?>
+                            <option value="<?=$state->getId()?>" data-state-code="<?=$state->getCode()?>" <?php if ($block->getRegion() == $state->getId()) echo 'selected="selected"'; ?>><?=$state->getName()?></option>
+                        <?php endforeach; ?>
+
+                        <input type="text" id="region" name="region" value="<?= $escaper->escapeHtml($block->getRegion()) ?>"
+                               title="<?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('region')) ?>"
+                               class="input-text <?= $escaper->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region')) ?>"
+                               style="display:none;">
+                </div>
+            </div>
+
+            <div class="field zip required">
+                <label for="zip" class="label"><span><?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('postcode')) ?></span></label>
+                <div class="control">
+                    <input type="text"
+                           name="postcode"
+                           value="<?= $escaper->escapeHtmlAttr($block->getFormData()->getZip()) ?>"
+                           title="<?= $escaper->escapeHtml($block->getAttributeData()->getFrontendLabel('postcode')) ?>"
+                           id="zip"
+                           class="input-text validate-zip-international <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode')) ?>">
+                </div>
+            </div>
+
+            <div class="field subscribe">
+                <div class="control">
+                    <input type="checkbox" checked="checked" value="1" id="subscribe" name="subscribe" />
+                    <label for="subscribe" class="label"><span><?= __('Get great deals, special discounts, Corvette news and more delivered to your inbox.') ?></span></label>
+                </div>
+            </div>
+        </fieldset>
+
+        <?= $block->getChildHtml('catalog_request_form.additional.info') ?>
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" title="<?= __('Submit') ?>" class="action submit primary">
+                    <span><?= __('Submit') ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        require(['jquery', 'jquery/ui'], function($) {
+            $(document).ready(function($) {
+
+                var selectedCountry = $('#country option:selected').attr("value");
+                if (selectedCountry == "US"){
+                    $('#region_id').show();
+                    $('#region').hide();
+                } else {
+                    $('#region_id').hide();
+                    $('#region').show();
+                }
+
+                $('#country').change(function(){
+                    var selectedCountry = $('#country option:selected').attr("value");
+                    if (selectedCountry == "US"){
+                        $('#region_id').show();
+                        $('#region').hide();
+                    } else {
+                        $('#region_id').hide();
+                        $('#region').show();
+                    }
+                });
+                $('#region_id').change(function(){
+                    var selectedState = $('#region_id option:selected').attr("value");
+                    $('#region_id').val(selectedState);
+                });
+            });
+        });
+    </script>
+<?php else: ?>
+    <?= $block->getCMSBlockByIdentifier(Form::GUEST_COSTUMER_CMS_BLOCK_IDENTIFIER); ?>
+<?php endif; ?>

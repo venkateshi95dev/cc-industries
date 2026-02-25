@@ -1,0 +1,82 @@
+<?php
+/** @var \Crimson\AttributeSearch\Block\SearchDropdown $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$fsEnabled   = $block->isFastSimonEnabled();
+$ispEnabled  = $fsEnabled ? $block->isFastSimonInstantSearchEnabled() : false;
+
+/* facet-label map → Fast Simon */
+$fsFacetMap = [
+    'model_year' => 'Model year',
+];
+?>
+<?php if ($block->isModuleEnabled()): ?>
+    <?php
+        $attributes = $block->getEnabledAttributes();
+        $tooltip    = $block->getTooltipContent();
+    ?>
+    <?php if ($attributes): ?>
+        <div class="fieldset search-attr<?= $tooltip ? ' _with-tooltip' : '' ?>">
+            <?php if ($tooltip): ?>
+                <div class="field-tooltip toggle">
+                    <a class="field-tooltip-action"
+                       href="#"
+                       title="<?= $escaper->escapeHtml(__('What is this?')) ?>"
+                       data-mage-init='{"tooltip":{"content":"<?= $escaper->escapeHtml(__($tooltip)) ?>"}}'>
+                        <span><?= $escaper->escapeHtml(__('What is this?')) ?></span>
+                    </a>
+                </div>
+            <?php endif; ?>
+
+            <?php foreach ($attributes as $code): ?>
+                <?php
+                    $options       = $block->getAttributeOptions($code);
+                    $frontendLabel = $block->getAttributeLabel($code);
+
+                    /* Requires a different logic for each search engine type */
+                    $jsComponent = $fsEnabled
+                        ? ($ispEnabled ? 'attr_search_instant' : 'attr_search_fast_simon')
+                        : 'attr_search';
+
+                    /* Fast Simon uses label instead of code */
+                    $facetLabel = $fsEnabled
+                        ? ($fsFacetMap[$code] ?? $frontendLabel)
+                        : $frontendLabel;
+                ?>
+                <div class="field field-name-<?= $escaper->escapeHtmlAttr($code) ?>">
+                    <label class="label" for="attribute-filter_<?= $escaper->escapeHtmlAttr($code) ?>">
+                        <?= $escaper->escapeHtml($frontendLabel) ?>
+                    </label>
+
+                    <div class="control search-attr-item">
+                        <select id="attribute-filter_<?= $escaper->escapeHtmlAttr($code) ?>"
+                                data-facet-label="<?= $escaper->escapeHtmlAttr($facetLabel) ?>"
+                                class="attribute-dropdown <?= $escaper->escapeHtmlAttr($code) ?>-attr-dropdown"
+                                data-mage-init='{
+                                    "<?= $jsComponent ?>": {
+                                        "selector"        : "<?= $escaper->escapeJs('#search_mini_form') ?>",
+                                        "attribute_filter": "<?= $escaper->escapeJs($code) ?>",
+                                        "attribute_label" : "<?= $escaper->escapeJs($facetLabel) ?>"
+                                    }
+                                }'>
+                            <option value="">
+                                <?= $escaper->escapeHtml($block->getDropdownTitle($code)) ?>
+                            </option>
+
+                            <?php foreach ($options as $option): ?>
+                                <?php
+                                    $val = $fsEnabled
+                                        ? $option['label']
+                                        : $option['value'];
+                                ?>
+                                <option value="<?= $escaper->escapeHtmlAttr($val) ?>">
+                                    <?= $escaper->escapeHtml($option['label']) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

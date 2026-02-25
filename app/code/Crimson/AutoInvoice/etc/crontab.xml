@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+	<group id="silk">
+		<job instance="Crimson\AutoInvoice\Cron\CreateInvoice" method="execute" name="create_invoice">
+			<schedule>*/5 * * * *</schedule>
+		</job>
+	</group>
+</config>

@@ -1,0 +1,21 @@
+{
+    "name": "i95dev-connect/payment-mapping",
+    "description": "N/A",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "require": {
+        "php": "~5.5.0|~5.6.0|~7.0.0",
+        "magento/framework": "102.0.*"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "I95DevConnect\\PaymentMapping\\": ""
+        }
+    }
+}

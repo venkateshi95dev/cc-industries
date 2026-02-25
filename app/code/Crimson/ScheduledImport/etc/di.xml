@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Crimson\ScheduledImport\Model\PreProcessPool">
+        <arguments>
+            <argument name="preProcessors" xsi:type="array">
+                <item name="bom_disposal" xsi:type="object">Crimson\ScheduledImport\Model\Pool\Service\BOMDisposal</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\ScheduledImportExport\Model\Scheduled\Operation">
+        <plugin sortOrder="1" name="crimsonScheduledImportFixesOperation" type="Crimson\ScheduledImport\Plugin\Model\Scheduled\OperationPlugin"/>
+    </type>
+</config>

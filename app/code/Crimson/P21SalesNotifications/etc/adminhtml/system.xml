@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="p21_sales_notifications" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+            <tab>p21</tab>
+            <label>P21 Sales Notifications</label>
+            <resource>Crimson_P21SalesNotifications::configuration</resource>
+            <group id="failed_order_export" translate="label" type="text" sortOrder="3" showInDefault="1">
+                <label>Failed Order Export</label>
+
+                <field id="email_recipients" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Email Recipients</label>
+                    <comment>Comma delimited list of emails</comment>
+                </field>
+                <field id="email_template" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,219 @@
+{
+  "attributes": [
+    {
+      "code": "cc_truck_freight_type",
+      "name": "Truck Freight Type",
+      "input": "select",
+      "type": "varchar",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": [
+        "Truck Freight Prepaid - See Item 0070",
+        "Truck Freight Prepaid - Set Price"
+      ]
+    },
+    {
+      "code": "cc_core_charge",
+      "name": "Core Charge",
+      "input": "price",
+      "type": "decimal",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": []
+    },
+    {
+      "code": "cc_core_charge_required",
+      "name": "Core Charge Required",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "source": "boolean",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "code": "cc_packaging_charge",
+      "name": "Packaging Charge",
+      "input": "price",
+      "type": "decimal",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": []
+    },
+    {
+      "code": "cc_freight_charge",
+      "name": "Freight Charge",
+      "input": "price",
+      "type": "decimal",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": []
+    },
+    {
+      "code": "cc_ecommerce_logo",
+      "name": "Ecommerce Logo",
+      "input": "select",
+      "type": "varchar",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ]
+    },
+    {
+      "code": "cc_may_ship_from_manufacturer",
+      "name": "May Drop Ship",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "source": "boolean",
+      "values": [
+        "Yes",
+        "No"
+      ]
+    },
+    {
+      "code": "cc_truck_freight_type",
+      "name": "Truck Freight Type",
+      "input": "select",
+      "type": "varchar",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": [
+        "Truck Freight Prepaid - See Item 0070",
+        "Truck Freight Prepaid - Set Price"
+      ]
+    },
+    {
+      "code": "cc_core_charge",
+      "name": "CorvetteCentral - Core Charge",
+      "input": "price",
+      "type": "decimal",
+      "filterable": 0,
+      "visible_on_front": false
+    },
+    {
+      "code": "cc_core_charge_required",
+      "name": "CorvetteCentral - Core Charge Required",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "source": "boolean"
+    },
+    {
+      "code": "cc_packaging_charge",
+      "name": "CorvetteCentral - Packaging Charge",
+      "input": "price",
+      "type": "decimal",
+      "filterable": 0,
+      "visible_on_front": false
+    },
+    {
+      "code": "cc_freight_charge",
+      "name": "CorvetteCentral - Freight Charge",
+      "input": "price",
+      "type": "decimal",
+      "filterable": 0,
+      "visible_on_front": false
+    },
+    {
+      "code": "cc_ecommerce_logo",
+      "name": "CorvetteCentral - Ecommerce Logo",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "values": [
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "22",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28",
+        "29",
+        "30",
+        "31"
+      ]
+    },
+    {
+      "code": "cc_may_ship_from_manufacturer",
+      "name": "CorvetteCentral - May Drop Ship",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "source": "boolean"
+    },
+    {
+      "code": "cc_hasdiscount",
+      "name": "CorvetteCentral - Has Discount",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "source": "boolean"
+    },
+    {
+      "code": "cc_dropship_only",
+      "name": "CorvetteCentral - Drop Ship Only",
+      "input": "select",
+      "type": "int",
+      "filterable": 0,
+      "visible_on_front": false,
+      "source": "boolean"
+    }
+  ]
+}

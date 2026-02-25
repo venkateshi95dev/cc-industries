@@ -1,0 +1,55 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Magento\Framework\View\Element\Template;
+
+/**
+ * Sync Resources Block
+ *
+ * @var Template $block
+ */
+
+$syncAction = $block->getSyncAction();
+
+$stores = $block->getAllStores();
+$websites = $block->getAllWebsites();
+
+if (count($stores) > 0) {
+    ?>
+    <div id="store-switcher" style="text-align: right; ">
+        <label>Select Store :
+            <select id="storeChaner">
+                <option value="0"><?= /* @noEscape */ __('Default Config') ?></option>
+                <?php
+                foreach ($stores as $store) {
+                    ?>
+                    <option value="<?= /* @noEscape */ $store->getCode(); ?>">
+                        <?= /* @noEscape */ $store->getName(); ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </label>
+    </div>
+<?php } ?>

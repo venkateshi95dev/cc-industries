@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+        <body>
+        	<referenceBlock name="catalog.product.related" remove="true"/>
+                <referenceBlock name="product.info.upsell" remove="true"/>
+                <referenceBlock name="header.container" remove="true"/>
+                <referenceBlock name="footer-container" remove="true"/>
+                <referenceBlock name="page.top" remove="true" />
+                <referenceBlock name="copyright" remove="true" />
+                <referenceContainer name="product.info.social" remove="true"/>
+                <referenceBlock name="product.info.details" remove="true"/>
+                <referenceBlock name="authentication-popup" remove="true" />
+                <referenceContainer name="content">
+                        <block class="Crimson\Testimonial\Block\Testimonial\Form" name="crimson_testimonial_form" template="testimonial-form.phtml"/>
+                </referenceContainer>
+        </body>
+</page>

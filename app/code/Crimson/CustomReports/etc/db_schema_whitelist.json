@@ -1,0 +1,8 @@
+{
+    "quote_item": {
+        "column": {
+            "qty_on_hand_at_add": true,
+            "is_stock_at_add": true
+        }
+    }
+}

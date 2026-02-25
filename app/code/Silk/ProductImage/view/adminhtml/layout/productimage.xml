@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block class="Silk\ProductImage\Block\Adminhtml\Product\Merchandiser" name="productimage.container" template="Silk_ProductImage::products/merchandiser.phtml">
+            <block class="Silk\ProductImage\Block\Adminhtml\Product\Merchandiser\Productgrid" name="productimage.grid" as="grid"/>
+            <block class="Silk\ProductImage\Block\Adminhtml\Product\Merchandiser\Tile" name="productimage.tile" as="tile"/>
+            <block class="Magento\Backend\Block\Widget\Button" name="productimage.add_product_button" as="add_products_button">
+                <arguments>
+                    <argument name="id" xsi:type="string">catalog_product_add_product_tabs</argument>
+                    <argument name="label" translate="true" xsi:type="string">Add Products</argument>
+                    <argument name="class" xsi:type="string">secondary add-products</argument>
+                </arguments>
+            </block>
+        </block>
+    </body>
+</page>

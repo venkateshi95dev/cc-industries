@@ -1,0 +1,234 @@
+<?php
+	$show_data = $this->getShowpages();
+	if($show_data['show_skus'] != '')
+	{
+	    // clean up string of skus just in case there are spaces in between the commas
+	    $trimmed_skus = preg_replace('/\s+/', '', $show_data['show_skus']);
+	    $show_skus = explode(',', $trimmed_skus);
+	}
+	// explode date to get month day and year separately
+	$date = explode("/", $show_data['show_date']);
+	$date2 = explode("/", $show_data['show_date_end']);
+	$date3 = explode("/", $show_data['offer_date_end']);
+	$getmonth = strtotime($show_data['show_date']);
+	$getmonth3 = strtotime($show_data['offer_date_end']);
+	$currentdate = strtotime(date('Y-m-d'));
+	$day = $date[1];
+	if($show_data['show_date_end']){ $day2 = $date2[1]; }
+	if($show_data['offer_date_end']){
+	    $day3 = $date3[1];
+	    $year3 = $date3[2];
+	}
+	$month_name = date('F', $getmonth);
+	$month_name3 = date('F', $getmonth3);
+?>
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Event",
+  "name": "<?php echo $show_data['show_title'] ?>",
+  "startDate" : "<?php echo $show_data['show_date'] ?>T12:00",
+  "url" : "https://www.cokertire.com/shows/<?php echo $show_data['identifier'] ?>",
+  "location" : {
+    "@type" : "Place",
+    "name" : "<?php echo $show_data['show_venue'] ?>",
+    "address" : "<?php echo $show_data['show_coordinates'] ?>, <?php echo $show_data['show_city'] ?>, <?php echo $show_data['show_state'] ?>"
+  },
+    "image": [
+    "<?php echo $this->getMediaUrl(); ?><?php echo $show_data['view_img'] ?>",
+   ],
+  "description": "<?php echo $show_data['show_description'] ?>",
+  "endDate": "<?php echo $date2 ?>",
+  "offers": {
+    "@type": "Offer",
+    "url": "",
+    "price": "",
+    "priceCurrency": "",
+    "availability": "http://schema.org/InStock",
+    "validFrom": ""
+  },
+  "performer": {
+    "@type": "",
+    "name": ""
+  }
+}
+</script>
+<div class="container">
+	<div class="margin_t1b1">
+		<?php if($show_data['view_img'] != ''): ?>
+			<img class="width100" src="<?php echo $this->getMediaUrl(); ?><?php echo $show_data['view_img'] ?>" alt="<?php echo $show_data['show_title'] ?>" />
+		<?php endif ?>
+	</div>
+	<div class="padding1 padding_top05 light_grey clearfix">
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 margin_top05">
+			<?php if($show_data['view_img'] == ''): ?>
+				<div class="font36 brown_font font lh38" style="font-weight:500;"><?php echo $show_data['show_title'] ?></div>
+			<?php endif ?>
+			<h3 class="hn_lt font22 margin0 show_day"><?php echo $month_name; ?> <?php echo $day; ?> - <?php echo $day2; ?></h3>
+			<h4 class="margin0 hn_lt font22 show_space">Show space: <?php echo $show_data['show_space'] ?></h4>
+			<div class="padding_top05">
+				<div class="row">
+					<a href="#" class="show_the_map dk_grey_font">
+						<div class="col-xs-12">
+							<div class="padding_top1 float_left">
+								<div class="bold"><?php echo $show_data['show_venue'] ?></div>
+								<div id="address"><?php echo $show_data['show_coordinates'] ?></div>
+								<div id="citystate"><?php echo $show_data['show_city'] ?>, <?php echo $show_data['show_state'] ?></div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="padding_top2">
+								<span class="float_left lh30 bold">See Map</span>&nbsp;<span class="arrow grey_arrow map_arrow" style="height:30px;"></span>
+							</div>
+						</div>
+					</a>
+				</div>
+				<div class="hidden map-dropdown">
+					<div class="map-area">
+						<div id="google" class="padding_l1r1">
+							<div id="googleMap"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="padding_top1">
+				<h1 class="font14 brown_font bold"><?php echo $show_data['show_title'] ?></h1>
+				<p><?php echo $show_data['show_description'] ?></p>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+			<?php //if($show_data['instagram'] != ''):?>
+				<div class="padding_top1 padding0">
+					<div class="margin0 row">
+						<?php
+						error_reporting(E_ALL);
+						$ch = curl_init();
+						curl_setopt($ch, CURLOPT_URL, 'https://api.instagram.com/v1/tags/cokertire/media/recent?access_token=298765758.c51e9f1.00bbe5b0b2294badbe8178e60e7ea0e2&count=8');
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+						curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+						$result = curl_exec($ch);
+						curl_close($ch);
+						$photos = json_decode($result);
+
+					/*	foreach( $photos->data as $photo ){
+							$secure_url = preg_replace("/^http:/i", "https:", $photo->images->low_resolution->url);
+							echo '<div class="col-xs-6 padding0 text-center padding02 col-md-3 col-lg-3">
+								<a href="'.$photo->link.'" target="_blank">
+									<img class="img-responsive" src="'.$secure_url.'" alt="'.$photo->caption->text.'" />
+								</a>
+							</div>';
+						}*/
+						?>
+						<?php if($result): ?>
+							<?php foreach( $photos->data as $photo ){
+														$secure_url = preg_replace("/^http:/i", "https:", $photo->images->low_resolution->url);
+														echo '<div class="col-xs-6 padding0 text-center padding02 col-md-3 col-lg-3">
+															<a href="'.$photo->link.'" target="_blank">
+																<img class="img-responsive" src="'.$secure_url.'" alt="'.$photo->caption->text.'" />
+															</a>
+														</div>';
+													}
+						?>
+						<?php else: ?>
+						<?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('showpages')->toHtml();?>
+						<?php endif; ?>
+					</div>
+				</div>
+			<?php //endif ?>
+		</div>
+			<?php if($currentdate < $getmonth3): ?>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6"></div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<div class="padding_top2 padding_l1r1">
+						<div class="uppercase font40 blue_txt text-center lh36" style="font-size:32px;">Free Delivery To This Event</div>
+						<div class="padding_top05 text-center">when you pre-order your tires and wheels <span class="bold">before <?php echo $month_name3; ?> <?php echo $day3; ?>, <?php echo $year3; ?></span></div>
+					</div>
+				</div>
+			<?php endif ?>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+					<div class="padding_l2r2 margin_top3 text-center">
+						<button class="btn btn-primary btn-lg letter_space1 shopnow" style="min-width:220px;">Shop Now</button>
+					</div>
+					<div class="padding_l1r1 text-center padding_btm2 margin_top1">
+						<div class="font14">Or Call</div>
+						<div class="font30"><a href="tel:877-786-5621">877.786.5621</a></div>
+						<div class="">to speak with a Tire & Wheel Specialist</div>
+					</div>
+					<div class="font10 margin_top1 float_right">
+						<?php if($currentdate < $getmonth3): ?>
+							<?php if($show_data['show_title'] == 'Daytona Turkey Rod Run'): ?>
+								* Orders must be received by 8:00pm (EST) <?php echo $month_name3; ?> <?php echo $day3; ?>, <?php echo $year3; ?>
+							<?php else: ?>
+								* Orders must be received by 12:00 noon (EST) <?php echo $month_name3; ?> <?php echo $day3; ?>, <?php echo $year3; ?>
+							<?php endif ?>
+						<?php endif ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Products listing code-->
+	 	<?php if(!empty($show_skus)): ?>
+			<div class="">
+				<div class="uppercase dark_brown birch_std_40 text-center lh40 padding_top05 padding_l1r1">Some Coker Tire products you might see at the show</div>
+				<ul class="products-grid col-xs-12 margin_top05">
+					<?php foreach($show_skus as $sku): ?>
+						<?php $_product = $this->loadMyProduct($sku); ?>
+						<?php if($_product): ?>
+							<li class="item last col-xs-6 col-md-4 col-lg-3 text-center padding05">
+								<div class="prod_li">
+									<div class="padding05">
+										<a href="<?php echo $_product->getProductUrl(); ?>" class="product-image">
+											<img alt="<?php echo $_product->getName(); ?>" src="<?php echo $this->getProductImageUrl($_product); ?>" width="135" height="135" />
+										</a>
+									</div>
+									<div class="padding05">
+										<div class="product-name">
+											<a class="dark_font bold" href="<?php echo $_product->getProductUrl(); ?>">
+												<?php echo $_product->getName(); ?>
+											</a>
+										</div>
+									</div>
+									<div class="padding05">
+										<div class="price-box">
+											<span class="regular-price red_font font16 bold" id="product-price-<?php echo $_product->getId(); ?>">
+												<span class="price">
+												<?php echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency(number_format($_product->getPrice(),2),true,false); ?>
+
+												</span>
+											</span>
+										</div>
+									</div>
+									<div class="padding05 height50">
+										<div class="bottom width100 padding_btm2">
+											<div class="actions">
+												<div class="margin_l2r2">
+													<a href="<?php echo $_product->getProductUrl() ?>" class="btn btn-primary btn-block">Details</a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</li>
+						<?php endif ?>
+					<?php endforeach ?>
+				</ul>
+			</div>
+		<?php endif ?>
+		<!--End products listing code-->
+	</div>
+<?php
+$home_url = $this->getBaseUrl();
+?>
+<script>
+require(['jquery'],function($){
+	jQuery(document).ready(function() {
+		jQuery('.shopnow').on('click', function(){
+			window.location.href = '<?php echo $home_url; ?>';
+		});
+	});
+});
+</script>

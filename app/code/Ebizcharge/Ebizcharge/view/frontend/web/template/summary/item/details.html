@@ -1,0 +1,118 @@
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+
+<!-- ko if: (getSubscribed($parent))-->
+<div id="upcoming-subscription-title" class="upcoming-subscription-title product options product-item-upcoming-recurring">
+    <span class="product-item-name " style="font-size:19px; font-weight: bold">Upcoming Subscriptions</span></div>
+
+<!-- /ko -->
+
+<!-- ko foreach: getRegion('before_details') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->
+<div class="product-item-details">
+
+    <div class="product-item-inner">
+
+        <div class="product-item-name-block">
+
+            <strong class="product-item-name" data-bind="html: getName($parent)"></strong>
+            <div class="sub_item">Price: <span class="product-item-price"
+                                               data-bind="text: getPrice($parent)"></span></div>
+            <div class="subscribed">
+                <!-- ko if: (getSubscribed($parent))-->
+                <div class="sub_item"><strong class="product-item-subscribed"
+                                              data-bind="text: getSubscribed($parent)"></strong></div>
+                <!-- /ko -->
+                <!-- ko if: (getFrequency($parent))-->
+                <div class="sub_item">Frequency: <strong class="product-item-frequency"
+                                                         data-bind="text: getFrequency($parent)"></strong></div>
+                <!-- /ko -->
+                <!-- ko if: (getQtySubscribed($parent))-->
+                <div class="sub_item">Qty Subscribed: <strong class="product-item-qty_subscribed"
+                                                              data-bind="text: getQtySubscribed($parent)"></strong>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: (getSdate($parent))-->
+                <div class="sub_item">Start Date: <strong class="product-item-sdate"
+                                                          data-bind="text: getSdate($parent)"></strong></div>
+                <!-- /ko -->
+                <!-- ko if: (getEdate($parent))-->
+                <div class="sub_item">End Date: <strong class="product-item-edate"
+                                                        data-bind="text: getEdate($parent)"></strong></div>
+                <!-- /ko -->
+            </div>
+
+            <!-- ko ifnot: (getSubscribed($parent))-->
+            <div class="details-qty">
+                <span class="label"><!-- ko i18n: 'Qty' --><!-- /ko --></span>
+                <span class="value" data-bind="text: $parent.qty"></span>
+            </div>
+            <!-- /ko -->
+        </div>
+
+        <!-- ko if: (getSubscribed($parent))-->
+        <div class="sub_item subscribed">Shipping: <strong class="product-item-shipping"
+                                                data-bind="text: recurringItemShippingAmount($parent)"></strong></div>
+        <!-- ko if: (getTaxAmount($parent) > 0)-->
+        <div class="sub_item">Tax Amount: <strong class="product-item-Tax"
+                                           data-bind="text: renderTaxAmount($parent)"></strong></div>
+        <!-- /ko -->
+
+        <!-- ko if: (isSurchargeEnabled() && paymentFormType() === "1")-->
+        <div id="product-item-surcharge" class="sub_item"><span >Surcharge Fee: </span> <span  class="product-item-surcharge"
+                                                         data-bind="text: getRecurringSurcharge($parent)"></span></div>
+        <!-- /ko -->
+        <!-- ko if: (getSubscribed($parent))-->
+        <div class="sub_item">Subtotal: <strong class="product-item-price"
+                                                data-bind="text: getRecurringPriceSubtotal($parent)"></strong></div>
+        <!-- /ko -->
+        <!-- /ko -->
+
+
+    </div>
+
+    <!-- ko if: (JSON.parse($parent.options).length > 0)-->
+    <div class="product options" data-bind="mageInit: {'collapsible':{'openedState': 'active'}}">
+        <span data-role="title" class="toggle"><!-- ko i18n: 'View Details' --><!-- /ko --></span>
+        <div data-role="content" class="content">
+            <strong class="subtitle"><!-- ko i18n: 'Options Details' --><!-- /ko --></strong>
+            <dl class="item-options">
+                <!--ko foreach: JSON.parse($parent.options)-->
+                <dt class="label" data-bind="text: label"></dt>
+                <!-- ko if: ($data.full_view)-->
+                <dd class="values" data-bind="html: full_view"></dd>
+                <!-- /ko -->
+                <!-- ko ifnot: ($data.full_view)-->
+                <dd class="values" data-bind="html: value"></dd>
+                <!-- /ko -->
+                <!-- /ko -->
+            </dl>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- ko foreach: getRegion('item_message') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!-- /ko -->

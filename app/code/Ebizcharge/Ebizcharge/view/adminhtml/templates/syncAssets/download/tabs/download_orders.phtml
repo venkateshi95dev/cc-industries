@@ -1,0 +1,163 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\SyncAssets\Download\Tab\Orders;
+
+/**
+ * @var Orders $block
+ */
+$syncData = $block->getDownloadOrdersSyncUpdate();
+?>
+
+<div class="download-orders" id="download_orders_container" data-bind="scope: 'download_orders_container'">
+    <div class="section-content">
+        <div id="check-orders-progress-messages" class="message" style="display:none;">
+                <span>
+                    <?= /* @noEscape */ __('Please wait, checking latest orders is in progress.') ?>
+                </span>
+        </div>
+        <div id="download-orders-progress-messages" class="messages breadcrumb-messages orders-download-notice">
+            <div class="message">
+                <span>
+                    <?= /* @noEscape */ __('Please wait, currently checking orders is in progress.') ?>
+                </span>
+            </div>
+        </div>
+
+        <div id="orders-step-1" class="steps">
+
+            <h3 id="order_progress_bar_breadcrumbs" class="progress-bar-breadcrumbs checking-message messages"></h3>
+
+            <div id="orders_progress" class="orders_progress result_table">
+                <h3  class="messages">
+                    <?= /* @noEscape */ __('Downloaded Orders :')?>
+                    <span id="downlaoded_orders"><?= /* @noEscape */ $block->getLastDownloadedOrders();?></span>/
+                    <span id="total_orders"><?= /* @noEscape */ $block->getLastDownloadedOrders();?></span>
+                </h3>
+                <h3  class="messages">
+                    <?= /* @noEscape */ __('Failed Orders :')?>
+                    <span id="failed_counter"><?= /* @noEscape */ $block->getFailedOrdersCount();?></span>
+                </h3>
+            </div>
+
+            <div id="orders_results_table">
+                <table class="table admin__table-primary table-responsive table-bordered">
+                    <tbody>
+                    <tr>
+                        <td><?= /* @noEscape */ __('Last downloaded :')?></td>
+                        <td>
+                            <span id="last_download_date_orders">
+                                <?= /* @noEscape */ $block->getLastDownloadedDate(); ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?= /* @noEscape */ __('Last downloaded orders :')?></td>
+                        <td>
+                            <span id="last_download_orders">
+                                <?= /* @noEscape */ $block->getLastDownloadedOrders(); ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?= /* @noEscape */ __('New orders available to download :')?></td>
+                        <td><span id="from_download_orders">--</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="orders_download_progress_bar" class="progress-bar">
+                <div class="progress-bar-label"
+                     data-bind="text: progress_bar_label_orders"
+                     id="progress_bar_label_orders">0%</div>
+            </div>
+
+            <button id="check_orders_btn" class="action-primary" type="button"
+                    title="Check Orders @ EBizCharge Gateway"
+                    data-step="#orders-step-1"> <?= /* @noEscape */ __('Refresh Orders')?>
+            </button>
+
+            <button id="download_orders_btn" class="action-primary" type="button"
+                    title="Download Orders from EBizCharge Gateway"
+                    data-step="#orders-step-2" disabled> <?= /* @noEscape */ __('Download Orders')?>
+            </button>
+
+            <button id="view_orders_btn" class="action-primary" type="button" title="View Downloaded Orders"
+                    data-step="#orders-step-3"> <?= /* @noEscape */ __('View Orders')?>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<?php /** Adding Magento UI JS Core App */ ?>
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Magento_Ui/js/core/app": {
+           "components": {
+                "download_orders_container": {
+                    "component" : "Ebizcharge_Ebizcharge/js/downloads/component/download-resources",
+                    "download"  : {
+                           "check_ajax_url"    : "<?= $block->escapeUrl($block->getOrdersCheckAtEbizchargeUrl()) ?>",
+                           "download_ajax_url" : "<?= $block->escapeUrl(
+                               $block->getOrdersDownloadsFromEbizchargeUrl()
+                           ) ?>",
+                           "progress_bar_ajax_url" : "<?= $block->escapeUrl($block->getProgressBarUrl()) ?>",
+                           "resource_view_url" : "<?= $block->escapeUrl($block->getViewDownloadOrdersUrl()) ?>",
+                           "downloading_status" : "<?= /* @noEscape */ $block->syncStatus()?>",
+                           "progress_bar"      : "orders_download_progress_bar",
+                           "check_resource_btn" : "check_orders_btn",
+                           "results_table" : "orders_results_table",
+                           "download_resource_btn" : "download_orders_btn",
+                           "view_resource_btn" : "view_orders_btn",
+                           "progress_bar_label" : "progress_bar_label_orders",
+                           "progress_bar_breadcrumbs" : "order_progress_bar_breadcrumbs",
+                           "resource_integration_progress" : "orders_progress",
+                           "current_progress_value" : "current_progress_value",
+                           "downlaoded_resources" : "downlaoded_orders",
+                           "total_resources" : "total_orders",
+                           "progress_request_type" : "downloaded_order_progress",
+                           "download_type" : "download_orders",
+                           "id_downloaded_resources" : "downlaoded_orders",
+                           "id_total_resource" : "total_orders",
+                           "http_request_type": "GET",
+                           "request_type" : "orders",
+                           "sync_title" : "sync_title_download",
+                           "last_download_date_resource":"last_download_date_orders",
+                           "last_download_resource":"last_download_orders",
+                           "from_download_resource":"from_download_orders",
+                           "orders-customers-messages":"orders-customers-messages",
+                           "download-customers-progress-messages" : "download-orders-progress-messages",
+                           "check-orders-progress-messages" : "check-orders-progress-messages"
+
+                         }
+                    }
+                }
+            }
+        }
+  }
+</script>

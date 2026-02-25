@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Aheadworks\Faq\Block\Category\CategoryList" type="Crimson\ZipCokerWvConsolidation\Preference\Aheadworks\Faq\Block\Category\CategoryList"/>
+    <preference for="Aheadworks\Faq\Model\Config" type="Crimson\ZipCokerWvConsolidation\Preference\Aheadworks\Faq\Model\Config"/>
+    <preference for="Magento\Sales\Model\ResourceModel\Order\Handler\State" type="Crimson\ZipCokerWvConsolidation\Preference\Silk\Coker\Model\ResourceModel\Order\Handler\State" />
+    <preference for="Silk\Coker\Block\Product\ListProduct" type="Crimson\ZipCokerWvConsolidation\Preference\Silk\Coker\Block\Product\ListProduct" />
+
+    <preference for="Silk\Coker\Block\Adminhtml\Form\Field\Categories" type="Crimson\ZipCokerWvConsolidation\Preference\Silk\Coker\Block\Adminhtml\Form\Field\Categories" />
+    <preference for="Magento\Customer\Block\Account\Dashboard\Info" type="Crimson\ZipCokerWvConsolidation\Preference\Magento\Customer\Block\Account\Dashboard\Info" />
+
+    <preference for="Silk\Coker\Model\Product\Url" type="Crimson\ZipCokerWvConsolidation\Preference\Silk\Coker\Model\Product\Url" />
+
+    <preference for="Cokertire\Showpages\Model\ResourceModel\Showpages" type="Crimson\ZipCokerWvConsolidation\Preference\Cokertire\Showpages\Model\ResourceModel\Showpages" />
+    <preference for="Amasty\Finder\Block\Form" type="Crimson\ZipCokerWvConsolidation\Block\Finder"/>
+
+    <type name="Magento\Catalog\Model\Config">
+        <plugin name="Crimson_ZipCokerWvConsolidation::add_relevance_sort_by" sortOrder="1" type="Crimson\ZipCokerWvConsolidation\Preference\Silk\Coker\Plugin\AmastySorting\ConfigPlugin"/>
+    </type>
+
+    <preference for="Magento\Customer\Controller\Account\ForgotPasswordPost" type="Crimson\ZipCokerWvConsolidation\Preference\Silk\Customer\Controller\Account\ForgotPasswordPost" />
+
+    <preference for="Magento\Framework\Mail\Template\TransportBuilder" type="Crimson\ZipCokerWvConsolidation\Preference\Magento\Framework\Mail\Template\TransportBuilder" />
+    <type name="Magento\Sales\Model\Order">
+        <plugin name="Crimson_ZipCokerWvConsolidation::before_set_status" type="Crimson\ZipCokerWvConsolidation\Plugin\Sales\Model\Order\BeforeSetStatus" sortOrder="10" />
+    </type>
+    <type name="Magento\Bundle\Model\Product\Type">
+        <plugin name="Crimson_ZipCokerWvConsolidation::Bundle_IsSalable" type="Crimson\ZipCokerWvConsolidation\Plugin\Magento\Bundle\Model\Product\Type\IsSalablePlugin" sortOrder="10"/>
+    </type>
+    <preference for="Bss\AjaxCart\Controller\Index\Index" type="Crimson\ZipCokerWvConsolidation\Preference\Bss\AjaxCart\Controller\Index\Index" />
+    <preference for="Magento\Tax\Model\Sales\Total\Quote\Tax" type="Crimson\ZipCokerWvConsolidation\Preference\Magento\Sales\Total\Quote\ConsolidationTax" />
+</config>
+
+

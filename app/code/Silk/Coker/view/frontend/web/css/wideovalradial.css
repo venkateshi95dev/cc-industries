@@ -1,0 +1,172 @@
+#main {
+	background: url(../images/wideovalradial/cars_bg.png) scroll top center/100% no-repeat, url(../images/wideovalradial/background_tile.png) repeat #fbfaf5;
+	color: #000000;
+	font-family: 'Poppins', sans-serif;
+}
+
+#centercolumn {
+	background-color: rgba(251, 250, 245, 0.6);
+}
+
+iframe {
+	display: block;
+	margin: 30px auto;
+	max-width: 560px;
+	width: 100%;
+	height: 315px;
+}
+
+#main ul {
+	font-size: 1.6em;
+	list-style-type: disc;
+	vertical-align: middle;
+}
+
+#main ul li {
+	font-weight: normal;
+	line-height: 2;
+}
+
+@media all and (max-width: 1200px) and (min-width: 992px) {
+	#main ul li {
+		line-height: 1.3;
+	}
+}
+
+@media all and (max-width: 768px) {
+	#main ul li {
+		line-height: 1.3;
+	}
+}
+
+.uldiv {
+	padding-top: 90px;
+	padding-bottom: 35px;
+}
+
+.img-inline {
+	display: inline-block;
+}
+
+.shadow {
+	-webkit-box-shadow: 0px 20px 50px 0px #dbdad6;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+	-moz-box-shadow:    0px 20px 50px 0px #dbdad6;  /* Firefox 3.5 - 3.6 */
+	box-shadow:         0px 20px 50px 0px #dbdad6;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
+
+.introducing {
+	font-family: 'Quicksand', sans-serif;
+	font-size: 2em;
+	font-style: italic;
+	font-weight: light;
+	padding: 30px 0;
+	text-align: center;
+}
+
+.radial {
+	font-size: 6em;
+	font-weight: 700;
+	padding-left: 20px;
+	vertical-align: middle;
+	margin: 0 auto 0 auto;
+}
+
+.subhead {
+	font-family: 'Poppins', sans-serif;
+	font-size: 1.5em;
+	font-style: italic;
+	font-weight: 500;
+	padding: 30px 0;
+	text-align: center;
+}
+
+.midinfo {
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+@media all and (max-width: 1200px) and (min-width: 992px) {
+	.tread {
+		margin-top: 45px;
+	}
+}
+
+.paragraphs {
+	font-size: 18px;
+	padding: 30px 100px 15px 100px;
+}
+
+@media all and (max-width: 992px) {
+	.midinfo, .paragraphs {
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+}
+
+.moreinfo {
+	background-color: #112023;
+	color: #faf9f4;
+	font-size: 1.8em;
+	font-weight: bold;
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
+.moreinfo a{color: #428bca}
+.moreinfo .text {
+	margin-top: 120px;
+	margin-bottom: 70px;
+}
+
+@media all and (max-width: 1200px) {
+	.moreinfo .text {
+		margin-top: 90px;
+	}
+}
+/*
+.moreinfo .btn {
+	font-size: 1em;
+	font-weight: bold;
+	margin: 85px auto 35px auto;
+}
+*/
+.moreinfo .tel {
+	color: #faf9f4;
+	font-size: 2em;
+	text-decoration: none;
+}
+
+.mrfix {
+	margin-right: -15px;
+}
+@media all and (max-width: 580px) {
+    .radial{
+        font-size: 4em;
+    }
+    .subhead{
+        font-size: 1.2em;
+    }
+    #main ul{
+        font-size: 1.4em;
+    }
+    .paragraphs{
+        font-size: 16px;
+    }
+    .moreinfo .tel{
+        font-size: 1.6em
+    }
+    .moreinfo{
+        font-size: 1.6em
+    }
+    .midinfo, .paragraphs{
+        padding-right: 20px;
+        padding-left: 20px
+    }
+}
+@media all and (max-width: 480px) {
+    .moreinfo{
+        font-size: 1.2em;
+    }
+    #main ul{
+        font-size: 1.2em;
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Crimson_Theme" >
+        <sequence>
+            <module name="Magento_Theme"/>
+        </sequence>
+    </module>
+
+    <!-- We need to ensure that the cf-connecting-ip entry in the
+    Magento\Framework\HTTP\PhpEnvironment\RemoteAddress alternativeHeaders array
+    introduced by this module's di.xml is added to the array before the one
+    added by Fastly_Cdn.  To do that, we are adding this module to the list of
+    modules that should be initialized before Fastly_Cdn. -->
+    <module name="Fastly_Cdn">
+        <sequence>
+            <module name="Crimson_Theme" />
+        </sequence>
+    </module>
+</config>

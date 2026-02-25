@@ -1,0 +1,132 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">magedelight_megamenu_label_listing.magedelight_megamenu_label_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>magedelight_megamenu_label_columns</spinner>
+		<deps>
+			<dep>magedelight_megamenu_label_listing.magedelight_megamenu_label_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new Label</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource name="magedelight_megamenu_label_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">label_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Magedelight_Megamenu::label</aclResource>
+		<dataProvider name="magedelight_megamenu_label_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>label_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+		<massaction name="listing_massaction">
+            <action name="delete">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">delete</item>
+                        <item name="label" xsi:type="string" translate="true">Delete</item>
+                        <item name="url" xsi:type="url" path="megamenu/label/massDelete"/>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Delete items</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you wan't to delete selected items?</item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+        </massaction>
+	</listingToolbar>
+	<columns name="magedelight_megamenu_label_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">magedelight_megamenu_label_listing.magedelight_megamenu_label_listing.magedelight_megamenu_label_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">label_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" xsi:type="url" path="magedelight_megamenu/Label/inlineEdit"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">magedelight_megamenu_label_listing.magedelight_megamenu_label_listing.magedelight_megamenu_label_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>label_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="label_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="shape" component="Magedelight_Megamenu/js/grid/columns/labelShape">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Label Shape</label>
+			</settings>
+		</column>
+		<column name="text">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Label Text</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">true</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="text_color" component="Magedelight_Megamenu/js/grid/columns/textcolor">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Text Color (hex)</label>
+			</settings>
+		</column>
+		<column name="background_color" component="Magedelight_Megamenu/js/grid/columns/backgroundcolor">
+			<settings>
+				<filter>text</filter>
+				<label translate="true"> Background Color (hex)</label>
+			</settings>
+		</column>
+		<actionsColumn name="actions" class="Magedelight\Megamenu\Ui\Component\Listing\Column\LabelActions">
+			<settings>
+				<indexField>label_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+	</columns>
+</listing>

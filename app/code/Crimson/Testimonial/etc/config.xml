@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<testimonial>
+			<general>
+				<enable>1</enable>
+				<route>testimonials</route>
+				<dateformat>medium</dateformat>
+				<testimonial_show_name>1</testimonial_show_name>
+				<testimonial_show_email>1</testimonial_show_email>
+				<testimonial_show_website_company>1</testimonial_show_website_company>
+				<testimonial_show_title>1</testimonial_show_title>
+				<testimonial_show_testimonial>1</testimonial_show_testimonial>
+				<page_title>Ves Testimonial</page_title>
+				<meta_description>Ves Testimonial Description</meta_description>
+				<meta_keywords>Ves Testimonial Keywords</meta_keywords>
+				<testimonial_show_placeon>1</testimonial_show_placeon>
+				<recaptcha_site_key>6LeeUSATAAAAABJl_L6_Vkk6cONuZ06D3tnvRG1c</recaptcha_site_key>
+				<recaptcha_secret_key>6LeeUSATAAAAAJomgzhplOBcoruS98ceWWNo_nxH</recaptcha_secret_key>
+				<enable_form>1</enable_form>
+				<form_require_customer>0</form_require_customer>
+			</general>
+			<testimonial_form>
+				<enable_heading>1</enable_heading>
+				<enable_position>1</enable_position>
+				<enable_avatar>1</enable_avatar>
+				<enable_company>1</enable_company>
+				<enable_website>1</enable_website>
+				<enable_address>1</enable_address>
+				<enable_rating>1</enable_rating>
+				<enable_social>1</enable_social>
+			</testimonial_form>
+		</testimonial>
+	</default>
+</config>

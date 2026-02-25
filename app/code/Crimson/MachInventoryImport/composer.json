@@ -1,0 +1,30 @@
+{
+    "name": "crimson/machinventoryimport",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "crimson/machbase": "2.2.4"
+    },
+    "suggest": {
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\MachInventoryImport\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/MachInventoryImport"
+            ]
+        ]
+    }
+}

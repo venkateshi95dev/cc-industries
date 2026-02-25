@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\InventoryReservationsApi\Model\GetReservationsQuantityInterface"
+                type="Crimson\InventoryReservationDisabler\Model\GetReservationsQuantity" />
+    <preference for="Magento\InventorySalesApi\Api\PlaceReservationsForSalesEventInterface"
+                type="Crimson\InventoryReservationDisabler\Model\PlaceReservationsForSalesEvent" />
+    <preference for="Magento\InventoryReservationsApi\Model\AppendReservationsInterface"
+                type="Crimson\InventoryReservationDisabler\Model\AppendReservations" />
+    <preference for="Magento\InventoryReservationsApi\Model\CleanupReservationsInterface"
+                type="Crimson\InventoryReservationDisabler\Model\CleanupReservations" />
+
+
+    <type name="Magento\InventoryReservationsApi\Model\AppendReservationsInterface">
+        <plugin name="prevent_append_reservation_on_not_manage_items_in_stock"
+                type="Magento\InventorySales\Plugin\InventoryReservationsApi\PreventAppendReservationOnNotManageItemsInStockPlugin"
+                disabled="true" />
+    </type>
+    <type name="Magento\Sales\Api\OrderManagementInterface">
+        <plugin name="inventory_reservations_placement"
+                type="Magento\InventorySales\Plugin\Sales\OrderManagement\AppendReservationsAfterOrderPlacementPlugin"
+                disabled="true" />
+    </type>
+</config>

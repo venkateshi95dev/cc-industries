@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="homepage_products_sections">
+        <job name="crimson_catalog_homepage_products_section_new" instance="Crimson\Catalog\Cron\SectionNewAndRecommended" method="execute">
+            <config_path>catalog/crimson_homepage_products/new_section_schedule</config_path>
+        </job>
+        <job name="crimson_catalog_homepage_products_section_purchased" instance="Crimson\Catalog\Cron\SectionPurchased" method="execute">
+            <config_path>catalog/crimson_homepage_products/purchased_section_schedule</config_path>
+        </job>
+    </group>
+    <group id="crimson_products_back_saleable">
+        <job name="crimson_cron_products_back_saleable" instance="Crimson\Catalog\Cron\AdjustInventorySourceItems" method="execute">
+            <schedule>50 * * * *</schedule>
+        </job>
+    </group>
+
+    <group id="crimson_products_special_price_update">
+        <job name="crimson_catalog_special_price_update"
+             instance="Crimson\Catalog\Cron\SpecialPriceUpdate"
+             method="execute">
+            <config_path>catalog/special_price_update/cron_schedule</config_path>
+        </job>
+    </group>
+</config>

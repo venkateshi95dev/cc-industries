@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <checkout>
+            <cart>
+                <cart_top_enabled>1</cart_top_enabled>
+                <discount_number>850.00</discount_number>
+                <discount_number_compare>600.00</discount_number_compare>
+                <cart_top_not_qualified_message><![CDATA[You've added <strong>%1</strong> worth of merchandise to your cart. Spend <strong>%2</strong> more to receive a <strong>10% discount</strong> on this order! <a href="#" id="not-qualified-modal" title="%3 Discount Details">Click for details.</a><br><span class="cart-discount-legal">*Some items are not eligible for a discount and are marked accordingly.]]></cart_top_not_qualified_message>
+                <cart_top_qualified_message><![CDATA[Your order qualifies for a 10% discount! All eligible items added to your cart will be discounted by 10%. <a href="#" id="not-qualified-modal" title="%1 Discount Details">Click for details.</a><br><span class="cart-discount-legal">*Some items are not eligible for a discount and are marked accordingly.</span>]]></cart_top_qualified_message>
+                <cart_top_messages_modal_text><![CDATA[Retail customers that place a minimum purchase of %1 of any combination of parts and accessories receive 10% off that order. Shipping charges, core charges, and all other fees do not count towards the %1.<br><br>Items listed as "No Discount" and "No Retail Discount" <strong>DO</strong> count towards the %1 threshold, but they <strong>are not</strong> eligible for a 10% discount. These items are marked "No Discount" in your cart.<br><br>This discount is not to be combined with any other offer or promotion.]]></cart_top_messages_modal_text>
+                <cart_sidebar_shipping_atypical_message><![CDATA[We are unable to calculate shipping charges for the ship to address you have specified because it does not fall within the contiguous 48 United States. Your initial ship charge will show $0, however we will calculate all associated shipping fees after receipt of your order. Prior to shipping your order a representative will contact you with the total amount for approval. Need help?
+
+<a href="https://www.zip-corvette.com/shipping">View our shipping policies</a> or <a href="https://www.zip-corvette.com/contact-us">contact us here</a>.]]></cart_sidebar_shipping_atypical_message>
+            </cart>
+        </checkout>
+    </default>
+</config>

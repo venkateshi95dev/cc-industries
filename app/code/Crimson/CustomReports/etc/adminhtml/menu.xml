@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Crimson_CustomReports::report_abandoned"
+             title="Abandoned Carts by SKU"
+             translate="title"
+             module="Crimson_CustomReports"
+             parent="Magento_Reports::report_marketing"
+             sortOrder="35"
+             action="customreports/report_abandoned"
+             resource="Crimson_CustomReports::report_abandoned"/>
+    </menu>
+</config>

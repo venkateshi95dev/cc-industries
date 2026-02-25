@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="storepickup_locator" translate="label">
+            <resource>Amasty_StorePickupWithLocator::config</resource>
+            <group id="general" translate="label">
+                <field id="enable_fedex_rates"
+                       translate="label"
+                       type="select"
+                       sortOrder="10"
+                       showInDefault="1"
+                       showInWebsite="0"
+                       showInStore="1">
+                    <label>Enable FedEx Rates</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fedex_calculation_delivery_method" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="1">
+                    <label>Use Delivery Method</label>
+                    <source_model>\Crimson\AmastyStorePickupWithLocator\Model\Config\Source\FedexDeliveryMethods</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

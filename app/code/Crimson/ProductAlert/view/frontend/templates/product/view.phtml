@@ -1,0 +1,38 @@
+<?php
+/**
+ * @var $block \Crimson\ProductAlert\Block\Product\View\Stock
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+$signupLabel = $escaper->escapeHtml(__('Notify me when this product is in stock'));
+// purposely made hidden initially. will be updated at runtime.
+?>
+<?php if ($block->shouldRenderButton()): ?>
+    <div class="product alert stock" id="product-instock-alert-wrapper" style="display: none;">
+        <a class="action alert"
+           id="product-instock-alert-action"
+           href="<?= $escaper->escapeUrl($block->getSignupUrl()); ?>"
+           title="<?= $signupLabel; ?>"
+        >
+            <?= $signupLabel ?>
+        </a>
+    </div>
+
+
+    <script type="text/x-magento-init">
+        {
+             "*": {
+                 "Magento_Ui/js/core/app": {
+                     "components": {
+                         "dynamicStockAlert": {
+                             "component": "Crimson_ProductAlert/js/dynamic-stock-alert",
+                             "baseSignupUrl": "<?= $escaper->escapeUrl($block->getBaseSignupUrl()) ?>",
+                             "uenc": "<?= $escaper->escapeUrl($block->getUenc()) ?>",
+                             "typeId": "<?= $escaper->escapeHtmlAttr($block->getTypeId()) ?>"
+                            }
+                        }
+                    }
+                }
+            }
+    </script>
+<?php endif; ?>

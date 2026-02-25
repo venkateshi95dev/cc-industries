@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mach>
+            <tax>
+                <enabled>1</enabled>
+                <country_filter_list>US</country_filter_list>
+                <region_filter_list>61</region_filter_list>
+                <region_filter_mode>1</region_filter_mode>
+            </tax>
+        </mach>
+    </default>
+</config>

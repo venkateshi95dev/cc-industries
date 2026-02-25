@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mach">
+            <group id="mach_inventory_import" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Mach Inventory Import Process</label>
+                <field id="enabled" type="select" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable/Disable the Mach Inventory Import process.</comment>
+                </field>
+                <field id="job_schedule" type="text" translate="label comment" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Mach Inventory Import Cron Settings</label>
+                    <comment><![CDATA[Mach Inventory Import Cron Schedule]]></comment>
+                </field>
+                <field id="threshold_minimum" type="text" translate="label" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Threshold Min Insert Data</label>
+                    <validate>validate-digits validate-not-negative-number validate-length maximum-length-4</validate>
+                    <comment>Threshold minimum for data insert. Default 3000.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

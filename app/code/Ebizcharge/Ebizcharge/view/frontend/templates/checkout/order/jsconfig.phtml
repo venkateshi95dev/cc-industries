@@ -1,0 +1,54 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @Package     Ebizcharge_Ebizcharge
+ *
+ * @Category    Ebizcharge Widget
+ *
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions <support@centurybizsolutions.com>
+ * @copyright   Copyright (c) 2022 Century Business Solutions  (www.centurybizsolutions.com)
+ */
+
+use Ebizcharge\Ebizcharge\Block\Checkout\JsConfig;
+
+/**
+ * JsConfig Block.
+ */
+/** @var JsConfig $block */
+// $soapConfigJson = $block->getSoapProcessorConfigVars();
+$storeId = $block->getStoreId();
+$tokenKey = $block->escapeHtml($block->getTokenKey($storeId));
+$tokenUser = $block->escapeHtml($block->getTokenUser($storeId));
+$tokenPass = $block->escapeHtml($block->getTokenPass($storeId));
+?>
+<?php if ($block->is3DsecureEnabled($storeId)) { ?>
+<div id="ebzc-k" data-token="<?php echo $block->escapeHtmlAttr($tokenKey); ?>"></div>
+    <div id="ebzc-u" data-token="<?php echo $block->escapeHtmlAttr($tokenUser); ?>"></div>
+    <div id="ebzc-p" data-token="<?php echo $block->escapeHtmlAttr($tokenPass); ?>"></div>
+<script src="<?php echo $block->getViewFileUrl('Ebizcharge_Ebizcharge::js/lib/EBiz3DSecure.js'); ?>"></script>
+<?php } ?>
+<script type="text/x-magento-init">
+        {
+        "*": {
+            "Ebizcharge_Ebizcharge/js/checkout/gateway/ebizcharge-gateway" : {
+               "soapConfig": {}
+            }
+          }
+        }
+
+</script>
+
+

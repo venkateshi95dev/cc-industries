@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="creditmemo_totals">
+            <block ifconfig="i95devconnect_discountgroups/discountgroups_enabled_settings/enable_dg" class="Magento\Sales\Block\Adminhtml\Order\Totals\Item" name="discount_group_amount" template="I95DevConnect_DiscountGroups::sales/order/totals/discountgroupamount.phtml" after="-" >
+                <action method="setSourceField">
+                    <argument name="value" xsi:type="string">discount_group_amount</argument>
+                </action>
+                <action method="setLabel">
+                    <argument name="value" xsi:type="string">Discount Group Amount</argument>
+                </action>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="creditmemo_items">
+            <action ifconfig="i95devconnect_discountgroups/discountgroups_enabled_settings/enable_dg" method='setTemplate'>
+                <argument name='template' xsi:type='string'>I95DevConnect_DiscountGroups::order/creditmemo/view/items.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="creditmemo_items.bundle">
+            <action ifconfig="i95devconnect_discountgroups/discountgroups_enabled_settings/enable_dg" method='setTemplate'>
+                <argument name='template' xsi:type='string'>I95DevConnect_DiscountGroups::order/creditmemo/view/items/renderer.phtml</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

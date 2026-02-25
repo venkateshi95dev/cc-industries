@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="mach_inventory_import">
+        <job name="crimson_import_mach_inventory" instance="Crimson\MachInventoryImport\Cron\ImportMachInventory" method="execute">
+            <config_path>mach/mach_inventory_import/job_schedule</config_path>
+        </job>
+        <job name="crimson_import_clear_reservation" instance="Crimson\MachInventoryImport\Cron\ClearAllReservations" method="execute">
+            <schedule>*/5 * * * *</schedule>
+        </job>
+    </group>
+</config>

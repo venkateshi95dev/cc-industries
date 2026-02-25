@@ -1,0 +1,44 @@
+{
+    "img_document": {
+        "column": {
+            "entity_id": true,
+            "is_active": true,
+            "for_base_image": true,
+            "attribute_code": true,
+            "file_type": true,
+            "file_size": true,
+            "file_name": true,
+            "title": true,
+            "file": true,
+            "path": true,
+            "created_by": true,
+            "modified_by": true,
+            "creation_time": true,
+            "update_time": true
+        },
+        "index": {
+            "IMG_DOCUMENT_IS_ACTIVE": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IMG_DOCUMENT_FILE": true
+        }
+    },
+    "img_product": {
+        "column": {
+            "entity_id": true,
+            "document_id": true,
+            "product_id": true,
+            "position": true
+        },
+        "index": {
+            "IMG_PRODUCT_PRODUCT_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "IMG_PRODUCT_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID": true,
+            "IMG_PRODUCT_DOCUMENT_ID_IMG_DOCUMENT_ENTITY_ID": true,
+            "IMG_PRODUCT_DOCUMENT_ID_PRODUCT_ID": true
+        }
+    }
+}

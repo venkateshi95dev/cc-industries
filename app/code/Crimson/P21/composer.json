@@ -1,0 +1,25 @@
+{
+    "name": "crimsonagility/module-p21",
+    "description": "",
+    "require": {
+        "php": "~8.1.0|~8.2.0|~8.3.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\P21\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/P21"
+            ]
+        ]
+    }
+}

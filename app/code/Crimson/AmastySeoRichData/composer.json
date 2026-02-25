@@ -1,0 +1,30 @@
+{
+    "name": "crimson/amasty-google-rich-snippets",
+    "description": "",
+    "require": {
+        "php": ">=7.3.0",
+        "amasty/module-google-rich-snippets": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\AmastySeoRichData\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/AmastySeoRichData"
+            ]
+        ]
+    }
+}

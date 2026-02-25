@@ -1,0 +1,107 @@
+<!--@subject {{trans "Your %store_name order confirmation" store_name=$store.frontend_name}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order_data.email_customer_note|escape|nl2br":"Email Order Note",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order area=\"frontend\"":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var shipping_msg":"Shipping message",
+"var created_at_formatted":"Order Created At (datetime)",
+"var store.frontend_name":"Store Frontend Name",
+"var store_email":"Store Email",
+"var order":"Order",
+"var order_data.is_not_virtual":"Order Type",
+"var order_data.customer_name":"Customer Name",
+"var order_id": "Order DB Id",
+"var this.getUrl($store,'customer/account/',[_nosid:1])":"Customer Account URL"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<table>
+    <tr class="email-intro">
+        <td style="padding-top: 15px;">
+            <p class="greeting">{{trans "%customer_name," customer_name=$order_data.customer_name}}</p>
+            <p>
+                {{trans "Thanks for shopping at Corvette Central! Once your package ships we will send you a tracking number."}}
+            </p>
+            <p>
+                If you have questions about your order, you can email us at <a href="mailto:customerservice@corvettecentral.com">customerservice@corvettecentral.com</a>.
+            </p>
+        </td>
+    </tr>
+
+    <tr class="email-information method-info">
+        <td>
+            <h4 style="font-size: 17px">{{trans "Payment Method"}}</h4>
+            {{var payment_html|raw}}
+
+            {{depend order_data.is_not_virtual}}
+            <h4 style="font-size: 17px">{{trans "Shipping Method"}}</h4>
+            {{var order.shipping_description}}
+            {{if shipping_msg}}
+            <p>{{var shipping_msg}}</p>
+            {{/if}}
+            {{/depend}}
+        </td>
+    </tr>
+
+
+
+    <tr class="email-information">
+        <td>
+            {{depend order_data.email_customer_note}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        {{var order_data.email_customer_note|escape|nl2br}}
+                    </td>
+                </tr>
+            </table>
+            {{/depend}}
+            <table class="order-details">
+                <tr>
+                    {{depend order_data.is_not_virtual}}
+                    <td class="address-details">
+                        <h5><b>{{trans "Shipping Address:"}}</b></h5>
+                        <p>{{var formattedShippingAddress|raw}}</p>
+                    </td>
+                    {{/depend}}
+                    <td class="address-details">
+                        <h5><b>{{trans "Billing Address:"}}</b></h5>
+                        <p>{{var formattedBillingAddress|raw}}</p>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <tr class="email-summary-custom">
+        <td>
+            <p style="margin: 10px 0 0 0 !important;"><b>{{trans 'Your Order <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}</b></p>
+            <p style="margin-bottom: 15px;"><b>{{trans 'Placed on <span class="no-link">%created_at</span>' created_at=$created_at_formatted |raw}}</b></p>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            {{layout handle="sales_email_order_items" order_id=$order_id area="frontend"}}
+        </td>
+    </tr>
+
+    <tr class="fake-footer" style="background-color: #EFEFEF; border-top: 1px solid #000; display: block; margin-top: 15px;">
+        <td>
+            <p style="margin-top: 15px;">You can find more information on the <a href="{{var order.getViewOrderUrl()}}">order details page</a>.</p>
+        </td>
+    </tr>
+    <tr class="fake-footer" style="background-color: #EFEFEF">
+        <td style="padding-bottom: 0;">
+            <p style="margin-bottom: 0; margin-top: 6px;">Questions about your order? Please contact our customer service at <a href="mailto:customerservice@corvettecentral.com">customerservice@corvettecentral.com</a> or call 800 345-4122.</p>
+            <p style="margin-bottom: 14px;">Please mention your name and order number.</p>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

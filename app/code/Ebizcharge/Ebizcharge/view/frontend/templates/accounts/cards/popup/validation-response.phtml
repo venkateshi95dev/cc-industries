@@ -1,0 +1,83 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\Cards;
+use Ebizcharge\Ebizcharge\ViewModel\PciCompliance;
+
+/**
+ * @var Cards $block
+ */
+
+/** @var PciCompliance $pciComplianceViewModel */
+$pciComplianceViewModel = $block->getData('pciComplianceViewModel');
+?>
+<div id="avs-cvv-warnings-panel" class="admin__field-option avs-cvv-warnings-panel ">
+
+    <div class="cvv-avs-warnings-box">
+        <div class="label">
+            <h3 id="security-message-title"
+                class="security-msg-title"><?= /* @noEscape */ __("Security Mismatch"); ?>
+            </h3>
+        </div>
+        <div class="clear-line"></div>
+        <div id="card-message-response" class="card-response-warning-message"> </div>
+        <div class="security-messages-left">
+            <h5 class="security-messages">
+                <?= /* @noEscape */ __("AVS: "); ?><span id="avs-address-msg"></span>
+            </h5>
+            <h5 class="security-messages">
+                <?= /* @noEscape */ __("Zip Code: "); ?><span id="avs-postal-code-msg"></span>
+            </h5>
+            <h5 class="security-messages">
+                <?= /* @noEscape */ __("CVV2 / CVC: "); ?> <span id="cvv-cvv2-msg"></span>
+            </h5>
+        </div>
+        <div class="security-messages-right">
+            <p><?= /* phpcs:ignore */ /* @noEscape */ __("Our Card verification indicates this card could result in a chargeback when used in future transactions. Do you still wish to save this card? If not, go back and enter different card information.") ?></p>
+        </div>
+        <div class="clear-line"></div>
+
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "ebizchargeCardValidationResponse": {
+                "cardAvsValidationUrl": "<?= $block->escapeUrl($pciComplianceViewModel->getCardAVSValidationURL()) ?>",
+                "isPciComplianceEnabled": "<?= $block->escapeHtml(
+                    $pciComplianceViewModel->isPciComplianceEnabled()
+                ) ?>",
+                "pciAddNewMethodResponseUrl": "<?= $block->escapeUrl(
+                    $pciComplianceViewModel->getPciAddNewMethodResponseUrl()
+                ) ?>",
+                "creditCardForm": "form-validate",
+                "avsCvvWarningsPanel": "avs-cvv-warnings-panel",
+                "avsAddressMsg": "avs-address-msg",
+                "avsPostalCodeMsg": "avs-postal-code-msg",
+                "cvvCvv2Msg": "cvv-cvv2-msg",
+                "cardMessageResponse": "card-message-response",
+                "avsSaveActionButton": "avs-response-save-button"
+            }
+        }
+    }
+</script>

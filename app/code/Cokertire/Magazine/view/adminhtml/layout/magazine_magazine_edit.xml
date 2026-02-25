@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Cokertire\Magazine\Block\Adminhtml\Magazine\Edit" name="ct_magazine_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Cokertire\Magazine\Block\Adminhtml\Magazine\Edit\Tabs" name="ct_magazine_tabs">
+                <block class="Cokertire\Magazine\Block\Adminhtml\Magazine\Edit\Tab\Magazine" name="ct_magazine_edit_tab_magazine"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">magazine</argument>
+                    <argument name="block" xsi:type="string">ct_magazine_edit_tab_magazine</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

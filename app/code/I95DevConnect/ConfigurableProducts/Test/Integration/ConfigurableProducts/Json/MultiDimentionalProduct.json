@@ -1,0 +1,15 @@
+{
+    "RequestData": [
+        {
+            "TargetId": "shirt",
+            "Reference": "shirt",
+            "InputData": "Tzq5jYok0txN9AtTchFBzih5eDrs1A6f6X+GAl17ajhT63XGFO5yHbRZHo/0XPER0DnJsEyyutDlieBdvNPbR9IP4UUfdDLaIrKIIUk8Cu6mFWeDZwNzfunGCkax1tiWmuBOC8mrY3evORia88c8dS9XlybLs12mPw2jHXX04iFppuEYcLHhmxZ+bHcsUFX9a5zFFJLiZFknE41mo4pvK6kG9u+8/lVwXd0Nl31m5dOV4P4REA/dRMX6Y1FIJoqqoEc3kAWYSC+BMcZR4EFXfl8LFJjPWZBPIT03RpikMXhSoB3KPPchTSFQiubU5tCynK9fVgn8z6+a++nP588IeHPfJv78g8tKltqjSH/o91FaieNSjHVIQ+gMP5Dvoz4KwT2AvqyVCDAngGLMLGZTAr6aRrAcPXK/w2yaoiSqrQpGai3m8VMYUv0acBRrFbrl5SA4XBl/a7pmfSCvkucPZNnmudsbmyr/NQ+Bpy7HJoRM9ZugkGfElYDCmYEg/gVPBDCt5QcwAqbg7nJ4w1SIH5kQM7R01b2Qyd+qmWvnurwMeWUGJjqAPgqepfJCBh57CP9YKj6fjLKtCtvZQOQlGA==",
+            "MessageId": 292,
+            "SourceId": null,
+            "Message": null,
+            "Result": true,
+            "StatusId": 0,
+            "LastSyncTime": null
+        }
+    ]
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amseorichdata">
+            <group id="product">
+                <field id="account_backorder_enabled" translate="label comment" type="select" sortOrder="21" showInDefault="1" showInWebsite="1">
+                    <label>Account Backorder Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If it's set to Yes we will overwrite Amasty OutOfStock schema behaviour with Backorder.]]></comment>
+                </field>
+                <field id="backorder_future_date" translate="label comment" type="select" sortOrder="22" showInDefault="1" showInWebsite="1">
+                    <label>Future Time Availability</label>
+                    <source_model>Crimson\AmastySeoRichData\Model\Config\Source\FutureDates</source_model>
+                    <comment><![CDATA[Time to add to today's date for availability_date in the schema when backorder AND when we don't have the product availability date. ]]></comment>
+                </field>
+                <field id="backorder_preorder" translate="label comment" type="select" sortOrder="23" showInDefault="1" showInWebsite="1">
+                    <label>PreOrder or BackOrder Selection</label>
+                    <source_model>Crimson\AmastySeoRichData\Model\Config\Source\AvailabilityLabel</source_model>
+                    <comment><![CDATA[This is to set the availability value BackOrder or PreOrder.]]></comment>
+                </field>
+                <field id="shipping_weight_added" translate="label comment" type="select" sortOrder="24" showInDefault="1" showInWebsite="1">
+                    <label>Add Shipping Weight</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Yes to add the shipping_weight field to the schema.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,38 @@
+<?= $block->getButtonHtml(); ?>
+<script>
+    require([
+        'jquery',
+        'prototype',
+    ], function (jQuery) {
+        function updatePaymentMapping() {
+            if (jQuery("#sync_payment_method_msg").length > 0) {
+                jQuery("#sync_payment_method_msg").remove();
+            }
+
+            params = {};
+
+            new Ajax.Request('<?= /* @noEscape */ $block->getButtonUrl(); ?>', {
+                loaderArea: true,
+                asynchronous: true,
+                parameters: params,
+                onComplete: function (transport) {
+                    var response = JSON.parse(transport.responseText);
+                    if (response.output) {
+                        jQuery("#sync_payment_method").after(
+                            "</br><span id='sync_payment_method_msg' style='color:green;'>Payment Methods successfully updated</span>"
+                        );
+                    } else {
+                        jQuery("#sync_payment_method").after(
+                            "</br><span id='sync_payment_method_msg' style='color:#ff0000;'>"+response.message+"</span>"
+                        );
+                    }
+                }
+            });
+        }
+
+        jQuery('#sync_payment_method').click(function () {
+            updatePaymentMapping();
+        });
+    });
+</script>
+

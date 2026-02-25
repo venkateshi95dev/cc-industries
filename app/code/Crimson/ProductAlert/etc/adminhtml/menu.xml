@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Crimson_ProductAlert::back_in_stock_alert"
+             title="Back In Stock Alerts"
+             translate="title"
+             module="Crimson_ProductAlert"
+             sortOrder="65"
+             parent="Magento_Backend::marketing_communications"
+             action="adminhtml/backinstockalert"
+             resource="Crimson_ProductAlert::back_in_stock_alert"
+             dependsOnModule="Crimson_ProductAlert"
+        />
+    </menu>
+</config>

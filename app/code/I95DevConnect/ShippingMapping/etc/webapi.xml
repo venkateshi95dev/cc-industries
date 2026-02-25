@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_I95DevServer
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/SyncShippingMapping/" method="POST">
+        <service class="I95DevConnect\ShippingMapping\Api\ShippingMappingManagementInterface"
+                 method="processMappingData"/>
+        <resources>
+            <resource ref="I95DevConnect_I95DevServer::apimethods"/>
+        </resources>
+    </route>
+    <route url="/V1/SyncShippingMethod/" method="POST">
+        <service class="I95DevConnect\ShippingMapping\Api\ShippingMethodMagInterface"
+                 method="availableShippingMethod"/>
+        <resources>
+            <resource ref="I95DevConnect_I95DevServer::apimethods"/>
+        </resources>
+    </route>
+</routes>

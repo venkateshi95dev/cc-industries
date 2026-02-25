@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <field name="website_id" sortOrder="99" formElement="select">
+            <settings>
+                <notice translate="true">Select the Website where this locations will be used.</notice>
+                <dataType>text</dataType>
+                <label translate="true">Website</label>
+                <dataScope>extension_attributes.website_id</dataScope>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Crimson\InStorePickup\Model\Source\Options\Website"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+        <field name="allowed_sku" sortOrder="105" formElement="textarea">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Allowed SKUs</label>
+                <dataScope>extension_attributes.allowed_sku</dataScope>
+                <notice translate="true">SKU comma-separated list. If this field is not empty then this location will only be available for the SKU list set here.</notice>
+            </settings>
+        </field>
+    </fieldset>
+</form>

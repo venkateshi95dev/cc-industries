@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+
+?>
+
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= /* @noEscape */
+            __('Target Status') ?></span>
+    </div>
+    <table class="admin__table-secondary">
+        <caption>&nbsp;</caption>
+        <tbody>
+
+        <tr>
+            <th><?= /* @noEscape */
+                __('Target Status:') ?></th>
+            <th><?= /* @noEscape */
+                $block->getCustomAttribute(); ?></th>
+        </tr>
+        </tbody>
+    </table>
+</div>

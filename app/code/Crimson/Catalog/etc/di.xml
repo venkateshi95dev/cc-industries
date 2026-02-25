@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Crimson\Catalog\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Crimson\Catalog\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">myLoggerName</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Crimson\Catalog\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="remove_gif_images" xsi:type="object">Crimson\Catalog\Console\Command\RemoveGifImages</item>
+                <item name="remove_small_base_thumb_images" xsi:type="object">Crimson\Catalog\Console\Command\RemoveMainImages</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Magento\CatalogRule\Model\Rule" type="Crimson\Catalog\Model\RuleCustom" />
+
+    <type name="Magento\Catalog\Block\Product\Compare\ListCompare">
+        <plugin name="crimson_catalog_compare_sort" type="Crimson\Catalog\Plugin\Block\Product\Compare\SortByComparePosition"/>
+    </type>
+    <type name="Magento\Catalog\Block\Adminhtml\Product\Attribute\Edit\Tab\Front">
+        <plugin name="extension_attribute_edit_form" type="Crimson\Catalog\Plugin\Block\Adminhtml\Product\Attribute\Edit\Tab\Front" sortOrder="1"/>
+    </type>
+</config>

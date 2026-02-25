@@ -1,0 +1,26 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+$pages = $block->getPages();
+?>
+<ul class="pagemenu">
+    <?php
+    $count = 1;
+    foreach ($pages as $singlePage) {
+        ?>
+        <li  style="padding: 5px;">
+            <input id="menupage<?= /* @noEscape */ $count; ?>" class="addMenu" type="checkbox"
+                   data-url="<?= /* @noEscape */ $singlePage->getIdentifier(); ?>"
+                   data-objectid="<?= /* @noEscape */ $singlePage->getPageId(); ?>"
+                   data-name="<?= /* @noEscape */ $singlePage->getTitle(); ?>"
+                   data-id="<?= /* @noEscape */ $singlePage->getPageId(); ?>" data-type="pages">
+            <label for="menupage<?= /* @noEscape */ $count; ?>"><?= /* @noEscape */ $singlePage->getTitle(); ?></label>
+        </li>
+        <?php
+        $count++;
+    }
+    ?>
+</ul>

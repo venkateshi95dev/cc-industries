@@ -1,0 +1,184 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\ACH;
+use Ebizcharge\Ebizcharge\ViewModel\CustomerAccount;
+use Magento\Directory\Helper\Data;
+use Magento\Framework\Escaper;
+
+/**
+ * @var ACH $block
+ * @var Escaper $escaper
+ */
+
+$payment = $block->getCustomerPaymentMethod();
+$paymentMethodId = $block->getRequest()->getParam("mid");
+
+/** @var CustomerAccount $ebizAccountViewModel */
+$ebizAccountViewModel = $block->getData('ebizAccountViewModel');
+
+// Get Magento Directory module Helper
+$dirHelper = $ebizAccountViewModel->getDirectoryHelper();
+
+?>
+<form class="form-address-edit"
+      action="<?= $escaper->escapeUrl($block->getUrl('ebizcharge/ach/updateaction', ['_secure' => true])) ?>"
+      method="post"
+      id="form-validate"
+      enctype="multipart/form-data"
+      data-hasrequired="<?= /* @noEscape */ __('* Required Fields'); ?>"
+      onsubmit='(function ($) {
+          $("#form-validate").valid() &&  $("body").trigger("processStart");
+      })(jQuery)'
+>
+    <?= $block->getBlockHtml('formkey'); ?>
+
+    <input type="hidden" name="cid" value="<?= $escaper->escapeHtmlAttr($block->getCustomerId()) ?>"/>
+    <input type="hidden" name="mid" value="<?= $escaper->escapeHtmlAttr($paymentMethodId) ?>"/>
+    <input type="hidden" name="ach_method_name" value="<?= $escaper->escapeHtmlAttr($payment->MethodName) ?>"/>
+
+    <fieldset class="fieldset items">
+        <legend class="legend"><span><?= /* @noEscape */ __('Payment Information'); ?></span></legend>
+        <br>
+        <div class="field row-form-field required">
+            <label class="label" for="ach_holder">
+                <span><?= /* @noEscape */ __('Account Holder'); ?></span>
+            </label>
+            <input type="text"
+                   class="input-text"
+                   title="<?= /* @noEscape */ __('Account Holder'); ?>"
+                   name="ach_holder"
+                   id="ach_holder"
+                   value="<?= $escaper->escapeHtmlAttr($payment->AccountHolderName ?? '') ?>"
+                   data-input="ach_holder"
+                   autocomplete="off"
+                   data-validate="{'required-entry':true}"/>
+        </div>
+        <div class="field row-form-field required">
+            <label for="cc_type" class="label">
+                <span><?= /* @noEscape */ __('Account Type') ?></span>
+            </label>
+            <select id="cc_type"
+                    data-mage-init='{
+                    "creditCardType":{"creditCardTypeContainer":"#cc_type_ss_div"}
+                }' name="ach_type" data-validate="{'required-entry':true}" class="select">
+                <option value=""><?= /* @noEscape */ __('--Please Select--') ?></option>
+                <?php
+                /**
+                 * Payment Option Type
+                 */
+                $paymentOptionType = isset($payment->AccountType) ? $payment->AccountType : '';
+
+                foreach ($block->getAchPaymentTypes() as $key => $paymentType) {
+                    ?>
+                    <option value="<?= $escaper->escapeHtmlAttr($paymentType) ?>"
+                        <?= /* @noEscape */ strtolower($paymentType) === strtolower($paymentOptionType) ? "selected" : '' ?>>
+                        <?= $escaper->escapeHtml(ucfirst($paymentType)) ?></option>
+                    <?php
+                } ?>
+            </select>
+        </div>
+        <div class="field row-form-field required">
+            <label for="ach_number" class="label">
+                <span><?= /* @noEscape */ __('Account Number') ?></span>
+            </label>
+            <input type="text"
+                   id="ach_number"
+                   name="ach_number"
+                   readonly
+                   title="<?= /* @noEscape */ __('AccountNumber') ?>"
+                   class="input-text"
+                   minlength="9"
+                   maxlength="14"
+                   value="<?= $escaper->escapeHtmlAttr($payment->Account ?? '') ?>"
+                   data-validate="{'required-entry':true}"/>
+        </div>
+        <div class="field row-form-field required">
+            <label for="cc_exp_month" class="label">
+                <span><?= /* @noEscape */ __('Routing Number') ?></span>
+            </label>
+             <input type="text"
+                    id="ach_route"
+                    name="ach_route"
+                    readonly
+                    minlength="9"
+                    maxlength="9"
+                    title="<?= /* @noEscape */ __('Routing No') ?>"
+                    class="input-text"
+                    value="<?= $escaper->escapeHtmlAttr($payment->Routing ?? '') ?>"/>
+            </div>
+
+            <div class="field row-form-field default">
+                <input type="checkbox"
+                       id="default"
+                       name="default"
+                       value="1"
+                       class="checkbox"
+                       <?= /** @noEscape */ $payment->SecondarySort == 0 ? 'checked' : ''; ?>>
+                <label class="label" for="default">
+                    <span class="font-default">
+                        <?= /* @noEscape */ __('Make this my default bank account.') ?>
+                    </span>
+                </label>
+            </div>
+    </fieldset>
+
+    <div class="actions-toolbar actions-toolbar-buttons">
+        <div class="primary">
+            <a href="<?= $escaper->escapeUrl($block->getUrl('ebizcharge/ach/listaction')) ?>">
+                <button type="button"
+                        title="<?= /* @noEscape */ __('Cancel'); ?>"
+                        class="cancel-btn">
+                    <span><?= /* @noEscape */ __('Cancel'); ?></span>
+                </button>
+            </a>
+            <button type="submit"
+                    class="action primary"
+                    title="<?= /* @noEscape */ __('Update Bank Account'); ?>">
+                <span><?= /* @noEscape */ __('Update Bank Account'); ?></span>
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "validation": {}
+        },
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": "<?= /* @noEscape */
+                $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $dirHelper->getRegionJson(); ?>,
+                "defaultRegion": "<?= /* @noEscape */ $block->getRegionId(); ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $dirHelper->getCountriesWithOptionalZip(true) ?>
+            }
+        }
+    }
+</script>

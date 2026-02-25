@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="custom_fees" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Custom Fees</label>
+            <tab>crimson</tab>
+            <resource>Crimson_CorvetteCentralCustomFees::custom_fees</resource>
+            <group id="tax_class" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Tax Class</label>
+                <field id="class" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Tax Class for Custom Fees</label>
+                    <source_model>Magento\Tax\Model\TaxClass\Source\Product</source_model>
+                </field>
+            </group>
+            <group id="core_charge" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Core Charge</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Custom fee for Core charge on CorvetteCentral</comment>
+                </field>
+            </group>
+            <group id="crate_fee" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Crating Fee Charge</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Custom fee for Crating fee charge on CorvetteCentral</comment>
+                </field>
+            </group>
+            <group id="freight_fee" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Freight Charge</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Custom fee for Freight fee charge on CorvetteCentral</comment>
+                </field>
+            </group>
+            <group id="canadian_freight" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Canadian Freight</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Canadian Freight indicator on CorvetteCentral</comment>
+                </field>
+            </group>
+            <group id="truck_freight" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Truck Freight</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Truck Freight on CorvetteCentral</comment>
+                </field>
+            </group>
+            <group id="dropship_fee" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Dropship Charge</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Custom fee for Dropship fee charge on CorvetteCentral</comment>
+                </field>
+                <field id="allowed_customer_groups"
+                       translate="label comment"
+                       type="multiselect"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Allowed Customer Groups</label>
+                    <comment>Select one or more customer groups</comment>
+                    <source_model>Crimson\CorvetteCentralCustomFees\Model\Config\Source\CustomerGroups</source_model>
+                </field>
+                <field id="amount"
+                       translate="label comment"
+                       type="text"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Dropship charge - Flat fee</label>
+                </field>
+            </group>
+
+            <group id="canada_taxes" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Canadian Tax and Duty</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Canadian Tax Rules for CorvetteCentral</comment>
+                </field>
+
+                <field id="retail_customer_groups"
+                       translate="label comment"
+                       type="multiselect"
+                       sortOrder="20"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Retail Customer Groups</label>
+                    <comment>Select one or more customer groups</comment>
+                    <source_model>Crimson\CorvetteCentralCustomFees\Model\Config\Source\CustomerGroups</source_model>
+                </field>
+                <field id="dealer_customer_groups"
+                       translate="label comment"
+                       type="multiselect"
+                       sortOrder="30"
+                       showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Dealer Customer Groups</label>
+                    <comment>Select one or more customer groups</comment>
+                    <source_model>Crimson\CorvetteCentralCustomFees\Model\Config\Source\CustomerGroups</source_model>
+                </field>
+                <field id="mapping" translate="label" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tax Rates</label>
+                    <frontend_model>Crimson\CorvetteCentralCustomFees\Block\Adminhtml\Form\Field\CanadaTaxMapping</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

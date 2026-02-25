@@ -1,0 +1,42 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+?>
+<div>
+    <fieldset class="fieldset payment method">
+    <legend><?= /* @noEscape */   'Check Number'; ?></legend>
+    <input type="text" id="check_number" name="payment[check_number]"
+    title="<?= /* @noEscape */  $escaper->escapeHtml(__("Cheque Number")) ?>" class="required-entry"
+    value=""/>
+    </fieldset>
+</div>
+<script>
+    require([
+        'uiLayout',
+        'jquery'
+    ], function (layout, $) {
+        $(function () {
+            var paymentMethodData = {
+                method: 'checkmo'
+            };
+            layout([
+                {
+                    component: 'Magento_Checkout/js/view/payment/default',
+                    name: 'payment_method_checkmo',
+                    method: paymentMethodData.method,
+                    item: paymentMethodData
+                }
+            ]);
+
+            $('body').trigger('contentUpdated');
+        })
+    })
+document.getElementById("p_method_checkmo").onclick = enableCheckNumber;
+
+function enableCheckNumber() {
+document.getElementById("check_number").disabled = false;
+}
+</script>

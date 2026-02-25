@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Crimson\MachShipping\Api\Data\UpsDeliverySaturdaysInterface" type="Crimson\MachShipping\Model\UpsDeliverySaturdays" />
+	<preference for="Crimson\MachShipping\Api\Data\UpsDeliverySaturdaysSearchResultsInterface" type="Crimson\MachShipping\Model\UpsDeliverySaturdaysSearchResults" />
+	<preference for="Crimson\MachShipping\Api\UpsDeliverySaturdaysRepositoryInterface" type="Crimson\MachShipping\Model\UpsDeliverySaturdaysRepository" />
+
+    <type name="Magento\Quote\Model\Cart\ShippingMethodConverter">
+        <plugin name="add_delivery_date_plugin" type="Crimson\MachShipping\Plugin\ShippingMethodConverterPlugin" disabled="false" sortOrder="30"/>
+    </type>
+
+</config>

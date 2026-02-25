@@ -1,0 +1,210 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\Cards;
+use Magento\Framework\Escaper;
+
+/**
+ * @var Cards $block
+ * @var Escaper $escaper
+ */
+
+$paymentCards = $block->getPaymentMethods();
+$achStatus = $block->getAchStatus();
+$creditCardStatus = $block->getCreditCardsStatus();
+
+
+if (!$creditCardStatus && !$achStatus) {
+    ?>
+
+    <div style="border: 1px solid #ff0000" class="message info empty margin-top"><span><?php /* @noEscape */ /* phpcs:ignore */ __('Credit card(s) & Bank Account(s) payments are disabled at Gateway. <br/>Kindly contact the webmaster.'); ?></span>
+        <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/')) ?>"
+           target="_parent"><?= /* @noEscape */ __("Go to Customer Account"); ?></a>
+    </div>
+
+<?php } else { ?>
+
+    <div class="table-wrapper my-credit-cards">
+        <div class="searchTabCustom">
+            <ul class="items order-links">
+                <li class="nav item current active-tab">
+                    <span class="payment-tab"><?= /* @noEscape */ __('Stored Cards') ?></span>
+                </li>
+                <?php if ($achStatus) { ?>
+                    <li class="nav item"
+                        onclick="location.href = '<?= $escaper->escapeUrl($block->getStoredBankAccountsUrl()); ?>'">
+                        <span class="payment-tab">Stored Bank Accounts</span>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <br><br><br>
+        <?php
+        if ($creditCardStatus) {
+            ?>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <a href="<?= $escaper->escapeUrl($block->getAddCardUrl()) ?>">
+                        <button type="button"
+                                class="action primary"
+                                title="<?= /* @noEscape */ __('Add New Card'); ?>">
+                            <span><?= /* @noEscape */ __('Add New Credit Card'); ?></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+
+            <table class="data table data-list-table">
+                <caption class="table-caption"><?= /* @noEscape */ __('My Credit Cards'); ?></caption>
+                <thead class="data-list-table-headings">
+                <tr>
+                    <!--th><?= /* @noEscape */ __('Method Name'); ?></th-->
+                    <th><?= /* @noEscape */ __('Name on Card'); ?></th>
+                    <th><?= /* @noEscape */ __('Card Type & Number'); ?></th>
+                    <th><div><?= /* @noEscape */ __('Expiration Date'); ?></div></th>
+                    <th><?= /* @noEscape */ __('Default'); ?></th>
+                    <th><?= /* @noEscape */ __('Actions'); ?></th>
+                </tr>
+                </thead>
+                <tbody class="data-list-table-listings">
+
+                <?php if (count($paymentCards) > 0) { ?>
+
+                    <?php foreach ($paymentCards as $payment) {
+                        $balance = isset($payment->Balance) ? $payment->Balance : 0;
+                        $methodName = $block->prepareMethodName($payment);
+                        $ccOwner = isset($payment->AccountHolderName) ? $payment->AccountHolderName : $methodName;
+
+                        if ($payment->MethodType !== 'check') {
+                            $custID = $block->getMageCustId();
+
+                            if ($block->checkPaymentMethodStatus((int)$custID, $payment->MethodID)) {
+                                // phpcs:ignore
+                                $alertDelete = "Are you sure you want to delete this payment method? This method is associated with your recurring subscription. If you delete this method it will suspend your subscription";
+                            } else {
+                                $alertDelete = "Are you sure you want to delete this payment method?";
+                            } ?>
+
+                            <tr>
+                                <!--td>
+                                    <span class="account-title">&#9868; <?= $escaper->escapeHtml($methodName) ?></span>
+                                </td-->
+                                <td>
+                                    <span class="account-title">&#9868; <?= $escaper->escapeHtml($ccOwner) ?></span>
+                                </td>
+                                <td>
+                                    <?php if (!empty($payment->CardType) &&
+                                        !empty($image = $block->getCCTypeImage($payment->CardType))) { ?>
+                                        <img class="card-images" style="margin-right:10px; "
+                                        src="<?= /* phpcs:ignore */ $escaper->escapeUrl($block->getViewFileUrl('Ebizcharge_Ebizcharge::images/' . $image)) ?>"
+                                        alt="<?=__('Your card Type '.$payment->CardType);?>"/>
+                                    <?php } ?>
+                                    <?= $escaper->escapeHtml($payment->CardNumber) ?>
+                                </td>
+                                <td class="text-align-center">
+                                    <div><?= $escaper->escapeHtml($payment->CardExpiration) ?></div>
+                                </td>
+                                <td class="text-align-center">
+                                    <?= /* @noEscape */ (isset($payment->SecondarySort) &&
+                                    (int)$payment->SecondarySort === 0) ?
+                                        '<span class="tick-icon-yes">&#10003; Yes</span>' :
+                                        '<span class="tick-icon-no">-</span>'; ?>
+                                </td>
+                                <td data-th="Actions" class="col actions action-width">
+                                    <a style="transform: rotate(0deg)"
+                                       title="<?= /* @noEscape */ __("Edit Credit Card"); ?>"
+                                       href="<?= /* phpcs:disable */ $escaper->escapeUrl($block->getUrl('ebizcharge/cards/editaction', ['_secure' => true,
+                                           'cid' => $block->getCustomerId(),
+                                           'mid' => $payment->MethodID,
+                                           'method' => urlencode($payment->MethodName)])) /* phpcs:enable */ ?>"
+                                       class="icons"
+                                    >
+                                        <i class="edit-icon"> &#9998;</i>
+                                    </a>
+                                    <span class="action-buttons-separator"> | </span>
+
+                                    <form class="form float-left"
+                                          method="post"
+                                          action="<?= $escaper->escapeUrl($block->getDeleteCardActionUrl()); ?>">
+                                        <?= $block->getBlockHtml('formkey'); ?>
+                                        <input name="cid"
+                                               value="<?= $escaper->escapeHtmlAttr($block->getCustomerId()) ?>"
+                                               type="hidden"/>
+                                        <input name="mid"
+                                               value="<?= $escaper->escapeHtmlAttr($payment->MethodID) ?>"
+                                               type="hidden"/>
+                                        <input name="method"
+                                               value="<?= /* @noEscape */ urlencode($payment->MethodName); ?>"
+                                               type="hidden"/>
+                                        <input name="cust_id"
+                                               value="<?= $escaper->escapeHtmlAttr($block->getMageCustId()) ?>"
+                                               type="hidden"/>
+                                        <input name="ebiz_cust_token"
+                                               value="<?= $escaper->escapeHtmlAttr($block->getEbzcCustToken()) ?>"
+                                               type="hidden"/>
+
+                                        <button type="submit" title="Delete Credit Card"
+                                                class="icons icon-cross delete-action-button "
+                                                data-mage-init='{
+                                "Ebizcharge_Ebizcharge/js/deleteWidget":{
+                                    "type": "popup",
+                                    "modalClass": "my-credit-cards-popup",
+                                    "toggleEvent": "click",
+                                    "title": "<?= /* @noEscape */ __('Delete') ?>",
+                                    "content": "<?= /* @noEscape */ $alertDelete; ?>?"
+                                }
+                            }'>
+                                            <i class="delete-button"> &#x292C; </i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                } else {
+                    ?>
+                    <tr>
+                        <td colspan="5">
+                            <div class="message info empty margin-top">
+                                <span><?= /* @noEscape */ __('You have no saved cards.'); ?></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                } ?>
+                </tbody>
+            </table>
+        <?php } else { ?>
+
+            <div class="message info empty margin-top">
+                <span><?= /* @noEscape */ /*phpcs:ignore*/ __('Credit card payments are disabled at Gateway, kindly contact the webmaster.'); ?></span>
+                <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/')) ?>"
+                   target="_parent"><?= /* @noEscape */ __("Go to Customer Account"); ?></a>
+            </div>
+
+        <?php } ?>
+
+    </div>
+<?php } ?>

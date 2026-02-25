@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="crimson_machtax_addTaxCode" instance="Crimson\MachTax\Observer\SetTaxCodeOnOrderSubmit" />
+    </event>
+    <event name="sales_quote_address_save_before">
+        <observer name="saveTaxCode" instance="Crimson\MachTax\Observer\SaveQuoteAddressTaxCode" />
+    </event>
+    <event name="mach_add_order_before_request">
+        <observer name="addTaxCodeAddOrderCall" instance="Crimson\MachTax\Observer\AddTaxCodeParametersAddOrderCall" />
+    </event>
+</config>

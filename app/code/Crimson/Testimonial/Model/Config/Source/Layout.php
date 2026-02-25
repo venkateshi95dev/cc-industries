@@ -1,0 +1,106 @@
+<?php
+
+namespace Crimson\Testimonial\Model\Config\Source;
+
+use Magento\Framework\Data\OptionSourceInterface;
+
+class Layout implements OptionSourceInterface
+{
+
+    public function toOptionArray(): array
+    {
+        return [
+                [
+                 'value' => 'list',
+                 'label' => __('List'),
+                ],
+                [
+                 'value' => 'grid',
+                 'label' => __('Grid'),
+                ],
+                [
+                 'value' => 'grid1',
+                 'label' => __('Grid 1'),
+                ],
+                [
+                 'value' => 'grid2',
+                 'label' => __('Grid 2'),
+                ],
+                [
+                 'value' => 'style1',
+                 'label' => __('Style 1'),
+                ],
+                [
+                 'value' => 'style2',
+                 'label' => __('Style 2'),
+                ],
+                [
+                 'value' => 'style3',
+                 'label' => __('Style 3'),
+                ],
+                [
+                 'value' => 'style4',
+                 'label' => __('Style 4'),
+                ],
+                [
+                 'value' => 'slide1',
+                 'label' => __('Slide 1'),
+                ],
+                [
+                 'value' => 'slide2',
+                 'label' => __('Slide 2'),
+                ],
+                [
+                 'value' => 'topmeta',
+                 'label' => __('Top Meta'),
+                ],
+                [
+                 'value' => 'bottommeta',
+                 'label' => __('Bottom Meta'),
+                ],
+                [
+                 'value' => 'alltop',
+                 'label' => __('Image And Meta On Top'),
+                ],
+                [
+                 'value' => 'allbottom',
+                 'label' => __('Image And Meta On Bottom'),
+                ],
+                [
+                 'value' => 'topimage',
+                 'label' => __('Top Image'),
+                ],
+                [
+                 'value' => 'bottomimage',
+                 'label' => __('Bottom Image'),
+                ],
+               ];
+    }
+
+    /**
+     * Get options in "key-value" format
+     *
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+                'grid2'        => __('List'),
+                'grid'         => __('Grid'),
+                'grid1'        => __('Grid1'),
+                'grid2'        => __('Grid2'),
+                'style1'       => __('Style 1'),
+                'style2'       => __('Style 2'),
+                'style3'       => __('Style 3'),
+                'style4'       => __('Style 4'),
+                'style1'       => __('Slide 1'),
+                'style1'       => __('Slide 2'),
+                'topmeta'      => __('Top Meta'),
+                'bottommeta'   => __('Bottom Meta'),
+                'alltop'       => __('Image And Meta On Top'),
+                'allbottom'    => __('Image And Meta On Bottom'),
+                'centertop'    => __('Center Image And Meta On Top'),
+                'centerbottom' => __('Center Image And Meta On Bottom'),
+               ];
+    }
+}

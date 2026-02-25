@@ -1,0 +1,45 @@
+<?php
+/**
+ * @var \Amasty\Xsearch\Block\Search\Product $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var array $products
+ * phpcs:ignoreFile
+ */
+$products = $block->getProducts();
+?>
+
+<?php if (count($products)): ?>
+    <div class="amsearch-products test" data-amsearch-js="products">
+        <p class="amasty-xsearch-block-header">
+            <?= $escaper->escapeHtml(__($block->getTitle()))?>
+        </p>
+        <div class="amsearch-wrapper-content">
+            <?php foreach ($products as $id => $product): ?>
+                <div class="amsearch-item product-item" data-amsearch-js="product-item"
+                     data-click-url="<?= $escaper->escapeUrl($block->getFullLink($product['url'])) ?>">
+                    <div class="amsearch-autocomplete-information">
+                        <div class="information-container">
+                            <div class="product details product-item-details">
+                                <a class="product-item-link"
+                                   href="<?= $escaper->escapeUrl($block->getFullLink($product['url'])) ?>"
+                                   title="<?= $escaper->escapeHtml($block->stripTags($product['name'])); ?>">
+                                    <?= /* @noEscape */ $product['name'] ?>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <?php if ($block->getNumResults() > $block->getLimit()): ?>
+            <div class="amsearch-more-results">
+                <a href="<?= $escaper->escapeUrl($block->getResultUrl()) ?>"
+                   title="<?= $escaper->escapeHtml(__('View All'))?>"
+                    class="amsearch-link">
+                    <?= $escaper->escapeHtml(__('View All')) ?>
+                    <span> (<?= $escaper->escapeHtml($block->getNumResults()) ?>)</span>
+                </a>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

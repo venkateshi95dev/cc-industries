@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2022 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_Category
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <item name="createCategoryList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">category</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <!-- First element is value of constant -->
+                <item name="category" xsi:type="array">
+                    <item name="targetKey" xsi:type="string">targetId</item>
+                    <item name="referenceKey" xsi:type="string">categoryName</item>
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\Category\Model\DataPersistence\Category</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_info">
+        <action method="setTemplate" >
+            <argument name="template" xsi:type="string">Ebizcharge_Ebizcharge::order/view/info.phtml</argument>
+        </action>
+        </referenceBlock>
+        <referenceBlock name="order_items">
+            <arguments>
+                <argument name="columns" xsi:type="array">
+                    <item name="subscribed" xsi:type="string" translate="true">Subscription</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="default_order_items_renderer">
+            <arguments>
+                <argument name="columns" xsi:type="array">
+                    <item name="subscribed" xsi:type="string" translate="false">col-subscribed</item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+
+        <!-- EbizCharge Surcharge -->
+        <referenceContainer name="order_totals">
+            <block class="Ebizcharge\Ebizcharge\Block\Adminhtml\Sales\Order\SurchargeTotals"
+                   ifconfig="payment/ebizcharge_ebizcharge/active"
+                   name="ebiz_surcharge_order_view"/>
+        </referenceContainer>
+    </body>
+</page>

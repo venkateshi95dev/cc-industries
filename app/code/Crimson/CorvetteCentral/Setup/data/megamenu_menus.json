@@ -1,0 +1,22 @@
+{
+  "menu_name": "Corvette Central Menu",
+  "menu_design_type": "horizontal",
+  "menu_alignment": "center",
+  "menu_style": "",
+  "is_active": 1,
+  "menu_type": 2,
+  "is_sticky": "2",
+  "customer_groups": "0,1,2,3,4,5,6,7,8,9,10,11,12,14,18,19,20,21",
+  "creation_time": "2025-02-25 17:37:51",
+  "update_time": "2025-02-26 20:58:37",
+  "show_verticalmenu_with_megamenu": 0,
+  "show_vertical_menu_on": "click",
+  "display_position": "left",
+  "display_overlay": 0,
+  "vertical_menu_title": "All Category Menu",
+  "exclude_category_ids": null,
+  "show_category_icon_with_menu": 0,
+  "show_category_count": 0,
+  "show_view_more": 0,
+  "no_of_sub_category_to_show": 7
+}

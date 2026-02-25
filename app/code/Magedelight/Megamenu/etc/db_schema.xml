@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="megamenu_menus" resource="default" engine="innodb" comment="Megamenu Menu Table">
+    <column xsi:type="smallint" name="menu_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Menu ID"/>
+    <column xsi:type="varchar" name="menu_name" nullable="true" length="255" comment="Menu Name"/>
+    <column xsi:type="varchar" name="menu_design_type" nullable="true" length="255" comment="Menu Design Type"/>
+    <column xsi:type="text" name="menu_style" nullable="true" comment="Menu Style"/>
+    <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false" default="1" comment="Is Menu Active"/>
+    <column xsi:type="smallint" name="menu_type" padding="6" unsigned="false" nullable="false" identity="false" default="1" comment="Menu Type"/>
+    <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Menu Creation Time"/>
+    <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Menu Modification Time"/>
+    <column xsi:type="text" name="customer_groups" nullable="true" onCreate="migrateDataFrom(customer_groups)"/>
+    <column xsi:type="varchar" name="is_sticky" nullable="true" length="255" comment="Is Sticky"/>
+    <column xsi:type="varchar" name="menu_alignment" nullable="true" length="255" comment="Menu Alignment"/>
+    <column xsi:type="smallint" name="show_verticalmenu_with_megamenu" padding="6" unsigned="false" nullable="false" identity="false" comment="Show Vertical Menu with Megamenu" />
+    <column xsi:type="text" name="show_vertical_menu_on" nullable="true" comment="Show Vertical Menu On"/>
+    <column xsi:type="text" name="display_position" nullable="true" comment="Display Position"/>
+    <column xsi:type="smallint" name="display_overlay" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Display Overlay"/>
+    <column xsi:type="text" name="vertical_menu_title" nullable="true" comment="Vertical Menu Title" />
+    <column xsi:type="varchar" name="exclude_category_ids" nullable="true" comment="Exclude Category Ids for Vertical Menu" />
+    <column xsi:type="smallint" name="show_category_icon_with_menu" padding="6" unsigned="false" nullable="false" identity="false" comment="Show Category Icon With Menu" />
+    <column xsi:type="smallint" name="show_category_count" padding="6" unsigned="false" nullable="false" identity="false" comment="Show Category Count" />
+    <column xsi:type="smallint" name="show_view_more" padding="6" unsigned="false" nullable="false" identity="false" comment="Show View More" />
+    <column xsi:type="smallint" name="no_of_sub_category_to_show" padding="6" unsigned="false" nullable="false" identity="false" comment="No of Subcategory To Show" />
+    <column xsi:type="varchar" name="main_menu_hover" nullable="true" comment="Main Menu hover css" />
+    <column xsi:type="varchar" name="sub_menu_hover" nullable="true" comment="Child Menu hover css" />
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="menu_id"/>
+    </constraint>
+    <index referenceId="MEGAMENU_MENUS_MENU_ID" indexType="btree">
+      <column name="menu_id"/>
+    </index>
+    <index referenceId="MEGAMENU_MENUS_MENU_NAME" indexType="fulltext">
+      <column name="menu_name"/>
+    </index>
+  </table>
+  <table name="megamenu_menus_store" resource="default" engine="innodb" comment="Menus To Store Linkage Table">
+    <column xsi:type="smallint" name="menu_id" padding="6" unsigned="false" nullable="false" identity="false" comment="Menu ID"/>
+    <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false" identity="false" comment="Store ID"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="menu_id"/>
+      <column name="store_id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MEGAMENU_MENUS_STORE_MENU_ID_MEGAMENU_MENUS_MENU_ID" table="megamenu_menus_store" column="menu_id" referenceTable="megamenu_menus" referenceColumn="menu_id" onDelete="CASCADE"/>
+    <constraint xsi:type="foreign" referenceId="MEGAMENU_MENUS_STORE_STORE_ID_STORE_STORE_ID" table="megamenu_menus_store" column="store_id" referenceTable="store" referenceColumn="store_id" onDelete="CASCADE"/>
+    <index referenceId="MEGAMENU_MENUS_STORE_MENU_ID" indexType="btree">
+      <column name="menu_id"/>
+    </index>
+  </table>
+  <table name="megamenu_menu_items" resource="default" engine="innodb" comment="Megamenu Item Table">
+    <column xsi:type="smallint" name="item_id" padding="6" unsigned="false" nullable="false" identity="true" comment="Item ID"/>
+    <column xsi:type="varchar" name="item_name" nullable="true" length="255" comment="Item Name"/>
+    <column xsi:type="varchar" name="item_type" nullable="true" length="255" comment="Item Type"/>
+    <column xsi:type="smallint" name="sort_order" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Sort Order"/>
+    <column xsi:type="smallint" name="item_parent_id" padding="6" unsigned="false" nullable="false" identity="false" default="0" comment="Item Parent Id"/>
+    <column xsi:type="smallint" name="menu_id" padding="6" unsigned="false" nullable="false" identity="false" comment="Menu Id"/>
+    <column xsi:type="smallint" name="object_id" padding="6" unsigned="false" nullable="false" identity="false" comment="Object Id"/>
+    <column xsi:type="varchar" name="item_link" nullable="true" length="255" comment="Item Link"/>
+    <column xsi:type="text" name="item_columns" nullable="true" comment="Items Columns Json"/>
+    <column xsi:type="text" name="item_font_icon" nullable="true" comment="Item font Icons"/>
+    <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP" comment="Item Creation Time"/>
+    <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP" comment="Item Modification Time"/>
+    <column xsi:type="varchar" name="item_class" nullable="true" length="255" comment="Items Classes"/>
+    <column xsi:type="varchar" name="animation_option" nullable="true" length="255" comment="Animation Option"/>
+    <column xsi:type="smallint" name="category_display" padding="255" unsigned="false" nullable="true" identity="false" comment="Category display"/>
+    <column xsi:type="text" name="category_columns" nullable="true" comment="Category Columns Json"/>
+    <column xsi:type="smallint" name="category_vertical_menu" padding="255" unsigned="false" nullable="true" identity="false" comment="Category Vertical Menu Enable?"/>
+    <column xsi:type="varchar" name="category_vertical_menu_bg" nullable="true" length="10" comment="Category Vertical Menu Bg Color"/>
+    <column xsi:type="varchar" name="vertical_cat_exclude" nullable="true" length="255" comment="Vertical Exclude Child Category"/>
+    <column xsi:type="varchar" name="vertical_cat_sortby" nullable="true" length="255" comment="Vertical Category Sort By"/>
+    <column xsi:type="varchar" name="vertical_cat_sortorder" nullable="true" length="255" comment="Vertical Category Sort Order"/>
+    <column xsi:type="varchar" name="vertical_cat_level" nullable="true" length="255" comment="Vertical Child Category Level"/>
+    <column xsi:type="smallint" name="product_display" padding="255" unsigned="false" nullable="true" identity="false" comment="Product Display"/>
+    <column xsi:type="smallint" name="open_in_new_tab" padding="255" unsigned="false" nullable="true" identity="false" comment="Open In New Tab"/>
+    <column xsi:type="varchar" name="menu_icon" nullable="true" length="255" comment="Menu Icon"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="item_id"/>
+    </constraint>
+    <index referenceId="MEGAMENU_MENU_ITEMS_ITEM_ID" indexType="btree">
+      <column name="item_id"/>
+    </index>
+    <index referenceId="MEGAMENU_MENU_ITEMS_ITEM_NAME" indexType="fulltext">
+      <column name="item_name"/>
+    </index>
+  </table>
+    <table name="megamenu_cache" resource="default" engine="innodb" comment="Maga Menu Cache Table">
+        <column xsi:type="int" name="cache_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="cache_id"/>
+        </constraint>
+        <column xsi:type="varchar"  name="name" nullable="true" comment="name" length="255"/>
+        <column xsi:type="mediumtext"  name="html_value" nullable="true" comment="HTML Value"/>
+        <column xsi:type="int" name="store_id" nullable="true" comment="store_id" identity="false"/>
+    </table>
+
+  <table name="megamenu_label" resource="default" engine="innodb" comment="megamenu_label Table">
+    <column xsi:type="int" name="label_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="label_id"/>
+    </constraint>
+    <column name="shape" nullable="false" xsi:type="varchar" comment="Label Shape" length="255"/>
+    <column name="text" nullable="false" xsi:type="varchar" comment="Label Text" length="255"/>
+    <column name="text_color" nullable="true" xsi:type="varchar" comment="Label Text Color" length="255"/>
+    <column name="background_color" nullable="true" xsi:type="varchar" comment="Label Background Color" length="255"/>
+    <column name="product_assign" nullable="true" xsi:type="text" comment="Product Assign"/>
+    <column name="category_assign" nullable="true" xsi:type="text" comment="category_assign"/>
+    <column xsi:type="int" name="store_id" padding="10" unsigned="true" nullable="false" comment="Store Id"/>
+  </table>
+</schema>

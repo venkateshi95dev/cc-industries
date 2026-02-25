@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\I95DevConnect\TierPrice\Model\DataPersistence\TierPrice" type="\I95DevConnect\PriceLevel\Model\DataPersistence\PriceLevelTierPrice"/>
+    <virtualType name="Magento\Catalog\Pricing\Price\Pool" type="Magento\Framework\Pricing\Price\Pool">
+        <arguments>
+            <argument name="prices" xsi:type="array">
+                <item name="final_price" xsi:type="string">I95DevConnect\PriceLevel\Pricing\Price\FinalPrice</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <item name="createPriceLevelList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">pricelevel</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <item name="pricelevel" xsi:type="array">
+                    <item name="targetKey" xsi:type="string">targetPricelevel</item>
+                    <item name="referenceKey" xsi:type="string">targetPricelevel</item> 
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="method" xsi:type="string">create</item>
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\PriceLevel\Model\DataPersistence\PriceLevel</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\CloudConnect\Model\Service">
+        <arguments>
+            <argument name="serviceEntityCode" xsi:type="array">
+                <item name="PriceLevel" xsi:type="string">PriceLevel</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Pricing\Price\MinimalTierPriceCalculator">
+        <plugin name="i95dev_pricelevel_minimal_tierprice_calc"
+                type="I95DevConnect\PriceLevel\Plugin\Pricing\Price\MinimalTierPriceCalculator" />
+    </type>
+    <type name="Magento\Framework\App\Http\Context">
+      <plugin name="pricelevelcontextfullpagecache" type="I95DevConnect\PriceLevel\Plugin\PriceLevelContextPlugin" />
+    </type>
+    <preference for="Magento\Bundle\Pricing\Price\FinalPrice"
+                type="I95DevConnect\PriceLevel\Pricing\Price\BundleFinalPrice"/>
+    <preference for="Magento\ConfigurableProduct\Pricing\Price\FinalPrice"
+                type="I95DevConnect\PriceLevel\Pricing\Price\ConfigurableFinalPrice"/>
+</config>

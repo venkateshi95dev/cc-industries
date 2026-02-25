@@ -1,0 +1,486 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Model\Payment;
+use Ebizcharge\Ebizcharge\Api\Data\PaymentInterface;
+use Ebizcharge\Ebizcharge\Model\Config as ConfigModel;
+use Magento\Sales\Block\Adminhtml\Order\View\Info;
+
+
+/**
+ * @var Info $block
+ */
+$order = $block->getOrder();
+/**
+ * Payment of the Order
+ */
+$payment = $order->getPayment();
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$ebizConfig = $objectManager->get(ConfigModel::class);
+
+$baseCurrencyCode = (string)$order->getBaseCurrencyCode();
+$globalCurrencyCode = (string)$order->getGlobalCurrencyCode();
+$orderCurrencyCode = (string)$order->getOrderCurrencyCode();
+
+$orderAdminDate = $block->formatDate(
+    $block->getOrderAdminDate($order->getCreatedAt()),
+    IntlDateFormatter::MEDIUM,
+    true
+);
+
+$orderStoreDate = $block->formatDate(
+    $order->getCreatedAt(),
+    IntlDateFormatter::MEDIUM,
+    true,
+    $block->getTimezoneForStore($order->getStore())
+);
+
+$customerUrl = $block->getCustomerViewUrl();
+
+$allowedAddressHtmlTags = ['b', 'br', 'em', 'i', 'li', 'ol', 'p', 'strong', 'sub', 'sup', 'ul'];
+
+$downloaded = "";
+
+$parentOrderId = "";
+
+if ($payment->getEbzcOption() === PaymentInterface::EBIZCHARGE_PAYMENT_OPTION_TYPE_DOWNLOAD_ORDER) {
+    $downloaded = __("Downloaded ");
+    $isRecurring = $payment->getAdditionalInformation("is_recurring");
+    if ($isRecurring) {
+        $downloaded = __("Recurring ");
+    }
+    $parentOrderId = $payment->getEbzcParentOrderId();
+}
+
+
+?>
+
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /* @noEscape */
+            __('Order & Account Information') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <?php /* Order Information */ ?>
+            <?php $confirmationEmailStatusMessage = $order->getEmailSent() ?
+                __('The order confirmation email was sent') :
+                __('The order confirmation email is not sent'); ?>
+            <div class="admin__page-section-item-title">
+                <span class="title">
+                    <?php if ($block->getNoUseOrderLink()): ?>
+                        <?= $block->escapeHtml(__('Order # %1', $order->getRealOrderId())) ?> (
+                        <span><?= /* @noEscape */
+                            $confirmationEmailStatusMessage ?></span>)
+                    <?php else: ?>
+                        <a href="<?= $block->escapeUrl($block->getViewUrl($order->getId())) ?>">
+                            <?= $block->escapeHtml(__('Order # %1', $order->getRealOrderId())) ?>
+                        </a>
+                        <span>(<?= /* @noEscape */
+                            $confirmationEmailStatusMessage ?>)</span>
+                    <?php endif; ?>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                    <tr>
+                        <th><?= /* @noEscape */
+                            __('Order Date') ?></th>
+                        <td><?= $block->escapeHtml($orderAdminDate) ?></td>
+                    </tr>
+                    <?php if ($orderAdminDate != $orderStoreDate): ?>
+                        <tr>
+                            <th><?= $block->escapeHtml(__(
+                                    'Order Date (%1)',
+                                    $block->getTimezoneForStore($order->getStore())
+                                )) ?></th>
+                            <td><?= $block->escapeHtml($orderStoreDate) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <tr>
+                        <th><?= /* @noEscape */
+                            __('Order Status') ?></th>
+                        <td><span id="order_status"><?= $block->escapeHtml($order->getStatusLabel()) ?></span></td>
+                    </tr>
+                    <?= /* @noEscape */
+                    $block->getChildHtml() ?>
+                    <?php if ($block->isSingleStoreMode() == false): ?>
+                        <tr>
+                            <th><?= /* @noEscape */
+                                __('Purchased From') ?></th>
+                            <td><?= $block->escapeHtml($block->getOrderStoreName(), ['br']) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($order->getRelationChildId()): ?>
+                        <tr>
+                            <th><?= /* @noEscape */
+                                __('Link to the New Order') ?></th>
+                            <td>
+                                <a href="<?= $block->escapeUrl($block->getViewUrl($order->getRelationChildId())) ?>">
+                                    <?= $block->escapeHtml($order->getRelationChildRealId()) ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($order->getRelationParentId()): ?>
+                        <tr>
+                            <th><?= /* @noEscape */
+                                __('Link to the Previous Order') ?></th>
+                            <td>
+                                <a href="<?= $block->escapeUrl($block->getViewUrl($order->getRelationParentId())) ?>">
+                                    <?= $block->escapeHtml($order->getRelationParentRealId()) ?>
+                                </a>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($order->getRemoteIp() && $block->shouldDisplayCustomerIp()): ?>
+                        <tr>
+                            <th><?= /* @noEscape */
+                                __('Placed from IP') ?></th>
+                            <td><?= $block->escapeHtml($order->getRemoteIp()); ?>
+                                <?= $order->getXForwardedFor() ? ' (' . $block->escapeHtml($order->getXForwardedFor()) .
+                                    ')' : ''; ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($globalCurrencyCode !== $baseCurrencyCode): ?>
+                        <tr>
+                            <th>
+                                <?= /* @noEscape */
+                                __('%1 / %2 rate:', $globalCurrencyCode, $baseCurrencyCode) ?>
+                            </th>
+                            <td><?= $block->escapeHtml($order->getBaseToGlobalRate()) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($baseCurrencyCode !== $orderCurrencyCode &&
+                        $globalCurrencyCode !== $orderCurrencyCode): ?>
+                        <tr>
+                            <th><?= $block->escapeHtml(__(
+                                    '%1 / %2 rate:',
+                                    $orderCurrencyCode,
+                                    $baseCurrencyCode
+                                )) ?></th>
+                            <td><?= $block->escapeHtml($order->getBaseToOrderRate()) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if ($parentOrderId !== ""): ?>
+                        <tr>
+                            <th><?= /* @noEscape */
+                                __('Parent Order') ?></th>
+                            <td><?= $block->escapeHtml($parentOrderId) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                </table>
+            </div>
+        </div>
+
+        <div class="admin__page-section-item order-account-information">
+            <?php /* Account Information */ ?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= /* @noEscape */
+                    __('Account Information') ?></span>
+                <div class="actions">
+                    <?php if ($customerUrl): ?>
+                        <a href="<?= $block->escapeUrl($customerUrl) ?>" target="_blank">
+                            <?= /* @noEscape */
+                            __('Edit Customer') ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-account-information-table">
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Customer Name')) ?></th>
+                        <td>
+                            <?php if ($customerUrl): ?>
+                                <a href="<?= $block->escapeUrl($customerUrl) ?>" target="_blank">
+                                    <span><?= $block->escapeHtml($order->getCustomerName()) ?></span>
+                                </a>
+                            <?php else: ?>
+                                <?= $block->escapeHtml($order->getCustomerName()) ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('Email')) ?></th>
+                        <td>
+                            <a href="mailto:<?= $block->escapeHtmlAttr($order->getCustomerEmail()) ?>">
+                                <?= $block->escapeHtml($order->getCustomerEmail()) ?>
+                            </a>
+                        </td>
+                    </tr>
+                    <?php if ($groupName = $block->getCustomerGroupName()): ?>
+                        <tr>
+                            <th><?= $block->escapeHtml(__('Customer Group')) ?></th>
+                            <td><?= $block->escapeHtml($groupName) ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php foreach ($block->getCustomerAccountData() as $data): ?>
+                        <tr>
+                            <th><?= $block->escapeHtml($data['label']) ?></th>
+                            <td><?= $block->escapeHtml($data['value'], ['br']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <?= /* @noEscape */
+                    $block->getChildHtml('extra_customer_info') ?>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<?php
+/** @var  $paymentMethod */
+$paymentMethod = $order->getPayment()->getMethod();
+$notAvailable = "&#10057;";
+/** Ebizcharge Gateway API Section */
+if ($paymentMethod == PaymentInterface::CODE):
+    ?>
+    <section class="admin__page-section order-addresses">
+        <div class="admin__page-section-title">
+            <span class="title">
+                <?= /** @noEscape */
+                __('EBizCharge Gateway Information') ?> <span
+                        class="small-title"><?= /** @noEscape */
+                    $downloaded ?></span>
+            </span>
+        </div>
+        <div class="admin__page-section-item order-account-information">
+            <?php /* EBizCharge Gateway Information */ ?>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-account-information-table">
+                    <tr>
+                        <th><?= /* @noEscape */
+                            __('EBizCharge Order ID') ?></th>
+                        <td>
+                            <span><b><?= /* @noEscape */
+                                    $order->getEcOrderId() ?
+                                        $block->escapeHtml($order->getEcOrderId()) : $block->escapeHtml($order->getIncrementId()); ?></b>
+                            </span>
+                        </td>
+                        <th><?= /* @noEscape */
+                            __('EBizCharge Internal Order ID') ?></th>
+                        <td>
+                            <b><span><?= /* @noEscape */
+                                    $order->getEcOrderInternalid() ?
+                                        $block->escapeHtml($order->getEcOrderInternalid()) : $notAvailable; ?></span>
+                            </b>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><?= /* @noEscape */
+                            __('Gateway Transaction Id') ?></th>
+                        <td>
+                            <b><?= /* @noEscape */
+                                    $payment->getCcTransId() ?? $notAvailable; ?></b>
+                        </td>
+                        <th><?= /* @noEscape */
+                            __('Payment Method') ?></th>
+                        <td>
+                            <?php
+                            $paymentMethodHtml = "";
+                            $paymentMethodId = $payment->getEbzcMethodId();
+                            $paymentMethod = $payment->getMethod();
+                            $paymentMethod = ucwords(substr(
+                                $paymentMethod,
+                                0,
+                                strpos($paymentMethod, "_")
+                            ));
+
+                            if ($paymentMethodId) {
+                                $paymentMethodHtml .= __("(Method Id: $paymentMethodId) **********" .
+                                    ($payment->getCcLast4() ?? $notAvailable));
+                            } else {
+                                if ($payment->getCcType() == PaymentInterface::EBIZCHARGE_METHOD_TYPE_PAY_LATER) {
+                                    $paymentMethodHtml .= __(ucwords("Pay Later") ?? $notAvailable);
+                                } else {
+                                    $paymentMethodHtml .= __("**********" . $payment->getCcLast4() ??
+                                        $notAvailable);
+                                }
+                            }
+                            ?>
+                            <span class="pay-later-method-label">&#10026;
+                                <b> <?= /** @noEscape */
+                                    $paymentMethod ?>: </b>
+                                <?= /** @noEscape */
+                                $paymentMethodHtml; ?>
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                          <?php if($order->getCustomerId()){ ?>
+
+                        <th><?= /* @noEscape */
+                            __('Batch Ref #') ?></th>
+                        <td>
+                            <b><?= /* @noEscape */
+                                $payment->getEbzcBatchRefNumber() ?
+                                    $block->escapeHtml($payment->getEbzcBatchRefNumber()) : $notAvailable; ?>
+                            </b>
+                        </td>
+                          <?php }else{?>
+                              <th><?= /* @noEscape */
+                                  __('Auth Code #') ?></th>
+                              <td>
+                                  <b><?= /* @noEscape */
+                                          $order->getPayment()->getEbzcAuthcode()?? $notAvailable; ?></b>
+                              </td>
+
+                          <?php } ?>
+
+
+                        <th><?= /* @noEscape */
+                            __('Payment Result') ?></th>
+                        <td>
+                            <span><b><?= /* @noEscape */
+                                    $payment->getEbzcResult() ?
+                                        $block->escapeHtml($payment->getEbzcResult()) : $notAvailable; ?></b></span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <?php if($order->getCustomerId()){  ?>
+                        <th><?= /* @noEscape */
+                            __('Application Payment Ref #') ?></th>
+                        <td>
+                            <b><?= /* @noEscape */
+                                $order->getPayment()->getEbzcApplicationPaymentRefId() ?
+                                    $block->escapeHtml($order->getPayment()->getEbzcApplicationPaymentRefId()) :
+                                    $notAvailable; ?></b>
+                        </td>
+                        <?php }else{?>
+                            <th><?= /* @noEscape */
+                                __('Quote ID #') ?></th>
+                            <td>
+                                <b><?= /* @noEscape */
+                                    $order->getQuoteId()?? $notAvailable; ?></b>
+                            </td>
+
+                        <?php } ?>
+
+
+                        <th><?= /** @noEscape */
+                            __('EBizCharge PO #') ?></th>
+                        <td>
+                            <span><b><?= /* @noEscape */
+                                    $order->getEcPoNumber() ?
+                                        $block->escapeHtml($order->getEcPoNumber()) : $block->escapeHtml($order->getIncrementId()); ?></b></span>
+                        </td>
+                    </tr>
+
+
+
+                    <tr>
+                        <th><?= /* @noEscape */
+                            __('Date Uploaded') ?></th>
+                        <td>
+                            <b><?= /* @noEscape */
+                                $order->getEcDateUploaded() ?
+                                    $block->escapeHtml($order->getEcDateUploaded()) : $block->escapeHtml($order->getCreatedAt()) ?></b>
+                        </td>
+                        <th><?= /* @noEscape */
+                            __('Due Date') ?></th>
+                        <td>
+                            <span> <b><?= /* @noEscape */
+                                    $order->getEcDueDate() ?
+                                        $block->escapeHtml($order->getEcDueDate()) : $block->escapeHtml($order->getUpdatedAt()); ?></b></span>
+                        </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #ccc;">
+                        <th><?= /* @noEscape */
+                            __('Created In') ?></th>
+                        <td>
+                            <b><?= /* @noEscape */
+                                $order->getEcCreatedIn() ?
+                                    $block->escapeHtml($order->getEcCreatedIn()) : $notAvailable; ?></b>
+                        </td>
+                        <th><?= /* @noEscape */
+                            __('Division ID') ?></th>
+                        <td>
+                            <b><?= /* @noEscape */
+                                $order->getEcDivisionId() ?
+                                    $block->escapeHtml($order->getEcDivisionId()) : $notAvailable; ?></b>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </section>
+<?php endif; ?>
+
+<section class="admin__page-section order-addresses">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /** @noEscape */
+            __('Address Information') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-billing-address">
+            <?php /* Billing Address */ ?>
+            <div class="admin__page-section-item-title">
+                <span class="title"><?= /** @noEscape */
+                    __('Billing Address') ?></span>
+                <div class="actions">
+                    <?= /* @noEscape */
+                    $block->getAddressEditLink($order->getBillingAddress()) ?>
+                </div>
+            </div>
+            <address class="admin__page-section-item-content">
+                <?= $block->escapeHtml(
+                    $block->getFormattedAddress($order->getBillingAddress()),
+                    $allowedAddressHtmlTags
+                ) ?>
+            </address>
+        </div>
+        <?php if (!$block->getOrder()->getIsVirtual()): ?>
+            <div class="admin__page-section-item order-shipping-address">
+                <?php /* Shipping Address */ ?>
+                <div class="admin__page-section-item-title">
+                    <span class="title"><?= /** @noEscape */
+                        __('Shipping Address') ?></span>
+                    <div class="actions">
+                        <?= /* @noEscape */
+                        $block->getAddressEditLink($order->getShippingAddress()); ?>
+                    </div>
+                </div>
+                <address class="admin__page-section-item-content">
+                    <?= $block->escapeHtml(
+                        $block->getFormattedAddress($order->getShippingAddress()),
+                        $allowedAddressHtmlTags
+                    ); ?>
+                </address>
+            </div>
+        <?php endif; ?>
+    </div>
+</section>
+<style>
+    <?php if($ebizConfig->getVoidOrderEditFlow($ebizConfig->getStore()->getId()) === "2"){ ?>
+    #order_edit { display: none; }
+    <?php }else{?>  #get_review_payment_update { display: none;  } <?php }?>
+</style>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="mach">
+        <job name="mach_order_submission"
+             instance="Crimson\MachOrder\Cron\ExportOrdersToMach"
+             method="execute">
+            <config_path>mach/order/export_schedule</config_path>
+        </job>
+        <job name="mach_order_updated_short_term"
+             instance="Crimson\MachOrder\Cron\UpdateOrdersFromMach"
+             method="executeShortTermUpdate">
+            <config_path>mach/order/update_from_mach_short_term_schedule</config_path>
+        </job>
+        <job name="mach_order_updated_long_term"
+             instance="Crimson\MachOrder\Cron\UpdateOrdersFromMach"
+             method="executeLongTermUpdate">
+            <config_path>mach/order/update_from_mach_long_term_schedule</config_path>
+        </job>
+        <job name="mach_order_update_scheduled"
+             instance="Crimson\MachOrder\Cron\UpdateScheduledOrders"
+             method="execute">
+            <config_path>mach/order/mach_order_update_scheduled</config_path>
+        </job>
+    </group>
+</config>

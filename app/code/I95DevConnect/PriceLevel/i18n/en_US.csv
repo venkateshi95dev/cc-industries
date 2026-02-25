@@ -1,0 +1,6 @@
+Price Levels,"Price Groups",
+Price Level,"Price Group",
+Price Level Description,"Price Group Description",
+Price Level:,"Price Group:",
+i95dev_pricelevel_001,"Price Level Description Is Required"
+i95dev_pricelevel_002,"(targetPricelevel) Target Price Level Is Required"

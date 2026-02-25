@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="crimson_most_viewed" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Crimson MostViewed Products Section</label>
+                <field id="enabled" type="select" translate="label comment" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Section</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Turns On/Off MostViewed Products section on category pages.</comment>
+                </field>
+                <field id="event_age" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Events Age</label>
+                    <source_model>\Crimson\Category\Model\Source\AgeOptions</source_model>
+                    <comment>Number of days to analyze the count of views going back. If no value is selected then no range will be set.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

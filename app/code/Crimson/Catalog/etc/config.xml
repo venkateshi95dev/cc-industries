@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <crimson>
+                <stock_ok><![CDATA[<span class="label label-success"><i class="fa fa-check-circle"></i>In Stock</span> - %1]]></stock_ok>
+                <out_of_stock_dropship><![CDATA[<span class="label label-info"><i class="fa fa-truck"></i>Dropship</span> - This item ships direct from the manufacturer and is not eligible for express shipping.]]></out_of_stock_dropship>
+                <out_of_stock_no_dropship><![CDATA[<span class="label label-important"><i class="fa fa-plus-circle"></i>Available On Backorder</span> - This item is available, but on backorder. <strong>Most</strong> items will ship within 2-3 weeks.]]></out_of_stock_no_dropship>
+            </crimson>
+            <crimson_homepage_products>
+                <cron_enabled>0</cron_enabled>
+                <generations>C1,C2,C3,C4,C5,C6,C7,Apparel,Accessories</generations>
+                <new_section_schedule>0 3 * * *</new_section_schedule>
+                <purchased_section_schedule>0 4 * * *</purchased_section_schedule>
+                <purchased_price_filter>25</purchased_price_filter>
+                <sections_max_results>10</sections_max_results>
+            </crimson_homepage_products>
+            <crimson_eta>
+                <default_message><![CDATA[<span class="label label-important"><i class="fa fa-plus-circle"></i>Available On Backorder</span> - This item is available, but on backorder. <strong>Most</strong> items will ship within 2-3 weeks.]]></default_message>
+            </crimson_eta>
+            <special_price_update>
+                <cron_enabled>0</cron_enabled>
+                <cron_schedule>0 * * * *</cron_schedule>
+            </special_price_update>
+            <crimson_availability>
+                <oos_message><![CDATA[Out Of Stock]]></oos_message>
+            </crimson_availability>
+        </catalog>
+    </default>
+</config>

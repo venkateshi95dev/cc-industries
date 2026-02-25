@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <amseorichdata>
+            <product>
+                <account_backorder_enabled>1</account_backorder_enabled>
+                <backorder_future_date>+3 week</backorder_future_date>
+                <backorder_preorder>https://schema.org/BackOrder</backorder_preorder>
+                <shipping_weight_added>0</shipping_weight_added>
+            </product>
+        </amseorichdata>
+    </default>
+</config>

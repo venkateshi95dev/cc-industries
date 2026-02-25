@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+  <menu>
+      <add id="Silk_Shipping::manage" title="P21 Shipping CarrierID Mapping" translate="title" parent="Silk_Core::configuration"
+             module="Silk_Shipping" action="mappingshipping/index/index" sortOrder="10" resource="Silk_Shipping::manage"/>
+  </menu>
+</config>

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="sales_order_mach_customer" resource="sales" engine="innodb" comment="Mach Order Customer Data">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Mach Order Data Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Order ID"/>
+        <column xsi:type="int" name="mach_customer_number" padding="10" unsigned="true" nullable="true" comment="Mach Customer Number"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_ORDER_MACH_CUSTOMER_ORDER_ID">
+            <column name="order_id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                referenceId="SALES_ORDER_MACH_CUSTOMER_ORDER_ID_SALES_ORDER_ENTITY_ID"
+                table="sales_order_mach_customer" column="order_id"
+                referenceTable="sales_order" referenceColumn="entity_id"
+                onDelete="CASCADE"/>
+        <index referenceId="SALES_ORDER_MACH_CUSTOMER_MACH_CUSTOMER_NUMBER" indexType="btree">
+            <column name="mach_customer_number"/>
+        </index>
+    </table>
+
+    <table name="customer_group_extension_attributes" resource="default" engine="innodb" comment="customer group extension attributes">
+        <column xsi:type="int" name="customer_group_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Customer Group Id"/>
+        <column xsi:type="int" name="customer_price_level" padding="10" nullable="true" default="0" identity="false"
+                comment="Customer Price Level"/>
+        <column xsi:type="boolean" name="mach_tax_exempt" nullable="true" default="0" comment="Mach Tax Exempt"/>
+        <column xsi:type="boolean" name="mach_tax_non_exempt" nullable="true" default="0" comment="Mach Tax Non Exempt"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="customer_group_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CUSTOMER_GROUP_EXTENSION_ATTRIBUTES_CUSTOMER_GROUP_ID_CUSTOMER_GROUP_CUSTOMER_GROUP_ID"
+                    table="customer_group_extension_attributes" column="customer_group_id" referenceTable="customer_group"
+                    referenceColumn="customer_group_id" onDelete="CASCADE"/>
+    </table>
+</schema>

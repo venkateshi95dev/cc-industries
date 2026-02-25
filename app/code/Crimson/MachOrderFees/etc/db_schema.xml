@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="decimal" name="core_charge_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Core Charge Amount"/>
+        <column xsi:type="decimal" name="base_core_charge_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Base Core Charge Amount"/>
+
+        <column xsi:type="decimal" name="additional_handling_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Additional Handling Amount"/>
+        <column xsi:type="decimal" name="base_additional_handling_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Base Additional Handling Amount"/>
+
+        <column xsi:type="text" name="core_charge_sku_list" nullable="true" comment="Text field to hold comma-delimited list of core-charge skus to be added to mach order."/>
+    </table>
+
+    <table name="sales_invoice">
+        <column xsi:type="decimal" name="core_charge_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Core Charge Amount"/>
+        <column xsi:type="decimal" name="base_core_charge_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Base Core Charge Amount"/>
+
+        <column xsi:type="decimal" name="additional_handling_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Additional Handling Amount"/>
+        <column xsi:type="decimal" name="base_additional_handling_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Base Additional Handling Amount"/>
+
+        <column xsi:type="text" name="core_charge_sku_list" nullable="true" comment="Text field to hold comma-delimited list of core-charge skus to be added to mach order."/>
+    </table>
+
+    <table name="quote_address">
+        <column xsi:type="decimal" name="core_charge_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Core Charge Amount"/>
+        <column xsi:type="decimal" name="base_core_charge_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Base Core Charge Amount"/>
+
+        <column xsi:type="decimal" name="additional_handling_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Additional Handling Amount"/>
+        <column xsi:type="decimal" name="base_additional_handling_amount" scale="4" precision="12" unsigned="false"
+                nullable="false" default="0.00" comment="Base Additional Handling Amount"/>
+
+        <column xsi:type="text" name="core_charge_sku_list" nullable="true" comment="Text field to hold comma-delimited list of core-charge skus to be added to mach order."/>
+    </table>
+</schema>

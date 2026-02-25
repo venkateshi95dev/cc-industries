@@ -1,0 +1,35 @@
+{
+    "name": "crimson/machorder",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "crimson/machbase": "2.2.4",
+        "crimson/sales": "*",
+        "magento/module-checkout": "*",
+        "magento/module-customer": "*",
+        "magento/module-sales": "null",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+    },
+    "type": "magento2-module",
+    "version": "2.3.0",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\MachOrder\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/MachOrder"
+            ]
+        ]
+    }
+}

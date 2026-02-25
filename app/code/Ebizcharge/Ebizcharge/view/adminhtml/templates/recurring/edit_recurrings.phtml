@@ -1,0 +1,704 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\Recurring\Recurrings;
+
+/**
+ * @var Recurrings $block
+ */
+
+$_code = 'payment';
+$recurringId = $block->getRequest()->getParam('rid');
+$viewModel = $block->getViewModel();
+$requestCC = $block->getRequestCardCodeAdmin();
+$payment = $block->getSearchScheduledRecurringPayments();
+$profiles = $block->getPaymentMethods();
+$customerPaymentMethods = $block->getCutomerSavedPaymentMethods($recurringId);
+$recurring = $block->getRecurringData($recurringId);
+$mageCustomerId = $recurring->getMageCustId();
+$customerLink = $block->getUrl('customer/index/edit/id/' . $mageCustomerId);
+
+$displaySavedCards = true;
+$displaySavedBankAccounts = true;
+
+/** if empty of profiles */
+if (!empty($profiles)) {
+    $savedProfileTypes = array_column($profiles, 'MethodType');
+    $displaySavedCards = in_array('cc', $savedProfileTypes);
+}
+
+$getAchStatus = $block->getAchStatus();
+$paymentid = $block->getSavedPaymentMethodId($recurringId);
+
+$recindefinitely = 0;
+$frequency = null;
+
+$recindefinitely = $recurring->getRecIndefinitely();
+
+$recurringPaymentMethodId = $recurring->getEbRecMethodId();
+$start = date("Y-m-d", strtotime($recurring->getEbRecStartDate()));
+$expire = date("Y-m-d", strtotime($recurring->getEbRecEndDate()));
+
+// for subscription shipping address
+$orderId = (string)$recurring->getMageOrderId();
+$shippingAddressId = $recurring->getShippingAddressId();
+$shippingAddress = $block->getCustomerShippingAddress($orderId, $shippingAddressId);
+$isSurchargeEnaled = $block->isSurchargeEnabled();
+
+$frequency = $recurring->getEbRecFrequency();
+
+$billingAddressId = $recurring->getBillingAddressId();
+$billingAddress = $block->getCustomerBillingAddress($orderId, $billingAddressId);
+
+$customerData = $block->getCustomer($recurring->getMageCustId());
+$billingAddressOptions = $block->getCustomerAddressList($billingAddressId);
+$shippingAddressOptions = $billingAddressOptions;
+
+/** @var fetching $orderedItems */
+$orderedItems = $block->getRecurringOrderedItems($recurringId);
+
+if ($billingAddressId != $shippingAddressId) {
+    $shippingAddressOptions = $block->getCustomerAddressList($shippingAddressId);
+}
+/** @var  $paymentMethodName */
+$paymentMethodName = $recurring->getPaymentMethodName();
+$disabled = $block->isRecurringFieldsDisabled($recurringId);
+$mageOrderId = $recurring->getMageOrderId();
+$fromDate =  date("Y-m-d", strtotime($recurring->getEbRecStartDate()));
+$toDate =  date("Y-m-d", strtotime($recurring->getEbRecEndDate()));
+$shippingMethod = isset($recurring['shipping_method'])?$recurring['shipping_method']: "N/A";
+
+//dump($block->escapeHtmlAttr($shippingAddressId), $block->escapeHtmlAttr($billingAddressId) );exit;
+?>
+
+<div id="ebiz-avs-cvv-msg-div">
+    <div class="messages">
+        <div class="message message-error error">
+            <div id="avs-cvv-msg"></div>
+        </div>
+    </div>
+</div>
+
+<div id="container" class="main-col recurring-main-panel-container">
+    <form class=""
+          action="<?= $block->escapeUrl($block->getUrl(
+              'ebizcharge_ebizcharge/recurrings/updateaction',
+              ['_secure' => true]
+          )) ?>"
+          method="post" id="subscription-edit-form" enctype="multipart/form-data"
+          data-hasrequired="<?= /** @noEscape */
+          __('* Required Fields'); ?>">
+        <input type="hidden"
+               name="customer_id"
+               id="customer_id"
+               value="<?= $block->escapeHtmlAttr($customerData->getId()) ?>">
+        <input type="hidden"
+               name="is_from_customer_account"
+               id="is_from_customer_account"
+               value="1">
+
+        <input type="hidden"
+               name="requestCC"
+               id="requestCC"
+               value="<?= /** @noEscape */
+               $requestCC; ?>">
+        <input type="hidden"
+               name="addressActionUrl"
+               id="addressActionUrl"
+               value="<?= $block->escapeUrl($block->getUrl(
+                   'ebizcharge_ebizcharge/recurrings/addressaction'
+               )) ?>">
+        <input type="hidden"
+               name="loadCustomerAddressUrl"
+               id="loadCustomerAddressUrl"
+               value="<?= $block->escapeUrl($block->getUrl(
+                   'ebizcharge_ebizcharge/recurrings/loadcustomeraddressaction'
+               )) ?>">
+
+
+        <div class="mainContainer">
+            <div class="msgUnsub">
+                <p><?= /* @noEscape */
+                    $block->prepareRecurringMessage($recurringId); ?></p>
+            </div>
+
+            <table class="product-listing-table">
+                <tr class="itemTr">
+                    <td><strong><?= /* @noEscape */
+                            __("Item Information"); ?></strong></td>
+                    <td><strong><?= /* @noEscape */
+                            __("Item Sku"); ?></strong></td>
+                   <td><strong><?= /* @noEscape */ __("Price");?></strong></td>
+                    <td><strong><?= /* @noEscape */
+                            __("Subscribed Qty"); ?></strong></td>
+                    <td><strong><?= /* @noEscape */
+                            __("Tax"); ?></strong></td>
+                    <td><strong><?= /* @noEscape */
+                            __("Shipping Amount"); ?></strong></td>
+                    <?php
+                    if ($isSurchargeEnaled) { ?>
+                        <td><strong><?= /* @noEscape */
+                                __("Surcharge"); ?></strong></td>
+
+                    <?php } ?>
+                    <td><strong><?= /* @noEscape */
+                            __("Total Amount"); ?></strong></td>
+                </tr>
+                <?php
+                /** ordered items for this recurring */
+                if (count($orderedItems) > 0) {
+                    foreach ($orderedItems as $orderedItem) {
+
+                        $productId = $orderedItem->getMageItemId();
+                        $product = $block->getProduct($productId);
+                        $productImages = $product->getMediaGalleryImages();
+                        $qty = $orderedItem->getQtyOrdered();
+                        $productAmount = $orderedItem->getAmount();
+                        $formatedAmount = $block->formatPrice($productAmount);
+                        $productSku = $product->getSku();
+                        $productName = $product->getName();
+                        $couponCode = $recurring->getCouponCode();
+                        $productRuleId = $recurring->getProductRuleId();
+                        $discountAmount = $recurring->getDiscount();
+                        $cartRuleId = $recurring->getCartRuleId();
+                        $itemTaxAmount = $recurring->getTaxAmount() ?? 0;
+                        $itemShippingAmount = $recurring->getShippingAmount() ?? 0;
+                        $itemSurchargeAmount = $recurring->getSurchargeAmount() ?? 0;
+
+                        $taxAmount = $block->formatPrice($itemTaxAmount);
+                        $shippingAmount = $block->formatPrice($itemShippingAmount) ;
+                        $surchargeAmount = (float)$recurring->getSurchargeAmount();
+                        $totalGrandAmount = (float)$recurring->getGrandTotal();
+                        $grandTotal = (float)$recurring->getGrandTotal();
+
+                        if($isSurchargeEnaled){
+                            $surchargeAmount = round($surchargeAmount,2);
+                            $grandTotal = (float)$grandTotal + (float)$surchargeAmount;
+                        }
+                        $surchargeAmount = $block->formatPrice($surchargeAmount);
+                        $grandTotal = $block->formatPrice($grandTotal);
+
+                        $itemPrice = $recurring->getItemPrice();
+
+                        /** @var  $subTotal */
+                        //$subTotal = (float)$productAmount * (double)$qty;
+                        $subTotal = (float)$productAmount;
+                        $formatedSubTotal =  $grandTotal;
+
+                        if (count($productImages) > 0) {
+                            foreach ($productImages as $productImage) {
+                                $img = '<img src = "' . $productImage['url'] . '"  height="100" />';
+                                break;
+                            }
+                        } else {
+                            $img = '<img src = "' . $block->getImagePlaceHoder() . '"  height="100"  />';
+                        } ?>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][product_id]"
+                               value="<?= $block->escapeHtml($productId) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][product_amount]"
+                               value="<?= $block->escapeHtmlAttr($productAmount) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][product_sku]"
+                               value="<?= $block->escapeHtmlAttr($productSku) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][product_name]"
+                               value="<?= $block->escapeHtmlAttr($productName) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][item_price]"
+                               value="<?= $block->escapeHtmlAttr($itemPrice) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][surcharge_amount]"
+                               value="<?= $block->escapeHtmlAttr($itemSurchargeAmount) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][tax_amount]"
+                               value="<?= $block->escapeHtmlAttr($itemTaxAmount) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][shipping_amount]"
+                               value="<?= $block->escapeHtmlAttr($itemShippingAmount) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][sub_total]"
+                               value="<?= $block->escapeHtmlAttr($subTotal) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][coupon_code]"
+                               value="<?= $block->escapeHtmlAttr($couponCode) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][discount_amount]"
+                               value="<?= $block->escapeHtmlAttr($discountAmount) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][cart_rule_id]"
+                               value="<?= $block->escapeHtmlAttr($cartRuleId) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][product_rule_id]"
+                               value="<?= $block->escapeHtmlAttr($productRuleId) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][amount]"
+                               value="<?= $block->escapeHtmlAttr($subTotal) ?>"/>
+                        <input type="hidden" name="items[<?= $block->escapeHtml($productId) ?>][grand_total]"
+                               value="<?= $block->escapeHtmlAttr($totalGrandAmount) ?>"/>
+                        <input type="hidden"
+                               value="<?= $block->escapeHtmlAttr($paymentMethodName) ?>"
+                               name="<?= $block->escapeHtmlAttr($_code) ?>[payment_method_name]"
+                               id="payment_method_name"/>
+                        <input type="hidden"
+                               value="<?= $block->escapeHtmlAttr($paymentMethodName) ?>"
+                               name="<?= $block->escapeHtmlAttr($_code) ?>[current_payment_method_name]"
+                               id="current_payment_method_name"/>
+
+                        <tr>
+                            <td>
+                                <span class="left">
+                                    <a href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                                       title="<?= $block->escapeHtmlAttr($product->getName()) ?>"
+                                       target="_blank"><?= /* @noEscape */
+                                        !empty($img) ? $img : ''; ?></a>
+                                </span>
+                                <span class="left title">
+                                    <a href="<?= $block->escapeUrl($product->getProductUrl()) ?>"
+                                       title="<?= $block->escapeHtmlAttr($product->getName()) ?>"
+                                       target="_blank"> <?= $block->escapeHtml($product->getName()) ?></a>
+                                    <br style="line-height: 10px;"/><span style="font-size:10px;color:#999999">From: <?=$fromDate;?> To: <?=$toDate; ?>
+                                </span>
+
+                            </td>
+                            <td>
+                                <?= /* @noEscape */$block->escapeHtml($productSku) ?>
+
+                            </td>
+                            <td>
+                                <?= /* @noEscape */ $block->formatPrice($itemPrice) ?>
+                            </td>
+                            <td>
+                                <input type="hidden"
+                                       class="qtyWidth payment-form-input quote-updater-event required cvv-number required-entry"
+                                       name="items[<?= $block->escapeHtml($productId) ?>][order_qty]"
+                                       value="<?= $block->escapeHtml($qty) ?>"
+                                       maxlength="3"
+                                       readonly="readonly"
+                                       id="product_quantity"
+                                       oninput="this.value = this.value.replace(/[^1-9\.]/g,'');"
+                                       data-msg-required="Please enter a quantity."
+                                    <?= /** @noEscape */
+                                    $disabled ?>
+                                /><b><?=$block->escapeHtml($qty);?></b>
+                            </td>
+                            <td>
+                                <?= /** @noEscape */
+                                $taxAmount; ?>
+                            </td>
+                            <td>
+                                <?= /** @noEscape */
+                                $shippingAmount; ?>
+                            </td>
+                            <?php
+                            if ($isSurchargeEnaled) { ?>
+                                <td>
+                                    <?= /** @noEscape */ $surchargeAmount; ?>
+                                </td>
+                            <?php } ?>
+                            <td>
+                                <?= /** @noEscape */
+                                $formatedSubTotal; ?>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <tr>
+                        <td colspan="3"><p class="left title">
+                                <?= /* @noEscape */
+                                __("No Products found...") ?></p>
+                        </td>
+                    </tr>
+                    <?php
+                } ?>
+            </table>
+
+            <p class="border"></p>
+
+            <div class="recUpdate">
+                <div id="Frecheck" class="error"></div>
+                <?= /** @noEscape */
+                $block->getBlockHtml('formkey'); ?>
+                <input type="hidden"
+                       name="eb_rec_method_id"
+                       id= "eb_rec_method_id"
+                       value="<?= $block->escapeHtmlAttr($recurringPaymentMethodId) ?>"/>
+                <input type="hidden"
+                       name="mid"
+                       value="<?= $block->escapeHtmlAttr($block->getEbzcMethodId()) ?>"/>
+                <input type="hidden"
+                       name="mageCustId"
+                       value="<?= $block->escapeHtmlAttr($mageCustomerId) ?>"/>
+                <input type="hidden"
+                       name="mageCustId"
+                       value="<?= $block->escapeHtmlAttr($mageCustomerId) ?>"/>
+                <input type="hidden"
+                       name="mageOrderId"
+                       value="<?= $block->escapeHtmlAttr($mageOrderId) ?>"/>
+                <input type="hidden"
+                       name="custIntId"
+                       value="<?= $block->escapeHtmlAttr($block->getEbzcCustInternalId()) ?>"/>
+                <input type="hidden"
+                       name="schedulename"
+                       value="<?= /** @noEscape */
+                           $payment->ScheduleName ?? ''; ?>"/>
+                <input type="hidden"
+                       name="receiptnote"
+                       value="<?= /** @noEscape */
+                           $payment->ReceiptNote ?? ''; ?>"/>
+                <input type="hidden"
+                       name="payment_method_name"
+                       id="payment_method_name"
+                       value="<?= $block->escapeHtmlAttr($paymentMethodName) ?>"/>
+                <input type="hidden"
+                       name="recurring_status"
+                       id="recurring_status"
+                       value="<?= $block->escapeHtmlAttr($recurring->getRecStatus()) ?>"/>
+                <input type="hidden"
+                       name="current_billing_method"
+                       id="current_billing_method"
+                       value="<?= $block->escapeHtmlAttr($billingAddressId) ?>"/>
+                <input type="hidden"
+                       name="current_shipping_method"
+                       id="current_shipping_method"
+                       value="<?= $block->escapeHtmlAttr($shippingAddressId) ?>"/>
+                <input type="hidden"
+                       name="shipping_method"
+                       id="shipping_method"
+                       value="<?= $shippingMethod ?>"/>
+
+                <!-- Frequency Panel-->
+                <div class="fr-main" id="dates">
+                    <h2 class="label"><?= /* @noEscape */
+                        __("Subscription Information:"); ?> </h2>
+                    <br/>
+                    <div class="fr-left">
+                        <span class="red-asterisk"><?= /* @noEscape */
+                            __("Frequency"); ?></span>
+                    </div>
+
+                    <div class="fr-right" id="custom_controller">
+                        <select <?= /** @noEscape */
+                        $disabled ?>
+                            name="schedule"
+                            id="freqId"
+                            class="admin__control-select payment-form-input quote-updater-event required required-entry"
+                            data-validate="{required:true}"
+                            data-msg-required="Please select valid frequency.">
+                            <option disabled><?= /* @noEscape */
+                                __("Please select frequency"); ?></option>
+                            <?php $block->getConfiguredFrequencies($frequency); ?>
+                        </select>
+                    </div>
+                    <div class="new-line"></div>
+                    <div id="dates" class="fr-left start">
+                        <label class="label" for="start_date">
+                            <span class="red-asterisk"><?= /* @noEscape */
+                                __('Start Date'); ?></span>
+                        </label>
+                    </div>
+
+                    <div class="fr-right">
+                        <div class="start">
+                            <input <?= /** @noEscape */
+                            $disabled ?>
+                                type="text"
+                                class="input-text dateclass start-date quote-updater-event payment-form-input required required-entry
+                                hasDatepicker admin__control-select "
+                                title="<?= /* @noEscape */
+                                __('Start Date'); ?>"
+                                name="start_date"
+                                id="start_date"
+                                value="<?= /* @noEscape */
+                                $start; ?>"
+                                data-input="start_date"
+                                autocomplete="off"
+                                data-validate="{required:true}"
+                                placeholder="YYYY-MM-DD"
+                                data-msg-required="Please select valid start date."/>
+                        </div>
+                    </div>
+                    <div class="new-line"></div>
+
+                    <div class="fr-left end recurring-indefinitely">
+                        <label class="label" for="expire_date">
+                            <span class="red-asterisk"><?= /* @noEscape */
+                                __('End Date'); ?></span>
+                        </label>
+                    </div>
+                    <div class="fr-right recurring-indefinitely">
+                        <input <?= /** @noEscape */
+                        $disabled ?>
+                            type="text"
+                            class="dateclass end-date input-text quote-updater-event payment-form-input required required-entry
+                            admin__control-select"
+                            title="<?= /* @noEscape */
+                            __('End Date') ?>"
+                            name="expire_date"
+                            id="expire_date"
+                            value="<?= $block->escapeHtmlAttr($expire) ?>"
+                            data-input="expire_date"
+                            autocomplete="off"
+                            data-validate="{required:true}"
+                            placeholder="YYYY-MM-DD"
+                            data-msg-required="Please select valid end date."/>
+                    </div>
+                    <div class="new-line"></div>
+
+                    <div class="fr-left">
+                        <label class="label" for="indefinately">
+                            <?= /* @noEscape */
+                            __('Recur Indefinitely'); ?>
+                        </label>
+                    </div>
+
+                    <div class="fr-right">
+                        <div id="indefinately">
+                            <div class="field required indefinately">
+
+                                <input type="hidden"
+                                       name="recurring_id"
+                                       value="<?= $block->escapeHtmlAttr($recurringId) ?>">
+                                <input <?= /** @noEscape */
+                                $disabled ?>
+                                    type="checkbox"
+                                    class="payment-form-input"
+                                    id="rec_indefinitely"
+                                    name="rec_indefinitely"
+                                    value="<?= $block->escapeHtmlAttr($recindefinitely) ?>"
+                                    <?= /* @noEscape */
+                                    ($recindefinitely == 1) ? "checked" : ''; ?>>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <br/>
+        <p class="border"></p>
+        <div class="new-line"></div>
+        <div class="fr-main">
+            <div class="top-panel-title-left">
+                <h2 class="label"><?= /* @noEscape */
+                    __("Customer Info:") ?> </h2>
+            </div>
+            <div class="top-panel-title-right">
+                <button <?= /** @noEscape */
+                $disabled ?>
+                    class="add-new-address action payment-form-input"
+                    type="button"
+                    id="address_btn"
+                    data-trigger="trigger">
+                    <span data-bind="i18n: 'Add New Address'"></span>
+                </button>
+            </div>
+
+            <div class="new-line"></div>
+
+            <div class="address-panel">
+
+                <?php
+                $customerId = $customerData->getId();
+                $customerName = $customerData->getName();
+                $customerEmail = $customerData->getEmail();
+                ?>
+                <div class="label"><?= /* @noEscape */
+                    __("Customer Name:"); ?>
+                    <a href="<?= $block->escapeUrl($customerLink) ?>"
+                       target="_blank"
+                       title="Please click to watch customer ">
+                        <b><?= $block->escapeHtml($customerName . '  (ID:' . $customerId . ') ') ?></b>
+                    </a>
+                </div>
+                <div class="label"><?= /* @noEscape */
+                    __("Customer Email:"); ?>
+                    <b><?= $block->escapeHtml($customerEmail) ?></b>
+                </div>
+                <div class="new-line"></div>
+                <br/>
+                <div class="billing-address-panel">
+                    <span class="red-asterisk"><?= /* @noEscape */
+                        __("Billing Address"); ?></span>
+                    <br/> <br/>
+                    <!--for subscription Billing address-->
+                    <?php if (!empty($billingAddress)) { ?>
+                        <div class="box-content">
+                            <address>
+                                <?= /* @noEscape */
+                                $billingAddress ?>
+                            </address>
+                        </div>
+                    <?php } ?>
+                    <br/>
+                    <div class="another-billing-address">
+                        <label for="ebzc_another_billing_address" class="label">
+                            <input <?= /** @noEscape */
+                            $disabled ?>
+                                type="checkbox"
+                                name="payment[ebzc_another_billing_address]"
+                                id="ebzc_another_billing_address"
+                                class="payment-form-input"
+                                value="add_another_billing_address"/>
+                            <span><?= /* @noEscape */
+                                __("Please Select Another Billing Address"); ?></span>
+                        </label>
+                    </div>
+                    <div <?= /** @noEscape */
+                    $disabled ?>
+                        id="select-another-billing-address"
+                        class="select-another-address">
+                        <select <?= /** @noEscape */
+                        $disabled ?>
+                            name="addresBill"
+                            class="width-custom-fifty quote-updater-event admin__control-select payment-form-input"
+                            id="addresBill"
+                            data-validate="{required:true}">
+                            <option value=""><?= /* @noEscape */
+                                __("Please Select Billing Address"); ?></option>
+                            <?= /* @noEscape */
+                            $billingAddressOptions; ?>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="shipping-address-panel">
+                    <span class="red-asterisk"><?= /* @noEscape */
+                        __('Shipping Address') ?></span>
+                    <br/> <br/>
+                    <!--for subscription shipping address-->
+                    <?php if (!empty($shippingAddress)) { ?>
+                        <div class="box-content">
+                            <address>
+                                <?= /* @noEscape */
+                                $shippingAddress; ?>
+                            </address>
+                        </div>
+                    <?php } ?>
+                    <br/>
+                    <div class="another-shipping-address">
+                        <label for="ebzc_another_shipping_address" class="label">
+                            <input <?= /** @noEscape */
+                            $disabled ?>
+                                type="checkbox"
+                                name="payment[ebzc_another_shipping_address]"
+                                id="ebzc_another_shipping_address"
+                                class="payment-form-input"
+                                value="add_another_shipping_address"/>
+                            <span><?= /* @noEscape */
+                                __("Please Select Another Shipping Address"); ?></span>
+                        </label>
+
+                    </div>
+                    <div id="select-another-shipping-address"
+                         class="select-another-address">
+                        <select <?= /** @noEscape */
+                        $disabled ?>
+                            name="addressShip"
+                            class="width-custom-fifty quote-updater-event admin__control-select payment-form-input"
+                            id="addressShip"
+                            data-validate="{required:true}">
+                            <option value="">
+                                <?= /* @noEscape */
+                                __("Select Another Shipping Address") ?>
+                            </option>
+                            <?= /* @noEscape */
+                            $shippingAddressOptions; ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="new-line"></div>
+        <br/>
+        <p class="border"></p>
+
+        <div class="fr-main">
+            <h2 class="label"><?= /* @noEscape */
+                __("Customer Shipping:"); ?> </h2>
+
+            <div class="inline-blocks">
+                <span class="errormsgs" id="shipping_empty">
+                    <?= /* @noEscape */
+                    __("Please select shipping method."); ?>
+                </span>
+            </div>
+            <div class="fr-left">
+                <span class="red-asterisk"><?= /* @noEscape */
+                    __("Shipping Method"); ?></span>
+            </div>
+            <div class="fr-right shipping-method-title"><b><?php echo isset($recurring['shipping_method'])?$recurring['shipping_method']: "N/A";?></b></div>
+            <!-- div class="fr-right">
+                <select <?= /** @noEscape */
+                $disabled ?>
+                    name="shipping_method"
+                    class="admin__control-select quote-updater-event payment-form-input"
+                    data-validate="{required:true}">
+                    <option value=""><?= /* @noEscape */
+                        __("Please Select Shipping Method"); ?></option>
+                    <?= /* @noEscape */
+                    $block->getShippingMethods($recurring['shipping_method']); ?>
+                </select>
+            </div -->
+
+        </div>
+        <br/>
+        <div class="new-line"></div>
+        <br/>
+        <p class="border"></p>
+
+        <div class="fr-main">
+            <h2 class="label"><?= /* @noEscape */
+                __("Payment Method:"); ?> </h2>
+
+            <input type="hidden" name="payment['payment_method_id_used']"
+                   value="<?= $block->escapeHtmlAttr($recurring->getEbRecMethodId()) ?>"/>
+            <div class="fr-left">
+                <span class="red-asterisk"><?= /* @noEscape */
+                    __("Payment Method Used:"); ?></span>
+            </div>
+            <?php
+            $paymentProfileMethodName = $recurring->getPaymentMethodName();
+            $paymentMethodName = $paymentProfileMethodName;
+            $paymentMethodJson = json_decode($paymentProfileMethodName);
+
+            if (is_object($paymentMethodJson)) {
+                $paymentMethodName = $paymentMethodJson->a . "-" . $paymentMethodJson->b;
+            }
+            ?>
+            <div class="fr-right">
+                <div class="payment-method-title"><?= /* @noEscape */
+                    $paymentMethodName; ?></div>
+            </div>
+            <div class="new-line"></div>
+            <div class="fr-left">
+                <label for="add_new_payment_metod" class="payment-label">
+                    <input <?= /** @noEscape */
+                    $disabled ?>
+                        type="checkbox"
+                        class="payment-form-input quote-updater-event"
+                        name="payment[ebzc_new_payment_method]"
+                        id="add_new_payment_metod"
+                        value="add_new_payment_method"/>
+                    <span><?= /* @noEscape */
+                        __("Replace Payment Method"); ?></span>
+                </label>
+            </div>
+            <div class="fr-right"></div>
+        </div>
+
+        <?= /* @noEscape */
+        $block->getChildHtml('ebizcharge.recurrings.payments'); ?>

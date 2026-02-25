@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
+    <publisher topic="crimson_storepickup_shipment_email.send">
+        <connection name="db" exchange="magento" disabled="false"/>
+    </publisher>
+</config>

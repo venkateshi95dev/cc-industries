@@ -1,0 +1,27 @@
+<div class="payment-option opc-payment-additional comment-code"
+     data-bind="visible: getDemographicsEnabled()">
+    <div class="step-title field choice" data-role="title" data-bind="i18n: 'Corvette Generation'"></div>
+    <div class="payment-option-content" data-role="content">
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <form class="form form-demographics" id="demographics-form">
+            <span class="demographics-message" id="demographics-message" role="heading" aria-level="2" data-bind="text: getDemographicsMessage()" style="font-weight: bold;"></span>
+            <div class="demographics-option-inner fieldset" style="margin-top: 10px;">
+                <div class="field" data-bind="css: { '_required': getDemographicsRequired() }">
+                    <label class="label">
+                        <span data-bind="i18n: 'Corvette Generation'"></span>
+                    </label>
+                    <div class="control">
+                        <!-- ko foreach: getDemographicsValues() -->
+                        <div style="display: inline-block;">
+                            <input type="checkbox" name="demographics-code[]" data-bind="value: value, checked: $parent.getChosenDemographics()">
+                            <span data-bind="text: label" style="padding-right: 15px;"></span>
+                        </div>
+                        <!-- /ko -->
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

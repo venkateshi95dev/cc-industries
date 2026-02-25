@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxCart
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2022 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+-->
+
+<!-- Define custom endpoints-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!--Get config in admin/Configuration/Bss/AjaxCar but require store id-->
+    <route url="/V1/bsscommerce/ajaxcart/getconfig/:storeId" method="GET">
+        <service method="getConfig" class="Bss\AjaxCart\Api\GetConfigModuleInterface"/>
+        <resources>
+            <resource ref="Bss_AjaxCart::api_ajaxcart"/>
+        </resources>
+    </route>
+    <!--API add to cart-->
+    <route url="V1/ajaxcart/mine/items" method="POST">
+        <service class="Bss\AjaxCart\Api\CartItemRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartItem.quote_id" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <!--API quote -->
+    <route url="/V1/ajaxcart/carts/:quoteId/items" method="POST">
+        <service class="Bss\AjaxCart\Api\CartItemRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Bss_AjaxCart::api_ajaxcart"/>
+        </resources>
+    </route>
+</routes>

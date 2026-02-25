@@ -1,0 +1,29 @@
+{
+    "items": [
+        {
+            "id": 1,
+            "image": "saw.svg",
+            "text": "Hand Made and assembled in<br/>Chattanooga, Tennessee."
+        }, {
+            "id": 2,
+            "image": "clock.svg",
+            "text": "Timely production of orders<br/>(no more months of waiting!)"
+        }, {
+            "id": 3,
+            "image": "house.svg",
+            "text": "All wood for spokes and felloes<br/>stored Climate & Moisture controlled."
+        }, {
+            "id": 4,
+            "image": "protractor.svg",
+            "text": "Precision-crafted, kiln-dried<br/>Hickory wood spokes and felloes."
+        }, {
+            "id": 5,
+            "image": "wheel.svg",
+            "text": "Hundreds of Authentic spoke<br/>patterns for many makes and models."
+        }, {
+            "id": 6,
+            "image": "tape.svg",
+            "text": "Fitment and installation on steel<br/>rims or felloe bands performed in house."
+        }
+    ]
+}

@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order_mach_order" resource="sales" engine="innodb" comment="Mach Order Data">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Mach Order Data Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" comment="Order Id"/>
+        <column xsi:type="varchar" name="mach_order_number" nullable="true" length="255" comment="MACH Order Number"/>
+        <column xsi:type="boolean" name="mach_submitted" nullable="false" default="0" comment="MACH Submitted"/>
+        <column xsi:type="datetime" name="mach_submitted_at" on_update="false" nullable="true" comment="Submitted At"/>
+        <column xsi:type="boolean" name="mach_update_scheduled" nullable="false" default="0" comment="MACH Update Scheduled"/>
+        <column xsi:type="int" name="mach_submit_error_count" padding="11" unsigned="false" nullable="false" default="0" comment="Submit Error Count"/>
+        <column xsi:type="smallint" name="mach_submit_last_error_number" padding="6" unsigned="false" nullable="true"
+                comment="Submit Last Error Number"/>
+        <column xsi:type="varchar" name="mach_submit_last_error_message" nullable="true" length="255" comment="Submit Last Error Message"/>
+        <column xsi:type="boolean" name="mach_submit_hold" nullable="false" default="0" comment="MACH Submit Hold"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_ORDER_MACH_ORDER_ORDER_ID">
+            <column name="order_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_ORDER_MACH_ORDER_ORDER_NUMBER">
+            <column name="mach_order_number"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SALES_ORDER_MACH_ORDER_ORDER_ID_SALES_ORDER_ENTITY_ID"
+                table="sales_order_mach_order" column="order_id"
+                referenceTable="sales_order" referenceColumn="entity_id"
+                onDelete="CASCADE"/>
+    </table>
+
+    <table name="sales_order_processed_mach_shipments" resource="sales" engine="innodb" comment="MACH - Processed MACH Order Shipments">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" comment="Order Id"/>
+        <column xsi:type="varchar" name="mach_order_number" nullable="true" length="255" comment="MACH Order Number"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALES_ORDER_MACH_ORDER_MACH_ORDER_NUMBER">
+            <column name="mach_order_number"/>
+        </constraint>
+        <index referenceId="SALES_ORDER_MACH_ORDER_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+        <constraint xsi:type="foreign" referenceId="SALES_ORDER_PROCESSED_MACH_SHIPMENTS_ORDER_ID_SALES_ORDER_ENTITY_ID"
+                table="sales_order_processed_mach_shipments" column="order_id"
+                referenceTable="sales_order" referenceColumn="entity_id"
+                onDelete="CASCADE"/>
+    </table>
+
+    <table name="sales_shipment_track_mach_data" resource="sales" engine="innodb" comment="Sales Flat Shipment Track">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Id"/>
+        <column xsi:type="int" name="track_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Track Id"/>
+        <column xsi:type="varchar" name="mach_package_id" length="20" nullable="true" comment="MACH Package ID"/>
+        <column xsi:type="text" name="mach_custom_track_url" nullable="true" comment="MACH Custom Tracking URL"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SALES_SHIPMENT_TRACK_MACH_DATA_TRACK_ID_SALES_SHIPMENT_TRACK_ENTITY_ID"
+                table="sales_shipment_track_mach_data" column="track_id" referenceTable="sales_shipment_track"
+                referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="unique" referenceId="SALES_SHIPMENT_TRACK_MACH_DATA_TRACK_ID">
+            <column name="track_id"/>
+        </constraint>
+        <index referenceId="SALES_SHIPMENT_TRACK_MACH_DATA_MACH_PACKAGE_ID" indexType="btree">
+            <column name="mach_package_id"/>
+        </index>
+    </table>
+</schema>

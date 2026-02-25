@@ -1,0 +1,733 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * CENTURY BUSINESS SOLUTIONS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <resource>Ebizcharge_Ebizcharge::stores_configuration</resource>
+            <group id="ebizcharge_ebizcharge" translate="label" type="text" sortOrder="10" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <comment>
+                    <![CDATA[<div class="ebizcharge-payment-logo"></div><div class="ebizcharge-payment-text"><b>EBizCharge Payment Module</b> allows the processing of credit card payments via the <a target="_blank" target="_blank" title="EBizCharge Payment Gateway" href="http://www.ebizcharge.com/">EBizCharge Gateway</a>.
+                    To set up the EBizCharge Payment Module, please contact <a target="_blank" title="EBizCharge Payment Gatway Support" href="http://www.ebizcharge.com/support/">EBizCharge Support</a>.</div>.]]></comment>
+                <fieldset_css>complex ebizcharge-section</fieldset_css>
+                <frontend_model>Ebizcharge\Ebizcharge\Block\Adminhtml\System\Config\Fieldset\Payment</frontend_model>
+
+                <group id="how_it_works" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <comment><![CDATA[c]]></comment>
+                    <fieldset_css>ebiz-how-it-works-config-sec</fieldset_css>
+                    <frontend_model>Ebizcharge\Ebizcharge\Block\Adminhtml\System\Config\Fieldset\HowItWorks</frontend_model>
+                </group>
+
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select "Yes" to enable <b>EBizCharge Payment Module</b>. Select “No” to disable.]]></comment>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Payment Gateway Title</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <!--<field id="pci_compliance_action_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>EBizCharge gateway SOAP API Url</label>
+                    <comment><![CDATA[You need to provide a valid "EBizCharge payment Hub" SOAP API url e.g "https://soap.ebizcharge.net/eBizService.svc?wsdl".]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>-->
+                <field id="sourcekey" translate="label" type="password" sortOrder="40" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>API Security Id</label>
+                    <backend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\Encrypted</backend_model>
+<!--                    <frontend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\Field\DecryptValue</frontend_model>-->
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="sourceid" translate="label" type="password" sortOrder="50" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>API User Id</label>
+                    <backend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\Encrypted</backend_model>
+<!--                    <frontend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\Field\DecryptValue</frontend_model>-->
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="sourcepin" translate="label" type="password" sortOrder="60" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>API Password</label>
+                    <backend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\Encrypted</backend_model>
+<!--                    <frontend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\Field\DecryptValue</frontend_model>-->
+                    <comment>
+                        <![CDATA[Must match the password assigned to your Security Id. If no password is set, leave the field blank.]]></comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="validatemerchantapi" translate="label comment tooltip" type="button"
+                       sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Validate Keys</label>
+                    <frontend_model>Ebizcharge\Ebizcharge\Block\Adminhtml\System\Config\ValidateMerchantButton</frontend_model>
+                    <tooltip>
+                        By clicking the button you can validate your API Keys with EBizCharge Payment Gateway
+                    </tooltip>
+                    <comment>
+                        <![CDATA[Validate your API credentials with the <b>EBizCharge Payment Gateway</b> before proceeding. If there are any issues, contact <a target="_blank" title="EBizCharge Support" href="https://www.ebizcharge.com/support/">EBizCharge Support</a>. ]]></comment>
+
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="envoirnment_prefix" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Environment Prefix</label>
+                    <comment>
+                        <![CDATA[Add a prefix to Magento Customer ID to distinguish between your different Magento environments on the EBizCharge Gateway. Leaving it blank will add a default prefix of “Mag2” and will be saved as “Mag2-Your Magneto Customer ID” on EBizCharge Gateway. ]]></comment>
+                    <backend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\EnvironmentPrefix</backend_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="division_id" translate="label" type="hidden" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <!--                    <label>Division ID</label>-->
+                    <!--<comment>
+                        <![CDATA[Add a division id to distinguish assets (customers, items, orders, invoices, shipments etc.) between your multiple stores on the EBizCharge Payment Hub. Leaving it blank will add a default division ID of “Mag2” and will be saved as “Mag2-Your Magneto sync assets” on EBizCharge Gateway. ]]>
+                    </comment>-->
+                    <frontend_model>Ebizcharge\Ebizcharge\Block\Adminhtml\System\Config\Field\DivisionId</frontend_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <!--Enable Module via PCI Compliance Support -->
+                <!--field id="pci_compliance_enable" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enable Payflow Transactions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[This feature supports Hosted Payflow pro flow of transactions, if you enable this feature all transactions will be done directly at EBizCharge gateway instead of Magento servers.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field -->
+                <!--field id="enable_webform" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable GraphQL Payment Form</label>
+                    <source_model>\Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\WebFormPayment</source_model>
+                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\WebFormComment" />
+                    <comment><![CDATA[Select “Yes” to allow order placement using GraphQL form.]]></comment>
+
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field -->
+
+                <field id="payment_form_type" translate="label" type="select"  sortOrder="120" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>EBizCharge Payment Form Type</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\PaymentFormTypes</source_model>
+                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\PaymentFormTypesComments" />
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="tokenize_cards_only" translate="label" type="select"  sortOrder="130" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Tokenize Cards Only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select "Yes" to enable <b>Tokenize Cards only</b>. Select “No” to disable.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="payment_form_type">2</field>
+                    </depends>
+                </field>
+
+                <field id="enable_card" translate="label" type="select"  sortOrder="140" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Credit Cards</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\CreditCardPayment</source_model>
+                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\CreditCardComment" />
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="cctypes" translate="label" type="multiselect" sortOrder="150" showInDefault="1" canRestore="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Credit Card Types</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\CcType</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                    </depends>
+                </field>
+
+                <!--                <field id="avs_cvv_options" translate="label" type="select" sortOrder="160" showInDefault="1"-->
+                <!--                       showInWebsite="1" showInStore="1" >-->
+                <!--                    <label>Required AVS|CVV Fields</label>-->
+                <!--                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--                    <comment><![CDATA[Select “Yes” to required AVS | CVV fields at checkout page during transactions.]]></comment>-->
+                <!--                    <depends>-->
+                <!--                        <field id="active">1</field>-->
+                <!--                        <field id="enable_card">1</field>-->
+                <!--                    </depends>-->
+
+                <!--                </field>-->
+
+                <field id="save_card" translate="label" type="select"  sortOrder="170" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Save Cards</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\SaveCreditCard</source_model>
+                    <!--                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\SaveCardComment" />-->
+                    <comment><![CDATA[Select “Yes” to enable the ability to save credit cards when placing an order during checkout and on the admin side.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                    </depends>
+                </field>
+
+                <!--<field id="enable_avs_cvv" translate="label" type="select" sortOrder="180" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable AVS | CVV for Credit Card</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[ Please select Yes to enable AVS | Zipcode | CVV verification. ]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                        <field id="save_card">1</field>
+                    </depends>
+                </field>-->
+                <field id="save_guest_users" translate="label" type="select" sortOrder="190" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Automatically Save Guest Users at checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                        <field id="save_card">1</field>
+                    </depends>
+                </field>
+                <field id="save_payment" translate="label" type="select" sortOrder="200" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Automatically Save Payment Methods During Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                        <field id="save_card">1</field>
+                    </depends>
+                </field>
+
+                <field id="request_card_code_admin" translate="label" type="select" sortOrder="210" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Require CVV Card Code (Admin)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[ Please select Yes to enable CVV verification. ]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                    </depends>
+                </field>
+
+                <!--<field id="avs_full_payment" translate="label" type="select" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">-->
+                <!--    <label>Verify AVS using full payment amount</label>-->
+                <!--    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--    <comment>-->
+                <!--        <![CDATA[ Please select Yes to enable AVS using full payment amount. ]]></comment>-->
+                <!--    <depends>-->
+                <!--        <field id="active">1</field>-->
+                <!--        <field id="enable_card">1</field>-->
+                <!--    </depends>-->
+                <!--</field>-->
+
+                <field id="show_saved_methods" translate="label" type="select" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="0" >
+                    <label>Show Saved/Update Cards on Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_card">1</field>
+                    </depends>
+                </field>
+
+
+                <field id="enableAch" translate="label" type="select" sortOrder="240" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable ACH (Bank Accounts)</label>
+                    <source_model>\Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\ACHPayment</source_model>
+                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\ACHComment" />
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="save_bank_accounts" translate="label" type="select"  sortOrder="250" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Save Bank Accounts</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\SaveBankAccount</source_model>
+                    <!--                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\SaveBankAccountComment" />-->
+                    <comment><![CDATA[ Select “Yes” to enable the ability to save bank accounts when placing an order during checkout and on the admin side.  ]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enableAch">1</field>
+                    </depends>
+                </field>
+
+                <field id="paylater" translate="label" type="select"  sortOrder="260" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Pay Later (Admin Side Only)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Select "Yes" to allow Pay Later option on the admin side.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="recurring_payments" translate="label" type="select" sortOrder="270" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Enable Subscriptions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+
+                </field>
+                <field id="recurring_frequency" translate="label" type="multiselect" sortOrder="280" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Allowed Subscription Frequencies</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\RecurringFrequencyType</source_model>
+                    <tooltip>
+                        TWICE PER MONTH: Twice per month on the 1st and 15th of every month.
+                        QUARTERLY: Every quarter on the 1st in January, April, July and October.
+                        TWICE PER YEAR: Every 6 month on the 1st in January and July.
+                    </tooltip>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="recurring_payments">1</field>
+                    </depends>
+                </field>
+
+                <field id="indefinite_recurring" translate="label" type="select" sortOrder="290" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Disable Recurring End Date (Frontend)</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <tooltip>
+                        This will remove subscription end date while adding product to cart and updating the
+                        subscription from frontend.
+                    </tooltip>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="recurring_payments">1</field>
+                    </depends>
+                </field>
+
+                <!--<field id="enable_surcharge" translate="label" type="select" sortOrder="300"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Surcharge</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\PaymentOptions\SurchargePayment</source_model>
+                    <comment model="Ebizcharge\Ebizcharge\Model\Source\Comment\SurchargePaymentComment" />
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>-->
+
+                <!--<field id="request_card_code" translate="label" type="select" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Request Card Code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>-->
+
+
+                <field id="payment_action" translate="label" type="select" sortOrder="320" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Payment Action</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Source\PaymentAction</source_model>
+                    <comment>
+                        <![CDATA["Authorize Only" only pre-authorizes the customer’s card for purchase amount. "Authorize and Capture" pre-authorizes the customer’s card and collects funds at the same time.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="void_order_edit" translate="label" type="select" sortOrder="330" showInDefault="1"
+                       showInWebsite="1" showInStore="1"  >
+                    <label>Editing Orders</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Config\Source\VoidOrderYesno</source_model>
+                    <comment>
+                        <![CDATA["Magento native" voids the original order (and pre-auth) and create a new order upon editing.<br/>"Retain original" keeps the original order upon editing.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="order_status" translate="label" type="select" sortOrder="340" showInDefault="1"
+                       showInWebsite="1" showInStore="1"  >
+                    <label>New Order Status</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Config\Source\Order\Status</source_model>
+                    <comment>
+                        <![CDATA[New order status will be set according to this configuration.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="description" translate="label" type="text" sortOrder="350" showInDefault="1"
+                       showInWebsite="1"
+                       showInStore="1">
+                    <label>Transaction Description</label>
+                    <comment>
+                        <![CDATA[ If the field is left as is, "Magento Order #1235" will display as the default transaction description. Use "[orderid]" to populate order number in the description (e.g "My Store Order #[orderid]").]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="sort_order" translate="label" type="text" sortOrder="360" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Sort Order at Checkout Page</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="allowspecific" translate="label" type="allowspecific" sortOrder="370" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Payment from Applicable Countries</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Allspecificcountries</source_model>
+                    <config_path>payment/ebizcharge_ebizcharge/allowspecific</config_path>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="380" showInDefault="1" showInWebsite="1">
+                    <label>Payment from Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <config_path>payment/ebizcharge_ebizcharge/specificcountry</config_path>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="allowspecific">1</field>
+                    </depends>
+                </field>
+
+                <field id="min_order_total" translate="label" type="text" sortOrder="400" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Minimum Order Total</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="max_order_total" translate="label" type="text" sortOrder="410" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Maximum Order Total</label>
+                    <comment><![CDATA[Leave empty to disable limit.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="checkout_same_billing_shipping" translate="label" type="select" sortOrder="420" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Auto-Set Billing Address Same as Shipping</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Automatically set the billing address to match the shipping address at checkout.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="error_msg" translate="label" type="text" sortOrder="430" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Error Message Title</label>
+                    <comment><![CDATA[The text appends before the actual error message from the gateway.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <!-- field id="itemssyncsetting" translate="label" type="select" sortOrder="440" showInDefault="1"
+                       showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Item Source</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Config\ItemsMethod</source_model>
+                    <comment>
+                        <![CDATA[Select “Upload” if you need to upload items from Magento to the EBizCharge hub. Select “Download” if you need to download items from your ERP and import them into Magento.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field -->
+
+                <field id="unit_of_measure" translate="label" type="select" sortOrder="450" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Unit of (Weight) Measure</label>
+                    <source_model>Magento\Directory\Model\Config\Source\WeightUnit</source_model>
+                    <backend_model>Ebizcharge\Ebizcharge\Model\Config\Backend\UnitOfMeasure</backend_model>
+                    <!--<comment>
+                        <![CDATA[Select “Unit of Measure” for products. This field will also change Weight
+                         Unit of Magento Store.]]>
+                    </comment>-->
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="upload_options_label" type="label" translate="label" sortOrder="460" showInDefault="1" showInWebsite="0" showInStore="0" >
+                    <label>Sync Upload</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="uploadeconnect" translate="label" type="select" sortOrder="470" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Upload Data to EBizCharge</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Enable the Sync Upload section to export customers, items and orders from Magento into EBizCharge (e.g. Customer Payment Portal, Mobile App, ERP).]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <field id="synccustomers" translate="label" type="select" sortOrder="480" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Customers Option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <!--                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                    <comment>
+                        <![CDATA[Provides the option to upload customers in the sync upload section.]]>
+                    </comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="uploadeconnect">1</field>
+                    </depends>
+                </field>
+                <field id="syncitems" translate="label" type="select" sortOrder="490" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Items Option</label>
+                    <!--                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Provides the option to upload items in the sync upload section.]]>
+                    </comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="uploadeconnect">1</field>
+                    </depends>
+                </field>
+                <field id="syncorders" translate="label" type="select" sortOrder="500" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Orders Option</label>
+                    <!--                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Provides the option to upload orders int the sync upload section.]]>
+                    </comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="uploadeconnect">1</field>
+                        <field id="syncitems">1</field>
+                    </depends>
+                </field>
+                <!--<field id="syncinvoices" type="select" translate="label" sortOrder="510" showInDefault="1" showInWebsite="1"
+                       showInStore="1" canRestore="1">
+                    <label>Upload Invoices</label>
+                    &lt;!&ndash;                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>&ndash;&gt;
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[<span class="download-steps"><strong>Step 4:</strong></span> Select "Yes" to enable the ability to upload invoices to the EBizCharge hub.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="uploadeconnect">1</field>
+                    </depends>
+                </field>-->
+
+                <field id="download_options_label" type="label" translate="label" sortOrder="520" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Sync Download</label>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="downloadeconnect" translate="label" type="select" sortOrder="530" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Download Data from EBizCharge</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        <![CDATA[Enable the Sync Download section to import customers, items, and orders from EBizCharge (e.g. Customer Payment Portal, Mobile App, ERP).]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+
+                <field id="downloadcustomers" translate="label" type="select"  sortOrder="540" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Customers Option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <!--                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                    <comment>
+                        <![CDATA[Provides the option to download customers in the sync download section.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="downloadeconnect">1</field>
+                    </depends>
+                </field>
+                <field id="downloaditems" translate="label" type="select"  sortOrder="550" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Items Option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <!--                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                    <comment>
+                        <![CDATA[Provides the option to download items in the sync download section.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="downloadeconnect">1</field>
+                    </depends>
+                </field>
+                <field id="downloadorders" translate="label" type="select"  sortOrder="560" showInDefault="1" showInWebsite="1"
+                       showInStore="1" >
+                    <label>Enable Orders Option</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <!--                    <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                    <comment>
+                        <![CDATA[Provides the option to download orders in the sync download section.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="downloadeconnect">1</field>
+                        <field id="downloaditems">1</field>
+                    </depends>
+                </field>
+
+                <!--                <field id="downloadinvoices" translate="label" type="select"  sortOrder="570" showInDefault="1" showInWebsite="1"-->
+                <!--                       showInStore="1" canRestore="1">-->
+                <!--                    <label>Download Invoices</label>-->
+                <!--                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+                <!--                                        <frontend_model>Ebizcharge\Ebizcharge\Block\System\Config\Form\Button</frontend_model>-->
+                <!--                    <comment>-->
+                <!--                        <![CDATA[<span class="download-steps"><strong>Step 4:</strong></span> Select "Yes" to enable the ability to download invoices from the EBizCharge hub.]]></comment>-->
+                <!--                    <depends>-->
+                <!--                        <field id="active">1</field>-->
+                <!--                        <field id="downloadeconnect">1</field>-->
+                <!--                    </depends>-->
+                <!--                </field>-->
+                <field id="shippingmethod" translate="label" type="select" sortOrder="580" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Shipping Method</label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Config\AllShippingMethods</source_model>
+                    <comment><![CDATA[Default shipping method for download orders.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <!--                        <field id="downloadeconnect">1</field>-->
+                    </depends>
+                </field>
+
+                <field id="enable_merchant_gateway_email" translate="label" type="select"  sortOrder="590" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Authorization Merchant Receipt Email </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                    <comment>
+                        <![CDATA[Enable or disable authorization email receipts sent to merchants.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="merchant_emailtemplates" translate="label" type="select"  sortOrder="600" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Merchant Receipt Email Templates </label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Config\CustomerReceiptsEmailTemplates</source_model>
+                    <validate>required-entry</validate>
+                    <comment>
+                        <![CDATA[Please select your email template for <span class="download-steps">"Merchant Receipt Payments"</span>. To add merchant email templates, please visit the <strong><a target="_blank" href="https://connect.ebizcharge.net/portaladmin">EBizCharge Admin</a></strong> Portal.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_merchant_gateway_email">1</field>
+                    </depends>
+                </field>
+                <field id="enable_gateway_email" translate="label" type="select"  sortOrder="610" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Enable Authorization Customer Receipt Email </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                    <comment>
+                        <![CDATA[Enable or disable authorization email receipts sent to customers.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="emailtemplates" translate="label" type="select"  sortOrder="620" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Customer Receipt Email Templates </label>
+                    <source_model>Ebizcharge\Ebizcharge\Model\Config\CustomerReceiptsEmailTemplates</source_model>
+                    <validate>required-entry</validate>
+                    <comment>
+                        <![CDATA[Please select your email template for <span class="download-steps">"Customer Receipt Payments"</span>. To add customer email templates, please visit the <strong><a target="_blank" href="https://connect.ebizcharge.net/portaladmin">EBizCharge Admin</a></strong> Portal.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_gateway_email">1</field>
+                    </depends>
+                </field>
+
+                <field id="low_stock_email" translate="label comment" type="select" sortOrder="630" showInDefault="1" showInWebsite="1" showInStore="1"  >
+                    <label>Low Stock Email Template</label>
+                    <comment><![CDATA[The low stock email template can be chosen from existing email templates. To add a new email template, go to the main menu:  "<span class="download-steps">Marketing > Communication > Email Templates</span>". ]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+
+                <!-- enable_logs sets to Enable or disable System Logs in ./var/log directory-->
+                <field id="enable_logs" translate="label" type="select" sortOrder="630" showInDefault="1"
+                       showInWebsite="1" showInStore="1" >
+                    <label>Enable Logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select “Yes” to enable system logs in var/log directory.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <!-- logs_file sets the name of Logs file in var/log directory-->
+                <!--<field id="logs_file" translate="label" type="text" sortOrder="640" showInDefault="1" canRestore="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Logs File</label>
+                    <comment>
+                        <![CDATA[If the field is left as is, “ebizcharge.log” will display as the log file name. A custom log file name can be entered in the field.]]></comment>
+                    <depends>
+                        <field id="active">1</field>
+                        <field id="enable_logs">1</field>
+                    </depends>
+                </field>-->
+
+            </group>
+        </section>
+    </system>
+</config>

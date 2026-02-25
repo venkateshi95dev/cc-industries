@@ -1,0 +1,198 @@
+<?php
+/**
+ * Crimson Agility, LLC
+ */
+
+/** @var Magento\CustomerCustomAttributes\Block\Form $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+
+/** @var $viewModel \Crimson\Demographics\ViewModel\FormModel */
+$viewModel = $block->getViewModel();
+
+?>
+<form class="form form-edit-account" action="<?= $escaper->escapeUrl($block->getUrl('customer/account/editPost')) ?>" method="post" id="form-validate" enctype="multipart/form-data" data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>" autocomplete="off">
+    <fieldset class="fieldset info">
+        <?= $block->getBlockHtml('formkey') ?>
+        <legend class="legend"><span><?= $escaper->escapeHtml(__('Account Information')) ?></span></legend><br>
+        <?= $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Name::class)->setObject($block->getCustomer())->toHtml() ?>
+
+        <?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+        <?php $_taxvat = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Taxvat::class) ?>
+        <?php $_gender = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Gender::class) ?>
+        <?php if ($_dob->isEnabled()) : ?>
+            <?= $_dob->setDate($block->getCustomer()->getDob())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_taxvat->isEnabled()) : ?>
+            <?= $_taxvat->setTaxvat($block->getCustomer()->getTaxvat())->toHtml() ?>
+        <?php endif ?>
+        <?php if ($_gender->isEnabled()) : ?>
+            <?= $_gender->setGender($block->getCustomer()->getGender())->toHtml() ?>
+        <?php endif ?>
+        <div class="field choice">
+            <input type="checkbox" name="change_email" id="change-email" data-role="change-email" value="1" title="<?= $escaper->escapeHtmlAttr(__('Change Email')) ?>" class="checkbox" />
+            <label class="label" for="change-email"><span><?= $escaper->escapeHtml(__('Change Email')) ?></span></label>
+        </div>
+        <div class="field choice">
+            <input type="checkbox" name="change_password" id="change-password" data-role="change-password" value="1" title="<?= $escaper->escapeHtmlAttr(__('Change Password')) ?>"<?php if ($block->getChangePassword()) :
+                ?> checked="checked"<?php endif; ?> class="checkbox" />
+            <label class="label" for="change-password"><span><?= $escaper->escapeHtml(__('Change Password')) ?></span></label>
+        </div>
+        <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_user_attributes'); ?>
+        <?php if ($userDefinedAttributes) :?>
+            <?php $userDefinedAttributes->setEntityType('customer')->setShowContainer(false);?>
+            <?php $block->restoreSessionData($userDefinedAttributes->getMetadataForm());?>
+            <?= $userDefinedAttributes->toHtml() ?>
+        <?php endif;?>
+
+        <fieldset class="fieldset create account generation" data-hasrequired="<?= __('* Required Fields') ?>">
+            <legend class="legend"><span><?= __('Additional Information') ?></span></legend>
+            <p>
+            <div class="field car_demos">
+                <label class="generation-selection-message"><?= __('Please select your Corvette generation below (select all that apply)') ?></label>
+                <label for="car_demos" class="label generation-label"><span><?= __('Corvette Generation') ?></span></label>
+                <?php
+                    /** @var \Magento\Customer\Api\Data\CustomerInterface $customer */
+                    $customer = $block->getCustomer();
+
+                    $carDeomos = [];
+                    if ($customer->getCustomAttribute('car_demos')
+                        && $customer->getCustomAttribute('car_demos')->getValue()
+                    ) {
+                        $carDeomos = explode(',', $customer->getCustomAttribute('car_demos')->getValue());
+                    }
+                ?>
+                <div class="control" id="car_demos">
+                    <?php foreach ($viewModel->getDemographicsOptions() as $key => $option) : ?>
+                        <?php if (!empty($option['value'])) : ?>
+                            <input type="checkbox"
+                                   name="car_demos[]"
+                                   title="<?= __('Corvette Generation') ?>"
+                                   class="checkbox"
+                                   value="<?= $option['value'] ?>"
+                                    <?php if (in_array($option['value'], $carDeomos)) echo 'checked' ; ?>
+                                   data-validate="{required:false}"
+                            />
+                            <span style="padding-right: 15px;"><?= $option['label'] ?></span>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            </p>
+        </fieldset>
+    </fieldset>
+
+    <?= /* @noEscape */ $block->getChildHtml('form_fields_before_in_form') ?>
+
+    <fieldset class="fieldset password" data-container="change-email-password">
+        <legend class="legend"><span data-title="change-email-password"><?= $escaper->escapeHtml(__('Change Email and Password')) ?></span></legend><br>
+        <div class="field email required" data-container="change-email">
+            <label class="label" for="email"><span><?= $escaper->escapeHtml(__('Email')) ?></span></label>
+            <div class="control">
+                <input type="email" autocomplete="email" name="email" id="email" data-input="change-email" value="<?= $escaper->escapeHtmlAttr($block->getCustomer()->getEmail()) ?>" title="<?= $escaper->escapeHtmlAttr(__('Email')) ?>" class="input-text" data-validate="{required:true, 'validate-email':true}" />
+            </div>
+        </div>
+        <div class="field password current required">
+            <label class="label" for="current-password"><span><?= $escaper->escapeHtml(__('Current Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="current_password" id="current-password" data-input="current-password" autocomplete="off" />
+            </div>
+        </div>
+        <div class="field new password required" data-container="new-password">
+            <label class="label" for="password"><span><?= $escaper->escapeHtml(__('New Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="password" id="password"
+                       data-password-min-length="<?= $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                       data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                       data-input="new-password"
+                       data-validate="{required:true, 'validate-customer-password':true}"
+                       autocomplete="off" />
+                <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                    <div id="password-strength-meter" class="password-strength-meter">
+                        <?= $escaper->escapeHtml(__('Password Strength')) ?>:
+                        <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                            <?= $escaper->escapeHtml(__('No Password')) ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="field confirm password required" data-container="confirm-password">
+            <label class="label" for="password-confirmation"><span><?= $escaper->escapeHtml(__('Confirm New Password')) ?></span></label>
+            <div class="control">
+                <input type="password" class="input-text" name="password_confirmation" id="password-confirmation"
+                       data-input="confirm-password"
+                       autocomplete="off" />
+            </div>
+        </div>
+
+
+
+        <?= $block->getChildHtml('form_additional_info') ?>
+    </fieldset>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Save')) ?>"><span><?= $escaper->escapeHtml(__('Save')) ?></span></button>
+        </div>
+        <div class="secondary">
+            <a class="action back" href="<?= $escaper->escapeUrl($block->getBackUrl()) ?>"><span><?= $escaper->escapeHtml(__('Go back')) ?></span></a>
+        </div>
+    </div>
+</form>
+<script>
+    require([
+        "jquery",
+        "mage/mage"
+    ], function($){
+        var dataForm = $('#form-validate');
+        var ignore = <?= $_dob->isEnabled() ? '\'input[id$="full"]\'' : 'null' ?>;
+
+        dataForm.mage('validation', {
+            <?php if ($_dob->isEnabled()) : ?>
+            errorPlacement: function(error, element) {
+                if (element.prop('id').search('full') !== -1) {
+                    var dobElement = $(element).parents('.customer-dob'),
+                        errorClass = error.prop('class');
+                    error.insertAfter(element.parent());
+                    dobElement.find('.validate-custom').addClass(errorClass)
+                        .after('<div class="' + errorClass + '"></div>');
+                }
+                else {
+                    error.insertAfter(element);
+                }
+            },
+            ignore: ':hidden:not(' + ignore + ')'
+            <?php else : ?>
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+            <?php endif ?>
+        });
+
+    });
+</script>
+<script type="text/x-magento-init">
+    {
+        "[data-role=change-email], [data-role=change-password]": {
+            "changeEmailPassword": {
+                "titleChangeEmail": "<?= $escaper->escapeHtml(__('Change Email')) ?>",
+                "titleChangePassword": "<?= $escaper->escapeHtml(__('Change Password')) ?>",
+                "titleChangeEmailAndPassword": "<?= $escaper->escapeHtml(__('Change Email and Password')) ?>"
+            }
+        },
+        "*": {
+            "Magento_CustomerCustomAttributes/validation": {
+                "ignore": <?= (int) ($_dob->isEnabled() || $userDefinedAttributes->hasUserDefinedAttributes()) ?>,
+                "hasUserDefinedAttributes": <?= (int) $userDefinedAttributes->hasUserDefinedAttributes() ?>,
+                "isDobEnabled": <?= (int) $_dob->isEnabled() ?>,
+                "mixins": [
+                    "Magento_CustomerCustomAttributes/error-placement",
+                    "Magento_CustomerCustomAttributes/validation-ignore"
+                ]
+            }
+        },
+        "[data-container=new-password]": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-edit-account"
+            }
+        }
+    }
+</script>

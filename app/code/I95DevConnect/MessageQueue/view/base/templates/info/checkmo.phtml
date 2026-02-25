@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ * @codingStandardsIgnoreFile
+ */
+?>
+<dl class="payment-method checkmemo">
+    <dt class="title"><?= $block->escapeHtml($block->getMethod()->getTitle()) ?></dt>
+    <?php
+    if ($block->getInfo()->getAdditionalInformation()): ?>
+        <?php if ($block->getPayableTo()): ?>
+            <dd class="content">
+                <strong><?= $block->escapeHtml(__('Make Check payable to')) ?></strong>
+                <?= $block->escapeHtml($block->getPayableTo()) ?>
+            </dd>
+        <?php endif; ?>
+        <?php if ($block->getMailingAddress()): ?>
+            <dd class="content">
+                <strong><?= $block->escapeHtml(__('Send Check to')) ?></strong>
+                <address class="checkmo mailing address">
+                    <?= /* @noEscape */  nl2br($block->escapeHtml($block->getMailingAddress())) ?>
+                </address>
+            </dd>
+        <?php endif; ?>
+            <?php $order = $block->getInfo()->getOrder();
+                  $checkNumber = $this->helper('I95DevConnect\MessageQueue\Helper\Generic')->getCheckNumber($order); ?>
+            <?php if ($checkNumber): ?>
+            <dd class="content">
+                <strong><?= $block->escapeHtml(__('Check Number')) ?></strong>
+                <address class="checkmo mailing address">
+                    <?= /* @noEscape */  nl2br($block->escapeHtml($checkNumber)) ?>
+                </address>
+            </dd>
+        <?php endif; ?>
+            
+    <?php endif; ?>
+</dl>

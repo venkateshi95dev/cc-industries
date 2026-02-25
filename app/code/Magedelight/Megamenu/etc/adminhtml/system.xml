@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="magedelight" translate="label" type="text" sortOrder="45" showInStore="1" showInDefault="1" showInWebsite="1">
+           <class>md-section-megamenu</class>
+            <label>Megamenu</label>
+            <tab>magedelight</tab>
+            <resource>Magedelight_Megamenu::config_root</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInStore="1" showInWebsite="1">
+                <label>General Configuration</label>
+                <field id="version" type="label" translate="label" sortOrder="0" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>Version</label>
+                    <backend_model>Magedelight\Megamenu\Model\Config\Backend\Version</backend_model>
+                </field>
+                <field id="megamenu_status" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <label>Enable Megamenu</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="hamburger_menu" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <label>Enable Hamburger Menu For Categories</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="primary_menu" type="select" translate="label" sortOrder="2" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Select Primary Menu</label>
+                    <source_model>Magedelight\Megamenu\Model\Menu\Source\MenuList</source_model>
+                </field>
+                <field id="animation_time" translate="label" type="text" sortOrder="3" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Animation Time</label>
+                    <comment><![CDATA[Enter the default animation time in seconds.]]></comment>
+                </field>
+                <field id="menu_custom_enabled" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Menu Cache</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="storebutton" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Magedelight\Megamenu\Model\Config\Form\StoreButton</frontend_model>
+                    <depends>
+                        <field id="magedelight/general/menu_custom_enabled">1</field>
+                    </depends>
+                    <comment>When you do any changes to menu please flush it once.</comment>
+                </field>
+            </group>
+            <group id="logs_settings" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="5" translate="label">
+                <label>Logs Settings</label>
+                <field id="enable_logs" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label" type="select">
+                    <label>Enable Logs</label>
+                    <comment>Logs are saved in var/log/md_megamenu.log</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

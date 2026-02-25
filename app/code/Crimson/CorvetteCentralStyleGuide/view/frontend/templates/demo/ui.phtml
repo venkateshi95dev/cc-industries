@@ -1,0 +1,572 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+
+$buttonStates = [
+    'default' => [
+        'label' => __('Default State'),
+        'class' => '',
+    ],
+    'disabled' => [
+        'label' => __('Disabled State'),
+        'class' => 'disabled',
+    ],
+];
+
+$inputStates = [
+    'default' => [
+        'label' => __('Default State'),
+        'class' => ''
+    ],
+    'disabled' => [
+        'label' => __('Disabled State'),
+        'class' => 'disabled',
+    ],
+    'error' => [
+        'label' => __('Error State'),
+        'class' => 'mage-error',
+        'after_input_html' => '<div class="mage-error">' . __('This is an error.') . '</div>',
+    ]
+];
+
+$demoSelectOptions = [
+    [
+        'label' => __('Dropdown'),
+        'value' => '',
+    ],
+    [
+        'label' => __('Lions'),
+        'value' => 'lions',
+    ],
+    [
+        'label' => __('Tigers'),
+        'value' => 'tigers',
+    ],
+    [
+        'label' => __('Bears'),
+        'value' => 'bears',
+    ],
+    [
+        'label' => __('Oh my!'),
+        'value' => 'ohmy',
+    ],
+];
+?>
+
+<main>
+    <h3>Typeface:</h3>
+    <h3 style="color: black; font-family:'Open Sans'; font-weight: 400">Open Sans</h3>
+    <h3 style="color: black; font-family:'Montserrat'; font-weight: 400">Montserrat</h3>
+    <h3 style="color: black; font-family:'Pathway Gothic One'; font-weight: 400">Pathway Gothic One</h3>
+    <h3 style="color: black; font-family:'Source Sans'; font-weight: 400">Source Sans</h3>
+
+    <hr>
+
+    <h3>Brand Colors:</h3>
+    <div style="display: flex; flex-wrap: wrap">
+        <div style="background-color: #2350AD; color: white; border-radius: 15px; padding: 10px; margin-right: 10px">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#2350AD</p>
+        </div>
+
+        <div style="background-color: #ffd814; color: white; border-radius: 15px; padding: 10px; margin-right: 10px">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#ffd814</p>
+        </div>
+
+        <div style="background-color: #C5080C; color: white; border-radius: 15px; padding: 10px; margin-right: 10px">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#C5080C</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <h3>Neutral Colors:</h3>
+    <div style="display: flex; flex-wrap: wrap">
+        <div
+            style="background-color: #FFFFFF; color: black; border-radius: 15px; padding: 10px; margin-right: 10px; border: 2px solid black">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#ffffff</p>
+        </div>
+
+        <div
+            style="background-color: #F1F1F1; color: black; border-radius: 15px; padding: 10px; margin-right: 10px; border: 2px solid black">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#F1F1F1</p>
+        </div>
+
+        <div
+            style="background-color: #dddddd; color: white; border-radius: 15px; padding: 10px; margin-right: 10px; border: 2px solid black">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#dddddd</p>
+        </div>
+        <div
+            style="background-color: #000000; color: white; border-radius: 15px; padding: 10px; margin-right: 10px; border: 2px solid black">
+            <p style="margin-bottom: 0; font-size: 18px; text-transform: uppercase">#000000</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Heading -->
+    <div class="page-title-wrapper">
+        <h1 class="page-title">
+            <span class="base" data-ui-id="page-title-wrapper">Heading Level 1</span>
+        </h1>
+    </div>
+
+    <h2 data-content-type="heading" data-appearance="default" data-element="main">Heading Level 2</h2>
+
+    <h3 data-content-type="heading" data-appearance="default" data-element="main">Heading Level 3</h3>
+
+    <h4 data-content-type="heading" data-appearance="default" data-element="main">Heading Level 4</h4>
+
+    <h5 data-content-type="heading" data-appearance="default" data-element="main">Heading Level 5</h5>
+
+    <h6 data-content-type="heading" data-appearance="default" data-element="main">Heading Level 6</h6>
+
+    <hr>
+
+    <p>
+        This is a paragraph that contains
+        <span>a span</span>,
+        <a href="#link">a link</a>,
+        <b>bolded text</b>,
+        <i>italic text</i>,
+        <em>emphasized text</em>,
+        <u>underlined text</u>,
+        <s>struck-out text</s>
+        <mark>marked text</mark>
+        ,
+        <small>small text</small>,
+        text that is<sub>subscripted</sub>,
+        text that is<sup>superscripted</sup>,
+        abbreviated text (<abbr title="National Aeronautics and Space Administration">NASA</abbr>),
+        <span><del>deleted text</del> <ins>replacement text</ins></span>,
+        time (
+        <time datetime="2020-08-17 08:00">Monday at 8:00 AM</time>
+        ),
+        keyboard shortcut indicators <kbd>WIN</kbd>+<kbd>SHIFT</kbd>+<kbd>S</kbd>,
+        and
+        <data value="21053">a data tag</data>
+    </p>
+</main>
+
+<hr>
+
+<p> This is a <q>short quote</q></p>
+<blockquote> This instead is a long quote that is going to use a lot of words and also cite who said that. —<cite> Some
+        People</cite></blockquote>
+
+<ol>
+    <li>Ordered List item</li>
+    <li>Ordered List item</li>
+    <li>Ordered List item</li>
+</ol>
+
+<ul>
+    <li>Unordered List item</li>
+    <li>Unordered List item</li>
+    <li>Unordered List item</li>
+</ul>
+
+<div>
+    <hr>
+    <h3>Notifications</h3>
+    <div class="messages">
+        <div class="message-success success message">
+            <div><?= $escaper->escapeHtml(__('Success Message!')) ?>  <?= $escaper->escapeHtml(__('Click <a href="#">here</a> to redeem your prize.'), ['a']) ?></div>
+        </div>
+
+        <div class="message-error error message">
+            <div><?= $escaper->escapeHtml(__('Error message.')) ?>  <?= $escaper->escapeHtml(__('Click this link to fix <a href="#">the issue</a>.'), ['a']) ?></div>
+        </div>
+
+        <div class="message-warning warning message">
+            <div><?= $escaper->escapeHtml(__('Warning message!')) ?>  <?= $escaper->escapeHtml(__('Click <a href="#">here</a> to ignore.'), ['a']) ?></div>
+        </div>
+
+        <div class="message-notice notice message">
+            <div><?= $escaper->escapeHtml(__('Notice: your attention is required.')) ?>  <?= $escaper->escapeHtml(__('Click <a href="#">here</a> to take action.'), ['a']) ?></div>
+        </div>
+    </div>
+    <hr>
+</div>
+
+<div class="content">
+
+    <!-- Buttons -->
+    <h3>Desktop Buttons</h3>
+
+    <table>
+        <thead>
+        <tr>
+            <?php foreach ($buttonStates as $state => $data): ?>
+                <th><?= $escaper->escapeHtml($data['label']) ?></th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <?php foreach ($buttonStates as $state => $data): ?>
+                <td>
+                    <div style="margin: 10px;" class="primary">
+                        <button class="action primary <?= $data['class'] ?>">
+                            <span><?= $escaper->escapeHtml(__('Primary Button')) ?></span>
+                        </button>
+                    </div>
+                    <div style="margin: 10px;" class="secondary">
+                        <button type="button" class="action secondary <?= $data['class'] ?>">
+                            <span><?= $escaper->escapeHtml(__('Secondary Button')) ?></span>
+                        </button>
+                    </div>
+                    <div style="margin: 10px;" class="primary">
+                        <a class="action primary <?= $data['class'] ?>">
+                            <span><?= $escaper->escapeHtml(__('Primary Button <a>Tag</a>')) ?></span>
+                        </a>
+                    </div>
+                    <div style="margin: 10px; margin-top:30px;" class="secondary">
+                        <a type="button" class="action secondary <?= $data['class'] ?>">
+                            <span><?= $escaper->escapeHtml(__('Secondary Button <a>Tag</a>')) ?></span>
+                        </a>
+                    </div>
+
+                    <div style="margin: 10px; margin-top:30px;" class="tertiary">
+                        <button type="button" class="action tertiary <?= $data['class'] ?>">
+                            <span><?= $escaper->escapeHtml(__('Tertiary Button')) ?></span>
+                        </button>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <!-- Text Inputs -->
+    <h3>Form Inputs</h3>
+
+    <h3><?= $escaper->escapeHtml(__('Text Inputs')) ?></h3>
+    <table>
+        <thead>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <th><?= $escaper->escapeHtml($data['label']) ?></th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field">
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Text Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['before_control_html'] ?? '' ?>
+
+                            <div class="control">
+                                <?= /** @noEscape */
+                                    $data['before_input_html'] ?? '' ?>
+
+                                <input
+                                    type="text"
+                                    id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                    class="input-text <?= $data['class'] ?>"
+                                    <?php if ($data['class'] === 'disabled'): ?>
+                                        <?= $data['class']; ?>
+                                    <?php endif; ?>
+                                    placeholder="<?= $escaper->escapeHtmlAttr(__('Placeholder Text')) ?>"/>
+
+                                <?= /** @noEscape */
+                                    $data['after_input_html'] ?? '' ?>
+                            </div>
+
+                            <?= /** @noEscape */
+                                $data['after_control_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <!-- Text Area Inputs -->
+    <h3><?= $escaper->escapeHtml(__('Text Area Inputs')) ?></h3>
+    <table>
+        <thead>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <th><?= $escaper->escapeHtml($data['label']) ?></th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field">
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Text Area Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['before_control_html'] ?? '' ?>
+
+                            <div class="control">
+                                <?= /** @noEscape */
+                                    $data['before_input_html'] ?? '' ?>
+
+                                <textarea
+                                    id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                    class="textarea <?= $data['class'] ?>"
+                                    <?php if ($data['class'] === 'disabled'): ?>
+                                        <?= $data['class']; ?>
+                                    <?php endif; ?>
+                                ><?= $escaper->escapeHtml(__('Placeholder Text')) ?></textarea>
+
+                                <?= /** @noEscape */
+                                    $data['after_input_html'] ?? '' ?>
+                            </div>
+
+                            <?= /** @noEscape */
+                                $data['after_control_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <!-- Select Inputs -->
+    <h3><?= $escaper->escapeHtml(__('Select Inputs')) ?></h3>
+    <table>
+        <thead>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <th><?= $escaper->escapeHtml($data['label']) ?></th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field">
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Select Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['before_control_html'] ?? '' ?>
+
+                            <div class="control">
+                                <?= /** @noEscape */
+                                    $data['before_input_html'] ?? '' ?>
+
+                                <select
+                                    type="select"
+                                    id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                    class="select <?= $data['class'] ?>"
+                                    <?php if ($data['class'] === 'disabled'): ?>
+                                        <?= $data['class']; ?>
+                                    <?php endif; ?>
+                                >
+
+                                    <?php foreach ($demoSelectOptions as $option): ?>
+                                        <option value="<?= $escaper->escapeHtmlAttr($option['value']) ?>">
+                                            <?= $escaper->escapeHtml($option['label']) ?>
+                                        </option>
+                                    <?php endforeach ?>
+                                </select>
+
+                                <?= /** @noEscape */
+                                    $data['after_input_html'] ?? '' ?>
+                            </div>
+
+                            <?= /** @noEscape */
+                                $data['after_control_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <!-- Checkbox Inputs -->
+    <h3><?= $escaper->escapeHtml(__('Checkbox Inputs')) ?></h3>
+    <table>
+        <thead>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <th><?= $escaper->escapeHtml($data['label']) ?></th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field choice">
+                            <?= /** @noEscape */
+                                $data['before_input_html'] ?? '' ?>
+
+                            <input
+                                type="checkbox"
+                                id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                class="checkbox <?= $data['class'] ?>"
+                                <?php if ($data['class'] === 'disabled'): ?>
+                                    <?= $data['class']; ?>
+                                <?php endif; ?>
+                            />
+
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Checkbox Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['after_input_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field choice">
+                            <?= /** @noEscape */
+                                $data['before_input_html'] ?? '' ?>
+
+                            <input
+                                type="checkbox"
+                                id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                class="checkbox <?= $data['class'] ?>"
+                                checked
+                                <?php if ($data['class'] === 'disabled'): ?>
+                                    <?= $data['class']; ?>
+                                <?php endif; ?>
+                            />
+
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Checkbox Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['after_input_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <!-- Radio Inputs -->
+    <h3><?= $escaper->escapeHtml(__('Radio Inputs')) ?></h3>
+    <table>
+        <thead>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <th><?= $escaper->escapeHtml($data['label']) ?></th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field choice">
+                            <?= /** @noEscape */
+                                $data['before_input_html'] ?? '' ?>
+
+                            <input
+                                type="radio"
+                                id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                class="radio <?= $data['class'] ?>"
+                                <?php if ($data['class'] === 'disabled'): ?>
+                                    <?= $data['class']; ?>
+                                <?php endif; ?>
+                            />
+
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Radio Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['after_input_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+
+        <tr>
+            <?php foreach ($inputStates as $state => $data): ?>
+                <?php
+                $inputId = uniqid('di-');
+                ?>
+                <td>
+                    <div class="fieldset">
+                        <div class="field choice">
+                            <?= /** @noEscape */
+                                $data['before_input_html'] ?? '' ?>
+
+                            <input
+                                type="radio"
+                                id="<?= $escaper->escapeHtmlAttr($inputId) ?>"
+                                class="radio <?= $data['class'] ?>"
+                                checked
+                                <?php if ($data['class'] === 'disabled'): ?>
+                                    <?= $data['class']; ?>
+                                <?php endif; ?>
+                            />
+
+                            <label class="label" for="<?= $escaper->escapeHtmlAttr($inputId) ?>">
+                                <span><?= $escaper->escapeHtml(__('Radio Input')) ?></span>
+                            </label>
+
+                            <?= /** @noEscape */
+                                $data['after_input_html'] ?? '' ?>
+                        </div>
+                    </div>
+                </td>
+            <?php endforeach ?>
+        </tr>
+        </tbody>
+    </table>
+</div>

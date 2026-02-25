@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/vestestimonial/testimonial" method="POST">
+        <service class="Crimson\Testimonial\Api\TestimonialRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::testimonial_save"/>
+        </resources>
+    </route>
+    <route url="/V1/vestestimonial/testimonial" method="PUT">
+        <service class="Crimson\Testimonial\Api\TestimonialRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::testimonial_save"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/testimonial/:testimonialId" method="DELETE">
+        <service class="Crimson\Testimonial\Api\TestimonialRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::testimonial_delete"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/testimonial/:id" method="GET">
+        <service class="Crimson\Testimonial\Api\TestimonialRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::testimonial"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/testimonials" method="GET">
+        <service class="Crimson\Testimonial\Api\TestimonialRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::testimonial"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/testimonial/list" method="GET">
+        <service class="Crimson\Testimonial\Api\TestimonialRepositoryInterface" method="getPublishList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/category" method="POST">
+        <service class="Crimson\Testimonial\Api\CategoryRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::category_save"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/category" method="PUT">
+        <service class="Crimson\Testimonial\Api\CategoryRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::category_save"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/category/:categoryId" method="DELETE">
+        <service class="Crimson\Testimonial\Api\CategoryRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::category_delete"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/category/:categoryId" method="GET">
+        <service class="Crimson\Testimonial\Api\CategoryRepositoryInterface" method="get"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::category"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/categories" method="GET">
+        <service class="Crimson\Testimonial\Api\CategoryRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Crimson_Testimonial::category"/>
+        </resources>
+    </route>
+
+    <route url="/V1/vestestimonial/category/list" method="GET">
+        <service class="Crimson\Testimonial\Api\CategoryRepositoryInterface" method="getPublishList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+</routes>

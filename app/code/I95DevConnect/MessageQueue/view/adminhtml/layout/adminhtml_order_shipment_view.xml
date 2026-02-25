@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="order_info">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">I95DevConnect_MessageQueue::invoice/order/info.phtml</argument>
+            </action>
+            <block class="I95DevConnect\MessageQueue\Block\Adminhtml\Shipment\View\Info" name="custom_shipment_info" template="I95DevConnect_MessageQueue::shipment/view/shipment_info.phtml"/>
+        </referenceBlock>
+    </body>
+</page>
+
+ 

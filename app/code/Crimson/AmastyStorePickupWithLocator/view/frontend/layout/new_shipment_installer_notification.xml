@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Items" design_abstraction="custom">
+    <body>
+        <block class="Crimson\AmastyStorePickupWithLocator\Block\Order\Email\Shipment\ItemsCustom"
+               name="new_shipment_installer_notification.items"
+               template="Crimson_AmastyStorePickupWithLocator::email/shipment/items.phtml">
+            <block class="Magento\Framework\View\Element\RendererList" name="sales.email.order.shipment.renderers" as="renderer.list">
+                <block class="Magento\Sales\Block\Order\Email\Items\DefaultItems" name="sales.email.order.shipment.renderers.default" as="default" template="Magento_Sales::email/items/shipment/default.phtml"/>
+            </block>
+        </block>
+    </body>
+</page>

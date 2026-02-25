@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mach>
+            <mach_inventory_import>
+                <enabled>1</enabled>
+                <job_schedule>35 * * * *</job_schedule>
+                <threshold_minimum>5000</threshold_minimum>
+            </mach_inventory_import>
+        </mach>
+    </default>
+</config>

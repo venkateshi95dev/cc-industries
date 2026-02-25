@@ -1,0 +1,25 @@
+
+<div class="field choice" data-bind="visible: _showHsc">
+    <input type="checkbox" class="checkbox"
+           simple-checked="checked"
+           ko-disabled="disabled"
+           ko-focused="focused"
+           ko-value="value"
+           attr="id: uid, name: inputName"/>
+
+    <label class="label" attr="for: uid">
+        <span text="checkbox_label"></span>
+    </label>
+    <div class="field-tooltip toggle">
+        <span class="field-tooltip-action action-cvv"
+              tabindex="0"
+              data-toggle="dropdown"
+              data-bind="attr: {title: $t('What is this?')}, mageInit: {'dropdown':{'activeClass': '_active'}}">
+            <span><!-- ko i18n: 'What is this?'--><!-- /ko --></span>
+        </span>
+        <div class="field-tooltip-content"
+             data-target="dropdown">
+            <span html="description"></span>
+        </div>
+    </div>
+</div>

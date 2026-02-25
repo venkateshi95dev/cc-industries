@@ -1,0 +1,29 @@
+{
+  "name": "crimson/corvettecentralosco",
+  "description": "OSCO: Parcel Shipping Cost Optimization",
+  "require": {
+      "php": "~8.1.0|~8.2.0|~8.3.0"
+  },
+  "suggest": {},
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Crimson\\CorvetteCentralOSCO\\": ""
+    }
+  },
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Crimson/CorvetteCentralOSCO"
+      ]
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+$selectedOptions = $block->getAnimationOption();
+$optionGroups = $block->getOptions();
+?>
+    <select class="admin__control-select animationFields">
+        <option value="none"><?= /* @noEscape */ __('None') ?></option>
+    <?php
+    foreach ($optionGroups as $optionGroup) {
+        ?>
+        <optgroup label="<?= /* @noEscape */ $optionGroup['label']; ?>">
+            <?php
+            $optionValues = $optionGroup['value'];
+            foreach ($optionValues as $optionValue) {
+                $selected = '';
+                if ($selectedOptions == $optionValue['value']) {
+                    $selected = 'selected';
+                }
+                ?>
+                <option <?= /* @noEscape */ $selected; ?> value="<?= /* @noEscape */ $optionValue['label']; ?>">
+                    <?= /* @noEscape */ $optionValue['value']; ?></option>
+                <?php
+            }
+            ?>
+        </optgroup>
+        <?php
+    }
+    ?>
+    </select>
+    <div class="admin__field-note">
+        <span>Not available in Hyva</span>
+    </div>

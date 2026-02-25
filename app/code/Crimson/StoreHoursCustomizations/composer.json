@@ -1,0 +1,31 @@
+{
+    "name": "crimson/module-store-hours-customizations",
+    "description": "",
+    "require": {
+        "php": "~7.4.0|~8.1.0",
+        "crimson/module-store-hours": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\StoreHoursCustomizations\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/StoreHoursCustomizations"
+            ]
+        ]
+    }
+}

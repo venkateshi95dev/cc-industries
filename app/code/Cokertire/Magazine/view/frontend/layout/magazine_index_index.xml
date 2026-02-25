@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<remove src="Magebuzz_Featuredproduct::css/flexslider.css" />
+		<remove src="Amasty_Finder::css/style.css" />
+		<remove src="Aheadworks_Ajaxcartpro::css/style.css" />
+		<remove src="Amasty_ShopbyBrand::css/amshopbybrand.css" />
+		<remove src="Magento_Swatches::css/swatches.css" />
+		<remove src="css/styles-m.css" />
+		<remove src="css/styles-l.css" />
+		<remove src="css/print.css" />
+		<remove src="mage/calendar.css" />
+		<remove src="css/bootstrap.min.css" />
+		<remove src="css/bootstrap-theme.min.css" />
+		<remove src="css/font-awesome.min.css" />
+
+		<css src="Cokertire_Magazine::css/custom.css" media="screen"/>
+		<css src="Cokertire_Magazine::css/jquery.booklet.latest.css" media="screen"/>
+		<css src="Cokertire_Magazine::css/viewer.css" media="screen"/>
+		<script  src="Cokertire_Magazine::js/jquery-ui-1.10.4.min.js"/>
+		<script  src="Cokertire_Magazine::js/screenfull.js"/>
+		<script  src="Cokertire_Magazine::js/jquery.booklet.latest.min.js"/>
+		<script  src="Cokertire_Magazine::js/jquery.easing.1.3.js"/>
+		<script  src="Cokertire_Magazine::js/bootstrap.js"/>
+	</head>
+    <body>
+    	<referenceContainer name="header.container" remove="true" />
+    	<referenceContainer name="before.body.end" remove="true"/>
+		<referenceContainer name="content">
+		<block class="Cokertire\Magazine\Block\Magazine" name="onlinecatalog.name" template="Cokertire_Magazine::onlinecatalog.phtml" />
+		</referenceContainer>
+		<referenceContainer name="footer-container" remove="true" />
+    </body>
+</page>

@@ -1,0 +1,426 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+?>
+<div id="catalogprint.sidebar">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4><?= /* @noEscape */ __('Category Selection') ?></h4>
+        </div>
+        <div class="fieldset">
+            <div class="hor-scroll">
+                <input type="hidden" name="category_ids" id="product_categories" value="">
+                <input type="hidden" name="category_ids_path" id="product_categories_path" value="">
+                <?php if ($block->getRoot()): ?>
+                    <div id="product-categories" class="tree"></div>
+            </div>
+            <button type="button" class="form-button categoryAdd ui-button">
+                    <?= /* @noEscape */ __('Add to menu'); ?>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // These variables should be defined in your template
+    var rootName = <?= /* @noEscape */ json_encode(htmlentities($block->getRoot()->getName())) ?>;
+    var rootIsVisible = <?php if ($block->getRoot()->getIsVisible()): ?>true<?php else: ?>false<?php endif; ?>;
+    var rootId = <?= (int)$block->getRoot()->getId() ?>;
+    var storeId = <?= (int)$block->getStore()->getId() ?>;
+    var categoryId = <?= (int)$block->getCategoryId() ?>;
+    var parentParam = <?= (int)$block->getRequest()->getParam('parent') ?>;
+    var treeJson = <?= /* @noEscape */ $block->getTreeJson() ?>;
+    var loadTreeUrl = '<?= $escaper->escapeJs($escaper->escapeUrl($block->getLoadTreeUrl())) ?>';
+    var switchTreeUrl = '<?= $escaper->escapeJs($escaper->escapeUrl($block->getSwitchTreeUrl())) ?>';
+    var editUrl = '<?= $escaper->escapeJs($escaper->escapeUrl($block->getEditUrl())) ?>';
+    var useAjax = <?= $escaper->escapeJs($block->getUseAjax()) ?>;
+
+    /**
+     * Category tree using jsTree for Magento 2.4.8+
+     * Implements standard Magento behavior with proper structure and multi-category selection
+     */
+    require([
+        "jquery",
+        'Magento_Ui/js/modal/modal',
+        'mage/adminhtml/form',
+        'mage/translate',
+        'jquery/jstree/jquery.jstree'
+    ], function($, modal) {
+        'use strict';
+
+        var categoryTree = {
+            treeElement: '#product-categories',
+            formKey: FORM_KEY,
+            currentNodeId: null,
+            storeId: 0,
+            useAjax: true,
+            activeTab: null,
+
+            /**
+             * Initialize the category tree
+             */
+            init: function(config) {
+                this.switchTreeUrl = config.switchTreeUrl;
+                this.editUrl = config.editUrl;
+                this.currentNodeId = config.currentNodeId;
+                this.useAjax = config.useAjax;
+
+                // Initialize tree
+                this.initJsTree(config.defaultLoadTreeParams);
+
+                // Handle tabs
+                $('body').off('tabsactivate.tree').on('tabsactivate.tree', function(e, ui) {
+                    this.activeTab = $(ui.newTab).find('a').prop('id');
+                }.bind(this));
+
+                // Set up store switcher handler
+                if (config.scopeSwitcherHandler) {
+                    window.scopeSwitcherHandler = this.reRenderTree.bind(this);
+                }
+            },
+
+            /**
+             * Initialize jsTree with proper configuration
+             */
+            initJsTree: function(config) {
+                var self = this;
+                var parameters = config.parameters;
+                var data = config.data;
+                this.storeId = parameters.store_id;
+
+                // Handle root category button visibility
+                if (this.storeId != 0 && $('#add_root_category_button').length) {
+                    $('#add_root_category_button').hide();
+                } else if ($('#add_root_category_button').length) {
+                    $('#add_root_category_button').show();
+                }
+
+                // Destroy previous instance if exists
+                if ($(this.treeElement).jstree(true)) {
+                    $(this.treeElement).jstree('destroy');
+                }
+
+                // Clear the container
+                $(this.treeElement).html('');
+
+                // Initialize jsTree
+                $(this.treeElement).jstree({
+                    'core': {
+                        'data': function(node, callback) {
+                            if (node.id === '#') {
+                                // Initial load - transform data
+                                callback(self.prepareTreeData(data, parameters));
+                            } else {
+                                // Dynamic loading of nodes is handled here if needed
+                                callback([]);
+                            }
+                        },
+                        'themes': {
+                            'name': 'default',
+                            'dots': false,
+                            'icons': true
+                        },
+                        'multiple': true,
+                        'check_callback': true
+                    },
+                    'plugins': ['checkbox', 'types'],
+                    'checkbox': {
+                        'keep_selected_style': false,
+                        'three_state': false,
+                        'whole_node': false,
+                        'tie_selection': false
+                    },
+                    'types': {
+                        'default': {
+                            'icon': 'jstree-icon jstree-folder'
+                        }
+                    }
+                });
+
+                // Bind events
+                $(this.treeElement)
+                    .on('ready.jstree', function() {
+                        self.loadCategoryState();
+                        self.expandInitialNodes();
+                    })
+                    .on('check_node.jstree', function(e, data) {
+                        self.updateCategorySelection(data.node, true);
+                    })
+                    .on('uncheck_node.jstree', function(e, data) {
+                        self.updateCategorySelection(data.node, false);
+                    })
+                    .on('click', '.jstree-anchor', function(e) {
+                        if (!$(e.target).hasClass('jstree-checkbox')) {
+                            var nodeId = $(this).closest('.jstree-node').attr('id');
+                            var tree = $(self.treeElement).jstree(true);
+                            var node = tree.get_node(nodeId);
+
+                            // Toggle node open/close on text click (not checkbox click)
+                            if (tree.is_closed(node)) {
+                                tree.open_node(node);
+                            } else if (tree.is_open(node)) {
+                                tree.close_node(node);
+                            }
+                        }
+                    });
+            },
+
+            /**
+             * Convert Magento tree data format to jsTree format
+             */
+            prepareTreeData: function(data, rootParams) {
+                var result = [];
+
+                // Don't add root node to hide it and start from default category
+                // Instead, make all direct children of root appear at the top level
+                if (data) {
+                    processTopLevelNodes(data);
+                }
+
+                function processTopLevelNodes(children) {
+                    if (!children || !children.length) {
+                        return;
+                    }
+
+                    for (var i = 0; i < children.length; i++) {
+                        var child = children[i];
+                        var nodeData = {
+                            id: child.id,
+                            parent: '#', // Connect directly to the root of jsTree
+                            text: child.text,
+                            state: {
+                                opened: !!child.expanded
+                            },
+                            a_attr: {
+                                'data-id': child.id
+                            }
+                        };
+
+                        result.push(nodeData);
+
+                        if (child.children && child.children.length) {
+                            processChildNodes(child.children, child.id);
+                        }
+                    }
+                }
+
+                function processChildNodes(children, parent) {
+                    if (!children || !children.length) {
+                        return;
+                    }
+
+                    for (var i = 0; i < children.length; i++) {
+                        var child = children[i];
+                        var nodeData = {
+                            id: child.id,
+                            parent: parent,
+                            text: child.text,
+                            state: {
+                                opened: !!child.expanded
+                            },
+                            a_attr: {
+                                'data-id': child.id
+                            }
+                        };
+
+                        result.push(nodeData);
+
+                        if (child.children && child.children.length) {
+                            processChildNodes(child.children, child.id);
+                        }
+                    }
+                }
+
+                return result;
+            },
+
+            /**
+             * Expand initial nodes based on product_categories_path
+             */
+            expandInitialNodes: function() {
+                if (!$('#product_categories_path').length) {
+                    return;
+                }
+
+                var pathString = $('#product_categories_path').val();
+                if (pathString) {
+                    var pathIds = pathString.split(',');
+                    var tree = $(this.treeElement).jstree(true);
+
+                    pathIds.forEach(function(id) {
+                        if (id) {
+                            tree.open_node(id);
+                        }
+                    });
+                }
+
+                // Select current node if defined
+                if (this.currentNodeId) {
+                    var tree = $(this.treeElement).jstree(true);
+                    tree.select_node(this.currentNodeId);
+                }
+            },
+
+            /**
+             * Load saved category state and check nodes
+             */
+            loadCategoryState: function() {
+                if (!$('#product_categories').length) {
+                    return;
+                }
+
+                var categoriesValue = $('#product_categories').val();
+                var tree = $(this.treeElement).jstree(true);
+
+                if (categoriesValue) {
+                    try {
+                        var categories = JSON.parse(categoriesValue);
+
+                        categories.forEach(function(category) {
+                            tree.check_node(category.id);
+                        });
+                    } catch (e) {
+                        console.error('Error parsing category data', e);
+                    }
+                }
+            },
+
+            /**
+             * Update category selection when checkbox is toggled
+             */
+            updateCategorySelection: function(node, isChecked) {
+                if (!$('#product_categories').length) {
+                    return;
+                }
+
+                var categoriesArray = [];
+                var existingData = $('#product_categories').val();
+
+                if (existingData) {
+                    try {
+                        categoriesArray = JSON.parse(existingData);
+                    } catch (e) {
+                        categoriesArray = [];
+                    }
+                }
+
+                if (isChecked) {
+                    // Add category if it doesn't exist
+                    var exists = categoriesArray.some(function(category) {
+                        return category.id == node.id;
+                    });
+
+                    if (!exists) {
+                        categoriesArray.push({
+                            id: node.id,
+                            text: node.text
+                        });
+                    }
+                } else {
+                    // Remove category
+                    categoriesArray = categoriesArray.filter(function(category) {
+                        return category.id != node.id;
+                    });
+                }
+
+                $('#product_categories').val(JSON.stringify(categoriesArray));
+                varienElementMethods.setHasChanges(document.querySelector(this.treeElement));
+            },
+
+            /**
+             * Re-render tree on store switch
+             */
+            reRenderTree: function(switcherParams) {
+                var self = this;
+
+                if (!switcherParams) {
+                    this.initJsTree(defaultLoadTreeParams);
+                    return;
+                }
+
+                // Handle confirmation
+                if (switcherParams.useConfirm) {
+                    var msg = 'Please confirm site switching. All data that hasn\'t been saved will be lost.';
+                    if (!confirm(msg)) {
+                        return false;
+                    }
+                }
+
+                // Update root category button visibility
+                if ($('#add_root_category_button').length) {
+                    if (!switcherParams.scopeId) {
+                        $('#add_root_category_button').show();
+                    } else {
+                        $('#add_root_category_button').hide();
+                    }
+                }
+
+                if (this.useAjax) {
+                    // Load via AJAX
+                    var url = this.switchTreeUrl + switcherParams.scopeParams + 'id/' + this.currentNodeId + '/';
+
+                    $.ajax({
+                        url: url + (url.match(/\?/) ? '&isAjax=true' : '?isAjax=true'),
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            form_key: this.formKey || FORM_KEY
+                        },
+                        success: function(response) {
+                            if (!response || !response.parameters) {
+                                return false;
+                            }
+
+                            self.initJsTree(response);
+                        }
+                    });
+                } else {
+                    // Redirect
+                    var baseUrl = this.editUrl;
+                    var urlExt = switcherParams.scopeParams + 'id/' + this.currentNodeId + '/';
+                    var url = parseSidUrl(baseUrl, urlExt);
+                    setLocation(url);
+                }
+            }
+        };
+
+        // Initialize on document ready
+        $(function() {
+            // Define default load tree params
+            window.defaultLoadTreeParams = {
+                parameters: {
+                    text: rootName,
+                    draggable: false,
+                    allowDrop: rootIsVisible || false,
+                    id: rootId,
+                    expanded: 1,
+                    store_id: storeId,
+                    category_id: categoryId,
+                    parent: parentParam
+                },
+                data: treeJson
+            };
+
+            // Set up configuration
+            var config = {
+                switchTreeUrl: switchTreeUrl,
+                editUrl: editUrl,
+                currentNodeId: categoryId,
+                useAjax: useAjax,
+                defaultLoadTreeParams: window.defaultLoadTreeParams,
+                scopeSwitcherHandler: true
+            };
+
+            // Initialize tree
+            categoryTree.init(config);
+
+            // Expose globally
+            window.categoryTree = categoryTree;
+        });
+    });
+</script>
+
+<?php endif; ?>

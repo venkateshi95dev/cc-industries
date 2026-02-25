@@ -1,0 +1,25 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+?>
+<?php $crumbs = $block->getCrumbs(); ?>
+<?php if ($crumbs && is_array($crumbs)): ?>
+<div class="breadcrumbs">
+    <ul class="items">
+        <?php foreach ($crumbs as $crumbName => $crumbInfo): ?>
+            <li class="item <?= /* @noEscape */ $crumbName ?>">
+            <?php if ($crumbInfo['link']): ?>
+                <a href="<?= /* @noEscape */ $crumbInfo['link'] ?>"
+                   title="<?= $escaper->escapeHtml($crumbInfo['title']) ?>">
+                    <?= $escaper->escapeHtml($crumbInfo['label']) ?></a>
+            <?php else: ?>
+                <?= $escaper->escapeHtml($crumbInfo['label']) ?>
+            <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

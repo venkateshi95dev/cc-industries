@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+ <!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+ -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Magento\Backend\Model\Menu\Item">
+        <plugin name="md_megamenu_menu_item_newtab"
+                type="Magedelight\Megamenu\Plugin\Magento\Backend\Model\Menu\Item" />
+    </type>
+    <type name="Magento\Catalog\Model\Category\DataProvider">
+        <plugin name="md_burger_menu" type="Magedelight\Megamenu\Plugin\Model\Category\DataProvider" />
+    </type>
+
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="md_menu_label_shape" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Magedelight\Megamenu\Ui\DataProvider\Product\Form\Modifier\MdMenuLabelShape
+                    </item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="md_label_text_color" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Magedelight\Megamenu\Ui\DataProvider\Product\Form\Modifier\MdLabelTextColor
+                    </item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="md_label_background_color" xsi:type="array">
+                    <item name="class" xsi:type="string">
+                        Magedelight\Megamenu\Ui\DataProvider\Product\Form\Modifier\MdLabelBackgroundColor
+                    </item>
+                    <item name="sortOrder" xsi:type="number">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magedelight\Megamenu\Controller\Adminhtml\Menu\Save">
+        <plugin name="Magedelight_Megamenu::afterExecute" type="Magedelight\Megamenu\Plugin\Menu\Flushmenu"
+                sortOrder="10" disabled="false" />
+        <plugin name="clear_cache_after_save"
+                type="Magedelight\Megamenu\Plugin\ClearCache" sortOrder="10"/>
+    </type>
+</config>

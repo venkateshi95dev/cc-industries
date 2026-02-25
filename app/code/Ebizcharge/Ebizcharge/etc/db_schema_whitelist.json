@@ -1,0 +1,377 @@
+{
+    "ebizcharge_token": {
+        "column": {
+            "token_id": true,
+            "mage_cust_id": true,
+            "ebzc_cust_id": true
+        },
+        "index": {
+            "EBIZCHARGE_TOKEN_MAGE_CUST_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ebizcharge_recurring_dates": {
+        "column": {
+            "id": true,
+            "recurring_id": true,
+            "recurring_date": true,
+            "entity_id": true,
+            "customer_id": true,
+            "store_id": true,
+            "ordered_qty": true,
+            "ordered_product_final_price": true,
+            "ordered_product_id": true,
+            "coupon_code": true,
+            "discount": true,
+            "ordered_status": true,
+            "remarks": true,
+            "created_at": true,
+            "updated_at": true,
+            "amount": true,
+            "shipping_amount": true,
+            "tax_amount": true,
+            "surcharge_amount": true,
+            "item_price": true,
+            "subtotal": true,
+            "grand_total": true
+        },
+        "index": {
+            "EBIZCHARGE_RECURRING_DATES_RECURRING_ID": true,
+            "EBIZCHARGE_RECURRING_DATES_ENTITY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ebizcharge_recurring_order": {
+        "column": {
+            "id": true,
+            "recurring_id": true,
+            "recurring_date": true,
+            "rec_order_id": true,
+            "created_date": true,
+            "order_date": true,
+            "status": true,
+            "message": true,
+            "order_entity_id": true,
+            "entity_id": true,
+            "store_id": true,
+            "coupon_code": true,
+            "discount": true,
+            "payment_method_name": true,
+            "shipping_method": true,
+            "scheduled_payment_internal_id": true,
+            "ebiz_recurring_payment_id": true,
+            "ebiz_method_id": true,
+            "created_at": true,
+            "updated_at": true,
+            "shipping_amount": true,
+            "surcharge_amount": true,
+            "item_price": true,
+            "tax_amount": true,
+            "subtotal": true,
+            "grand_total": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "ebizcharge_recurring": {
+        "column": {
+            "rec_id": true,
+            "rec_status": true,
+            "rec_indefinitely": true,
+            "mage_cust_id": true,
+            "mage_order_id": true,
+            "mage_item_id": true,
+            "mage_item_name": true,
+            "qty_ordered": true,
+            "eb_rec_start_date": true,
+            "eb_rec_end_date": true,
+            "eb_rec_frequency": true,
+            "eb_rec_method_id": true,
+            "eb_rec_scheduled_payment_internal_id": true,
+            "eb_rec_total": true,
+            "eb_rec_processed": true,
+            "eb_rec_next": true,
+            "eb_rec_remaining": true,
+            "eb_rec_due_dates": true,
+            "mage_parent_item_id": true,
+            "billing_address_id": true,
+            "shipping_address_id": true,
+            "amount": true,
+            "payment_method_name": true,
+            "shipping_method": true,
+            "failed_attempts": true,
+            "order_date": true,
+            "entity_id": true,
+            "store_id": true,
+            "coupon_code": true,
+            "cart_rule_id": true,
+            "product_rule_id": true,
+            "discount": true,
+            "created_at": true,
+            "updated_at": true,
+            "mage_item_sku": true,
+            "quote_id": true,
+            "shipping_amount": true,
+            "tax_amount": true,
+            "surcharge_amount": true,
+            "item_price": true,
+            "subtotal": true,
+            "grand_total": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        },
+        "index": {
+            "FTI_5B9977150073785370F2AF1B203CF03B": true
+        }
+    },
+    "sales_order_payment": {
+        "column": {
+            "ebzc_option": true,
+            "ebzc_cust_id": true,
+            "ebzc_method_id": true,
+            "ebzc_avs_street": true,
+            "ebzc_avs_zip": true,
+            "ebzc_save_payment": true,
+            "ebzc_payment_command": true,
+            "ebzc_customer_number": true,
+            "ebzc_result_code": true,
+            "ebzc_result": true,
+            "ebzc_payment_reference_number": true,
+            "ebzc_payment_is_duplicate": true,
+            "ebzc_payment_error_code": true,
+            "ebzc_payment_error": true,
+            "ebzc_card_level_result_code": true,
+            "ebzc_card_level_result": true,
+            "ebzc_card_code_result": true,
+            "ebzc_card_code_result_code": true,
+            "ebzc_batch_ref_number": true,
+            "ebzc_batch_number": true,
+            "ebzc_authcode": true,
+            "ebzc_avs_result": true,
+            "ebzc_avs_result_code": true,
+            "ebzc_auth_amount": true,
+            "ebzc_payment_status": true,
+            "ebzc_payment_status_code": true,
+            "ebzc_parent_order_id": true,
+            "ebzc_application_payment_ref_id": true,
+            "cc_type_2": true,
+            "bill_to_customer": true,
+            "ec_surcharge_amount": true,
+            "ec_surcharge_percentage": true
+        }
+    },
+    "quote_payment": {
+        "column": {
+            "ebzc_option": true,
+            "ebzc_cust_id": true,
+            "ebzc_method_id": true,
+            "ebzc_avs_street": true,
+            "ebzc_avs_zip": true,
+            "ebzc_save_payment": true
+        }
+    },
+    "customer_entity": {
+        "column": {
+            "ec_cust_sync_status": true,
+            "ec_cust_internalid": true,
+            "ec_cust_id": true,
+            "ec_cust_token": true,
+            "ec_cust_lastsyncdate": true,
+            "ec_software_id": true,
+            "ec_division_id": true,
+            "updated_at": true
+        }
+    },
+    "catalog_product_entity": {
+        "column": {
+            "ec_item_sync_status": true,
+            "ec_item_internalid": true,
+            "ec_item_id": true,
+            "ec_created_in": true,
+            "ec_item_lastsyncdate": true,
+            "ec_software_id": true,
+            "ec_division_id": true,
+            "updated_at": true
+        }
+    },
+    "quote": {
+        "column": {
+            "ec_order_sync_status": true,
+            "ec_order_internalid": true,
+            "ec_po_number": true,
+            "ec_order_id": true,
+            "ec_cust_id": true,
+            "ec_division_id": true,
+            "ec_order_lastsyncdate": true,
+            "ec_date_uploaded": true,
+            "ec_due_date": true,
+            "ec_created_in": true,
+            "ec_software_id": true,
+            "ec_surcharge_amount": true,
+            "ec_surcharge_percentage": true,
+            "updated_at": true,
+            "ec_surcharge_ineligible": true,
+            "ebiz_3d_secure_data": true
+        }
+    },
+    "sales_order": {
+        "column": {
+            "ec_order_sync_status": true,
+            "ec_order_internalid": true,
+            "ec_po_number": true,
+            "ec_order_id": true,
+            "ec_cust_id": true,
+            "ec_division_id": true,
+            "ec_order_lastsyncdate": true,
+            "ec_date_uploaded": true,
+            "ec_due_date": true,
+            "ec_created_in": true,
+            "recurring_parent_order": true,
+            "recurring_additional_info": true,
+            "ec_software_id": true,
+            "ec_surcharge_amount": true,
+            "ec_surcharge_percentage": true,
+            "updated_at": true,
+            "ec_surcharge_ineligible": true
+        }
+    },
+    "sales_invoice": {
+        "column": {
+            "ec_invoice_sync_status": true,
+            "ec_invoice_internalid": true,
+            "ec_invoice_id": true,
+            "ec_cust_id": true,
+            "ec_invoice_lastsyncdate": true,
+            "ec_software_id": true,
+            "ec_division_id": true,
+            "updated_at": true,
+            "ec_surcharge_amount": true,
+            "ec_surcharge_percentage": true,
+            "ec_surcharge_ineligible": true
+        }
+    },
+    "ebizcharge_sync_assets_cron": {
+        "column": {
+            "entity_id": true,
+            "process_code": true,
+            "process_name": true,
+            "process_group": true,
+            "asset_type": true,
+            "start_time": true,
+            "end_time": true,
+            "process_current_status": true,
+            "total_time": true,
+            "last_sync_total_records": true,
+            "remote_total_records": true,
+            "total_downloaded_records": true,
+            "sync_remarks": true,
+            "status": true,
+            "failed_counter": true,
+            "last_sync_counter": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "ec_created_in": true,
+            "ec_order_internalid": true,
+            "ec_order_id": true
+        }
+    },
+    "ebizcharge_recurring_payment_history": {
+        "column": {
+            "entity_id": true,
+            "payment_ref_number": true,
+            "eb_rec_scheduled_payment_internal_id": true,
+            "eb_rec_payment_internal_id": true,
+            "eb_payment_cust_number": true,
+            "customer_id": true,
+            "customer_email": true,
+            "customer_name": true,
+            "payment_source": true,
+            "payment_amount": true,
+            "payment_card_info": true,
+            "payment_datetime": true,
+            "store_id": true,
+            "server_ip": true,
+            "payment_response": true,
+            "payment_line_items": true,
+            "payment_detail": true,
+            "payment_detail_user": true,
+            "payment_detail_customer_id": true,
+            "payment_detail_client_ip": true,
+            "payment_detail_card_data": true,
+            "payment_check_trace": true,
+            "payment_check_data": true,
+            "payment_shipping_address": true,
+            "payment_billing_address": true,
+            "payment_account_holder": true,
+            "payment_status": true,
+            "payment_result": true,
+            "avs_result": true,
+            "card_code_result": true,
+            "status_code": true,
+            "result_card_info": true,
+            "result_status": true,
+            "last_downloaded_counter": true,
+            "last_downloaded_payments": true,
+            "last_synced_date_time": true,
+            "payment_error": true,
+            "payment_error_code": true,
+            "payment_transaction_type": true,
+            "created_at": true,
+            "modified_at": true,
+            "updated_at": true,
+            "eb_payment_method_id": true
+        },
+        "index": {
+            "FTI_6D7AB9985E4BA346CB9E561E5E16A70B": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "quote_item": {
+        "column": {
+            "qty_to_invoiced": true,
+            "ec_shipping_amount": true,
+            "ec_surcharge_amount": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "qty_to_invoiced": true,
+            "ec_shipping_amount": true,
+            "ec_surcharge_amount": true
+        }
+    },
+    "sales_invoice_item": {
+        "column": {
+            "qty_to_invoiced": true,
+            "ec_shipping_amount": true,
+            "ec_surcharge_amount": true
+        }
+    },
+    "sales_creditmemo": {
+        "column": {
+            "ec_surcharge_amount": true,
+            "ec_surcharge_percentage": true
+        }
+    },
+    "sales_creditmemo_grid": {
+        "column": {
+            "ec_surcharge_amount": true,
+            "ec_surcharge_percentage": true
+        }
+    }
+}

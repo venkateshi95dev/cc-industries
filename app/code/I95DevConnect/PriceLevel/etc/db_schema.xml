@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="i95dev_pricelevels" resource="default" engine="innodb" comment="GP Price Levels">
+        <column xsi:type="smallint" name="pricelevel_id" padding="6" unsigned="false" nullable="false" identity="true" comment="PRICE LEVEL ID"/>
+        <column xsi:type="text" name="pricelevel_code" nullable="false" comment="PRICE LEVEL"/>
+        <column xsi:type="text" name="description" nullable="false" comment="PRICE LEVEL DESCRIPTION"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="pricelevel_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="I95DEV_PRICELEVELS_PRICELEVEL_ID">
+            <column name="pricelevel_id"/>
+        </constraint>
+    </table>
+    <table name="i95dev_erp_pricelevel_price" resource="default" engine="innodb" comment="GP Item Price Levels">
+        <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="ID"/>
+        <column xsi:type="varchar" name="sku" nullable="false" comment="SKU"/>
+        <column xsi:type="decimal" name="qty" scale="4" precision="12" unsigned="false" nullable="false" default="1" comment="QTY"/>
+        <column xsi:type="decimal" name="price" scale="4" precision="12" unsigned="false" nullable="false" default="0" comment="PRICE"/>
+        <column xsi:type="text" name="pricelevel" nullable="false" comment="PRICELEVEL"/>
+        <column xsi:type="date" name="from_date" comment="From Date"/>
+        <column xsi:type="date" name="to_date" comment="To Date"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <column xsi:type="int" name="sales_type" padding="11" unsigned="false" nullable="true" identity="false" comment="Sales Type"/>
+        <column xsi:type="text" name="sales_code" nullable="true" comment="Sales Code"/>
+        <column xsi:type="text" name="uom" nullable="true" comment="UOM"/>
+    </table>
+</schema>

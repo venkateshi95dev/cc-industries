@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2022 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_Returns
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\Reporting">
+        <plugin name="i95dev_apply_filter_on_target_creditmemo_id_field"
+                type="I95DevConnect\Returns\Plugin\ResourceModel\CreditMemo\Grid"/>
+    </type>
+</config>

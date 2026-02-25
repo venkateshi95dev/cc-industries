@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">    
+    <event name="customer_group_save_after">
+        <observer name="erpconnect_mq_customer_group_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+        <observer name="i95dev_customer_group_save_after" instance="I95DevConnect\MessageQueue\Observer\CustomerGroupSaveAfterObserver" />
+    </event>
+    <event name="customer_save_after">
+        <observer name="erpconnect_mq_customer_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+        <observer name="i95dev_customer_save_after" instance="I95DevConnect\MessageQueue\Observer\CustomerObserver" />
+    </event>    
+    <event name="customer_address_save_after">
+        <observer name="erpconnect_mq_customer_address_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+        <observer name="i95dev_customer_address_save_after" instance="I95DevConnect\MessageQueue\Observer\AddressCustomerObserver" />
+    </event>
+    <event name="catalog_product_save_after">
+        <observer name="erpconnect_mq_product_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+        <observer name="i95dev_product_save_after" instance="I95DevConnect\MessageQueue\Observer\ProductSaveAfterObserver" />
+    </event>
+    <event name="sales_order_shipment_save_commit_after">
+        <observer name="erpconnect_mq_sales_order_shipment_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+    </event>
+    <event name="erpconnect_magento_messagequeue_ids_after">
+        <observer name="erpconnect_magento_messagequeue_ids_filter" instance="I95DevConnect\MessageQueue\Observer\MagentoIdsFilterObserver" />
+    </event> 
+	    
+    <event name="catalog_product_save_before">
+        <observer name="i95dev_product_save_before" instance="I95DevConnect\MessageQueue\Observer\ProductSaveBeforeObserver" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="erpconnect_mq_sales_order_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+        <observer name="i95dev_sales_order_save_after" instance="I95DevConnect\MessageQueue\Observer\SalesOrderSaveAfterObserver" />
+    </event>
+    <event name="sales_order_invoice_save_after">
+        <observer name="erpconnect_mq_sales_order_invoice_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+        <observer name="i95dev_sales_order_invoice_save_after" instance="I95DevConnect\MessageQueue\Observer\SalesOrderInvoiceSaveAfterObserver" />
+    </event> 
+    <event name="sales_order_invoice_save_before">
+        <observer name="i95dev_sales_order_invoice_save_before" instance="I95DevConnect\MessageQueue\Observer\SalesOrderInvoiceSaveBeforeObserver" />
+    </event>
+    <event name="sales_order_shipment_save_after">
+        <observer name="i95dev_sales_order_shipment_save_after" instance="I95DevConnect\MessageQueue\Observer\SalesOrderShipmentSaveAfterObserver" />
+    </event>
+    <event name="sales_order_shipment_track_save_after">
+        <observer name="i95dev_sales_order_shipment_track_save_after" instance="I95DevConnect\MessageQueue\Observer\SalesOrderShipmentTrackSaveAfter" />
+    </event> 
+    <event name="checkout_submit_before">
+        <observer name="i95dev_checkout_submit_before" instance="I95DevConnect\MessageQueue\Observer\SalesQuoteSubmitBefore" />
+    </event>
+    <event name="payment_method_assign_data_checkmo">
+        <observer name="i95dev_checkmo_additionaldata_assign" instance="I95DevConnect\MessageQueue\Observer\DataAssignObserver" />
+    </event>
+</config>
+ 

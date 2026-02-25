@@ -1,0 +1,150 @@
+#wrapper {
+    background-image: url('../woodenwheels/bg.jpg');
+    background-repeat: repeat;
+}
+
+.divider {
+    display: block;
+    background-image: url('../woodenwheels/divider.png');
+    background-repeat: no-repeat;
+    width: 31px;
+    height: 6px;
+}
+
+.spokes_bg {
+    background-image: url('../woodenwheels/spokes.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width:100%;
+    height: 574px;
+    display: table;
+}
+
+.video_bg {
+    display: relative;
+    background-image: url('../woodenwheels/oldcar.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    width:100%;
+    height: 574px;
+    display: table;
+}
+
+.lh52 {
+    line-height: 52px;
+}
+
+.spokes_inner,
+.video_inner {
+    display: table-cell;
+    vertical-align: middle;
+    height: 405px;
+    width: 720px;
+}
+
+.vid_surround {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+iframe {
+    padding: 2em;
+}
+
+.spokes_inner_bg {
+    display: table;
+    background-image: url('../woodenwheels/spokes_inner.png');
+    background-repeat: no-repeat;
+    width: 525px;
+    height: 283px;
+}
+
+.spokes_content {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 5em;
+}
+
+.ribbon {
+    float: left;
+    height: 52px;
+    width: 90%;
+}
+
+.ribbon_left {
+    float: left;
+    background-image: url('../woodenwheels/ribbon_end.png');
+    height: 52px;
+    width: 11px;
+}
+
+.ribbon_right {
+    float: left;
+    background-image: url('../woodenwheels/ribbon_end.png');
+    height: 52px;
+    width: 11px;
+    -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+}
+
+a:hover .ribbon_left {
+    background-image: url('../woodenwheels/ribbon_end_hover.png');
+}
+
+a:hover .ribbon_right {
+    background-image: url('../woodenwheels/ribbon_end_hover.png');
+    -webkit-transform: rotateY(-180deg);
+            transform: rotateY(-180deg);
+}
+
+a:hover .orange {
+    background-color: #da5c03;
+}
+
+.imgwrap {
+    min-height: 150px;
+}
+
+.icon {
+    min-height: 300px;
+}
+
+.icons .wrap {
+    max-width: 130px;
+    max-height: 130px;
+    margin: 0 auto;
+}
+
+.icons .wrap svg {
+
+}
+
+ul.item-list li {
+    list-style: disc;
+    margin-top: 10px;
+    margin-left: 1em;
+}
+
+.relative {
+    position: relative;
+}
+
+.up {
+    position: absolute;
+    top: 0;
+    font-size: 10px;
+    margin-left: 5px;
+}
+
+/* Colors */
+
+.orange {
+    background-color: #ff6a00;
+}
+
+.orange_font {
+    color: #ff6a00;
+}
+
+svg, svg path {
+    fill: #3b2319;
+}

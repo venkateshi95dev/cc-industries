@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework/Event/etc/events.xsd">
+    <event name="erpconnect_messagequeuetomagento_beforesave_customer">
+        <observer name="i95dev_customer_reverse_customization" instance="I95Dev\Customizations\Observer\Reverse\Customer" />
+    </event>
+    <event name="erpconnect_messagequeuetomagento_beforesave_product">
+        <observer name="i95dev_product_reverse_customization" instance="I95Dev\Customizations\Observer\Reverse\Product" />
+    </event>
+
+</config>

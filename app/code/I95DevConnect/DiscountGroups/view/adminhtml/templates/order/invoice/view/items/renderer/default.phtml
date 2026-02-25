@@ -1,0 +1,132 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+// phpcs:ignoreFile
+use Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer;
+
+if($this->getRequest()->getControllerName() == "order_invoice") {
+?>
+<?php /** @var $block DefaultRenderer */ ?>
+<?php $_item = $block->getItem() ?>
+<?php $_item->setStoreId($_item->getInvoice()->getStoreId()) ?>
+<?php $block->setPriceDataObject($_item) ?>
+<tr>
+    <td class="col-product"><?php echo $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-price">
+        <?php echo $block->getColumnHtml($_item, 'price'); ?>
+    </td>
+    <td class="col-qty"><?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?></td>
+    <td class="col-subtotal">
+        <?php echo $block->getColumnHtml($_item, 'subtotal'); ?>
+    </td>
+    <td class="col-tax"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('tax_amount') ?></td>
+    <td class="col-discount"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('discount_amount') ?></td>
+    <td class="col-discount-group">
+        <?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('discount_group_amount') ?>
+    </td>
+    <td class="col-total last">
+        <?php echo $block->getColumnHtml($_item, 'total'); ?>
+    </td>
+</tr>
+<?php } else if($this->getRequest()->getControllerName() == "order_creditmemo" && $this->getRequest()->getActionName() == "view") { ?>
+
+<?php $_item = $block->getItem() ?>
+<?php $_item->setStoreId($_item->getCreditMemo()->getStoreId()) ?>
+<?php $block->setPriceDataObject($_item) ?>
+<tr>
+    <td class="col-product"><?php echo $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-price">
+        <?php echo $block->getColumnHtml($_item, 'price'); ?>
+    </td>
+    <td class="col-qty"><?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?></td>
+    <td class="col-subtotal">
+        <?php echo $block->getColumnHtml($_item, 'subtotal'); ?>
+    </td>
+    <td class="col-tax"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('tax_amount') ?></td>
+    <td class="col-discount"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('discount_amount') ?></td>
+    <td class="col-discount-group">
+        <?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('discount_group_amount') ?>
+    </td>
+    <td class="col-total last">
+        <?php echo $block->getColumnHtml($_item, 'total'); ?>
+    </td>
+</tr>
+
+<?php } else if($this->getRequest()->getControllerName() == "order_creditmemo" && $this->getRequest()->getActionName() == "new") { ?>
+<?php $_item = $block->getItem() ?>
+<?php $block->setPriceDataObject($_item); ?>
+<tr>
+    <td class="col-product"><?php echo $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-price">
+        <?php echo $block->getColumnHtml($_item, 'price'); ?>
+    </td>
+    <td class="col-ordered-qty"><?php echo $block->getColumnHtml($_item, 'qty') ?></td>
+    <?php if ($block->canParentReturnToStock($_item)) : ?>
+        <td class="col-return-to-stock">
+        <?php if ($block->canReturnItemToStock($_item)) : ?>
+            <input type="checkbox"
+                   class="admin__control-checkbox"
+                   name="creditmemo[items][<?php /* @escapeNotVerified */ echo $_item->getOrderItemId() ?>][back_to_stock]"
+                   value="1"<?php if ($_item->getBackToStock()):?> checked<?php endif;?>/>
+            <label class="admin__field-label"></label>
+        <?php endif; ?>
+        </td>
+    <?php endif; ?>
+    <td class="col-refund col-qty">
+    <?php if ($block->canEditQty()) : ?>
+        <input type="text"
+               class="input-text admin__control-text qty-input"
+               name="creditmemo[items][<?php /* @escapeNotVerified */ echo $_item->getOrderItemId() ?>][qty]"
+               value="<?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?>"/>
+    <?php else : ?>
+        <?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?>
+    <?php endif; ?>
+    </td>
+    <td class="col-subtotal">
+        <?php echo $block->getColumnHtml($_item, 'subtotal'); ?>
+    </td>
+    <td class="col-tax-amount"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('tax_amount') ?></td>
+    <td class="col-discont"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('discount_amount') ?></td>
+    <td class="col-discount-group-amount"><?php /* @escapeNotVerified */ echo $block->displayPriceAttribute('discount_group_amount').'20' ?></td>
+    <td class="col-total last">
+        <?php echo $block->getColumnHtml($_item, 'total'); ?>
+    </td>
+</tr>
+<?php } else if($this->getRequest()->getControllerName() == "order_shipment" && $this->getRequest()->getActionName() == "view") {
+    $_item = $block->getItem() ?>
+<tr class="border">
+    <td class="col-product"><?php echo $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-qty last"><?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?></td>
+</tr>
+
+<?php } else {
+    $_item = $block->getItem() ?>
+<tr>
+    <td class="col-product"><?php echo $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-ordered-qty"><?php echo $block->getColumnHtml($_item, 'qty') ?></td>
+    <td class="col-qty <?php if ($block->isShipmentRegular()): ?>last<?php endif; ?>">
+        <?php if ($block->canShipPartiallyItem()): ?>
+            <input type="text"
+                   class="input-text admin__control-text qty-item"
+                   name="shipment[items][<?php /* @escapeNotVerified */ echo $_item->getOrderItemId() ?>]"
+                   value="<?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?>" />
+        <?php else: ?>
+            <?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?>
+        <?php endif; ?>
+    </td>
+    <?php if (!$block->canShipPartiallyItem()): ?>
+    <td class="col-ship last">
+        <input type="hidden" name="shipment[items][<?php /* @escapeNotVerified */ echo $_item->getOrderItemId() ?>]" value="0" />
+        <input type="checkbox" name="shipment[items][<?php /* @escapeNotVerified */ echo $_item->getOrderItemId() ?>]" value="<?php /* @escapeNotVerified */ echo $_item->getQty()*1 ?>" checked />
+    </td>
+    <?php endif; ?>
+</tr>
+
+<?php } ?>
+
+
+

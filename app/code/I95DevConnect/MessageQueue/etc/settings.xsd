@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="I95DevConnect_MessageQueue">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="subscriptiondetails">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="customerId" type="xs:string" />
+                            <xs:element name="subscriptionKey" type="xs:string" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="generalsetting">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="taxoverride" type="xs:unsignedByte" />
+                            <xs:element name="realtimeinventorycheck" type="xs:unsignedByte" />
+                            <xs:element name="productstatus" type="xs:unsignedByte" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="logs">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="maxdays" type="xs:unsignedByte" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="mq_dataclean">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cleardataperiod" type="xs:unsignedByte" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="SupportedProductTypes">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Order" type="xs:string" />
+                            <xs:element name="Product" type="xs:string" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

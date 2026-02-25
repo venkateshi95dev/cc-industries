@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/config.xsd">
+    <system>
+        <section id="crimson_attribute_search" translate="label" type="text" sortOrder="900" showInDefault="1" showInWebsite="1" showInStore="1">
+            <tab>crimson</tab>
+            <label>Attribute Search</label>
+            <resource>Magento_Config::config</resource>
+            <group id="general" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Module</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Creates a dropdown that filters attribute in search results</comment>
+                </field>
+                <field id="fast_simon" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Fast Simon Integration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="fast_simon_instant_search" translate="label comment" type="select" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Instant Search</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="fast_simon">1</field>
+                    </depends>
+                    <comment>Option in Fast Simon integration</comment>
+                </field>
+                <field id="enabled_attributes" translate="label comment" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Select Attributes</label>
+                    <source_model>Crimson\AttributeSearch\Model\Config\Source\SelectableAttributes</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>each attribute selected will create a new dropdown</comment>
+                </field>
+                <field id="select_title" translate="label comment tooltip" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Title</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>Will default to attribute frontend name if empty</comment>
+                    <tooltip>All attributes will have the same header name</tooltip>
+                </field>
+                    <field id="tooltip_text" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tooltip Text</label>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                    <comment>Tooltip will be hidden if no text is configured</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

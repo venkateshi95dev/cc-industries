@@ -1,0 +1,124 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Magento\Customer\Block\Adminhtml\Edit\Tab\View\PersonalInfo;
+
+/** @var PersonalInfo $block */
+
+$lastLoginDateAdmin = $block->getLastLoginDate();
+$lastLoginDateStore = $block->getStoreLastLoginDate();
+$storeId = $block->getStoreId();
+$createDateAdmin = $block->getCreateDate();
+$createDateStore = $block->getStoreCreateDate();
+$allowedAddressHtmlTags = ['b', 'br', 'em', 'i', 'li', 'ol', 'p', 'strong', 'sub', 'sup', 'ul'];
+?>
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= $block->escapeHtml(__('Personal Information')) ?></span>
+    </div>
+
+    <table class="admin__table-secondary" >
+        <tbody>
+        <?= $block->getChildHtml() ?>
+        <tr>
+            <th><?= $block->escapeHtml(__('Last Logged In:')) ?></th>
+            <td><?= $block->escapeHtml($lastLoginDateAdmin) ?> (<?= $block->escapeHtml($block->getCurrentStatus()) ?>)
+            </td>
+        </tr>
+        <?php if ($lastLoginDateAdmin !== $lastLoginDateStore): ?>
+            <tr>
+                <th><?= $block->escapeHtml(__('Last Logged In (%1):', $block->getStoreLastLoginDateTimezone())) ?></th>
+                <td><?= $block->escapeHtml($lastLoginDateStore) ?>(<?= $block->escapeHtml($block->getCurrentStatus()) ?>
+                    )
+                </td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <th><?= $block->escapeHtml(__('Account Lock:')) ?></th>
+            <td><?= $block->escapeHtml($block->getAccountLock()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Confirmed email:')) ?></th>
+            <td><?= $block->escapeHtml($block->getIsConfirmedStatus()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Account Created:')) ?></th>
+            <td><?= $block->escapeHtml($createDateAdmin) ?></td>
+        </tr>
+        <?php if ($createDateAdmin != $createDateStore): ?>
+            <tr>
+                <th><?= $block->escapeHtml(__('Account Created on (%1):', $block->getStoreCreateDateTimezone())) ?></th>
+                <td><?= $block->escapeHtml($createDateStore) ?></td>
+            </tr>
+        <?php endif; ?>
+        <tr>
+            <th><?= $block->escapeHtml(__('Account Created in:')) ?></th>
+            <td><?= $block->escapeHtml($block->getCreatedInStore()) ?></td>
+        </tr>
+        <tr>
+            <th><?= $block->escapeHtml(__('Customer Group:')) ?></th>
+            <td><?= $block->escapeHtml($block->getGroupName()) ?></td>
+        </tr>
+        <?php
+
+        if ($block->isEbizActive()):
+            ?>
+            <tr>
+                <th><?= $block->escapeHtml(__('Ebiz Cust ID:')) ?></th>
+                <td><?= $block->escapeHtml($block->getEbizCustId()) ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Ebizcharge Internal ID:')) ?></th>
+                <td><?= $block->escapeHtml($block->getEbizHubInternalId()) ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Ebizcharge Hub Token:')) ?></th>
+                <td><?= $block->escapeHtml($block->getEbizHubToken()) ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Division ID:')) ?></th>
+                <td><?= $block->escapeHtml($block->getDivisionId()) ?></td>
+            </tr>
+            <tr>
+                <th><?= $block->escapeHtml(__('Created At:')) ?></th>
+                <td><?= $block->escapeHtml($block->getEbizCreatedIn()) ?></td>
+            </tr>
+        <?php endif; ?>
+        </tbody>
+    </table>
+
+    <div class="personal-info right-panel">
+        <address >
+            <strong><?= $block->escapeHtml(__('Default Billing Address')) ?></strong><br/>
+            <?= $block->escapeHtml($block->getBillingAddressHtml(), $allowedAddressHtmlTags) ?>
+        </address>
+        <address >
+            <strong><?= $block->escapeHtml(__('Default Shipping Address')) ?></strong><br/>
+            <?= $block->escapeHtml($block->getShippingAddressHtml(), $allowedAddressHtmlTags) ?>
+        </address>
+    </div>
+</div>
+
+
+
+

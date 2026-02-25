@@ -1,0 +1,47 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2022 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+
+use Magento\Framework\App\DeploymentConfig\Reader;
+use Magento\Framework\App\ObjectManager;
+use Magento\Store\Model\StoreManagerInterface;
+
+?>
+<?php
+$objectManager = ObjectManager::getInstance();
+$storeManager = $objectManager->get(StoreManagerInterface::class);
+$configReader = $objectManager->get(Reader::class);
+$config = $configReader->load();
+$adminSuffix = $config['backend']['frontName'];
+$adminBaseUrl = $storeManager->getStore()->getBaseUrl() . $adminSuffix . "/";
+?>
+<script>
+    require(["jquery"], function ($) {
+        $(document).ready(function () {
+        $("label.data-grid-checkbox-cell-inner").each(function () {
+                var forvalue = $(this).attr('for');
+            if (!forvalue) {
+                return;
+            }
+
+            var messageId = $("#" + forvalue).val();
+            var messageStatus = $(".status_" + messageId).html();
+
+            if (messageStatus === 'Error') {
+                // Enable checkbox for Error records
+                $("#" + forvalue)[0].disabled = false;
+                $(this).off('click');
+            } else {
+                // Disable checkbox for non-error records
+                        $("#" + forvalue)[0].disabled = true;
+                        $(this).click(function () {
+                            return false;
+                        });
+                    }
+            });
+        });
+    });
+</script>

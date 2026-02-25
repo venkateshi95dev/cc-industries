@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ErrorData
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="i95dev_connect_extensions" translate="label" sortOrder="100">
+            <label>i95Dev Connector reports</label>
+        </tab>
+        <section id="i95devconnect_errors" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+            <class>separator-top</class>
+            <label>i95Dev Connector Error Report</label>
+            <tab>i95dev_connect_extensions</tab>
+            <resource>I95DevConnect_ErrorData::reports</resource>
+            <group id="reports_enabled_settings" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>i95Dev Connector Error Report</label>
+                <field id="report" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable(extension)</label>
+                    <comment>If you enable this extension, Message Queue error records data will send to general contact of i95Dev Connect Settings tab.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magento\Contact\Model\System\Config\Backend\Links</backend_model>
+                </field>
+                <field id="report_entities" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Inbound Entities</label>
+                    <comment>Here you can select entities for which you want to send error report for BC to Magento flow.</comment>
+                    <source_model>I95DevConnect\ErrorData\Model\ConfigValues\Entities</source_model>
+                    <depends>
+                        <field id="i95devconnect_errors/reports_enabled_settings/report">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="outbound_report_entities" translate="label" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Outbound Entities</label>
+                    <comment>Here you can select entities for which you want to send error report for Magento to BC flow.</comment>
+                    <source_model>I95DevConnect\ErrorData\Model\ConfigValues\OutboundEntities</source_model>
+                    <depends>
+                        <field id="i95devconnect_errors/reports_enabled_settings/report">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="report_type" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Error Reporting</label>
+                    <comment>Here you can select the type of reporting, either Instant or Scheduled basis, the notifications will be received.</comment>
+                    <source_model>I95DevConnect\ErrorData\Model\ConfigValues\Report</source_model>
+                    <depends>
+                        <field id="i95devconnect_errors/reports_enabled_settings/report">1</field>
+                    </depends>
+                    <validate>required-entry</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

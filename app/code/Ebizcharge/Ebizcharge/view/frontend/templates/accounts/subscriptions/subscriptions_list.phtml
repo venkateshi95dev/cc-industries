@@ -1,0 +1,246 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Api\Data\RecurringInterface;
+use Ebizcharge\Ebizcharge\Block\Customer\Account\Recurrings;
+use Ebizcharge\Ebizcharge\Model\Recurring;
+use Magento\Framework\Escaper;
+
+/**
+ * @var Recurrings $block
+ * @var Escaper $escaper
+ */
+
+/** @var  $recurrings */
+$recurrings = $block->getRecurringCollection();
+$recurringItems = $recurrings->getItems();
+$escaper = $block->getEscaper();
+$isSubscriptionEnabled = $block->isSubscriptionEnabled();
+
+if ($isSubscriptionEnabled) {
+
+
+    ?>
+
+    <?= $block->getChildHtml('info'); ?>
+
+<form class="form" id="reclist"
+      action="<?= $escaper->escapeUrl($block->getDeleteUrl()) ?>" method="post">
+    <?= $block->getBlockHtml('formkey'); ?>
+
+        <div class="searchTabCustom">
+            <ul class="items order-links">
+                <li class="nav item current">
+                    <strong><?=  /* @noEscape */__("Scheduled Subscriptions"); ?></strong>
+                </li>
+                <li class="nav item"
+                    onclick="openPage('<?= $escaper->escapeUrl($block->getRecurringHistoryUrl()) ?>')">
+                    <strong><?= /* @noEscape */ __("Subscriptions Payment History"); ?></strong></li>
+            </ul>
+        </div>
+        <br/><br/>
+        <div class="clearAll"></div>
+        <div class="searchRowDelCustom">
+            <select id="subscription_delete_btn" class=" primary del_btn">
+                <option value=""> <?= /* @noEscape */ __("Bulk Actions"); ?></option>
+                <option value="delete"> <?= /* @noEscape */ __("Delete"); ?></option>
+            </select>
+            <!--            <input type="button" value="Delete Subscription" class="action save primary del_btn"/>-->
+        </div>
+        <div class="searchRowDelCustom ">
+
+            <input type="text"
+                   name="search"
+                   id="searchIn"
+                   value=""
+                   placeholder="&#128270; <?= /* @noEscape */
+                                        __('Search Keywords e.g Start, End Date, Frequency, Amount etc');?>"
+                   class="input-text" />
+        </div>
+
+        <div class="table-wrapper orders-history clearAll">
+            <table
+                class="data table table-order-items history data-list-table-subscriptions"
+                id="myTable">
+                <caption class="table-caption"><?= /* @noEscape */ __('Subscriptions') ?></caption>
+                <thead class="data-list-table-headings-subscriptions">
+                <tr>
+                    <th><?= /* @noEscape */ __('Select'); ?></th>
+                    <th scope="col" class="col detail"><?= /* @noEscape */ __('Recurred Item') ?></th>
+                    <th scope="col" class="col startdate"><?= /* @noEscape */ __('Start Date') ?></th>
+                    <th scope="col" class="col enddate"><?= /* @noEscape */ __('End Date') ?></th>
+                    <th scope="col" class="col frequency"><?= /* @noEscape */ __('Frequency') ?></th>
+                    <th scope="col" class="col quantity"><?= /* @noEscape */ __('Qty') ?></th>
+                    <th scope="col" class="col payment_method"><?= /* @noEscape */ __('Payment Method') ?></th>
+                    <th scope="col" class="col total"><?= /* @noEscape */ __('Grand Total') ?></th>
+                    <th scope="col" class="col status" id="status-col">
+                        <div style="display: none;"><?= /* @noEscape */ __('Status') ?></div>
+                        <select class="form-control input-lg statusSelectBox"
+                                id="status-select">
+                            <option value=""><?= /* @noEscape */ __("Status"); ?></option>
+                            <option value="On"><?= /* @noEscape */ Recurring::RECURRING_STATUS_LABEL_ACTIVE; ?></option>
+                            <option value="Off"><?= /* @noEscape */ Recurring::RECURRING_STATUS_LABEL_OFF; ?></option>
+                            <!--<option value="cancelled">
+                                <?php /*= Recurring::RECURRING_STATUS_LABEL_CANCELED; */?>
+                            </option>-->
+                        </select>
+
+                    </th>
+                    <th scope="col" class="col actions"><?= /* @noEscape */ __('Action') ?></th>
+                </tr>
+                </thead>
+
+                <tbody id="myBody" class="data-list-table-listings-subscriptions">
+
+                <input type="hidden" name="internal_id" id="internal_id">
+
+                <?php
+
+                if (count($recurringItems) > 0) {
+                    foreach ($recurringItems as $recurring) {
+
+                        /** @var $recurringStatus */
+                        $recurringStatus = $block->renderRecurringStatus($recurring);
+                        $ebizCustomerId = $block->getEbzcCustId();
+                        $paymentInternalId = $recurring[RecurringInterface::EB_REC_SCHEDULED_PAYMENT_INTERNAL_ID];
+                        $subscriptionId = $recurring->getData(RecurringInterface::REC_ID);
+                        $productId = $recurring->getData(RecurringInterface::MAGE_ITEM_ID);
+                        $surchargeAmount = $recurring->getSurchargeAmount();
+                        $recurringGrandTotal = (float)$recurring->getAmount() + (float)$surchargeAmount;
+
+                        $startDate = date(
+                            'Y/m/d',
+                            strtotime($recurring->getData(RecurringInterface::EB_REC_START_DATE))
+                        );
+                        $endDate = date(
+                            'Y/m/d',
+                            strtotime($recurring->getData(RecurringInterface::EB_REC_END_DATE))
+                        ); ?>
+
+                        <tr class="<?= $escaper->escapeHtmlAttr($recurringStatus['row_class']) ?>">
+
+                            <td>
+                                <input type="checkbox"
+                                       id="subscription-checkbox-<?= $escaper->escapeHtmlAttr($subscriptionId) ?>"
+                                       name="del_id"
+                                       class="category_match_to_listing validate-one-required-by-name"
+                                       value="<?= $escaper->escapeHtmlAttr($paymentInternalId) ?>">
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Item Description') ?>"
+                                class="col detail"><a href="<?=$block->getProductLink($productId);?>" target="_blank">
+                                        <b><?= $escaper->escapeHtml($recurring->getData(RecurringInterface::MAGE_ITEM_NAME)) ?></b></a>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Start Date'); ?>"
+                                class="col startdate"><?= $escaper->escapeHtml($startDate); ?></td>
+                            <td data-th="<?= /* @noEscape */ __('End Date') ?>"
+                                class="col enddate"><?= $escaper->escapeHtml($endDate); ?></td>
+                            <td data-th="<?= /* @noEscape */ __('Frequency') ?>"
+                                class="col frequency">
+                                <?= $escaper->escapeHtml(
+                                    ucfirst($recurring->getData(RecurringInterface::EB_REC_FREQUENCY))
+                                ) ?>
+                            </td>
+
+                            <?php
+                            /** @var $paymentMethodName */
+                            $paymentMethodName = $recurring->getData(RecurringInterface::PAYMENT_METHOD_NAME);
+                            $paymentMethodJson = json_decode($paymentMethodName);
+                            if (is_object($paymentMethodJson)) {
+                                if (isset($paymentMethodJson->a) && isset($paymentMethodJson->b)) {
+                                    $paymentMethodName = $paymentMethodJson->a . '-' . $paymentMethodJson->b;
+                                } elseif (isset($paymentMethodJson->a)) {
+                                    $paymentMethodName = $paymentMethodJson->a;
+                                }
+                            }
+                            ?>
+                            <td data-th="<?= /* @noEscape */ __('Quantity'); ?>"
+                                class="col startdate"><?= $escaper->escapeHtml($recurring->getData(RecurringInterface::QTY_ORDERED)); ?></td>
+                            <td data-th="<?= /* @noEscape */ __('Payment Method') ?>"
+                                class="col payment"><?= $escaper->escapeHtml($paymentMethodName) ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('GrandTotal') ?>"
+                                class="col total">
+                                <?= /* phpcs:ignore */ $block->formateCurrency($recurringGrandTotal) ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Status') ?>" class="col status">
+                                <span class="<?= $escaper->escapeHtmlAttr($recurringStatus['class']); ?>"></span>
+                                <span class="<?= $escaper->escapeHtmlAttr($recurringStatus['class_label']); ?>">
+                                    <?= $escaper->escapeHtml($recurringStatus['label']); ?>
+                                </span>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Actions') ?>"
+                                class="col actions action-width">
+
+                                <a style="transform: rotate(0deg)" class="icons" title="Edit current listings"
+                                   href="<?= /* phpcs:ignore */ $escaper->escapeUrl($block->getRecurringEditUrl(['_secure' => true, 'rec_id' => $recurring->getId()])) ?>">
+                                    <i class="edit-icon"> &#9998;</i>
+                                </a>
+                                <span class="action-buttons-separator"> | </span>
+
+                                <a id="delete-<?= $escaper->escapeHtml($subscriptionId) ?>"
+                                   value="delete"
+                                   class="icons icon-cross delete-button-icon"
+                                   title="Delete the current listings" href="javascript:void(0);">
+                                    <i class="delete-button "> &#x292C; </i>
+                                </a>
+
+                                <input name="cid"
+                                       value="<?= $escaper->escapeHtmlAttr($block->getEbzcCustId()) ?>"
+                                       type="hidden"/>
+                                <input name="mid" type="hidden"
+                                       value="<?= $escaper->escapeHtmlAttr($paymentInternalId) ?>"/>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                } else {
+                    ?>
+                    <tr class="red">
+                        <td colspan="9">
+                            <div class="message info empty">
+                                <span><?= /* @noEscape */ __("There are no recurred items..."); ?></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+
+        <?php if ($block->getPagerHtml()) { ?>
+            <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+        <?php } ?>
+
+</form>
+<div id="myModel"></div>
+<div id="myModelConfirm"></div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Ebizcharge_Ebizcharge/js/recurring_search" : {}
+        }
+    }
+</script>
+<?php } ?>

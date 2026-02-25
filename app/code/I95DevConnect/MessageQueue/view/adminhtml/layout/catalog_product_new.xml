@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product_tabs">
+            <block class="I95DevConnect\MessageQueue\Block\Adminhtml\Product\Edit\Tab" name="product.custominfo">
+                <arguments>
+                    <argument name="label" xsi:type="string" translate="true">I95DevConnect</argument>
+                    <argument name="url" xsi:type="url" path="messagequeue/product/grid">
+                        <param name="_current">1</param>
+                    </argument>
+                    <argument name="class" xsi:type="string">ajax</argument>
+                    <argument name="group_code" xsi:type="string">advanced</argument>
+                </arguments>
+            </block>
+            <action method="addTab">
+                <argument name="name" xsi:type="string">product-custominfo</argument>
+                <argument name="block" xsi:type="string">product.custominfo</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

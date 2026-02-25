@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/catalog_attributes.xsd">
+    <group name="quote_item">
+        <attribute name="cc_core_charge"/>
+        <attribute name="cc_packaging_charge"/>
+        <attribute name="cc_freight_charge"/>
+        <attribute name="cc_may_ship_from_manufacturer"/>
+        <attribute name="cc_truck_freight_type"/>
+    </group>
+</config>

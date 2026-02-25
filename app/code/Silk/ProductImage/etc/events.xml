@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="img_document_prepare_save">
+        <observer name="document_save_merchandiser_data" instance="Silk\ProductImage\Observer\ProductSaveMerchandiserData"/>
+    </event>
+</config>

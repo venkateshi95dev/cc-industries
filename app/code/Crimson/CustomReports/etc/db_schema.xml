@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote_item" resource="default" engine="innodb" comment="Sales Flat Quote Item">
+        <column xsi:type="decimal" name="qty_on_hand_at_add" precision="12" scale="4" nullable="true"
+                comment="Snapshot of Product Quantity On Hand when item was added to cart"/>
+        <column xsi:type="boolean" name="is_stock_at_add" nullable="true" default="1"
+                comment="Snapshot of whether stock is tracked when item was added to cart"/>
+    </table>
+</schema>

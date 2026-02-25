@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="i95dev_connect_extensions" translate="label" sortOrder="10">
+            <label>i95DevConnector Settings</label>
+        </tab>
+        <section id="i95dev_messagequeue" translate="label" type="text" sortOrder="5" showInDefault="1"
+                 showInWebsite="1" showInStore="0">
+            <label>i95Dev Connector Settings</label>
+            <tab>i95dev_connect_extensions</tab>
+            <resource>I95DevConnect_MessageQueue::connectorsettings</resource>
+            <group id="i95dev_extns" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>i95Dev Extension</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable(extension)</label>
+                    <comment>To enable or disable the extension.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magento\Contact\Model\System\Config\Backend\Links</backend_model>
+                </field>
+                <field id="packet_size" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Set Packet Size</label>
+                    <comment>Number of records that will be picked from MessageQueue to be Synced in Magento</comment>
+                    <source_model>I95DevConnect\MessageQueue\Model\ConfigValues\PacketSize</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="I95DevConnect_settings" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>i95Dev Connector Settings</label>
+                <field id="component" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Component</label>
+                    <source_model>I95DevConnect\MessageQueue\Model\ConfigValues\Component</source_model>
+                </field>
+                <field id="capture_invoice" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Capture Invoice</label>
+                    <comment>If enabled,will capture amount online for specifc method only</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <depends>
+                    <field id="i95dev_messagequeue/i95dev_extns/enabled">1</field>
+                </depends>
+                <field id="customer_group" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Customer Group</label>
+                    <comment>If no customer group provided from target system in customer sync from target system to Magento then customer will be assigned to this customer group</comment>
+                    <source_model>Magento\Customer\Model\Config\Source\Group</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="attribute_set" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product Attribute Set</label>
+                    <comment>Select Product attribute set</comment>
+                    <source_model>I95DevConnect\MessageQueue\Model\ConfigValues\Product\AttributeSets</source_model>
+                </field>
+                <field id="attribute_group" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Attribute Group</label>
+                    <comment>Select Product attribute group</comment>
+                    <source_model>I95DevConnect\MessageQueue\Model\ConfigValues\Product\AttributeGroup</source_model>
+                </field>
+                <field id="ordersync_fromdate" translate="label" type="date" sortOrder="6" showInDefault="1" showInWebsite="1"
+                      showInStore="0">
+                   <label>Order Sync Date From</label>
+                   <comment>Select date from which orders should be synced (Better to configure connector installation date to avoid old data sync)</comment>
+                   <validate>required-entry</validate>
+                   <frontend_model>I95DevConnect\MessageQueue\Block\DatePicker</frontend_model>
+               </field>
+                <field id="customersync" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Sync</label>
+                    <comment>If disabled, will not check sales order dependency for customer sync</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="category_parent_id" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1"
+                      showInStore="0">
+                   <label>Category Parent ID</label>
+                   <comment>Select the parent category ID for the central category</comment>
+               </field>
+               <field id="central_website_id" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                   <label>Website ID</label>
+                   <comment>Enter website id</comment>
+               </field>
+            </group>
+            <group id="I95DevConnect_notifications" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>i95Dev Connect Notifications</label>
+                <field id="email_notifications" translate="label" type="multiselect" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>E-Mail confirmations</label>
+                    <comment>If enabled selected transaction e-mail notifications will be send to customer when they created from ERP </comment>
+                    <source_model>I95DevConnect\MessageQueue\Model\ConfigValues\Utils\Generic</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="order_totalmismatch" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order Total Mismatch Notification</label>
+                    <comment>If enabled, displays notification and send email to the given email id</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magento\Contact\Model\System\Config\Backend\Links</backend_model>
+                </field>
+                <depends>
+                    <field id="i95dev_messagequeue/i95dev_extns/enabled">1</field>
+                </depends>
+            </group>
+            <group id="I95DevConnect_generalcontact" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General Contact Info</label>
+                <field id="email_sent" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Admin Email</label>
+                    <comment>Enter Contact Email id on which you want to recieve notification emails (such as, data sync failure email)</comment>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Admin Username</label>
+                    <comment>Enter Username for the above provided admin email</comment>
+                </field>
+                <depends>
+                    <field id="i95dev_messagequeue/i95dev_extns/enabled">1</field>
+                </depends>
+            </group>
+            <group id="I95DevConnect_credentials" translate="label" type="text" sortOrder="600" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Credentials</label>
+                <field id="token" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Api Integration Token</label>
+                    <comment>Enter Magento Integration Token which will be used by I95Dev Connector for communication</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="encryption_pass" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Encryption Pass Key</label>
+                    <comment>Enter Encryption Pass Key which will be used by I95Dev Connector for encryption and decryption of data string</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <depends>
+                    <field id="i95dev_messagequeue/i95dev_extns/enabled">1</field>
+                </depends>
+            </group>
+            <group id="I95DevConnect_mqsettings" translate="label" type="text" sortOrder="700" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>i95Dev MessageQueue Settings</label>
+                <field id="retry_limit" translate="label" type="select" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Select Retry Limit</label>
+                    <source_model>I95DevConnect\MessageQueue\Model\Config\Source\RetryList</source_model>
+                </field>
+                <field id="mqdata_clean_days" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>MQData Clean Days</label>
+                    <comment>Enter Days for MQ data clean</comment>
+                    <validate>required-entry</validate>
+                </field>
+                <depends>
+                    <field id="i95dev_messagequeue/i95dev_extns/enabled">1</field>
+                </depends>
+            </group>
+            <group id="I95DevConnect_logsettings" translate="label" type="text" sortOrder="800" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>i95Dev Connect Log Settings</label>
+                <field id="debug" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Logs</label>
+                    <comment>If enabled,i95dev connector logs will be display.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <backend_model>Magento\Contact\Model\System\Config\Backend\Links</backend_model>
+                </field>
+                <field id="logtype" type="multiselect" sortOrder="10" showInWebsite="1" showInStore="1" showInDefault="1" translate="label">
+                    <label>Logtype</label>
+                    <comment/>
+                    <source_model>I95DevConnect\MessageQueue\Model\Config\Source\Logtype</source_model>
+                    <depends>
+                        <field id="i95dev_messagequeue/I95DevConnect_logsettings/debug">1</field>
+                    </depends>
+                </field>
+                <field id="log_clean_days" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log Clean Days</label>
+                    <comment>Enter Days how many you want</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="i95dev_messagequeue/I95DevConnect_logsettings/debug">1</field>
+                    </depends>
+                </field>
+                <field id="log_zip_days" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log Archive Days</label>
+                    <comment>How many days before from today log to be archive</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="i95dev_messagequeue/I95DevConnect_logsettings/debug">1</field>
+                    </depends>
+                </field>
+                <field id="max_log_size" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Max Log Size</label>
+                    <comment>Enter maximum size of a log file in kb.</comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="i95dev_messagequeue/I95DevConnect_logsettings/debug">1</field>
+                    </depends>
+                </field>
+                <depends>
+                    <field id="i95dev_messagequeue/i95dev_extns/enabled">1</field>
+                </depends>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ConfigurableProducts
+ */
+-->
+<I95DevConnect_ConfigurableProducts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:I95DevConnect_ConfigurableProducts:etc/settings.xsd" >
+    <SupportedProductTypes>
+        <Order>configurable</Order>
+        <Product>configurable</Product>
+    </SupportedProductTypes>
+</I95DevConnect_ConfigurableProducts>

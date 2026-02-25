@@ -1,0 +1,162 @@
+<?php
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<h1 data-content-type="heading" data-appearance="default" data-element="main"><?= __('Join Our Email List') ?></h1>
+<div class="description"><?= __('Our subscriber newsletter is filled with coupon codes, sale prices, new product info,
+    trade show announcements and the latest tech articles.
+    Our customer information is confidential. Please be assured we do not sell our customer list or provide access to your information.
+    To ensure delivery, please add newsletter@corvettecentral.com to your safe senders list.') ?></div>
+<div class="newsletter-fields block">
+    <h2 class="title"><?= __('Join our mailing list') ?></h2>
+    <fieldset class="content">
+        <form class="form subscribe"
+              novalidate
+              action="#"
+              method="post"
+              data-mage-init='{"validation": {"errorClass": "mage-error"},"ccNewsletterAjax":{}}'
+              id="newsletter-validate-detail">
+            <fieldset class="fieldset newsletter-form">
+                <div class="field first_name required">
+                    <label class="label" for="first_name">
+                        <span><?= __('First Name') ?></span>
+                    </label>
+                    <div class="control">
+                        <input name="first_name" type="text" id="first_name"
+                               placeholder="<?= __('First Name') ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field last_name required">
+                    <label class="label" for="last_name">
+                        <span><?= __('Last Name') ?></span>
+
+                    </label>
+                    <div class="control">
+                        <input name="last_name" type="text" id="last_name"
+                               placeholder="<?= __('Last Name') ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true}"/>
+                    </div>
+                </div>
+                <div class="field newsletter required">
+                    <label class="label" for="newsletter">
+                        <span><?= __('Subscribe to our newsletter to hear about upcoming news and offers.') ?></span>
+                    </label>
+
+                    <div class="control">
+                        <input name="email" type="email" id="newsletter"
+                               placeholder="<?= __('Enter your email') ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true, 'validate-email':true}"/>
+                        <i><?= __('If you change your mind, you can unsubscribe at any time.'); ?></i>
+                    </div>
+                </div>
+                <div class="field model_years required">
+                    <label class="label" for="model_years">
+                        <span><?= __('What year of Corvette do you own?') ?></span>
+                    </label>
+                    <div class="control">
+                        <div class="items">
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_1"
+                                       value="C1">
+                                <label for="model_years_1"><?= __('C1 (1953-1962)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_2"
+                                       value="C2">
+                                <label for="model_years_2"><?= __('C2 (1963-1967)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_3"
+                                       value="C3">
+                                <label for="model_years_3"><?= __('C3 (1968-1982)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_4"
+                                       value="C4">
+                                <label for="model_years_4"><?= __('C4 (1984-1996)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_5"
+                                       value="C5">
+                                <label for="model_years_5"><?= __('C5 (1997-2004)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_6"
+                                       value="C6">
+                                <label for="model_years_6"><?= __('C6 (2005-2013)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_7"
+                                       value="C7">
+                                <label for="model_years_7"><?= __('C7 (2014-2019)') ?></label>
+                            </div>
+                            <div class="list-item">
+                                <input type="checkbox" class="checkbox required" name="model_years[]" id="model_years_8"
+                                       value="C8">
+                                <label for="model_years_8"><?= __('C8 (2020+)') ?></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field model_years required">
+                    <label for="region" class="label">
+                        <span><?= __('Where do you live?') ?></span>
+                    </label>
+                    <div class="control">
+                        <div class="items">
+                            <div class="control">
+                                <input type="radio" data-validate="{'validate-one-required-by-name':true}" name="region"
+                                       id="region_1" value="United States (Continental)">
+                                <label for="region_1"><?= __('United States (Continental)') ?></label>
+                            </div>
+                            <div class="control">
+                                <input type="radio" data-validate="{'validate-one-required-by-name':true}" name="region"
+                                       id="region_2" value="United States (Non-Continental)">
+                                <label for="region_2"><?= __('United States (Non-Continental)') ?></label>
+                            </div>
+                            <div class="control">
+                                <input type="radio" data-validate="{'validate-one-required-by-name':true}" name="region"
+                                       id="region_3" value="Canada">
+                                <label for="region_3"><?= __('Canada') ?></label>
+                            </div>
+                            <div class="control">
+                                <input type="radio" data-validate="{'validate-one-required-by-name':true}" name="region"
+                                       id="region_4" value="Other (International)">
+                                <label for="region_4"><?= __('Other (International)') ?></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="privacy-notice">
+                <input type="checkbox" name="privacy_policy" id="privacy_policy" value="1"
+                       data-validate="{required:true}">
+                <label
+                    for="privacy_policy"><?= __("By checking the box you agree that you'd like to receive offers and information from Corvette Central.") ?></label>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary"
+                        title="<?= __('Submit') ?>"
+                        type="submit"
+                        aria-label="Submit">
+                    <span><?= __('Submit') ?></span>
+                </button>
+            </div>
+        </form>
+
+</div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "newsletter-validate-detail"
+            }
+        }
+    }
+</script>

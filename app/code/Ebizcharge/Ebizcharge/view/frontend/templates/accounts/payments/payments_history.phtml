@@ -1,0 +1,206 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\PaymentHistory;
+use Magento\Framework\Escaper;
+
+/** @var PaymentHistory $block */
+/** @var Escaper $escaper */
+
+$paymentHistoryCollection = $block->getPaymentHistoryCollection();
+$receiptRefNum = $block->getReceiptRefNumber();
+
+$fullUrl = $block->getRequest()->getUriString();
+$baseUrl = $block->getBaseUrl();
+$urlArray = explode($baseUrl, $fullUrl);
+$urlCurrent = PaymentHistory::PAYMENT_HISTORY_RECURRING_HISTORY_URL;
+?>
+
+<?= $block->getChildHtml('info') ?>
+<form class="form" id="reclist"
+      action="<?= $escaper->escapeUrl($block->getUrl(PaymentHistory::PAYMENT_HISTORY_DELETE_ACTION_URL)); ?>"
+      method="post">
+    <?= $block->getBlockHtml('formkey'); ?>
+
+        <div id="msg"></div>
+        <div class="searchTabCustom">
+            <ul class="items order-links">
+                <li class="nav item"
+                    onclick="openPage('<?= /* phpcs:ignore */ $escaper->escapeUrl($block->getUrl(PaymentHistory::PAYMENT_HISTORY_RECURRING_URL)); ?>')">
+                    <strong><?= /* @noEscape */ __("Scheduled Subscriptions"); ?></strong></li>
+                <li class="nav item current">
+                    <strong><?= /* @noEscape */ __("Subscriptions Payment History") ?></strong>
+                </li>
+            </ul>
+        </div>
+    <div class="clearAll"></div>
+    <h3 class="subscription-payment-history-title"><?=__("Subscription Payments History:");?></h3>
+
+        <div class="searchDelCustomHistory ">
+            <input type="text" name="payment_history_search" id="payment_search_keywords" value=""
+                   placeholder="&#128270; <?= /* @noEscape */
+                                            __('Search keywords e.g reference #, amount, status etc')?>"
+                   class="input-text" maxlength="128">
+        </div>
+
+        <div class="table-wrapper orders-history clearAll">
+            <table class="data table table-order-items history" id="myTable">
+                <caption class="table-caption"><?= /* @noEscape */ __('Subscriptions') ?></caption>
+                <thead class="data-list-table-headings-subscriptions">
+                <tr>
+                    <th scope="col" class="col payment_date"><?= /* @noEscape */ __('Payment Date') ?></th>
+                    <th scope="col" class="col payment_reference"><?= /* @noEscape */ __('Reference #') ?></th>
+                    <!-- th scope="col" class="col pament_internal_id"><?= /* @noEscape */ __('Payment Internal ID #') ?></th -->
+                    <!-- th scope="col" class="col method_id"><?= /* @noEscape */ __('Method ID') ?></th -->
+                    <th scope="col" class="col card"><?= /* @noEscape */ __('Method') ?></th>
+                    <!-- th scope="col" class="col authcode"><?= /* @noEscape */ __('Auth Code') ?></th -->
+                    <th scope="col" class="col amount"><?= /* @noEscape */ __('Amount') ?></th>
+                    <th scope="col" class="col result"><?= /* @noEscape */ __('Status') ?></th>
+                    <th scope="col" class="col actions"><?= /* @noEscape */ __('Actions') ?></th>
+                </tr>
+                </thead>
+                <tbody id="myBody">
+
+                <input type="hidden" name="internal_id" id="internal_id">
+                <input type="hidden" name="receiptRefNum" id="receiptRefNum"
+                       value="<?= $escaper->escapeHtmlAttr($receiptRefNum) ?>">
+
+                <?php
+                if (count($paymentHistoryCollection) > 0) {
+
+                    foreach ($paymentHistoryCollection as $paymentHistory) {
+                      //  dump($paymentHistory);exit;
+                        $paymentResponse = (array)json_decode($paymentHistory->getData('payment_response'));
+
+                        $authCode = (isset($paymentResponse['AuthCode']) ? $paymentResponse['AuthCode'] : '*');
+                        $authAmount = (isset($paymentResponse['AuthAmount']) ? $paymentResponse['AuthAmount'] : 0.00);
+                        $paymentRefNumber = $paymentHistory->getData('payment_ref_number'); ?>
+                    <tr>
+                        <td data-th="<?= /* @noEscape */ __('payment_date') ?>"
+                            class="col enddate">
+                            <?= $escaper->escapeHtml(date("Y/m/d",strtotime($paymentHistory->getData('payment_datetime')))); ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Payment Reference') ?>"
+                            class="col payment_ref_number">
+                            <b><?= $escaper->escapeHtml($paymentHistory->getData('payment_ref_number')); ?></b>
+                        </td>
+                        <!-- td data-th="<?= /* @noEscape */ __('Payment Internal ID') ?>"
+                            class="col payment_internal_id">
+                            <?= $escaper->escapeHtml($paymentHistory->getData('eb_rec_payment_internal_id')); ?>
+                        </td -->
+                        <!-- td data-th="<?= /* @noEscape */ __('Payment Method ID') ?>"
+                            class="col payment Method ID">
+                            <?= $escaper->escapeHtml($paymentHistory->getData('eb_payment_method_id')); ?>
+                        </td -->
+                        <td data-th="<?= /* @noEscape */ __('Card Info') ?>"
+                            class="col card">
+                            <?= $escaper->escapeHtml($paymentHistory->getData('payment_card_info')); ?>
+                        </td>
+                        <!-- td data-th="<?= /* @noEscape */ __('Auth Code') ?>"
+                            class="col detail">
+                            <?= $escaper->escapeHtml($authCode) ?>
+                        </td -->
+
+                        <td data-th="<?= /* @noEscape */ __('Amount') ?>"
+                            class="col startdate">
+                            <?= /* @noEscape */ $block->formatCurrency(number_format($authAmount, 2)); ?>
+                        </td>
+
+                        <td data-th="<?= /* @noEscape */ __('Status') ?>" class="col payment">
+
+                            <?php if ($paymentHistory->getData('result_status') == 'Declined') { ?>
+                                <div class="tooltip">
+                                    &#9888;<span class="tooltiptext">
+                                        <?= /* @noEscape */ __('Card has Expired') ?>
+                                    </span>
+                                </div>
+                            <?php }else{ ?>
+                                <span class="approved-payment"><?= $escaper->escapeHtml("&#10003;".$paymentHistory->getData("result_status")) ?></span>
+                            <?php } ?>
+                        </td>
+                        <td data-th="<?= /* @noEscape */ __('Actions') ?>" class="col actions">
+                            <ul>
+                                <li class="customer-welcome">
+                                <span role="link"
+                                      tabindex="0"
+                                      data-mage-init='{"dropdown":{}}' data-toggle="dropdown"
+                                      data-trigger-keypress-button="true">
+                                    <a tabindex="-1" data-action="customer-menu-toggle" class="dropwon-action-link">
+                                        <span class="action-dropdown-menu-link"> &#9660;
+                                            <?= /* @noEscape */ __('Select') ?>
+                                        </span>
+                                    </a>
+                                </span>
+                                    <div data-target="dropdown">
+                                        <ul class="header links">
+                                            <li>
+                                                <a href="javascript:void(0)"
+                                                   class="print_btn"
+                                                   id="<?= /* phpcs:ignore */ $escaper->escapeHtmlAttr($paymentHistory->getData('payment_ref_number')) ?>">
+                                                    <?= /* @noEscape */ __('Print Receipt') ?>
+                                                </a>
+                                            </li>
+                                            <li><a href="javascript:void()"
+                                                   id="<?= /* phpcs:ignore */ $escaper->escapeHtmlAttr($paymentHistory->getData('payment_ref_number')) ?>"
+                                                   data-id="<?= /* phpcs:ignore */ $escaper->escapeHtmlAttr($paymentHistory->getData('customer_email')) ?>"
+                                                   class="email_btn">
+                                                    <?= /* @noEscape */ __('Email Receipt') ?>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                        <?php
+                    } ?>
+                <?php } else { ?>
+                    <tr>
+                        <td colspan="7">
+                            <div class="message info empty">
+                                <span><?= /* @noEscape */ __('No subscription payments found.') ?></span>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+
+                </tbody>
+            </table>
+        </div>
+
+        <?php if ($block->getPagerHtml()) { ?>
+            <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+        <?php } ?>
+
+</form>
+<div id="myModel"></div>
+<div id="myModelConfirm"></div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Ebizcharge_Ebizcharge/js/recurring_search" : {}
+        }
+    }
+</script>

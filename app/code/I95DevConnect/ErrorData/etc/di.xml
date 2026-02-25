@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ErrorData
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\Magento\Framework\Mail\Template\TransportBuilder" type="\I95DevConnect\ErrorData\Mail\Template\TransportBuilder" />
+    <type name="\I95DevConnect\MessageQueue\Model\AbstractDataPersistence">
+      <plugin name="validation_error_log_reverse" type="\I95DevConnect\ErrorData\Plugin\Reverse\ErrorLog" sortOrder="10" disabled="false" />
+    </type>
+    <type name="\I95DevConnect\I95DevServer\Model\ServiceMethod\ForwardSync\MQToErp\SendEntityData">
+        <plugin name="validation_error_log_forward" type="\I95DevConnect\ErrorData\Plugin\Forward\ErrorLog" sortOrder="10" disabled="false" />
+    </type>
+    <type name="\I95DevConnect\I95DevServer\Model\ServiceMethod\ForwardSync\MQToErp\SendEntityResponse">
+        <plugin name="validation_error_log_forward_response" type="\I95DevConnect\ErrorData\Plugin\Forward\PullResponseErrorLog" sortOrder="10" disabled="false" />
+    </type>
+    <type name="\I95DevConnect\MessageQueue\Helper\Data">
+        <plugin name="remove_notification_record" type="\I95DevConnect\ErrorData\Plugin\Helper\Data" sortOrder="10" disabled="false" />
+    </type>
+</config>

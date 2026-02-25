@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Shipping\Model\Shipping">
+        <plugin name="Crimson_Shipping_Plugin" type="Crimson\Shipping\Plugin\ShippingPlugin" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Crimson\Shipping\Model\Carrier\Tableratezipflatrate">
+        <plugin name="crimson_tableratezipflatrate_collect_rates"
+                type="Crimson\Shipping\Plugin\Carrier\TableratezipflatrateCollectRates"
+                sortOrder="1"
+                disabled="false"
+        />
+    </type>
+    <type name="Crimson\Shipping\Model\Carrier\Tableratesurepost">
+        <plugin name="crimson_tableratesurepost_collect_rates"
+                type="Crimson\Shipping\Plugin\Carrier\TableratesurepostCollectRates"
+                sortOrder="1"
+                disabled="false"
+        />
+    </type>
+    <type name="Crimson\Shipping\Model\Carrier\Tableratetwoday">
+        <plugin name="crimson_tableratetwoday_collect_rates"
+                type="Crimson\Shipping\Plugin\Carrier\TableratetwodayCollectRates"
+                sortOrder="1"
+                disabled="false"
+        />
+    </type>
+    <type name="Magento\OfflineShipping\Model\Carrier\Tablerate">
+        <plugin name="crimson_tablerate_collect_rates"
+                type="Crimson\Shipping\Plugin\Carrier\TablerateCollectRates"
+                sortOrder="1"
+                disabled="false"
+        />
+    </type>
+
+    <type name="Magento\OfflineShipping\Model\Carrier\Freeshipping">
+        <plugin name="crimson_free_shipping_excluded_region"
+                type="Crimson\Shipping\Plugin\Carrier\FreeshippingPlugin"
+                sortOrder="1"
+                disabled="false"
+        />
+    </type>
+</config>

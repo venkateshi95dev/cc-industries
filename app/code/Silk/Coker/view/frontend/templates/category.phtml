@@ -1,0 +1,26 @@
+<?php 
+	$currentCategory = $block->getCurrentCategory();
+	$collection = $block->getCurrentChildCategory(); 
+	
+?>
+<?php if($currentCategory->getId()): ?>
+<div class="block-title category-title">
+     <strong><?php echo $currentCategory->getName(); ?></strong>
+</div>
+<?php endif; ?>
+<?php if(count($collection)): ?>
+<div class="block">
+    <div class="block-content">
+		<ul id="types" class="padding0">
+		<?php foreach($collection as $item): ?>
+			<li>
+			<div onclick="window.location.href='<?php echo $item->getUrl(); ?>'" class="padding_t1b1 pointer">
+			<span class="brown_font font14 "><?php echo $item->getName(); ?></span>
+			</div>
+			<div class="grey_separator"></div>
+			</li>
+		<?php endforeach; ?>
+		</ul>
+    </div>
+</div>
+<?php endif; ?>

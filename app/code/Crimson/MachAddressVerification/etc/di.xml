@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Crimson\MachTax\Model\Service\Tax">
+        <plugin name="crimsonVerifyAddressBeforeTaxes" type="Crimson\MachAddressVerification\Plugin\Tax\AddressVerification" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="IWD\AddressValidation\Model\Validation\Validator">
+        <plugin name="addMachAsValidationMode" type="Crimson\MachAddressVerification\Plugin\IWD\Validation\Validator" sortOrder="1" disabled="false"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="crimsonAddressValidationFieldsQuote" type="Crimson\MachAddressVerification\Plugin\Model\QuotePlugin" sortOrder="1" />
+    </type>
+    <type name="Magento\Sales\Api\OrderAddressRepositoryInterface">
+        <plugin sortOrder="1" name="crimsonOrderAddressRepositoryInterfaceAddFields" type="Crimson\MachAddressVerification\Plugin\Api\OrderAddressRepositoryInterfacePlugin"/>
+    </type>
+    <preference for="IWD\AddressValidation\Model\Validation\Address" type="Crimson\MachAddressVerification\Model\Validation\AddressCustom"/>
+</config>

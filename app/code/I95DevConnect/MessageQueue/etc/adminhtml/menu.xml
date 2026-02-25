@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="I95DevConnect_MessageQueue::Config" title="i95Dev" module="I95DevConnect_MessageQueue" sortOrder="60" resource="I95DevConnect_MessageQueue::Config"/>
+
+        <!-- Child tabs under i95Dev -->
+        <add id="I95DevConnect_MessageQueue::i95devconfig" title="Configurations" module="I95DevConnect_MessageQueue" sortOrder="10" parent="I95DevConnect_MessageQueue::Config"  resource="I95DevConnect_MessageQueue::connectorsettings" />
+        <add id="I95DevConnect_MessageQueue::i95devaddons" title="ADDONS" module="I95DevConnect_MessageQueue" sortOrder="20" parent="I95DevConnect_MessageQueue::Config"  resource="I95DevConnect_MessageQueue::i95devaddons" />
+        <add id="I95DevConnect_MessageQueue::report" title="Reports" module="I95DevConnect_MessageQueue"  sortOrder="60" parent="I95DevConnect_MessageQueue::Config" resource="I95DevConnect_MessageQueue::report" />
+
+        <add id="I95DevConnect_MessageQueue::ConfigSettings" title="i95Dev Connector Settings" module="I95DevConnect_MessageQueue" parent="I95DevConnect_MessageQueue::i95devconfig" action="adminhtml/system_config/edit/section/i95dev_messagequeue" sortOrder="20" resource="I95DevConnect_MessageQueue::connectorsettings"/>
+
+
+        <!-- following are different report tabs under i95dev report -->
+        <add id="I95DevConnect_MessageQueue::MessageQueue" title="Inbound Message Queue" module="I95DevConnect_MessageQueue" sortOrder="10" parent="I95DevConnect_MessageQueue::report" action="messagequeue/messagequeue" resource="I95DevConnect_MessageQueue::report" />
+        <add id="I95DevConnect_MessageQueue::MagentoMessageQueue" title="Outbound Message Queue" module="I95DevConnect_MessageQueue" sortOrder="10" parent="I95DevConnect_MessageQueue::report" action="messagequeue/messagequeue/magento" resource="I95DevConnect_MessageQueue::report" />
+        <add id="I95DevConnect_MessageQueue::SummaryReport" title="Inbound Summary" module="I95DevConnect_MessageQueue" sortOrder="10" parent="I95DevConnect_MessageQueue::report" action="messagequeue/summary" resource="I95DevConnect_MessageQueue::report" />
+        <add id="I95DevConnect_MessageQueue::OutboundSummaryReport" title="Outbound Summary" module="I95DevConnect_MessageQueue" sortOrder="10" parent="I95DevConnect_MessageQueue::report" action="messagequeue/outboundsummary" resource="I95DevConnect_MessageQueue::report" />
+    </menu>
+</config>

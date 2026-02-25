@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Crimson\MachOrder\Api\Data\MachOrderInterface" type="Crimson\MachOrder\Model\MachOrder" />
+    <preference for="Crimson\MachOrder\Api\Data\MachOrderItemInterface" type="Crimson\MachOrder\Model\MachOrderItem" />
+    <preference for="Crimson\MachOrder\Api\Data\MachPackageInterface" type="Crimson\MachOrder\Model\MachPackage" />
+    <preference for="Crimson\MachOrder\Api\Data\MachPackageBoxInterface" type="Crimson\MachOrder\Model\MachPackageBox" />
+
+    <type name="Crimson\MachOrder\Model\Order\Attributes\AttachHandler">
+        <arguments>
+            <argument name="machDataResource" xsi:type="object">Crimson\MachOrder\Model\ResourceModel\Order\MachData</argument>
+        </arguments>
+    </type>
+    <type name="Crimson\MachOrder\Model\Order\Attributes\SaveHandler">
+        <arguments>
+            <argument name="machDataResource" xsi:type="object">Crimson\MachOrder\Model\ResourceModel\Order\MachData</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Api\ShipmentTrackRepositoryInterface">
+        <plugin sortOrder="1" name="crimsonMachOrderShipmentTrackRepositoryInterface" type="Crimson\MachOrder\Plugin\Api\ShipmentTrackRepositoryInterfacePlugin"/>
+    </type>
+    <type name="Magento\Shipping\Model\Order\Track">
+        <plugin sortOrder="1" name="crimsonMachOrderTrack" type="Crimson\MachOrder\Plugin\Model\Order\TrackPlugin"/>
+    </type>
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin sortOrder="1" name="crimsonMachOrderRepositoryInterface" type="Crimson\MachOrder\Plugin\Api\OrderRepositoryInterfacePlugin"/>
+    </type>
+</config>

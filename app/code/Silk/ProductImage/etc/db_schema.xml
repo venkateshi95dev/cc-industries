@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="img_document" resource="default" engine="innodb" comment="CMS Document Table">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Status"/>
+        <column xsi:type="smallint" name="for_base_image" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="use for base image"/>
+        <column xsi:type="varchar" name="attribute_code" nullable="false" length="255" comment="Attribute Code"/>
+        <column xsi:type="varchar" name="file_type" nullable="false" length="255" comment="File Type"/>
+        <column xsi:type="varchar" name="file_size" nullable="false" length="255" comment="File Size"/>
+        <column xsi:type="varchar" name="file_name" nullable="false" length="255" comment="File Name"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="file" nullable="false" length="255" comment="File"/>
+        <column xsi:type="varchar" name="path" nullable="false" length="255" comment="File Path"/>
+        <column xsi:type="varchar" name="created_by" nullable="false" length="255" comment="Created By"/>
+        <column xsi:type="varchar" name="modified_by" nullable="false" length="255" comment="Modified By"/>
+
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Modification Time"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+        <constraint xsi:type="unique" referenceId="CMS_DOCUMENT_FILE">
+            <column name="file"/>
+        </constraint>
+
+        <index referenceId="CMS_DOCUMENT_STATUS" indexType="btree">
+            <column name="is_active"/>
+        </index>
+
+    </table>
+    <table name="img_product" resource="default" engine="innodb"
+           comment="Catalog Product To Image Linkage Table">
+        <column xsi:type="int" name="entity_id" padding="11" unsigned="false" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="int" name="document_id" padding="10" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Document ID"/>
+        <column xsi:type="int" name="product_id" padding="10" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Product ID"/>
+        <column xsi:type="int" name="position" padding="11" unsigned="false" nullable="false" identity="false"
+                default="0" comment="Position"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+            <column name="document_id"/>
+            <column name="product_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="IMG_PRODUCT_DOCUMENT_ID_IMG_DOCUMENT_ENTITY_ID" table="img_product"
+                    column="product_id" referenceTable="catalog_product_entity" referenceColumn="entity_id"
+                    onDelete="CASCADE"/>
+
+        <constraint xsi:type="foreign" referenceId="IMG_PRODUCT_PRODUCT_ID_CATALOG_PRODUCT_ENTITY_ENTITY_ID"
+                    table="img_product" column="document_id" referenceTable="img_document"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+
+        <constraint xsi:type="unique" referenceId="IMAGE_PRODUCT_DOCUMENT_ID_PRODUCT_ID">
+            <column name="document_id"/>
+            <column name="product_id"/>
+        </constraint>
+
+        <index referenceId="IMAGE_PRODUCT_PRODUCT_ID" indexType="btree">
+            <column name="product_id"/>
+        </index>
+    </table>
+</schema>

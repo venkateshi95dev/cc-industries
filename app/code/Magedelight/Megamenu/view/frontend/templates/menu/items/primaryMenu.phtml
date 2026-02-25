@@ -1,0 +1,110 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @noinspection PhpComposerExtensionStubsInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @var  \Magedelight\Megamenu\Model\MenuItems|\Magedelight\Megamenu\Api\Data\MenuItemsInterface $item */
+/** @var  \Magedelight\Megamenu\Block\Topmenu $menuBlock */
+/** @var  \Magedelight\Megamenu\Model\MegamenuManagement $menuManagement */
+$menuBlock = $block->getData('menu_block');
+$menuItems = $block->getData('menu_items');
+$menuManagement = $block->getData('menu_management');
+$menu = $block->getData('menu');
+$level = (int) $block->getData('level');
+$parent = $block->getData('parent_node');
+$class = 'level0 level-top parent ui-menu-item';
+$linkClass = 'level-top ';
+$primaryMenu = $block->getData("primary_menu");
+$mediaUrl = $menuManagement->getMediaUrl();
+$menuLabelHtml = '';
+$categoryIcon = '';
+if ($parent != 'root'):
+    ?>
+    <ul class="level<?= $escaper->escapeHtml($level) ?> submenu">
+    <?php $linkClass = '';
+endif; ?>
+    <?php foreach ($menuItems as $menuItem):
+        $menuItemId = $menuItem->getItemId();
+        $linkurl = $menuItem->getItemLink();
+        $dataclass = $menuItem->getItemClass();
+        if (!$linkurl) {
+            $linkurl = $menuManagement->generateMenuUrl($menuItem);
+        }
+        $menuId = '';
+        if ($menu) {
+            $menuId = $menu->getMenuId();
+        }
+        $hasChildren = $menuManagement->loadMenuItems($menuItemId, 'ASC', $menuId)->count();
+        if ($hasChildren) {
+            $class = 'level' . $level . ' parent';
+        } else {
+            $class = 'level' . $level;
+        }
+        if ($menuItem->getItemType() == 'category') {
+            if ($menuItem->getObjectId() == $menuBlock->getCurrentCat()) {
+                $class .= ' active';
+            }
+            if ($menu) {
+                if ($menu->getMenuType() == '1' && $menu->getMenuDesignType() == 'all-category') {
+                    $menuLabelHtml = $menuBlock->getCategoryMenuLabelHtml($menuItem->getObjectId());
+                    $categoryIcon = $menuBlock->getCategoryIconImageHtml($menuItem->getObjectId());
+                }
+            }
+        } elseif ($menuItem->getItemType() == 'pages') {
+            if ($menuItem->getObjectId() == $menuBlock->getCurentPage()) {
+                $class .= ' active';
+            }
+        }
+
+        $openInNewtabText = '';
+
+        if ((int) $menuItem->getOpenInNewTab()) {
+            $openInNewtabText = 'target="_blank"';
+        }
+        ?>
+        <li class="category-item <?= $escaper->escapeHtml($class) ?>
+        <?= $escaper->escapeHtml($linkClass) ?>
+        <?= $escaper->escapeHtml($dataclass) ?>">
+            <?php if ($hasChildren) { ?>
+                <?php if (!empty($menuItem->getMenuIcon()) &&
+                    ($primaryMenu->getMenuDesignType() == "horizontal" ||
+                        $primaryMenu->getMenuDesignType() == "horizontal-vertical")): ?>
+                    <img alt="<?= /* @noEscape */ __($menuManagement->generateMenuItemName($menuItem)) ?>"
+                         src="<?= $escaper->escapeUrl($mediaUrl) .'menu_icon/'.
+                         $escaper->escapeHtml($menuItem->getMenuIcon()); ?>" width="70" height="70" />
+                <?php endif; ?>
+                <a href="<?= $escaper->escapeUrl($linkurl) ?>" class="<?= $escaper->escapeHtml($linkClass) ?>
+         ui-corner-all" <?= $escaper->escapeHtml($openInNewtabText) ?>>
+                    <?= /* @noEscape */ $categoryIcon ?>
+                    <span class="megaitemicons"><?= /* @noEscape */ $menuItem->getItemFontIcon() ?></span>
+                    <span><?= $escaper->escapeHtml(__($menuManagement->generateMenuItemName($menuItem))) ?></span>
+                    <?= /* @noEscape */ $menuLabelHtml ?>
+                </a>
+                <?php $childMenuItems = $menuManagement->loadMenuItems($menuItemId, 'ASC', $menuId); ?>
+                <?php $menuId = ($menu) ? $menu->getMenuId() : ''; ?>
+                <?= /* @noEscape */ $menuBlock->setPrimaryMenu($childMenuItems, $level + 1, '', '', $menuId); ?>
+            <?php } else { ?>
+                <?php if (!empty($menuItem->getMenuIcon()) &&
+                    ($primaryMenu->getMenuDesignType() == "horizontal" ||
+                        $primaryMenu->getMenuDesignType() == "horizontal-vertical")): ?>
+                    <img alt="<?= /* @noEscape */ __($menuManagement->generateMenuItemName($menuItem)) ?>"
+                         src="<?= $escaper->escapeUrl($mediaUrl) .'menu_icon/'.
+                         $escaper->escapeHtml($menuItem->getMenuIcon()); ?>" width="70" height="70" />
+                <?php endif; ?>
+                <a href="<?= $escaper->escapeUrl($linkurl) ?>" class="<?= $escaper->escapeHtml($linkClass) ?>
+        ui-corner-all" <?= $escaper->escapeHtml($openInNewtabText) ?>>
+                    <?= /* @noEscape */ $categoryIcon ?>
+                    <span class="megaitemicons"><?= /* @noEscape */ $menuItem->getItemFontIcon() ?></span>
+                    <span><?= /* @noEscape */ __($menuManagement->generateMenuItemName($menuItem)) ?></span>
+                    <?= /* @noEscape */ $menuLabelHtml ?>
+                </a>
+            <?php } ?>
+        </li>
+    <?php endforeach; ?>
+    <?php if ($parent != 'root') { ?>
+    </ul>
+<?php } ?>

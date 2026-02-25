@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+  <preference
+      for="I95DevConnect\Category\Observer\AssignProductCategory"
+      type="I95Dev\Customizations\Observer\AssignProductCategory" />
+</config>

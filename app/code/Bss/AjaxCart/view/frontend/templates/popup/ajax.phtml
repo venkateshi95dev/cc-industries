@@ -1,0 +1,57 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxCart
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Bss\AjaxCart\Block\Ajax\Template
+ */
+?>
+<?php
+    $helper = $block->getAjaxHelper();
+    $addUrl = $block->getUrl('ajaxcart');
+?>
+<script type="text/x-magento-init">
+    {
+        "#ajax-suggest": {
+            "bssAjaxCart": {
+                "addUrl": "<?php echo $block->escapeUrl($addUrl); ?>",
+                "isSuggestPopup": true,
+                "quickViewUrl": "<?php echo $block->escapeUrl($block->getUrl('ajaxcart/index/view')); ?>",
+                "addToCartSelector": "<?php echo $block->escapeHtml($helper->getAddToCartSelector()); ?>",
+                "flyToCart": <?= $block->getConfigFlyToCart()?>
+            }
+        }
+    }
+</script>
+<div id = "init-ajaxCart">
+    <script type="text/x-magento-init">
+        {
+            "#ajax-suggest": {
+                "bssAjaxCart": {
+                    "addUrl": "<?php echo $block->escapeUrl($addUrl); ?>",
+                    "isSuggestPopup": true,
+                    "quickViewUrl": "<?php echo $block->escapeUrl($block->getUrl('ajaxcart/index/view')); ?>",
+                    "addToCartSelector": "<?php echo $block->escapeHtml($helper->getAddToCartSelector()); ?>",
+                    "flyToCart": <?= $block->getConfigFlyToCart()?>
+                }
+            }
+        }
+    </script>
+</div>

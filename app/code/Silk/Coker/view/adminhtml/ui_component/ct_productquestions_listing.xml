@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <dataSource name="ct_productquestions_listing_data_source">
+            <settings>
+                <storageConfig>
+                    <param name="indexField" xsi:type="string">productquestions_id</param>
+                </storageConfig>
+            </settings>
+    </dataSource>
+</listing>

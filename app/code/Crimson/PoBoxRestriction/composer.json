@@ -1,0 +1,32 @@
+{
+    "name": "crimson/poboxrestriction",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\PoBoxRestriction\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/PoBoxRestriction"
+            ]
+        ]
+    }
+}

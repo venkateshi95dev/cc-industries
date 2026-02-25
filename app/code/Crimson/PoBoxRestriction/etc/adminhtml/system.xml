@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="customer">
+            <group id="address">
+                <field id="show_address_fields" translate="label comment" type="select" sortOrder="1000" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Address in Registration</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Show Address Fields in Customer Registration Form.</comment>
+                </field>
+            </group>
+            <group id="crimson_pobox" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="900" translate="label">
+                <label>PO Box Restriction</label>
+                <field id="enabled" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label" type="select">
+                    <label>enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="shipping_po_box" translate="label" type="select" sortOrder="50" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>Allow PO Boxes in the Shipping Address?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enabled_for_customer_account_address_creation" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10" translate="label" type="select">
+                    <label>PO Box Restriction for Customer Account Address Creation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enabled_for_ship_methods" sortOrder="45" translate="label comment" type="select" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>PO Box Restriction Specific Shipping Methods Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ship_methods" type="multiselect" translate="label comment" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow PO Box Specific Shipping Methods</label>
+                    <comment>PO Boxes will be allowed for the shipping methods selected. This selection depends on the Enabled field selection.</comment>
+                    <source_model>Crimson\PoBoxRestriction\Model\Config\Source\ActiveShippingMethods</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

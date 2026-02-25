@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="general">
+        <settings>
+            <additionalClasses>
+                <class name="fieldset-schedule">true</class>
+            </additionalClasses>
+            <label translate="true">Currently Active</label>
+        </settings>
+    </fieldset>
+    <fieldset name="actions">
+        <field name="free_shipping_methods" formElement="multiselect" sortOrder="99">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Free Shipping Methods</label>
+                <dataScope>free_shipping_methods</dataScope>
+                <notice>If rule is applied, selected methods will be modified to $0 amounts. Currently only supports MACH shipping methods.</notice>
+                <tooltip>
+                    <description>Use Ctrl+Click for check several values or uncheck value.</description>
+                </tooltip>
+            </settings>
+            <formElements>
+                <multiselect>
+                    <settings>
+                        <options class="Crimson\SalesRule\Model\Config\Source\AllEnabledShippingMethods"/>
+                    </settings>
+                </multiselect>
+            </formElements>
+        </field>
+    </fieldset>
+</form>

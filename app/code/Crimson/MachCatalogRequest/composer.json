@@ -1,0 +1,36 @@
+{
+    "name": "crimson/machcatalogrequest",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "crimson/machbase": "2.2.4",
+        "crimson/machcatalog": "2.3.0",
+        "magento/magento-composer-installer": "*",
+        "magento/module-inventory-indexer": "^1.1.0",
+        "iwd/addressvalidation": "2.1.6"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "2.3.0",
+    "license": [
+
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\MachCatalogRequest\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/MachCatalogRequest"
+            ]
+        ]
+    }
+}

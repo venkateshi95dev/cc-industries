@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="i95dev_error_notification" resource="default" engine="innodb" comment="i95Dev Error Notification">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="bigint" name="msg_id" padding="20" unsigned="false" nullable="false" identity="false" comment="Message Queue Id"/>
+    <column xsi:type="smallint" name="notification_sent" padding="6" unsigned="false" nullable="true" identity="false" comment="Is Notification Sent"/>
+    <column xsi:type="varchar" name="origin" nullable="true" length="255" comment="Origin"/>
+    <column xsi:type="varchar" name="entity_code" nullable="true" length="255" comment="Entity Code"/>
+    <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" comment="Created Date"/>
+    <column xsi:type="datetime" name="updated_at" on_update="false" nullable="false" comment="Updated Date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="I95DEV_ERROR_NOTIFICATION_ID">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_error_message" resource="default" engine="innodb" comment="i95Dev Error Notification Message">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="Id"/>
+    <column xsi:type="bigint" name="notification_id" padding="20" nullable="false" identity="false" comment="Notification Id"/>
+    <column xsi:type="varchar" name="message" nullable="true" length="255" comment="Error Message"/>
+    <column xsi:type="smallint" name="code" padding="3" unsigned="false" nullable="false" identity="false" comment="Error code"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="I95DEV_ERROR_MESSAGE_ID">
+      <column name="id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_error_report" resource="default">
+    <column xsi:type="smallint" name="code" padding="3" unsigned="false" nullable="false" identity="false" comment="Error code"/>
+  </table>
+</schema>

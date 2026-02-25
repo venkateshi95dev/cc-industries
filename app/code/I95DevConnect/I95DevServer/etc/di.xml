@@ -1,0 +1,156 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_I95DevServer
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+     <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <!-- Start Product Service Methods -->
+                <item name="createProductList" xsi:type="array">
+                    <!-- Entity Code -->
+                    <item name="entityCode" xsi:type="string">product</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <item name="getProductsInfo" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">product</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="sendInfo" xsi:type="string">1</item>
+                </item>
+                <item name="setProductsResponse" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">product</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="setResponse" xsi:type="string">1</item>
+                </item>
+                <!-- End Product Service Methods -->
+
+                <!-- Start Inventory Service Methods -->
+                <item name="createInventoryList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">inventory</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="methodName" xsi:type="string">createInventoryList</item>
+                    <item name="configPath" xsi:type="string">path</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <!-- End Inventory Service Methods -->
+
+                <!-- Start CustomerGroup Service Methods -->
+                <item name="createCustomerGroupList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">CustomerGroup</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                </item>
+                <item name="getCustomerGroupsInfo" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">CustomerGroup</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="sendInfo" xsi:type="string">1</item>
+                </item>
+                <item name="setCustomerGroupsResponse" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">CustomerGroup</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="setResponse" xsi:type="string">1</item>
+                </item>
+                <!-- End CustomerGroup Service Methods -->
+
+                <!-- Start Customer Service Methods -->
+                <item name="createCustomersList" xsi:type="array">
+                    <!-- Cusomization Class (optional) -->
+                    <item name="classObject" xsi:type="object">\I95DevConnect\I95DevServer\Model\ServiceMethod\ReverseSync\ErpToMQ\Customer\Proxy</item>
+                    <!-- Entity Code -->
+                    <item name="entityCode" xsi:type="string">Customer</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                    <!-- Custom Method (optional) -->
+                    <item name="methodName" xsi:type="string">createCustomersList</item>
+                    <!-- Check Active Flag (optional) -->
+                    <item name="configPath" xsi:type="string">path</item>
+                    <item name="isDivided" xsi:type="string">true</item>
+                </item>
+
+                <item name="createCustomerList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">Customer</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <!-- setting isParent only for customer -->
+                    <item name="isParent" xsi:type="string">true</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <item name="createAddressList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">address</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <!-- setting isParent only for address -->
+                    <item name="isChild" xsi:type="string">addresses</item>
+                    <item name="parentTargetKey" xsi:type="string">targetCustomerId</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <item name="getCustomersInfo" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">Customer</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="sendInfo" xsi:type="string">1</item>
+                </item>
+                <item name="setCustomersResponse" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">Customer</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="setResponse" xsi:type="string">1</item>
+                </item>
+                <!-- End CustomerGroup Service Methods -->
+
+                <!-- Start Order Service Methods -->
+                <item name="createOrderList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">order</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <item name="getOrdersInfo" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">order</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="sendInfo" xsi:type="string">1</item>
+                </item>
+                <item name="setOrdersResponse" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">order</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="setResponse" xsi:type="string">1</item>
+                </item>
+                <!-- End Order Service Methods -->
+
+                <!-- Start Shipment Service Methods -->
+                <item name="createShipmentList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">shipment</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <!-- End Shipment Service Methods -->
+
+                <!-- Start Invoice Service Methods -->
+                <item name="createInvoiceList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">invoice</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+                <!-- End Invoice Service Methods -->
+
+                <!-- Service Method For Getting Message Queue Response -->
+                <item name="getMessageQueueResponseList" xsi:type="array">
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="entityCode" xsi:type="string">messagequeue</item>
+                    <item name="setMQResponse" xsi:type="string">1</item>
+                </item>
+                <!-- End Message Queue Response -->
+
+                <!-- Service Method For Message Queue Response Acknowledgment -->
+                <item name="setMessageQueueResponseAckList" xsi:type="array">
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="entityCode" xsi:type="string">messagequeue</item>
+                    <item name="setMQResponseAck" xsi:type="string">1</item>
+                </item>
+                <!-- End Message Queue Ack Response -->
+            </argument>
+        </arguments>
+    </type>
+    <preference for="I95DevConnect\I95DevServer\Api\I95DevServerRepositoryInterface" type="I95DevConnect\I95DevServer\Model\I95DevServerRepository"/>
+</config>

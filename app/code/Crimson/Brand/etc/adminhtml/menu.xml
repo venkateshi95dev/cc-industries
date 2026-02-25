@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Crimson_Brand::brand" title="Brands" module="Crimson_Brand" sortOrder="999" parent="Magento_Catalog::catalog" resource="Crimson_Brand::brands"/>
+        <add id="Crimson_Brand::brand_list" title="Manage Brands" module="Crimson_Brand" sortOrder="10" parent="Crimson_Brand::brand" action="brand/brand/index" resource="Crimson_Brand::view"/>
+    </menu>
+</config>

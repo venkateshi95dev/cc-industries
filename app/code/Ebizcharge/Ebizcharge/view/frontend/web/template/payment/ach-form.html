@@ -1,0 +1,150 @@
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+
+<fieldset  data-bind="attr: {class: 'fieldset payment items ccard ' + getCode(), id: 'payment_form_' + getCode()}">
+
+    <!-- ko if: (isShowLegend())-->
+    <legend class="legend">
+        <span><!-- ko i18n: 'Account Information'--><!-- /ko --></span>
+    </legend>
+    <br>
+    <!-- /ko -->
+
+    <!--
+    /**
+    * Displays a field for the name on the card.
+    */
+    -->
+    <div class="field required">
+        <label data-bind="attr: {for: getCode() + '_cc_owner'}" class="label">
+            <span><!-- ko i18n: 'Account Holder Name'--><!-- /ko --></span>
+        </label>
+        <div><input type="text" name="payment[cc_owner]"
+                    class="input-text required-entry"
+                    style="width: 225px;"
+                    value=""
+                    data-validate="{'required-entry':true}"
+                    data-bind="attr: {
+                                id: getCode() + '_cc_owner',
+                                title: $t('Account Holder Name'),
+                                valueUpdate: 'keyup',
+                                placeholder: $t('Account Holder Name')
+                                }"
+        />
+        </div>
+    </div>
+
+    <!--
+    /**
+    * Displays images representing each type of credit card that is accepted.
+    */
+    -->
+
+    <!--
+    /**
+    * Displays a field for the credit card number.
+    */
+    -->
+    <div class="field number required">
+        <label data-bind="attr: {for: getCode() + '_cc_number'}" class="label">
+            <span><!-- ko i18n: 'Account Number'--><!-- /ko --></span>
+        </label>
+        <div>
+            <input style="width: 225px;" type="number" name="payment[cc_number]"
+                   minlength="9" maxlength="15"
+                   autocomplete="off"
+                   class="input-text minimum-length-9 maximum-length-15 validate-length"
+                   value=""
+                   data-bind="attr: {
+                                autocomplete: off,
+                                id: getCode() + '_cc_number',
+                                title: $t('Account Number'),
+                                placeholder: $t('Account Number'),
+                                'data-container': getCode() + '-cc-number',
+                                'data-validate': JSON.stringify(
+                                {
+                                'required-number':true,
+                                'validate-length':true,
+                                'validate-account-length':true
+                                })
+                                },
+                          enable: isActive($parents),
+                          value: creditCardNumber,
+                          valueUpdate: 'keyup' "/>
+        </div>
+    </div>
+
+    <!--
+    /**
+    * Displays fields for the expiration date.
+    */
+    -->
+    <div class="field required" data-bind="attr: {id: getCode() + '_cc_type_exp_div'}">
+        <label data-bind="attr: {for: getCode() + '_expiration'}" class="label">
+            <span><!-- ko i18n: 'Routing Number'--><!-- /ko --></span>
+        </label>
+        <div class="fields group group-2">
+            <div class="field month ">
+                <input style="width: 225px;" type="number"
+                       name="payment[cc_routing]"
+                       autocomplete="off"
+                       minlength="9" maxlength="9"
+                       class="input-text validate-length"
+                       value=""
+                       data-bind="attr: {
+                                autocomplete: off,
+                                id: getCode() + '_cc_routing',
+                                title: $t('Routing Number'),
+                                placeholder: $t('Routing Number'),
+                                'data-container': getCode() + '-cc-routing',
+                                'data-validate': JSON.stringify({'required-number':true})},
+                          enable: isActive($parents),
+                          valueUpdate: 'keyup' "/>
+            </div>
+        </div>
+    </div>
+    <div class="field required" data-bind="attr: {id: getCode() + '_cc_type_exp_div'}">
+        <label data-bind="attr: {for: getCode() + '_expiration'}" class="label">
+            <span><!-- ko i18n: 'Account Type'--><!-- /ko --></span>
+        </label>
+        <div class="fields group group-2">
+            <div class="field month">
+                <select style="width: 225px;" name="payment[ach_type]"
+                        class="select"
+                        data-bind="attr: {
+                        id: getCode() + '_ach_type',
+                        'data-container': getCode() + '-ach-type',
+                        'data-validate': JSON.stringify(
+                        {
+                        required:true}
+                        )
+                        },
+                                   enable: isActive($parents),
+                                   options: getAchAccountTypes(),
+                                   optionsCaption: $t('Account Type')">
+                </select>
+            </div>
+        </div>
+    </div>
+</fieldset>

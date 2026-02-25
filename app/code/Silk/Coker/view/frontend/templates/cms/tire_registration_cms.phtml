@@ -1,0 +1,48 @@
+
+<div id="wrapper">
+    <div id="content" class="product margin_btm3">
+
+        <?php
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        $cmsPage = $objectManager->get('\Magento\Cms\Model\Page');
+        $cms_id = $cmsPage->getIdentifier();
+        $cms_title =$cmsPage->getTitle();
+        $cms_content = $cmsPage->getContent();
+        $filter = $objectManager->create('Magento\Cms\Model\Template\FilterProvider');
+        $storeId = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getId();
+        $cms_content = $filter->getBlockFilter()->setStoreId($storeId)->filter($cms_content);
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        $url = $storeManager->getStore()->getBaseUrl();
+        ?>
+        <div class="container padding_l05r05 margin_btm3">
+            <div class="row padding0">
+                <div class="cms_left_block col-lg-3 col-sm-4 col-md-3 col-xs-12" style="margin-top: 30px">
+                    <div class="padding_top1">
+                        <div class="padding1 padding_top15"><?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('cms_left_block')->toHtml(); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-sm-8 col-md-9 col-xs-12" style="margin: 15px 0;">
+                    <div class="padding_top1">
+                        <div class="page-title">
+                            <h1 class="brown_font uppercase font20"><?php echo $cms_title; ?></h1>
+                            <div class="padding0">
+                                <div class="brown_separator"></div>
+                            </div>
+                        </div>
+                        <?php
+                            // this will render the tire registration form created on id 22
+                            echo $this->helper("Amasty\Customform\Helper\Data")->renderForm("22")
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_push"></div>
+</div>
+
+
+
+
+

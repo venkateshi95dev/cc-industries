@@ -1,0 +1,115 @@
+<?php
+$imageHelper = $this->helper("Crimson\Testimonial\Helper\Image");
+$testimonialCollection = $this->getTestimonialCollection();
+$blockId = rand() . time();
+$tabId = 'testimonials' . $blockId;
+
+// General Setings
+$widget_title = $helper->getConfig('testimonial_productpage/widget_title');
+$show_name = $helper->getConfig('testimonial_productpage/show_name');
+$show_email = $helper->getConfig('testimonial_productpage/show_email');
+$show_website = $helper->getConfig('testimonial_productpage/show_website');
+$show_company = $helper->getConfig('testimonial_productpage/show_company');
+$show_title = $helper->getConfig('testimonial_productpage/show_title');
+// OWL Carousel
+$number_item_percolumn = (int)$helper->getConfig('testimonial_productpage/number_item_percolumn', 200);
+$large_max_items = (int)$helper->getConfig('testimonial_productpage/large_max_items', 6);
+$large_items = (int)$helper->getConfig('testimonial_productpage/large_items', 5);
+$portrait_items = (int)$helper->getConfig('testimonial_productpage/portrait_items', 4);
+$tablet_items = (int)$helper->getConfig('testimonial_productpage/tablet_items', 4);
+$tablet_small_items = (int)$helper->getConfig('testimonial_productpage/tablet_small_items', 2);
+$mobile_items = (int)$helper->getConfig('testimonial_productpage/mobile_items', 1);
+$autoplay = $helper->getConfig('testimonial_productpage/autoplay');
+$autoplay_timeout = (int)$helper->getConfig('testimonial_productpage/autoplay_timeout', 3000);
+$autoplay_hover_pause = $helper->getConfig('testimonial_productpage/autoplay_hover_pause');
+$dots = $helper->getConfig('testimonial_productpage/dots');
+$nav = $helper->getConfig('testimonial_productpage/nav');
+$nav_next = $helper->getConfig('testimonial_productpage/nav_next');
+$nav_pre = $helper->getConfig('testimonial_productpage/nav_pre');
+$rtl = $helper->getConfig('testimonial_productpage/rtl', false);
+$loop = $helper->getConfig('testimonial_productpage/loop');
+$ajaxBlockId = 'testimonial-carousel-' . $blockId;
+$height_type = $helper->getConfig('testimonial_productpage/height_type');
+?>
+<div id="<?= $tabId ?>" class="block widget testimonial-widget">
+    <?php if ($widget_title): ?>
+        <div class="block-title">
+            <h1><?= $widget_title ?></h1>
+        </div>
+    <?php endif; ?>
+    <div class="tab-content testimonial-owlcarousel-play"
+         id="<?= $ajaxBlockId ?>"
+         data-nav="<?= $nav ? 'true' : 'false'; ?>"
+         data-dots="<?= $dots ? 'true' : 'false'; ?>"
+         data-autoplay="<?= $autoplay ? 'true' : 'false'; ?>"
+         data-autoplay-timeout="<?= $autoplay_timeout; ?>"
+         data-autoplay-hover-pause="<?= $autoplay_hover_pause; ?>"
+         data-mobile-items="<?= $mobile_items; ?>"
+         data-tablet-small-items="<?= $tablet_small_items; ?>"
+         data-tablet-items="<?= $tablet_small_items; ?>"
+         data-portrait-items="<?= $portrait_items; ?>"
+         data-large-items="<?= $large_items; ?>"
+         data-large-max-items="<?= $large_max_items; ?>"
+         data-rtl="<?= $rtl ? "true" : "false" ?>"
+         data-loop="<?= $loop ? "true" : "false" ?>"
+         data-nav-text-owlpre="<?= $nav_pre ?>"
+         data-nav-text-owlnext="<?= $nav_next ?>"
+         <?php if ($height_type): ?>data-height-type="<?= $height_type ?>"<?php endif; ?>
+    >
+        <div class="owl-carousel owl-theme">
+            <?php if ($testimonialCollection->getSize()): ?>
+                <?php foreach ($testimonialCollection as $obj): ?>
+                    <div class="testimonial-item-info">
+                        <div class="tmls-image">
+                            <img src="<?= $imageHelper->resizeImage($obj->getImage(), '100', '100') ?>" alt="avatar image"/>
+                        </div>
+                        <div class="tmls-testimonial"><p><?= $obj->getTestimonial(); ?></p></div>
+                        <?php if ($show_title == '1'): ?>
+                            <div class="tmls-title"><span><?= $obj->getTitle(); ?></span></div>
+                        <?php endif; ?>
+                        <?php if ($show_name == '1'): ?>
+                            <div class="tmls-name"><p><?= $obj->getNickName(); ?></p></div>
+                        <?php endif; ?>
+                        <?php if ($show_website || $show_company == '1'): ?>
+                            <div class="tmls-company-website">
+                                <?php if ($show_company): ?>
+                                    <span><?= $obj->getCompany(); ?></span>
+                                <?php endif; ?> /
+                                <?php if ($show_website): ?>
+                                    <a href="<?= $obj->getWebsite(); ?>"><?= $obj->getWebsite(); ?></a>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if ($show_email == '1'): ?>
+                            <div class="tmls-name"><p><?= $obj->getEmail(); ?></p></div>
+                        <?php endif; ?>
+                        <div class="tmls-name">
+                            <?php
+                            $star = $obj->getRating();
+                            for ($k = 1; $k < 6; $k++) {
+                                if ($star + 0.5 > $k) {
+                                    $class = "star_" . $k . " ratings_blank ratings_over";
+                                } else {
+                                    $class = "star_" . $k . " ratings_blank";
+                                }
+                                echo '<div class="' . $class . '"></div>';
+                            }
+                            ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p><?= __('No testimonials found.'); ?></p>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Crimson_Testimonial/js/testimonial-carousel'
+    ], function ($, testimonial) {
+        var testimonial = $('#<?= $tabId; ?>').testimonial().data('ves-testimonial');
+        testimonial.tmlsOwlCarousel("<?= '#' . $ajaxBlockId ?>", ".owl-carousel");
+    });
+</script>

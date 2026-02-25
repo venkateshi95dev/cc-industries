@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- Add Order Transaction Application Reference No -->
+    <!--event name="sales_order_save_after">
+        <observer name="ebizcharge_order_status_observer" instance="Ebizcharge\Ebizcharge\Observer\Order\OrderSaveAfter"/>
+    </event-->
+
+    <!-- Update order data after order is placed -->
+
+    <!-- Add/Update product item to EbizCharge Gateway Hub -->
+    <event name="catalog_product_save_after">
+        <observer name="ebizcharge_save_item"
+                  instance="Ebizcharge\Ebizcharge\Observer\Product\ProductSaveAfter"/>
+    </event>
+
+    <event name="checkout_cart_product_add_after">
+        <observer name="set_custom_subscription_price_after_add_to_cart"
+                  instance="Ebizcharge\Ebizcharge\Observer\Cart\Recurring\AfterSetProductToCartObserver"/>
+    </event>
+    <event name="checkout_cart_save_after">
+        <observer name="set_shipping_method_price_after_save"
+                  instance="Ebizcharge\Ebizcharge\Observer\Cart\Recurring\AfterSetShippingMethodToCartObserver"/>
+    </event>
+    <event name="payment_method_assign_data_ebizcharge_ebizcharge">
+        <observer name="ebizcharge_ebizcharge_gateway_data_assign"
+                  instance="Ebizcharge\Ebizcharge\Observer\PaymentDataAssignObserver"/>
+    </event>
+
+</config>

@@ -1,0 +1,54 @@
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<!--@subject Token validation process failed @-->
+<!--@vars {
+"var username":"Username",
+"var domainurl":"Domainurl",
+"var reason":"Reason",
+"var subscriptionkey":"Subscriptionkey",
+"var customerid":"Customerid",
+"var productid":"Productid",
+"var timedate":"Timedate"
+} @-->
+<style type="text/css">body, td {
+    color: #2f2f2f;
+    font: 11px/1.35em Verdana, Arial, Helvetica, sans-serif;
+}</style>
+<div style="font:11px/1.35em Verdana, Arial, Helvetica, sans-serif;">
+    <table style="width:98%; border:0; margin-top:10px; padding:0; border-spacing: 0; border-collapse: collapse; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; margin-bottom:10px;">
+        <tr>
+            <td style="vertical-align: top">
+                <!-- [ header starts here] -->
+                <table style="width:650px; border:0; padding:0; border-spacing: 0; border-collapse: collapse;">
+                    <tr>
+                        <td style="vertical-align: top;"><a href="{{store url=''}}"><img
+                                src="{{skin url='images/logo_email.gif' _area='frontend'}}" alt="Magento"
+                                style="margin-bottom:10px; border:0"/></a></td>
+                    </tr>
+                </table>
+
+                <!-- [ middle starts here] -->
+                <table style="width:650px; border:0; padding:0; border-spacing: 0; border-collapse: collapse;">
+                    <tr>
+                        <td style="vertical-align: top;">
+                            <p><strong>Dear {{trans "%username" username=$username}}</strong>,<br><br><br></p>
+                            <p><strong>Reason : </strong><br> {{trans "%reason" reason=$reason}}</p>
+                            <p><strong>Domain : </strong><br> {{trans "%domainurl" domainurl=$domainurl}}</p>
+                            <p><strong>Subscriptoin Key : </strong><br> {{trans "%subscriptionkey"
+                                subscriptionkey=$subscriptionkey}} </p>
+                            <p><strong>CustomerId : </strong><br> {{trans "%customerid" customerid=$customerid}}</p>
+                            <p><strong>Product Id : </strong><br> {{trans "%productid" productid=$productid}} </p>
+                            <p><strong>Date & Time:</strong><br>{{trans "%timedate" timedate=$timedate}}</p>
+                            <p>Thank you</p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>

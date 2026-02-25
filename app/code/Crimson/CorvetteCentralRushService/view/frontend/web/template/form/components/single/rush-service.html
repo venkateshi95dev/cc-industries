@@ -1,0 +1,17 @@
+<div class="field choice rush-service" data-bind="visible: isVisible()">
+    <form id="rush-service-form" class="form" method="POST" novalidate="novalidate">
+        <input data-bind='attr: {value: getFormKey()}' type="hidden" name="form_key"/>
+        <input type="hidden" name="rush_value" id="rush_value"/>
+        <input type="checkbox"
+               name="rush-service-checkbox"
+               id="rush-service-checkbox"
+               form="rush-service-form"
+               class="checkbox"
+               data-bind="checked: isChecked(), event:{change: adjustRush}"
+        />
+        <label class="label" attr="for: 'rush-service-checkbox'">
+            <span text="getRushLabel()"></span>
+        </label>
+        <span class="rush-service-message" html="getRushMessage()"/>
+    </form>
+</div>

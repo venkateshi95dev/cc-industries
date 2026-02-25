@@ -1,0 +1,24 @@
+{
+    "name": "crimson/module-salesrule",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "dgrau@crimsonagility.com",
+            "name": "Dario Grau"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~7.4.0"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\SalesRule\\": ""
+        }
+    }
+}

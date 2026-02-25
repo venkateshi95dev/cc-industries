@@ -1,0 +1,24 @@
+{
+    "name": "crimson/module-brand",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Dario Grau",
+            "email": "dgrau@crimsonagility.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~7.3.0|~7.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Crimson\\Brand\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

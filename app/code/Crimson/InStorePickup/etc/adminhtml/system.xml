@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="sales_email">
+            <group id="order">
+                <field id="location_notification_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>New InStorePickup Order Notify Location Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If this is enabled the location email will be Bcc when a new InStore Pickup order is placed.</comment>
+                </field>
+            </group>
+        </section>
+        <section id="carriers">
+            <group id="instore">
+                <field id="match_all_items_enabled" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Locations Must Match All Items</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If this is enabled the location displayed are the ones that ALL items in the quote are allowed for them.</comment>
+                </field>
+                <field id="not_all_match_error_msg" translate="label" type="textarea" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message Not All Match</label>
+                    <comment>This is the error message that is shown when there are locations available but not all items match for them.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,60 @@
+<!-- ko if: isDisplayed('custom_fee_core_charge') -->
+<tr class="totals core_charge excl">
+   <th class="mark" scope="row">
+       <span class="label" data-bind="text: titlecore"></span>
+   </th>
+    <td class="amount">
+        <span class="value" data-bind="text: getValue('custom_fee_core_charge')"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: isDisplayed('custom_fee_crate_charge') -->
+<tr class="totals crate_charge excl">
+   <th class="mark" scope="row">
+       <span class="label" data-bind="text: titlecrate"></span>
+   </th>
+    <td class="amount">
+        <span class="value" data-bind="text: getValue('custom_fee_crate_charge')"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: isDisplayed('custom_fee_freight_charge') -->
+<tr class="totals freight_charge excl">
+   <th class="mark" scope="row">
+       <span class="label" data-bind="text: titlefreight"></span>
+   </th>
+    <td class="amount">
+        <span class="value" data-bind="text: getValue('custom_fee_freight_charge')"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: isDisplayed('custom_fee_dropship_charge') -->
+<tr class="totals dropship_charge excl">
+   <th class="mark" scope="row">
+       <span class="label" data-bind="text: titledropship"></span>
+   </th>
+    <td class="amount">
+        <span class="value" data-bind="text: getValue('custom_fee_dropship_charge')"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: isDisplayed('custom_fee_truck_frt_set_price') -->
+<tr class="totals truct_frt_setprice excl">
+   <th class="mark" scope="row">
+       <span class="label" data-bind="text: titletruckfrtsetprice"></span>
+   </th>
+    <td class="amount">
+        <span class="value" data-bind="text: getValue('custom_fee_truck_frt_set_price')"></span>
+    </td>
+</tr>
+<!-- /ko -->
+<!-- ko if: isDisplayed('canada_taxes') -->
+<tr class="totals canada_taxes excl">
+   <th class="mark" scope="row">
+       <span class="label" data-bind="text: getCanadaTaxTitle()"></span>
+   </th>
+    <td class="amount">
+        <span class="value" data-bind="text: getValue('canada_taxes')"></span>
+    </td>
+</tr>
+<!-- /ko -->

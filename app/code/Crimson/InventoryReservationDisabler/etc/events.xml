@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_shipment_save_after">
+        <!--disable shipment processor, this would deduct the inventory again.-->
+        <observer name="inventory_sales_source_deduction_processor" disabled="true"/>
+    </event>
+</config>

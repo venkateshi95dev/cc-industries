@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="crimson_import_cc_products" xsi:type="object">Crimson\CorvetteCentralImport\Console\Command\ImportCCProducts</item>
+                <item name="cc_import_categories" xsi:type="object">Crimson\CorvetteCentralImport\Console\Command\ImportCategories</item>
+                <item name="cc_import_product_category_associations" xsi:type="object">Crimson\CorvetteCentralImport\Console\Command\ImportCategoryProductAssociations</item>
+                <item name="cc_import_blogs" xsi:type="object">Crimson\CorvetteCentralImport\Console\Command\ImportBlogs</item>
+                <item name="cc_import_packages" xsi:type="object">Crimson\CorvetteCentralImport\Console\Command\ImportPackages</item>
+                <item name="cc_import_fix_base_image" xsi:type="object"> Crimson\CorvetteCentralImport\Console\Command\FixBaseImage </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

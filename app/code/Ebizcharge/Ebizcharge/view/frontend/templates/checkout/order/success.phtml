@@ -1,0 +1,78 @@
+<?php
+/**
+ * Century Business Solutions.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ *
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ *
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Magento\Checkout\Block\Onepage\Success;
+use Magento\Framework\Escaper;
+
+/** @var Success $block */
+/** @var Escaper $escaper */
+$requestParams = $block->getRequest()->getParams();
+$isSubscribedOrder = isset($requestParams['subscription']) ? $requestParams['subscription'] : '';
+$productParams = isset($requestParams['params']) ? $requestParams['params'] : '';
+
+?>
+
+<div class="checkout-success">
+
+    <?php if (!$isSubscribedOrder) { ?>
+    <?php if ($block->getOrderId()) { ?>
+        <?php if ($block->getCanViewOrder()) { ?>
+            <p><?php echo $escaper->escapeHtml(__(
+                'Your order number is: %1.',
+                sprintf(
+                    '<a href="%s" class="order-number"><strong>%s</strong></a>',
+                    $escaper->escapeUrl($block->getViewOrderUrl()),
+                    $block->getOrderId()
+                )
+            ), ['a', 'strong']); ?></p>
+        <?php } else { ?>
+            <?php // phpcs:disable?>
+            <p><?php echo $escaper->escapeHtml(
+                __('Your order # is: <span>%1</span>.', $block->getOrderId()),
+                ['span']
+            ); ?></p>
+            <?php // phpcs:enable?>
+        <?php } ?>
+        <p>
+            <?php echo /* @noEscape */ __('We\'ll email you an order confirmation with details and tracking info.'); ?>
+        </p>
+    <?php } ?>
+    <?php } else { ?>
+        <h3>
+            <?php echo /* @noEscape */ __('Thank you for placing your subscription!'); ?>
+        </h3>
+        <h3><a href="<?php echo $block->getUrl('ebizcharge/recurrings/index'); ?>"><?php echo /* @noEscape */ __('View Subscriptions'); ?></a></h3>
+        <br/>
+    <?php }?>
+
+    <?php echo $block->getAdditionalInfoHtml(); ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue"
+               href="<?php echo $escaper->escapeUrl($block->getContinueUrl()); ?>">
+                <span><?php echo /* @noEscape */ __('Continue Shopping'); ?></span>
+            </a>
+        </div>
+    </div>
+</div>

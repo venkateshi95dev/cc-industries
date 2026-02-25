@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Block\Cart\AbstractCart">
+        <plugin name="item-test" type="I95DevConnect\DiscountGroups\Block\AbstractCart" sortOrder="1"/>
+    </type>
+    <preference for="Magento\Checkout\Block\Cart\Item\Renderer"
+                type="I95DevConnect\DiscountGroups\Block\Checkout\Cart\Item\Renderer" />
+    <preference for="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable"
+                type="I95DevConnect\DiscountGroups\Block\Checkout\Cart\Item\Configurable\Renderer" />
+    <preference for="Magento\Bundle\Block\Checkout\Cart\Item\Renderer"
+                type="I95DevConnect\DiscountGroups\Block\Checkout\Cart\Item\Bundle\Renderer" />
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="i95dev_discount_groups_to_order_item" type="I95DevConnect\DiscountGroups\Plugin\Quote\DiscountToOrderItem"/>
+    </type>
+    <preference for="Magento\Tax\Model\Calculation\TotalBaseCalculator" type="I95DevConnect\DiscountGroups\Model\TotalBaseCalculator" />
+    <type name="Magento\Tax\Model\Sales\Total\Quote\CommonTaxCollector">
+        <plugin name="i95dev_discount" type="I95DevConnect\DiscountGroups\Plugin\TaxAmount" />
+    </type>
+    <type name="Magento\Paypal\Model\Cart">
+        <plugin name="update_paypal_discount_order" type="I95DevConnect\DiscountGroups\Plugin\UpdateDiscountForOrder"/>
+    </type>
+    
+    <preference for="Magento\Weee\Block\Item\Price\Renderer" type="I95DevConnect\DiscountGroups\Block\Item\Price\Renderer" />
+    
+    <type name="Magento\Sales\Block\Adminhtml\Items\AbstractItems">
+        <plugin name="item-test" type="I95DevConnect\DiscountGroups\Block\Adminhtml\Items\AbstractItems" sortOrder="1"/>
+    </type>
+    
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <!-- First element is value of constant -->          
+                <item name="createCustomerDiscountGroupList" xsi:type="array">                   
+                    <item name="entityCode" xsi:type="string">customer_discount_group</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>  				
+                </item>
+                <item name="createItemDiscountGroupList" xsi:type="array">
+                    <!-- Entity Code -->
+                    <item name="entityCode" xsi:type="string">item_discount_group</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>			
+                </item>
+                <item name="setDiscountCalculationList" xsi:type="array">
+                    <!-- Entity Code -->
+                    <item name="entityCode" xsi:type="string">discount_calculation</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>			
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <!-- First element is value of constant -->         
+                <item name="customer_discount_group" xsi:type="array">
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\DiscountGroups\Model\DataPersistence\CustomerDiscountGroupSync</item>
+                    </item>                    
+                </item>
+                <item name="item_discount_group" xsi:type="array">
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\DiscountGroups\Model\DataPersistence\ItemDiscountGroupSync</item>
+                    </item>                    
+                </item>
+                <item name="discount_calculation" xsi:type="array">
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\DiscountGroups\Model\DataPersistence\DiscountCalculationSync</item>
+                    </item>                    
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="get_discount_group_amount" type="I95DevConnect\DiscountGroups\Plugin\OrderGet"/>
+    </type>
+    
+    <type name="Magento\Sales\Api\Data\OrderItemInterface">
+        <plugin name="ItemExtensionAttributeOperations" type="I95DevConnect\DiscountGroups\Plugin\ItemAttributesLoad"/>
+    </type>
+</config>

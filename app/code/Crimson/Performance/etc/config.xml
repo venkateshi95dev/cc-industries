@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/config.xsd">
+
+    <default>
+        <performance>
+            <server_push>
+                <additional_script><![CDATA[
+                    magepack/bundle-common.js
+                ]]></additional_script>
+                <additional_style><![CDATA[
+                    styles-m.css
+                ]]></additional_style>
+                <additional_preconnect><![CDATA[
+                    https://fastsimon-grid.akamaized.net
+                    https://static-grid.fastsimon.com
+                ]]></additional_preconnect>
+            </server_push>
+        </performance>
+    </default>
+</config>

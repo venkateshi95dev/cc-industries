@@ -1,0 +1,82 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\HowItWorks\HowItWorks;
+
+/** @var HowItWorks $block */
+
+/** @var array $youtubeVideos */
+$youtubeVideos = $block->getVideosLinks();
+?>
+
+<div class="ebizcharge-how-it-works">
+    <img align="left" src="<?= $block->escapeUrl($block->getHowItWorksLogo()) ?>"
+         alt="how-it-works-eBizCharge-logo"/>
+    <a href="javascript:void(0)"
+       id="how-it-works-link"
+       class="how-it-works-link"
+       data-page="<?= $block->escapeHtml($block->getPageFullActionName()) ?>">
+        <?= /** @noEscape */
+        __('How it Works') ?>
+    </a>
+
+    <div class="how-it-works-tooltip"
+         id="how-it-works-tooltip">
+        <h3><?= /** @noEscape */
+            __('How it Works') ?></h3>
+        <span class="hide-tooltip" id="hide-tooltip">&times;</span>
+
+        <p class="tooltip-description">
+            <?= /** @noEscape */ __(
+                'Learn more about this page through EBizCharge <br>“How it Works” information video.'
+            ) ?>
+        </p>
+        <ul class="tooltip-videos-content">
+            <?php foreach ($youtubeVideos as $video): ?>
+                <li class="tooltip-video-li">
+                    <img align="left" src="<?= $block->escapeUrl($block->getHowItWorksVideoPlayLogo()) ?>"
+                         alt="tooltip-video-logo"/>
+                    <a href="javascript:void(0)"
+                       class="tooltip-video"
+                       data-video-link="<?= $block->escapeUrl($video['link'] ?? '') ?>">
+                        <?= $block->escapeHtml(__($video['label'] ?? '')); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+        <span></span>
+    </div>
+
+    <!-- How It Works Modal -->
+    <div class="how-it-works-modal"
+         id="how-it-works-modal"></div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "ebizchargeHowItWorks": {}
+        }
+    }
+
+</script>

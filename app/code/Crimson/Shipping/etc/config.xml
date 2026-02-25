@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <tablerate_twoday>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Crimson\Shipping\Model\Carrier\Tableratetwoday</model>
+                <condition_name>package_weight</condition_name>
+                <include_virtual_price>1</include_virtual_price>
+                <name>Table Rate</name>
+                <title>2-Day</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <handling_type>F</handling_type>
+            </tablerate_twoday>
+            <tablerate_surepost>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Crimson\Shipping\Model\Carrier\Tableratesurepost</model>
+                <condition_name>package_weight</condition_name>
+                <include_virtual_price>1</include_virtual_price>
+                <name>Table Rate</name>
+                <title>Surepost</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <handling_type>F</handling_type>
+                <physical_value_cutoff>200</physical_value_cutoff>
+                <weight_value_cutoff>6</weight_value_cutoff>
+                <mach_shipvia_code>PM</mach_shipvia_code>
+                <zipcode_valid_digits_active>1</zipcode_valid_digits_active>
+            </tablerate_surepost>
+            <tablerate_zipflatrate>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Crimson\Shipping\Model\Carrier\Tableratezipflatrate</model>
+                <condition_name>package_weight</condition_name>
+                <include_virtual_price>1</include_virtual_price>
+                <name>Table Rate</name>
+                <title>Zip Flat Rates</title>
+                <specificerrmsg>This shipping method is currently unavailable. If you would like to ship using this shipping method, please contact us.</specificerrmsg>
+                <handling_type>F</handling_type>
+                <mach_shipvia_code>PM</mach_shipvia_code>
+                <zipcode_valid_digits_active>0</zipcode_valid_digits_active>
+            </tablerate_zipflatrate>
+            <atypicalregions>
+                <model>Crimson\Shipping\Model\Carrier\Atypicalregions</model>
+                <active>1</active>
+                <name>Atypical Region Shipping</name>
+                <title>Initial Shipping Charge</title>
+                <specificerrmsg />
+            </atypicalregions>
+            <atypicalusregions>
+                <model>Crimson\Shipping\Model\Carrier\Atypicalusregions</model>
+                <active>1</active>
+                <name>Atypical US Region Shipping</name>
+                <title>Initial Shipping Charge</title>
+                <specificerrmsg />
+            </atypicalusregions>
+            <freeshipping>
+                <regions_excluded>AK,HI</regions_excluded>
+            </freeshipping>
+        </carriers>
+        <shipping>
+            <cart_sidebar_messaging>
+                <enable_cart_sidebar_tax_message>1</enable_cart_sidebar_tax_message>
+                <cart_sidebar_tax_message>Tax amount shown below could change once you provide a complete ship to address at checkout.</cart_sidebar_tax_message>
+                <enable_cart_sidebar_shipping_update>1</enable_cart_sidebar_shipping_update>
+                <cart_sidebar_shipping_update>SHIPPING UPDATE: *Currently UPS can not guarantee packages will arrive inside regularly estimated delivery times. **This includes UPS Next Day Air and UPS 2nd Shipping options.**</cart_sidebar_shipping_update>
+            </cart_sidebar_messaging>
+        </shipping>
+
+    </default>
+</config>

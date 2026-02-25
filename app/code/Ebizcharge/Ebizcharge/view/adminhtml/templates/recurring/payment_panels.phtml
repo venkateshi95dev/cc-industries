@@ -1,0 +1,1147 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Api\Data\PaymentInterface;
+use Ebizcharge\Ebizcharge\Model\Recurring;
+use Ebizcharge\Ebizcharge\Block\Adminhtml\Recurring\Recurrings;
+use Ebizcharge\Ebizcharge\Api\Data\RecurringInterface;
+
+/**
+ * @var Recurrings $block
+ */
+
+$_code = 'payment';
+$viewModel = $block->getViewModel();
+$requestCC = $block->getRequestCardCodeAdmin();
+$enableCard = $block->isCreditCardEnabled();
+$getAchStatus = $block->getAchStatus();
+
+/** @var  $isAvsCvvEnabled */
+$isAvsCvvEnabled = $block->isAvsCvvEnabled();
+
+$requestCC = $requestCC ? 1 : 0;
+$suggessionsActionUrl = $block->getSuggessionActionUrl();
+$loaderImageSrc = $block->getLoader();
+/** @var  $recurringId */
+$recurringId = $block->getRequest()->getParam('rid');
+
+/**
+ * card code is required
+ */
+$cardCodeRequired = $block->isCardCodeRequiredForAdmin();
+$cardCodeRequiredForNewCard = $cardCodeRequired['new_card'];
+$cardCodeRequiredForSavedCard = $cardCodeRequired['saved_card'];
+
+$isCvvRequiredForSavedCard = [
+    "label-class" => "",
+    "required-entry" => "",
+    "validation-entry" => ''
+];
+$isCvvRequiredForNewCard = [
+    "label-class" => "",
+    "required-entry" => "",
+    "validation-entry" => ''
+];
+
+/**
+ * Card code if Required for new Card
+ */
+if ($cardCodeRequiredForNewCard) {
+    $isCvvRequiredForNewCard = [
+        "label-class" => "red-asterisk",
+        "required-entry" => "required required-entry",
+        "validation-entry" => '"ebizcharge-credit-card": {"input": "card-pin"}'
+    ];
+}
+
+/**
+ * Required in Shape of Saved Card
+ */
+if ($cardCodeRequiredForSavedCard) {
+    $isCvvRequiredForSavedCard = [
+        "label-class" => "red-asterisk",
+        "required-entry" => "required required-entry",
+        "validation-entry" => '"ebizcharge-credit-card": {"input": "card-pin"}'
+    ];
+}
+$paymentMethodName =  "";
+$paymentMethodId = "";
+
+if ($recurringId) {
+    $viewModel = $block->getViewModel();
+    $requestCC = $block->getRequestCardCodeAdmin();
+    $payment = $block->getSearchScheduledRecurringPayments();
+    $profiles = $block->getPaymentMethods();
+    $customerPaymentMethods = $block->getCutomerSavedPaymentMethods($recurringId);
+    $recurring = $block->getRecurringData($recurringId);
+
+    $displaySavedCards = true;
+    $displaySavedBankAccounts = true;
+
+    if (!empty($profiles)) {
+        $savedProfileTypes = array_column($profiles, 'MethodType');
+        $displaySavedCards = in_array('cc', $savedProfileTypes);
+    }
+
+    $paymentid = $block->getSavedPaymentMethodId($recurringId);
+
+    $recindefinitely = 0;
+    $frequency = null;
+
+    $recindefinitely = $recurring->getRecIndefinitely();
+
+    $recurringPaymentMethodId = $recurring->getEbRecMethodId();
+    $start = date("Y-m-d", strtotime($recurring->getEbRecStartDate()));
+    $expire = date("Y-m-d", strtotime($recurring->getEbRecEndDate()));
+
+    // for subscription shipping address
+    $orderId = $recurring->getMageOrderId();
+    $shippingAddressId = $recurring->getShippingAddressId();
+    $frequency = $recurring->getEbRecFrequency();
+
+    $billingAddressId = $recurring->getBillingAddressId();
+    $shippingAddress = $block->getCustomerShippingAddress($orderId, $shippingAddressId);
+
+    $customerData = $block->getCustomer($recurring->getMageCustId());
+    $billingAddressOptions = $block->getCustomerAddressList($billingAddressId);
+    $shippingAddressOptions = $billingAddressOptions;
+
+    /** @var  $orderedItems */
+    $orderedItems = $block->getRecurringOrderedItems($recurringId);
+
+    if ($billingAddressId !== $shippingAddressId) {
+        $shippingAddressOptions = $block->getCustomerAddressList($shippingAddressId);
+    }
+    /** @var  $paymentMethodName */
+    $paymentMethodName = $recurring->getPaymentMethodName() ?? "";
+    $paymentMethodId = $recurring->getEbRecMethodId() ?? "";
+
+    $isSubscriptionExpired = "";
+
+    $recurringStatus = $recurring->getRecStatus();
+
+    if ($recurringStatus === RecurringInterface::EBIZCHARGE_RECURRING_STATUS_CANCELED) {
+        $isSubscriptionExpired = "disabled";
+    }
+}
+
+$isCreditCardsAllowed = $block->isCreditCardAllowed();
+$isBankAccountsAllowed = $block->isBankAccountsAllowed();
+
+/** @var  $disabled */
+$disabled = $block->isRecurringFieldsDisabled($recurringId);
+/** @var  $isRecurringExpired */
+$isRecurringExpired = $block->isRecurringExpired($recurringId);
+?>
+
+<div id="payment-methods-panel"
+     class="payment-methods-panel"
+     style="<?= /** @noEscape */ $recurringId ? 'display:none;' : '' ?>">
+    <div id="tab_element"
+         data-mage-init='{"tabs": {
+            "active": "tab_pay_by_card",
+            "destination": "#tab_payment_content",
+            "shadowTabs": []
+         }}'>
+        <input type="hidden" name="payment[ebzc_option]" id="ebzc_option" value="<?=PaymentInterface::EBIZCHARGE_PAYMENT_OPTION_TYPE_NEW;?>"/>
+        <input type="hidden" name="payment[ebzc_option_type]" id="ebzc_option_type" value="<?=PaymentInterface::EBIZCHARGE_PAYMENT_OPTION_TYPE_CREDIT_CARD;?>"/>
+        <input type="hidden" name="payment[payment_method_name]" id="curr_payment_method_name" value="<?=$paymentMethodName?>" />
+        <input type="hidden" name="payment[payment_method_id]" id="curr_payment_method_id" value="<?=$paymentMethodId?>" />
+
+        <ul class="tabs-horiz">
+            <li <?= /** @noEscape */ $disabled ?>
+                class="pay-select  subscribe-pre-action payment-form-input quote-updater-event"
+                for="credit_card"
+                data-tab="tab_pay_by_card"
+                data-disable="tab_pay_by_bank">
+                <a  <?= /** @noEscape */ $disabled ?>
+                    href="#tab_pay_by_card"
+                    class="payment-form-input">
+                    <label id="tab-credit-card">
+                        <?= /** @noEscape */ __("Pay by Card"); ?>
+                    </label>
+                </a>
+            </li>
+            <li <?= /** @noEscape */ $disabled ?>
+                class="pay-select  subscribe-pre-action payment-form-input quote-updater-event"
+                for="ACH" data-tab="tab_pay_by_bank"
+                data-disable="tab_pay_by_card">
+                <a <?= /** @noEscape */ $disabled ?>
+                    href="#tab_pay_by_bank"
+                    class="payment-form-input">
+                    <label id="tab-ach">
+                        <?= /** @noEscape */ __("Pay by Bank Account"); ?>
+                    </label>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="tab_payment_content" class="payment-methods-panel">
+        <div id="tab_pay_by_card">
+            <?php if ($enableCard) { ?>
+                <div class="add-new" id="add-new">
+                    <div class="card-payment">
+                        <div class="row" id="my-select-content">
+                            <input <?= /** @noEscape */ $disabled ?>
+                                type="radio"
+                                name="<?= $block->escapeHtmlAttr($_code) ?>[card_option_type]"
+                                id="card_new"
+                                value="<?=PaymentInterface::EBIZCHARGE_PAYMENT_OPTION_TYPE_NEW;?>"
+                                class="validate-one-required-by-name  subscribe-pre-action quote-updater-event payment-form-input card_option bank-s"
+                                checked/>
+                            <label for="card_new" class="label">
+                                <span><?= /** @noEscape */ __("New Card"); ?></span>
+                            </label>
+
+                            <input <?= /** @noEscape */ $disabled ?>
+                                type="radio"
+                                name="<?= $block->escapeHtmlAttr($_code) ?>[card_option_type]"
+                                id="card_saved"
+                                value="<?=PaymentInterface::EBIZCHARGE_PAYMENT_OPTION_TYPE_SAVED;?>"
+                                class="bank_saved payment-form-input  subscribe-pre-action quote-updater-event validate-one-required-by-name card_option bank-s"/>
+                            <label for="card_saved" class="label">
+                                <span><?= /** @noEscape */ __("Saved Card"); ?></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <fieldset id="my_card_new" class="admin__fieldset my_card_new payments-panel">
+
+                        <div class="admin__field-option _required">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_cc_owner_new">
+                                <div class="red-asterisk"><?= /** @noEscape */ __('Name on Card'); ?></div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <input <?= /** @noEscape */ $disabled ?>
+                                    type="text"
+                                    id="<?= $block->escapeHtmlAttr($_code) ?>_cc_owner_new"
+                                    name="<?= $block->escapeHtmlAttr($_code) ?>[cc_owner]"
+                                    title="<?= /** @noEscape */ __('Name on Card'); ?>"
+                                    class="input-text payment-form-input  subscribe-pre-action letters-with-basic-punc required
+                                    required-entry new_card"
+                                    value=""
+                                    data-msg-required="Please enter card name."/>
+                            </div>
+                        </div>
+
+                        <div class="admin__field-option _required">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_cc_number_new">
+                                <div class="red-asterisk"><?= /** @noEscape */ __('Credit Card Number'); ?></div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <input <?= /** @noEscape */ $disabled ?>
+                                    type="text"
+                                    id="<?= $block->escapeHtmlAttr($_code) ?>_cc_number_new"
+                                    name="<?= $block->escapeHtmlAttr($_code) ?>[cc_number]"
+                                    title="<?= /** @noEscape */ __('Credit Card Number'); ?>"
+                                    class="input-text payment-form-input  subscribe-pre-action quote-updater-event control-text required required-entry new_card"
+                                    value=""
+                                    data-mage-init='{"ebizcharge-credit-card": {
+                                    "input": "card-number",
+                                     "card-select-id": "<?= $block->escapeHtml($_code)?>_cc_type_new"}}'
+                                    data-msg-required="Please enter card number."/>
+                            </div>
+                        </div>
+                        <div class="admin__field-option _required">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_cc_type_new">
+                                <div class="red-asterisk"><?= /** @noEscape */ __('Credit Card Type'); ?></div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <div class="cc-block">
+                                    <select <?= /** @noEscape */ $disabled ?>
+                                        id="<?= $block->escapeHtmlAttr($_code) ?>_cc_type_new"
+                                        name="<?= $block->escapeHtmlAttr($_code) ?>[cc_type]"
+                                        class="width-custom-fifty  subscribe-pre-action payment-form-input admin__control-select
+                                        required required-entry new_card"
+                                        data-msg-required="Please select card type.">
+
+                                        <option value="">
+                                            <?= /** @noEscape */ __('Please Select Card Type'); ?>
+                                        </option>
+                                        <?php $_ccType = $block->getInfoData('cc_type'); ?>
+                                        <?php foreach ($block->getCcAvailableTypes() as $_typeCode => $_typeName): ?>
+                                            <option value="<?= /** @noEscape */ $_typeCode; ?>"
+                                                <?=
+                                                /** @noEscape */ $_typeCode == $_ccType ? 'selected="selected"' : '' ?>>
+                                                <?= /** @noEscape */ $_typeName; ?>
+                                            </option>
+                                        <?php endforeach ?>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin__field-option _required"
+                             id="<?= $block->escapeHtmlAttr($_code) ?>_cc_exp_new">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_exp_new">
+                                <div class="red-asterisk"><?= /** @noEscape */ __('Expiration Date'); ?></div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <div class="expire-block" id="expire-block">
+                                    <select <?= /** @noEscape */ $disabled ?>
+                                        id="<?= $block->escapeHtmlAttr($_code) ?>_exp_new"
+                                        name="<?= $block->escapeHtmlAttr($_code) ?>[cc_exp_month]"
+                                        class="month payment-form-input  subscribe-pre-action admin__control-select selectbox-dates new_card"
+                                        data-validate="{'validate-cc-exp':'#payment_exp_yr_new'}">
+
+                                        <?php $_ccExpMonth = $block->getInfoData('cc_exp_month'); ?>
+                                        <?php foreach ($block->getCcMonths() as $k => $v) { ?>
+                                            <option value="<?= /** @noEscape */ $k; ?>"
+                                                <?= /** @noEscape */ $k == $_ccExpMonth ? 'selected="selected"' : '' ?>>
+                                                <?= /** @noEscape */ $v; ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <?php $_ccExpYear = $block->getInfoData('cc_exp_year'); ?>
+
+                                    <select <?= /** @noEscape */ $disabled ?>
+                                        id="<?= $block->escapeHtmlAttr($_code) ?>_exp_yr_new"
+                                        name="<?= $block->escapeHtmlAttr($_code) ?>[cc_exp_year]"
+                                        class="year payment-form-input  subscribe-pre-action admin__control-select selectbox-dates new_card">
+
+                                        <?php foreach ($block->getCcYears() as $k => $v) { ?>
+                                            <option value="<?= /** @noEscape */ $k; ?>"
+                                                <?= /** @noEscape */ $k == $_ccExpYear ? 'selected="selected"' : '' ?>>
+                                                <?= /** @noEscape */ $v; ?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="admin__field-option _required">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_avs_street_new">
+                                <div class="red-asterisk"><?= /** @noEscape */ __('Billing Street'); ?></div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <input <?= /** @noEscape */ $disabled ?>
+                                    type="text" id="<?= $block->escapeHtmlAttr($_code) ?>_avs_street_new"
+                                    name="<?= $block->escapeHtmlAttr($_code) ?>[avs_street]"
+                                    title="<?= /** @noEscape */ __('Billing Street'); ?>"
+                                    class="input-text payment-form-input  subscribe-pre-action required required-entry new_card"
+                                    value=""
+                                    data-msg-required="Please enter billing street."/>
+                            </div>
+                        </div>
+
+                        <div class="admin__field-option _required">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_avs_zip_new">
+                                <div class="red-asterisk">
+                                    <?= /** @noEscape */ __('Billing Zip / Postal Code'); ?>
+                                </div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <input <?= /** @noEscape */ $disabled ?>
+                                    type="text"
+                                    id="<?= $block->escapeHtmlAttr($_code) ?>_avs_zip_new"
+                                    name="<?= $block->escapeHtmlAttr($_code) ?>[avs_zip]"
+                                    title="<?= /** @noEscape */ __('Billing Zip / Postal Code'); ?>"
+                                    class="input-text payment-form-input  subscribe-pre-action required required-entry new_card"
+                                    value=""
+                                    data-msg-required="Please enter postal code."/>
+                            </div>
+                        </div>
+
+                        <div class="admin__field-option _required">
+                            <label class="label admin__field-label"
+                                   for="<?= $block->escapeHtmlAttr($_code) ?>_cc_cid_new">
+                                <div class="<?= /* @noEscape */ $isCvvRequiredForNewCard["label-class"]; ?>">
+                                    <?= /** @noEscape */ __('CVV'); ?>
+                                </div>
+                            </label>
+                            <div class="admin__field-control control">
+                                <input <?= /** @noEscape */ $disabled ?>
+                                    type="number"
+                                    id="<?= $block->escapeHtmlAttr($_code) ?>_cc_cid_new"
+                                    name="<?= $block->escapeHtmlAttr($_code) ?>[cc_cid]"
+                                    title="<?= /** @noEscape */ __('Card Verification Number'); ?>"
+                                    class="input-text  subscribe-pre-action
+                                    <?= /** @noEscape */ $isCvvRequiredForNewCard["required-entry"]; ?>
+                                    payment-form-input cvv-number new_card"
+                                    data-mage-init='{<?=
+                                    /** @noEscape */ $isCvvRequiredForNewCard["validation-entry"]; ?>}'
+                                    data-msg-required="Please enter CVV."/>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                    <?php /** end of saved cards display */ ?>
+
+
+                    <?php /** step for saved cards */ ?>
+                    <fieldset id="my_card_saved" class="fr-main my_card_saved runtime-display payments-panel">
+
+                        <div class="text-info">
+                            <div class="admin__field-option _required">
+                                <div class="label admin__field-label">
+                                    <div class="red-asterisk">
+                                        <?= /** @noEscape */ __('Select Saved Card'); ?>
+                                    </div>
+                                </div>
+                                <div class="admin__field-control control" id="CardSelect">
+                                    <select <?= /** @noEscape */ $disabled ?>
+                                        name="<?= $block->escapeHtmlAttr($_code) ?>[method_id]"
+                                        class="admin__control-select  subscribe-pre-action quote-updater-event payment-form-input width-custom-twenty
+                                        required-entry saved_card"
+                                        id="selectdivPayment"
+                                        data-validate="{required:true}">
+                                        <option value="">
+                                            <?= /** @noEscape */ __("Please select card"); ?>
+                                        </option>
+                                        <?php
+                                        if ($recurringId) {
+                                            $methodType = 'cc';
+                                            $customerPaymentMethods = $block->renderCustomerPaymentMethods(
+                                                $customerData->getId(),
+                                                $methodType
+                                            );
+
+                                            if (count($customerPaymentMethods) > 0) {
+                                                foreach ($customerPaymentMethods as $customerPaymentMethod) {
+                                                    // phpcs:ignore
+                                                    /* @noEscape */ echo "<option value='" .
+                                                        $customerPaymentMethod['method_id'] . "|" .
+                                                        $customerPaymentMethod['method_name'] . "'>" .
+                                                        $customerPaymentMethod['method_name'] . "</option>";
+                                                }
+                                            } else {
+                                                ?>
+                                                <option selected value="">
+                                                    <?= /** @noEscape */ __("No Saved Card Found"); ?>
+                                                </option>
+                                                <?php
+                                            }
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="admin__field-option _required">
+                            <div class="label admin__field-label">
+                                <div class="<?= /* @noEscape */ $isCvvRequiredForSavedCard["label-class"]; ?>">
+                                    <?= /* @noEscape */ __('CVV'); ?>
+                                </div>
+                            </div>
+                            <div class="admin__field-control control" id="CardSelect">
+                                <input <?= /** @noEscape */ $disabled ?>
+                                    type="text"
+                                    id="<?= $block->escapeHtmlAttr($_code) ?>_saved_cards_cc_cid_new"
+                                    name="<?= /* @noEscape */ $_code; ?>[saved_cards_cc_cid]"
+                                    title="<?= /* @noEscape */ __('Card Verification Number'); ?>"
+                                    class="input-text  subscribe-pre-action quote-updater-event
+                                    <?= /* @noEscape */ $isCvvRequiredForSavedCard["required-entry"]; ?>
+                                    payment-form-input cvv-number saved_card"
+                                    data-mage-init='{<?= /* @noEscape */
+                                                        $isCvvRequiredForSavedCard["validation-entry"]; ?>}'/>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            <?php } else { ?>
+                <div class="message message-error error ebiz-payment-disabled">
+                    <?= /* @noEscape */ __('Credit Card Payments are disabled.') ?>
+                </div>
+            <?php } ?>
+        </div>
+        <div id="tab_pay_by_bank">
+            <?php if ($getAchStatus) { ?>
+                <div class="add-new" id="add-new-ach">
+
+                    <div class="bankac-payment payments-panel">
+                        <div class="row" id="my-select-content">
+                            <input <?= /** @noEscape */ $disabled ?>
+                                type="radio"
+                                name="<?= /* @noEscape */ $_code; ?>[bank_option_type]"
+                                id="bank_new"
+                                value="bank_new"
+                                class="validate-one-required-by-name  subscribe-pre-action payment-form-input bank_option bank-s"
+                                checked/>
+                            <label for="bank_new" class="label">
+                                <span><?= /* @noEscape */ __("New Bank Account"); ?></span>
+                            </label>
+                            <input <?= /** @noEscape */ $disabled ?>
+                                type="radio"
+                                name="<?= /* @noEscape */ $_code; ?>[bank_option_type]"
+                                id="bank_saved"
+                                value="bank_saved"
+                                class="validate-one-required-by-name  subscribe-pre-action payment-form-input bank_option"/>
+                            <label for="bank_saved" class="label">
+                                <span><?= /* @noEscape */ __("Saved Bank Account"); ?></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <fieldset id="my_bank_new" class="admin__fieldset my_bank_new payments-panel ">
+                        <div id="my_bank_account_new" class="text-info">
+                            <div class="admin__field-option _required">
+                                <label class="label admin__field-label"
+                                       for="<?= /* @noEscape */ $_code; ?>_cc_owner_new_ach">
+                                    <div class="red-asterisk">
+                                        <?= /* @noEscape */ __('Account Holder Name'); ?>
+                                    </div>
+                                </label>
+                                <div class="admin__field-control control">
+                                    <input style="display: none">
+                                    <input <?= /** @noEscape */ $disabled ?>
+                                        type="text"
+                                        id="<?= $block->escapeHtmlAttr($_code) ?>_cc_owner_new_ach"
+                                        name="<?= /* @noEscape */ $_code; ?>[cc_owner_ach]"
+                                        title="<?= /* @noEscape */ __('Account Holder Name'); ?>"
+                                        class="input-text  subscribe-pre-action payment-form-input letters-with-basic-punc
+                                        required required-entry"
+                                        value=""
+                                        data-msg-required="Please enter account holder name."/>
+                                </div>
+                            </div>
+
+                            <div class="admin__field-option _required">
+                                <label class="label admin__field-label"
+                                       for="<?= $block->escapeHtmlAttr($_code) ?>_cc_type_new_ach">
+                                    <div class="red-asterisk"><?= /* @noEscape */ __('Account Type'); ?></div>
+                                </label>
+                                <div class="admin__field-control control" id="custom_controller_new">
+                                    <select <?= /** @noEscape */ $disabled ?>
+                                        id="<?= /* @noEscape */ $_code; ?>_cc_type_new_ach"
+                                        name="<?= /* @noEscape */ $_code; ?>[cc_type_ach]"
+                                        class="required payment-form-input  subscribe-pre-action admin__control-select required-entry">
+                                        <option value="checking">
+                                            <?= /* @noEscape */ __("Checking"); ?>
+                                        </option>
+                                        <option value="savings">
+                                            <?= /* @noEscape */ __("Savings"); ?>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="admin__field-option _required">
+                                <label class="label admin__field-label"
+                                       for="<?= /* @noEscape */ $_code; ?>_cc_number_new_ach">
+                                    <div class="red-asterisk"><?= /* @noEscape */ __('Account Number'); ?></div>
+                                </label>
+                                <div class="admin__field-control control">
+                                    <input <?= /** @noEscape */ $disabled ?>
+                                        type="text"
+                                        id="<?= $block->escapeHtmlAttr($_code) ?>_cc_number_new_ach"
+                                        name="<?= /* @noEscape */ $_code; ?>[cc_number_ach]"
+                                        title="<?= /* @noEscape */ __('Account Number'); ?>"
+                                        class="input-text  subscribe-pre-action payment-form-input required required-entry"
+                                        value=""
+                                        minlength="9" maxlength="14"
+                                        oninput="this.value = this.value.replace(/[^0-9\.]/g,'');"
+                                        data-msg-required="Please enter account number."/>
+                                </div>
+                            </div>
+
+                            <div class="admin__field-option _required">
+                                <label class="label admin__field-label"
+                                       for="<?= /* @noEscape */ $_code; ?>_cc_cid_new_ach">
+                                    <div class="red-asterisk">
+                                        <?= /* @noEscape */ __('Routing Number'); ?>
+                                    </div>
+                                </label>
+                                <div class="admin__field-control control ">
+                                    <input <?= /** @noEscape */ $disabled ?>
+                                        type="text"
+                                        id="<?= $block->escapeHtmlAttr($_code) ?>_cc_cid_new_ach"
+                                        name="<?= /* @noEscape */ $_code; ?>[cc_routing_ach]"
+                                        title="<?= /* @noEscape */ __('Routing Number'); ?>"
+                                        class="input-text payment-form-input  subscribe-pre-action required cvv-number required-entry"
+                                        minlength="9" maxlength="9"
+                                        oninput="this.value = this.value.replace(/[^0-9\.]/g,'');"
+                                        data-msg-required="Please enter routing number."/>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </fieldset>
+
+                    <fieldset id="my_bank_saved" class="payments-panel my_bank_saved  runtime-display">
+
+                        <div id="my_bank_account_saved" class="text-info">
+                            <div class="admin__field-option _required">
+                                <div class="label admin__field-label" for="<?= /* @noEscape */
+                                $_code; ?>_cc_cid_new">
+                                    <div class="red-asterisk"><?= /* @noEscape */
+                                        __('Select Saved Account'); ?></div>
+                                </div>
+                                <div class="admin__field-control control" id="CardSelect">
+                                    <select <?= /** @noEscape */ $disabled ?>
+                                        name="<?= $block->escapeHtmlAttr($_code) ?>[method_id]"
+                                        class="admin__control-select  subscribe-pre-action payment-form-input required-entry"
+                                        id="selectdivPaymentAch"
+                                        data-validate="{required:true}"
+                                        data-msg-required="Please select an account.">
+                                        <option value="">
+                                            <?= /* @noEscape */ __("Please select an account"); ?>
+                                        </option>
+                                        <?php
+                                        if ($recurringId) {
+                                            $methodType = 'check';
+                                            $customerPaymentMethods = $block->renderCustomerPaymentMethods(
+                                                $customerData->getId(),
+                                                $methodType
+                                            );
+
+                                            if (count($customerPaymentMethods) > 0) {
+                                                foreach ($customerPaymentMethods as $customerPaymentMethod) {
+                                                    // phpcs:ignore
+                                                    /* @noEscape */  echo "<option value='" .
+                                                        $customerPaymentMethod['method_id'] .
+                                                        "|" . $customerPaymentMethod['method_name'] . "'>" .
+                                                        $customerPaymentMethod['method_name'] . "</option>";
+                                                }
+                                            } else {
+                                                ?>
+                                                <option selected value="">
+                                                    <?= /* @noEscape */ __("No Saved Bank Account Found"); ?>
+                                                </option>
+                                                <?php
+                                            }
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <br/>
+                    </fieldset>
+                </div>
+            <?php } else { ?>
+                <div class="message message-error error ebiz-payment-disabled">
+                    <?= /* @noEscape */ __('Bank Account Payments are disabled.') ?>
+                </div>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
+<?php if (!$recurringId) { ?>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="button" id="save-subscription" class="button action primary  subscribe-pre-action"
+                    form="subscription-add-form"
+                    title="<?= /* @noEscape */ __("Click to Save Subscription"); ?>">
+                <span><?= /* @noEscape */ __("Save Subscription"); ?></span>
+            </button>
+            <button type="button" class="new-cancel-btn" id="new-cancel-btn" onclick="goBack()">
+                <span><?= /* @noEscape */ __("Cancel"); ?></span>
+            </button>
+        </div>
+    </div>
+
+<?php }
+
+/**
+ * Recurring ID
+ */
+if ($recurringId) {
+
+    /** @var  $recurringButtonsResponse */
+    $recurringButtonsResponse = $block->prepareSubscriptionButtonsStatus($recurringId);
+    $saveButtonStatus = $disabled;
+    $suspendButtonStatus = $disabled;
+    $unSubscribeButtonStatus = $disabled;
+
+    if ($recurringButtonsResponse['save'] === true) {
+        $saveButtonStatus = "";
+    }
+    if ($recurringButtonsResponse['suspend'] === true) {
+        $suspendButtonStatus = "";
+    }
+    if ($recurringButtonsResponse['unsubscribe'] === true) {
+        $unSubscribeButtonStatus = "";
+    }
+    ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+
+            <?php
+            /** @var  $recStatus */
+            $recStatus = $recurring->getRecStatus(); ?>
+
+            <?php if ($recStatus !== Recurring::EBIZCHARGE_RECURRING_STATUS_ACTIVE) { ?>
+                <div class="re-subscribe-info" id="re-subscribe-checkbox">
+                    <label class="label-info">
+                        <input type="hidden" name="payment[re_subscribe]" value="re-subscribe"/>
+                        <input <?= /** @noEscape */ $isSubscriptionExpired; ?>
+                            type="checkbox"
+                            id="re-subscribe-chk"
+                            class=" subscribe-pre-action"
+                            name="payment[re_subscribe]"
+                            value="re-subscribe"/>
+                        <?= /** @noEscape */ __(" I want to re-subscribe this subscription."); ?>
+                    </label>
+                </div>
+            <?php } ?>
+
+            <?php
+
+            $subscriptionTitle = __("Save Subscription");
+            $subscriptionId = "save-subscription";
+            if ($recStatus !== Recurring::EBIZCHARGE_RECURRING_STATUS_ACTIVE) {
+                $subscriptionTitle = __("Re-Subscribe");
+                $subscriptionId = "re-subscription";
+            }
+
+            if ($recStatus === Recurring::EBIZCHARGE_RECURRING_STATUS_ACTIVE) { ?>
+                <button <?= /** @noEscape */ $saveButtonStatus; ?>
+                    type="button"
+                    id="save-subscription"
+                    class="button action primary payment-form-input  subscribe-pre-action"
+                    form="subscription-edit-form"
+                    title="<?= /** @noEscape */ __('Click to Save Subscription'); ?>">
+                    <span><?= /** @noEscape */ __('Save Subscription'); ?></span>
+                </button>
+
+            <?php } else {
+                ?>
+
+                <button <?= /** @noEscape */ $saveButtonStatus; ?>
+                    type="button"
+                    id="save-subscription"
+                    class="button action primary payment-form-input  subscribe-pre-action"
+                    form="subscription-edit-form"
+                    title="<?= /* @noEscape */ __('Click to Re Subscribe'); ?>">
+                    <span><?= /** @noEscape */ $subscriptionTitle; ?></span>
+                </button>
+            <?php } ?>
+
+            <?php
+            if ($recStatus !== Recurring::EBIZCHARGE_RECURRING_STATUS_SUSPENDED) {
+                $statusTitle = "Suspend";
+                ?>
+                <button <?= /* @noEscape */ $suspendButtonStatus; ?>
+                    type="button"
+                    id="sub_btn"
+                    class="action primary sub_btn "
+                    title="<?= /** @noEscape */ __($statusTitle); ?>">
+                    <span><?= /** @noEscape */ __($statusTitle); ?></span>
+                </button>
+            <?php } ?>
+            <button <?= /* @noEscape */ $unSubscribeButtonStatus; ?>
+                type="button"
+                id="del_btn"
+                class="action primary del_btn  subscribe-pre-action"
+                title="<?= /** @noEscape */ __('Unsubscribe'); ?>">
+                <span><?= /** @noEscape */ __('Unsubscribe'); ?></span>
+            </button>
+            <button type="button" class="new-cancel-btn" id="new-cancel-btn" onclick="goBack()">
+                <span>Back</span>
+            </button>
+        </div>
+    </div>
+
+<?php } ?>
+
+</form>
+
+<?php if (!$recurringId) { ?>
+    <div id="myModelConfirmDel"></div>
+    <div id="myModel"></div>
+    <div id="myModelConfirm"></div>
+    <div id="myModelResubscribe"></div>
+
+    <div id="optionsAddress" class="containerAddresss" style="display: none;">
+        <form id="recurringAddressForm" method="post" data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="customerIdAddress" id="customerIdAddress"/>
+
+            <fieldset class="fieldset zeroBorder">
+                <legend class="legend"><span><?= /** @noEscape */ __("Contact Information"); ?></span></legend>
+                <div class="rowAddress">
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("First Name"); ?></span>
+                        <div class="control">
+                            <input type="text" id="firstname" name="ship_first_name" value="" title="First Name"
+                                   class=" input-text admin__control-text " data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Last Name"); ?></span>
+                        <div class="control">
+                            <input type="text" id="lastname" name="ship_last_name" value="" title="Last Name"
+                                   class=" input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowAddress">
+                    <div class="column">
+                        <span>Company</span>
+                        <div class="control">
+                            <input type="text" name="ship_company" id="company" value="" title="Company"
+                                   class=" input-text admin__control-text ">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Phone Number"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_phone" id="telephone" value="" title="Phone Number"
+                                   class=" input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset class="fieldset zeroBorder">
+                <legend class="legend"><span><?= /** @noEscape */ __("Address Information"); ?></span></legend>
+                <div class="rowAddress">
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Street Address"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_address1" title="Street Address" id="street_1"
+                                   class=" input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span><?= /** @noEscape */ __("Street Address 2"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_address2" title="Street Address 2" id="street_2"
+                                   class=" input-text admin__control-text" aria-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="rowAddress">
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Country"); ?></span>
+                        <div class="control">
+                            <?= /* @noEscape */ $block->getCountrySelect(); ?>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("State/Province"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_region" value="" title="State/Province" id="region_id_text"
+                                   class="input-text admin__control-text runtime-display"
+                                   data-validate="{required:true}"
+                                   aria-required="true" disabled>
+                            <?= /* @noEscape */ $block->getCountryRegionSelect(); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowAddress">
+
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("City"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_city" value="" title="City"
+                                   class="input-text admin__control-text"
+                                   id="city" data-validate="{required:true}" aria-required="true">
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Zip/Postal Code"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_zipcode" value="" title="Zip/Postal Code" id="zip"
+                                   class="input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+    <div id="optionsAddressAlert"></div>
+
+<?php } else {
+    /** @var $canceledStatus */
+    $canceledStatus = Recurring::EBIZCHARGE_RECURRING_STATUS_CANCELED;
+
+    ?>
+    <form class=""
+          id="cancel-subscription"
+          action="<?= $block->escapeUrl($block->getUrl(
+              'ebizcharge_ebizcharge/recurrings/updatesubscriptionstatus/action/' . $canceledStatus,
+              ['_secure' => true]
+          )) ?>"
+          method="post" enctype="multipart/form-data">
+
+        <?= /** @noEscape */ $block->getBlockHtml('formkey') ?>
+
+        <?php
+        if ($payment && ($payment->ScheduleStatus === Recurring::EBIZCHARGE_RECURRING_STATUS_SUSPENDED ||
+                $payment->ScheduleStatus === Recurring::EBIZCHARGE_RECURRING_STATUS_CANCELED)) {
+            $statusValue = 0;
+        } else {
+            $statusValue = 1;
+        } ?>
+        <input type="hidden"
+               id="current_status"
+               name="current_status"
+               value="<?= /** @noEscape */ $statusValue; ?>"/>
+        <input type="hidden"
+               id="payment_method_id"
+               name="method_id"
+               value="<?= $block->escapeHtmlAttr($block->getEbzcMethodId()) ?>"/>
+        <input type="hidden"
+               id="current_status"
+               name="current_status"
+               value="<?= $block->escapeHtmlAttr($recurring->getRecStatus()) ?>"/>
+        <input type="hidden"
+               id="recurring_id"
+               name="recurring_id"
+               value="<?= $block->escapeHtmlAttr($recurringId) ?>"/>
+        <input type="hidden"
+               class="action_status"
+               id="action_name"
+               name="action_name"
+               value="<?= /** @noEscape */ $canceledStatus; ?>"/>
+    </form>
+
+    <?php
+    /** @var $suspendStatus */
+    $suspendStatus = Recurring::EBIZCHARGE_RECURRING_STATUS_SUSPENDED;
+
+    ?>
+    <form class=""
+          id="suspend-subscription"
+          action="<?= $block->escapeUrl($block->getUrl(
+              'ebizcharge_ebizcharge/recurrings/updatesubscriptionstatus/action/' . $suspendStatus,
+              ['_secure' => true]
+          )) ?>"
+          method="post" enctype="multipart/form-data">
+        <?= /** @noEscape */ $block->getBlockHtml('formkey'); ?>
+        <input type="hidden"
+               id="payment_method_id"
+               name="method_id"
+               value="<?= $block->escapeHtmlAttr($block->getEbzcMethodId()) ?>"/>
+        <input type="hidden"
+               id="current_status"
+               name="current_status"
+               value="<?= $block->escapeHtmlAttr($recurring->getRecStatus()) ?>"/>
+        <input type="hidden"
+               class="action_status"
+               id="action_name"
+               name="action_name"
+               value="<?= /** @noEscape */ $suspendStatus; ?>"/>
+        <input type="hidden"
+               id="recurring_id"
+               name="recurring_id"
+               value="<?= $block->escapeHtmlAttr($recurringId) ?>"/>
+    </form>
+
+    <div id="myModelConfirmDel"></div>
+    <div id="myModel"></div>
+    <div id="myModelConfirm"></div>
+    <div id="myRecAlert"></div>
+    <div id="myModelResubscribe"></div>
+
+    <div id="optionsAddress" class="containerAddresss">
+        <form id="recurringAddressForm" method="post" data-mage-init='{"validation":{}}'>
+            <input type="hidden"
+                   name="customerIdAddress"
+                   value="<?= $block->escapeHtmlAttr($recurring['mage_cust_id']) ?>"
+                   id="customerIdAddress"/>
+            <fieldset class="fieldset zeroBorder">
+                <legend class="legend"><span><?= /** @noEscape */ __("Contact Information"); ?></span></legend>
+                <div class="rowAddress">
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("First Name"); ?></span>
+                        <div class="control">
+                            <input type="text" id="firstname" name="ship_first_name" value=""
+                                   title="First Name"
+                                   class=" input-text admin__control-text letters-with-basic-punc"
+                                   data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Last Name"); ?></span>
+                        <div class="control">
+                            <input type="text" id="lastname" name="ship_last_name" value=""
+                                   title="Last Name"
+                                   class=" input-text admin__control-text letters-with-basic-punc"
+                                   data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rowAddress">
+                    <div class="column">
+                        <span>Company</span>
+                        <div class="control">
+                            <input type="text" name="ship_company" id="company" value="" title="Company"
+                                   class=" input-text admin__control-text ">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Phone Number"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_phone" id="telephone" value="" title="Phone Number"
+                                   class=" input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset class="fieldset zeroBorder">
+                <legend class="legend"><span><?= /** @noEscape */ __("Address Information"); ?></span></legend>
+                <div class="rowAddress">
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Street Address"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_address1" title="Street Address" id="street_1"
+                                   class=" input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span><?= /** @noEscape */ __("Street Address 2"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_address2" title="Street Address 2" id="street_2"
+                                   class=" input-text admin__control-text" aria-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="rowAddress">
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Country"); ?></span>
+                        <div class="control">
+                            <?= /* @noEscape */ $block->getCountrySelect(); ?>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("State/Province"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_region" value="" title="State/Province" id="region_id_text"
+                                   class="input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true" style="display: none" disabled>
+                            <?= /** @noEscape */ $block->getCountryRegionSelect(); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="rowAddress">
+
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("City"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_city" value="" title="City"
+                                   class="input-text admin__control-text"
+                                   id="city" data-validate="{required:true}" aria-required="true">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <span class="red-asterisk"><?= /** @noEscape */ __("Zip/Postal Code"); ?></span>
+                        <div class="control">
+                            <input type="text" name="ship_zipcode" value="" title="Zip/Postal Code" id="zip"
+                                   class="input-text admin__control-text" data-validate="{required:true}"
+                                   aria-required="true">
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+    </div>
+
+<?php } ?>
+
+
+<?php if (!$recurringId) { ?>
+
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Ebizcharge_Ebizcharge/js/addSubscription" : {
+                "addressActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/recurrings/addressaction'
+                )) ?>",
+                "loadCustomerAddressActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/recurrings/loadcustomeraddressaction'
+                )) ?>",
+               "quoteProcessorActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+            'ebizcharge_ebizcharge/recurrings/preparesubscriptionaction'
+        )) ?>",
+                "recurringExistUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/recurrings/recurringexist'
+                )) ?>",
+                "isAvsCvvEnabled" : "<?= /* @noEscape */ $isAvsCvvEnabled; ?>",
+                "validateAvsCvvActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/cards/validatecvvavscards'
+                )) ?>",
+                "requestCC" : "<?= /* @noEscape */ $requestCC; ?>",
+                "regionJson" : <?= /* @noEscape */ $viewModel->dataGetRegionJson() ?>
+                }
+            }
+    }
+    </script>
+
+<?php } else { ?>
+
+    <script type="text/x-magento-init">
+        {
+        "*": {
+            "Ebizcharge_Ebizcharge/js/editSubscription" : {
+
+                "addressActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/recurrings/addressaction'
+                )) ?>",
+                "loadCustomerAddressActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/recurrings/loadcustomeraddressaction'
+                )) ?>",
+                "quoteProcessorActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+            'ebizcharge_ebizcharge/recurrings/preparesubscriptionaction'
+        )) ?>",
+                "recurringExistUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/recurrings/recurringexist'
+                )) ?>",
+                "isAvsCvvEnabled" : "<?= /* @noEscape */ $isAvsCvvEnabled; ?>",
+                "validateAvsCvvActionUrl" : "<?= $block->escapeUrl($block->getUrl(
+                    'ebizcharge_ebizcharge/cards/validatecvvavscards'
+                )) ?>",
+                "requestCC" : "<?= /* @noEscape */ $requestCC; ?>",
+                "regionJson" : <?= /* @noEscape */ $viewModel->dataGetRegionJson(); ?>
+
+            }
+          }
+        }
+
+
+    </script>
+
+<?php } ?>
+
+<?= /** @noEscape */ $block->getChildHtml("ebizcharge.recurrings.add.cvv.avs.warnings"); ?>

@@ -1,0 +1,96 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Model\Recurring;
+use Magento\Sales\Block\Adminhtml\Items\Renderer\DefaultRenderer;
+
+/** @var $block DefaultRenderer */
+$_item = $block->getItem();
+$_item->setStoreId($_item->getInvoice()->getStoreId());
+$block->setPriceDataObject($_item);
+
+$orderItemId = $_item->getData("order_item_id");
+$productOptions = $block->getRecurredOrderedItem($orderItemId);
+$infoBuyRequest = isset($productOptions['info_buyRequest']) ? $productOptions['info_buyRequest'] : [];
+$recurrings = isset($infoBuyRequest['recurring']) ? $infoBuyRequest['recurring'] : [];
+
+$qty = isset($infoBuyRequest["qty"]) ? $infoBuyRequest["qty"] : 0;
+$isRecurringIndefinite = isset($recurrings["rec_indefinitely"]) ? $recurrings["rec_indefinitely"] : 0;
+$isRecurringIndefinite = $isRecurringIndefinite && $isRecurringIndefinite > 0;
+?>
+
+<tr>
+    <td class="col-product"><?= /** @noEscape */ $block->getColumnHtml($_item, 'name') ?></td>
+    <td class="col-price">
+        <?= /** @noEscape */ $block->getColumnHtml($_item, 'price') ?>
+    </td>
+    <td class="col-qty"><?= $block->escapeHtml((float)$_item->getQty()) ?></td>
+    <td class="col-subtotal">
+        <?= /** @noEscape */ $block->getColumnHtml($_item, 'subtotal') ?>
+    </td>
+    <td class="col-tax"><?= /* @noEscape */
+        $block->displayPriceAttribute('tax_amount') ?></td>
+    <td class="col-discount"><?= /* @noEscape */
+        $block->displayPriceAttribute('discount_amount') ?></td>
+    <td class="col-total ">
+        <?= /** @noEscape */ $block->getColumnHtml($_item, 'total') ?>
+    </td>
+    <td class="col-subscription last">
+
+        <?php if (isset($recurrings["rec_activate"]) && (int)$recurrings["rec_activate"] !== 0): ?>
+            <br/>
+            <div class="subscribe subscribed-item">
+                <div class="label">
+                    <b><?= /** @noEscape */ __('Status:'); ?></b>
+                    <?= /* @noEscape */ __('Subscribed'); ?>
+                </div>
+                <div class="label">
+                    <b><?= /** @noEscape */ __('Frequency:'); ?></b>
+                    <?= $block->escapeHtml($recurrings['rec_frequency']) ?>
+                </div>
+                <div class="label">
+                    <b><?= /** @noEscape */ __('Qty Subscribed:'); ?></b> <?= $block->escapeHtml($qty) ?>
+                </div>
+                <div class="label">
+                    <b><?= /** @noEscape */ __('Start Date:'); ?></b>
+                    <?= $block->escapeHtml($recurrings['sdate']) ?></div>
+                <?php
+                if ($isRecurringIndefinite): ?>
+                    <div class="label">
+                        <b><?= /* @noEscape */
+                            __("Indefinite(" . Recurring::DEFAULT_INDEFINITE_RECURRING_LIMIT . " Year)"); ?></b>
+                    </div>
+                <?php else: ?>
+                    <div class="label"><b><?= /* @noEscape */
+                            __('End Date:'); ?></b> <?= /** @noEscape */ $recurrings['edate']; ?></div>
+
+                <?php endif; ?>
+
+            </div>
+        <?php else: ?>
+            <div class="label"><b><?= /* @noEscape */ __('Not Subscribed'); ?></b></div>
+        <?php endif; ?>
+    </td>
+</tr>

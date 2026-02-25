@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mach" translate="label" type="text" sortOrder="500" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Mach ERP Integration</label>
+            <tab>service</tab>
+            <resource>Magento_MachBase::config_machbase</resource>
+            <group id="settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Settings</label>
+                <field id="enabled" type="select" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="wsdl_url" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>WSDL URL</label>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="wsdl_address_url" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>WSDL Address URL</label>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="payware_wsdl_url" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Payware WSDL URL</label>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="security_code" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Security Code</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="soap_timeout" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>SOAP Connection Timeout</label>
+                </field>
+                <field id="cache_wsdl" type="select" translate="label" sortOrder="41" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable WSDL Cache</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log_level" type="multiselect" translate="label comment" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log Level</label>
+                    <comment>"Informational" is recommended.</comment>
+                    <source_model>Crimson\MachBase\Model\Config\Source\LogLevel</source_model>
+                </field>
+                <field id="integration_timezone" type="select" translate="label comment" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Integration Timezone</label>
+                    <comment>Dates will be converted to this timezone in integration.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Locale\Timezone</source_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Locale\Timezone</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

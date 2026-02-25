@@ -1,0 +1,10 @@
+<?php $disclaimers = $this->getDisclaimers(); ?>
+<?php if(count($disclaimers) > 0) : ?>
+    <p class="product-disclaimers yellow_font bold uppercase lh20 font16">Please Note</p>
+    <ul class="padding0">
+    <?php foreach($disclaimers as $disclaimer) : ?>
+        <li class="disclaimer"><?php echo $disclaimer['disclaimer'] ?></li>
+    <?php endforeach ?>
+    </ul>
+<?php endif ?>
+

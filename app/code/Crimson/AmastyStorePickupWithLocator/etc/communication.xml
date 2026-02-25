@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="crimson_storepickup_shipment_email.send" request="Crimson\AmastyStorePickupWithLocator\Model\Queue\Email\Dto\EmailConfig">
+        <handler name="crimsonStorepickupShipmentEmailSender" type="Crimson\AmastyStorePickupWithLocator\Model\Queue\Email\Consumer" method="process"/>
+    </topic>
+    <topic name="amasty_storepickup_email.send" request="Amasty\StorePickupWithLocatorSubscriptionFunctionality\Model\Queue\Email\Dto\EmailConfig">
+        <handler name="amStorepickupEmailSender" type="Crimson\AmastyStorePickupWithLocator\Model\Queue\Email\AmastyConsumerCustom" method="process"/>
+    </topic>
+</config>

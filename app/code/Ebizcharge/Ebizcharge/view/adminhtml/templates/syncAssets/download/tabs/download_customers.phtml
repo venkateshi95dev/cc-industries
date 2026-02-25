@@ -1,0 +1,168 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\SyncAssets\Download\Tab\Customers;
+
+/**
+ * @var $block Customers
+ */
+$syncData = $block->getDownloadCustomerSyncUpdate();
+
+?>
+<div class="download-customers" id="download_customers_container" data-bind="scope: 'download_customers_container'">
+    <div class="section-content">
+
+        <div id="download-customers-messages" class="messages breadcrumb-messages download-notice">
+            <div id="check-customers-progress-messages" class="message">
+                <span>
+                    <?= /* @noEscape */ __('Please wait, checking latest customers is in progress.') ?>
+                </span>
+            </div>
+            <div id="download-customers-progress-messages" class="messages breadcrumb-messages products-download-notice">
+                <div class="message">
+                <span>
+                    <?= /* @noEscape */ __('Please wait, currently downloading customers is in progress.') ?>
+                </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="customers-step-1" class="steps">
+
+            <h3 id="customer_progress_bar_breadcrumbs" class="progress-bar-breadcrumbs checking-message messages"></h3>
+
+            <div id="customers_progress" class="customers_progress result_table">
+                <h3  class="messages">
+                    <?= /* @noEscape */ __('Downloaded Customers :')?>
+                    <span id="downlaoded_customers"><?= /* @noEscape */ $block->getLastDownloadedCustomers();?></span>/
+                    <span id="total_customers"><?= /* @noEscape */ $block->getLastDownloadedCustomers();?></span>
+                </h3>
+                <h3  class="messages"
+                     onclick="syncLogsView.open('<?= $block->escapeUrl($block->getLogsViewUrl()) ?>', 'customer')">
+                    <a href="#" id="failed_logs">
+                        <?= /* @noEscape */ __('Failed Customers :')?>
+                        <span id="failed_counter"><?= /* @noEscape */ $block->getFailedCustomersCount();?></span>
+                    </a>
+                </h3>
+            </div>
+
+            <div id="customer_results_table">
+                <table class="table admin__table-primary table-responsive table-bordered">
+                    <tbody>
+                    <tr>
+                        <td> <?= /* @noEscape */ __('Last downloaded')?> :</td>
+                        <td>
+                            <span id="last_download_date_customers">
+                                <?= /* @noEscape */ $block->getLastDownloadedDate(); ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <?= /* @noEscape */ __('Last downloaded customers :') ?></td>
+                        <td>
+                            <span id="last_download_customers">
+                                <?= /* @noEscape */ $block->getLastDownloadedCustomers(); ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td> <?= /* @noEscape */ __('New customers available to download :')?></td>
+                        <td><span id="from_download_customers">--</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="customer_download_progress_bar" class="progress-bar">
+                <div class="progress-bar-label"
+                     data-bind="text: progress_bar_label_customers"
+                     id="progress_bar_label_customers">0%</div>
+            </div>
+
+            <button id="check_customers_btn" class="action-primary" type="button"
+                    title="Check Customers @ EBizCharge Gateway"
+                    data-step="#customers-step-1"> <?= /* @noEscape */ __('Refresh Customers')?>
+            </button>
+
+            <button id="download_customers_btn" class="action-primary" type="button"
+                    title="Download Customers from EBizCharge Hub"
+                    data-step="#customers-step-2" disabled> <?= /* @noEscape */ __('Download Customers')?>
+            </button>
+
+            <button id="view_customers_btn" class="action-primary" type="button" title="View Downloaded Customers"
+                    data-step="#customers-step-3"> <?= /* @noEscape */ __('View Customers')?>
+            </button>
+        </div>
+
+    </div>
+</div>
+
+<?php /** Adding Magento UI JS Core App */ ?>
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Magento_Ui/js/core/app": {
+           "components": {
+                "download_customers_container": {
+                    "component" : "Ebizcharge_Ebizcharge/js/downloads/component/download-resources",
+                    "download"  : {
+                           "check_ajax_url"    : "<?= $block->escapeUrl($block->getCustomersCheckAtEbizchargeUrl()) ?>",
+                           "download_ajax_url" : "<?= $block->escapeUrl(
+                               $block->getCustomersDownloadsFromEbizchargeUrl()
+                           ) ?>",
+                           "progress_bar_ajax_url" : "<?= $block->escapeUrl($block->getProgressBarUrl()) ?>",
+                           "resource_view_url" : "<?= $block->escapeUrl($block->getViewDownloadCustomersUrl()) ?>",
+                           "downloading_status" : "<?= /* @noEscape */ $block->syncStatus()?>",
+                           "progress_bar"      : "customer_download_progress_bar",
+                           "check_resource_btn" : "check_customers_btn",
+                           "download_resource_btn" : "download_customers_btn",
+                           "view_resource_btn" : "view_customers_btn",
+                           "progress_bar_label" : "progress_bar_label_customers",
+                           "progress_bar_breadcrumbs" : "customer_progress_bar_breadcrumbs",
+                           "resource_integration_progress" : "customers_progress",
+                           "current_progress_value" : "current_progress_value",
+                           "downlaoded_resources" : "downlaoded_customers",
+                           "results_table" : "customer_results_table",
+                           "total_resources" : "total_customers",
+                           "progress_request_type" : "downloaded_customer_progress",
+                           "download_type" : "download_customers",
+                           "id_downloaded_resources" : "downlaoded_customers",
+                           "id_total_resource" : "total_customers",
+                           "http_request_type": "GET",
+                           "request_type" : "customers",
+                           "sync_title" : "sync_title_download",
+                           "last_download_date_resource":"last_download_date_customers",
+                           "last_download_resource":"last_download_customers",
+                           "from_download_resource":"from_download_customers",
+                           "download-customers-messages":"download-customers-messages",
+                           "download-customers-progress-messages" : "download-customers-progress-messages",
+                           "check-customers-progress-messages" : "check-customers-progress-messages"
+                         }
+                    }
+                }
+            }
+        }
+  }
+</script>

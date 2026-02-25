@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="crimson_addSourceCodeAndEmailToQuoteAddress" instance="Crimson\InStorePickup\Observer\SetSourceInfoOnOrderSubmit" />
+    </event>
+    <event name="sales_quote_address_save_before">
+        <observer name="crimson_addSourceCodeAndEmailToOrder" instance="Crimson\InStorePickup\Observer\SaveQuoteAddressSourceInfo" />
+    </event>
+    <event name="email_order_set_template_vars_before">
+        <observer instance="Crimson\InStorePickup\Observer\AdjustOrderEmailTemplateVariable"
+                  name="crimson_cokerWv_email_template_variable"
+        />
+    </event>
+    <event name="email_ready_for_pickup_set_template_vars_before">
+        <observer instance="Crimson\InStorePickup\Observer\AdjustOrderEmailTemplateVariable"
+                  name="crimson_cokerWv_email_template_variable"
+        />
+    </event>
+</config>

@@ -1,0 +1,145 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+
+?>
+<?php
+$enabledWebsiteIds = $block->getEnabledCustomerWebsiteIds();
+$currentCustomer = $block->getCustomer();
+$websiteId = $currentCustomer->getWebsiteId();
+
+if ($block->checkCustomAttribute() && in_array($websiteId, $enabledWebsiteIds)) :
+    ?>
+    <div class="fieldset-wrapper customer-information">
+        <div class="fieldset-wrapper-title">
+            <span class="title"><?= /* @noEscape */
+                __('Target Information') ?></span>
+            <button type="button" 
+                    id="edit-target-customer-id" 
+                    class="action-secondary"
+                    style="float:right;">
+                <span><?= /* @noEscape */ __('Edit') ?></span>
+            </button>
+        </div>
+        <div id="target-customer-message" class="message" style="display:none;"></div>
+        <table class="admin__table-secondary">
+            <caption>&nbsp;</caption>
+            <tbody>
+            <?= $block->getChildHtml(); ?>
+            <tr>
+                <th><?= /* @noEscape */
+                    __('Target Customer ID:') ?></th>
+                <td>
+                    <span id="target-customer-id-display"><?= /* @noEscape */
+                        $block->getCustomAttribute(); ?></span>
+                    <input type="text" 
+                           id="target-customer-id-input" 
+                           value="<?= $block->escapeHtmlAttr($block->getCustomAttribute()); ?>"
+                           style="display:none;" 
+                           class="admin__control-text" />
+                    <button type="button" 
+                            id="save-target-customer-id" 
+                            class="action-primary" 
+                            style="display:none;">
+                        <span><?= /* @noEscape */ __('Save') ?></span>
+                    </button>
+                </td>
+            </tr>
+            <?php
+            if ($block->getComponent() == 'GP' || $block->getComponent() == 'AX'
+                || $block->getComponent() == 'NAV'
+                || $block->getComponent() == 'BC'
+                || $block->getComponent() == 'D365FO'
+            ) { ?>
+                <tr>
+                    <th><?= /* @noEscape */
+                        __('Price Level:') ?></th>
+                    <?php
+                    $priceLevel = $block->getCustomerPricelevel();
+                    if ($priceLevel == '') {
+                        ?>
+                        <td><?= /* @noEscape */
+                            __('Not Available'); ?></td>
+                        <?php
+                    } else {
+                        ?>
+                        <td><?= /* @noEscape */
+                            $priceLevel; ?></td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+                <?php
+            } ?>
+            </tbody>
+        </table>
+    </div>
+    
+    <script>
+    require([
+        'jquery',
+        'mage/translate'
+    ], function($, $t) {
+        'use strict';
+        
+        var originalValue = $('#target-customer-id-display').text();
+        
+        function showMessage(message, type) {
+            var messageBox = $('#target-customer-message');
+            messageBox.removeClass('message-success message-error');
+            messageBox.addClass('message-' + type);
+            messageBox.text(message).show();
+            setTimeout(function() {
+                messageBox.fadeOut();
+            }, 5000);
+        }
+        
+        $('#edit-target-customer-id').on('click', function() {
+            $('#target-customer-id-display').hide();
+            $('#target-customer-id-input').show();
+            $('#edit-target-customer-id').hide();
+            $('#save-target-customer-id').show();
+            $('#target-customer-message').hide();
+        });
+        
+        $('#save-target-customer-id').on('click', function() {
+            var newValue = $('#target-customer-id-input').val();
+            var customerId = <?= (int)$block->getCustomer()->getId(); ?>;
+            var saveUrl = '<?= $block->escapeUrl($block->getUrl('customizations/customer/saveTargetId')); ?>';
+            
+            $.ajax({
+                url: saveUrl,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    customer_id: customerId,
+                    target_customer_id: newValue,
+                    form_key: FORM_KEY
+                },
+                showLoader: true,
+                success: function(response) {
+                    if (response.success) {
+                        $('#target-customer-id-display').text(newValue);
+                        originalValue = newValue;
+                        $('#target-customer-id-display').show();
+                        $('#target-customer-id-input').hide();
+                        $('#edit-target-customer-id').show();
+                        $('#save-target-customer-id').hide();
+                        showMessage($t('Customer NAV ID is successfully saved'), 'success');
+                    } else {
+                        showMessage(response.message || $t('An error occurred while saving.'), 'error');
+                    }
+                },
+                error: function() {
+                    showMessage($t('An error occurred while saving. Please try again.'), 'error');
+                }
+            });
+        });
+    });
+    </script>
+    <?php
+
+endif; ?>

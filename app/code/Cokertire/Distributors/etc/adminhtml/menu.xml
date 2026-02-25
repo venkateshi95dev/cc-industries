@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cokertire_Distributors::elements" title="Distributors" module="Cokertire_Distributors" parent="Magento_Backend::content" sortOrder="110" resource="Cokertire_Distributors::elements" translate="title"/>
+        <add id="Cokertire_Distributors::distributors" title="Distributors" module="Cokertire_Distributors" parent="Cokertire_Distributors::elements" sortOrder="10" action="distributors/distributors/" resource="Cokertire_Distributors::distributors" translate="title"/>
+    </menu>
+</config>

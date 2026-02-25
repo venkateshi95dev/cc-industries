@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <messagequeue>
+            <messagequeue_option>
+                <enable_plugin>0</enable_plugin>
+            </messagequeue_option>
+        </messagequeue>
+        <i95dev_messagequeue>
+            <i95dev_extns>
+                <enabled>0</enabled>
+            </i95dev_extns>
+            <I95DevConnect_settings>
+                <custom_order_work_flow>1</custom_order_work_flow>
+                <customer_group>1</customer_group>
+            </I95DevConnect_settings>
+            <I95DevConnect_enabled_settings>
+                <is_enabled>0</is_enabled>
+                <is_developermode>1</is_developermode>
+            </I95DevConnect_enabled_settings>
+            <I95DevConnect_logsettings>
+                <log_clean_days>30</log_clean_days>
+                <max_log_size>5000</max_log_size>
+            </I95DevConnect_logsettings>
+            <I95DevConnect_mqsettings>
+                <retry_limit>5</retry_limit>
+                <mqdata_clean_days>30</mqdata_clean_days>
+            </I95DevConnect_mqsettings>
+        </i95dev_messagequeue>
+    </default>
+</config>

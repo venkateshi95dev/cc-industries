@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="subscription_expired_template" label="Subscription" file="subscription_expired.html" type="html" module="I95DevConnect_MessageQueue" area="frontend"/> 
+    <template id="subscription_expired_template_admin" label="Subscription" file="i95devconnect_subscription_fail.html" type="html" module="I95DevConnect_MessageQueue" area="frontend"/>
+    <template id="i95devconnect_base_order_total_mismatch" label="Order Total Mismatch" file="order_total_mismatch.html" type="html" module="I95DevConnect_MessageQueue" area="adminhtml" />	
+</config>

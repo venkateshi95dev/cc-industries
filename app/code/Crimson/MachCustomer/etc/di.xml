@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin sortOrder="1" name="crimsonMachCustomerOrderRepositoryInterface" type="Crimson\MachCustomer\Plugin\Api\OrderRepositoryInterfacePlugin"/>
+    </type>
+    <type name="Crimson\MachCustomer\Model\Order\Attributes\AttachHandler">
+        <arguments>
+            <argument name="machDataResource" xsi:type="object">Crimson\MachCustomer\Model\ResourceModel\Order\MachData</argument>
+        </arguments>
+    </type>
+    <type name="Crimson\MachCustomer\Model\Order\Attributes\SaveHandler">
+        <arguments>
+            <argument name="machDataResource" xsi:type="object">Crimson\MachCustomer\Model\ResourceModel\Order\MachData</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="crimson_mach_customer_update" type="Crimson\MachCustomer\Plugin\CustomerRepository" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Api\AddressRepositoryInterface">
+        <plugin name="crimson_mach_customer_address_update" type="Crimson\MachCustomer\Plugin\AddressRepository" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="crimson_customer_address_update_from_mach" type="Crimson\MachCustomer\Plugin\AccountManagement" sortOrder="1" />
+    </type>
+    <type name="Magento\Customer\Api\GroupRepositoryInterface">
+        <plugin sortOrder="1" name="crimsonMachCustomerGroupRepositoryInterface" type="Crimson\MachCustomer\Plugin\CustomerGroupRepositoryInterfacePlugin"/>
+    </type>
+    <preference for="Magento\Customer\Model\ResourceModel\Group\Grid\Collection" type="Crimson\MachCustomer\Model\ResourceModel\Group\Grid\Collection"/>
+    <preference for="Magento\Customer\Block\Adminhtml\Group\Edit\Form" type="Crimson\MachCustomer\Block\Adminhtml\Group\Edit\Form"/>
+    <preference for="Magento\Customer\Controller\Adminhtml\Group\Save" type="Crimson\MachCustomer\Controller\Adminhtml\Group\Save"/>
+</config>

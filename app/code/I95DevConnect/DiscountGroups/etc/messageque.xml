@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+-->
+<entity_list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:I95DevConnect_MessageQueue:etc/messagequeue.xsd">
+    <entity_code id="customer_discount_group" syncsortorder="120" sortorder="120" title="Customer Discount Group"/>
+    <entity_code id="item_discount_group" syncsortorder="121" sortorder="121" title="Item Discount Group"/>
+    <entity_code id="discount_calculation" syncsortorder="122" sortorder="122" title="Discount Calculation"/>
+</entity_list>

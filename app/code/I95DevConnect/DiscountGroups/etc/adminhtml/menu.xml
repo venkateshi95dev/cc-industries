@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="I95DevConnect_DiscountGroups::customerdiscountGroups" title="Customer Discount Groups" module="I95DevConnect_DiscountGroups" sortOrder="101" parent="I95DevConnect_DiscountGroups::discountGroups" resource="I95DevConnect_DiscountGroups::customerdiscountGroups" action="discountGroups/discountGroups"/>
+        <add id="I95DevConnect_DiscountGroups::itemdiscountGroups" title="Item Discount Groups" module="I95DevConnect_DiscountGroups" sortOrder="102" parent="I95DevConnect_DiscountGroups::discountGroups" resource="I95DevConnect_DiscountGroups::itemdiscountGroups" action="discountGroups/discountGroups/Itemdiscountgroup"/>
+        <add id="I95DevConnect_DiscountGroups::discountcalculation" title="Discount Prices" module="I95DevConnect_DiscountGroups" sortOrder="103" parent="I95DevConnect_DiscountGroups::discountGroups" resource="I95DevConnect_DiscountGroups::discountcalculation" action="discountGroups/discountGroups/Discountcalculation"/>
+        <add id="I95DevConnect_DiscountGroups::discountGroups" title="I95Dev Discount Groups" translate="title" module="I95DevConnect_DiscountGroups" sortOrder="100" parent="I95DevConnect_MessageQueue::Config" dependsOnModule="I95DevConnect_DiscountGroups" resource="I95DevConnect_DiscountGroups::discountGroups"/>
+    </menu>
+</config>

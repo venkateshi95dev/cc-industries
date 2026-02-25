@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Crimson\Checkout\Block\Frontend\CustomPopup $block
+ */
+?>
+<script type="text/javascript" nonce="<?= $block->getNonce(); ?>">
+    // <![CDATA[
+    require(['Crimson_Checkout/js/address_validation'],
+        function(iwdAddressValidation) {
+            var addressValidation = new iwdAddressValidation();
+            addressValidation.init({
+                urlValidation: '<?= $block->getValidateUrl(); ?>',
+                urlSetQuoteAddress: '<?= $block->getSetQuoteAddressUrl(); ?>',
+                allowInvalidAddress: '<?= $block->getAllowNotValidAddress(); ?>',
+                formId: '#shipping-method-form',
+                nextStepButtonId: "#order-review-form #review-button",
+                shippingAddress: <?= $block->getAddress(); ?>,
+                content: {
+                    'header' : '<?= addslashes(__($block->getHelper()->getContentHeader())); ?>',
+                    'makeChoice' : 'Please select an option',
+                    'updateAddress' : 'Please, recheck and update address before continue.',
+                    'validatingAddress' : 'Validating address ...'
+                }
+            });
+        }
+    );
+    // ]]>
+</script>

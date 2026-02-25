@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="cms_document" resource="default" engine="innodb" comment="CMS Document Table">
+        <column xsi:type="smallint" name="document_id" padding="6" unsigned="false" nullable="false" identity="true"
+                comment="DOCUMENT ID"/>
+        <column xsi:type="smallint" name="is_active" padding="6" unsigned="false" nullable="false" identity="false"
+                default="1" comment="Status"/>
+        <column xsi:type="varchar" name="file_type" nullable="false" length="255" comment="File Type"/>
+        <column xsi:type="varchar" name="file_size" nullable="false" length="255" comment="File Size"/>
+        <column xsi:type="varchar" name="file_name" nullable="false" length="255" comment="File Name"/>
+        <column xsi:type="varchar" name="title" nullable="false" length="255" comment="Title"/>
+        <column xsi:type="varchar" name="file" nullable="false" length="255" comment="File"/>
+        <column xsi:type="varchar" name="created_by" nullable="false" length="255" comment="Created By"/>
+        <column xsi:type="varchar" name="modified_by" nullable="false" length="255" comment="Modified By"/>
+
+        <column xsi:type="timestamp" name="creation_time" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Creation Time"/>
+        <column xsi:type="timestamp" name="update_time" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Document Modification Time"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="document_id"/>
+        </constraint>
+
+        <constraint xsi:type="unique" referenceId="CMS_DOCUMENT_FILE">
+            <column name="file"/>
+        </constraint>
+
+        <index referenceId="CMS_DOCUMENT_STATUS" indexType="btree">
+            <column name="is_active"/>
+        </index>
+
+    </table>
+</schema>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Cokertire\Distributors\Block\Adminhtml\Distributors\Edit" name="cokertire_distributors_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Cokertire\Distributors\Block\Adminhtml\Distributors\Edit\Tabs" name="cokertire_distributors_tabs">
+                <block class="Cokertire\Distributors\Block\Adminhtml\Distributors\Edit\Tab\Distributors" name="cokertire_distributors_edit_tab_distributors"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">distributors</argument>
+                    <argument name="block" xsi:type="string">cokertire_distributors_edit_tab_distributors</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

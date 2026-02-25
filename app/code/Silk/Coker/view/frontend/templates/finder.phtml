@@ -1,0 +1,290 @@
+<div class="homefinder">
+<div class="tabbable">
+<ul class="findertab nav nav-tabs">
+<li><a href="#tab1" data-toggle="tab"><span>Shop Wheels By Size</span><span class="fancy_arrow_right"></span></a></li>
+<li><a href="#tab2" data-toggle="tab"><span>Shop Tires By Size</span><span class="fancy_arrow_right"></span></a></li>
+<li><a href="#tab3" data-toggle="tab"><span>Shop By Year/Make/Model</span><span class="fancy_arrow_right"></span></a></li>
+</ul>
+<div class="tab-content">
+<div id="tab1" class="tab-pane">
+	<div class="finder-title"><span>Shop Wheels By Size</span> <span class="fancy_arrow_right"></span></div>
+		<div class="form-group col-sm-4">
+			<select name="wheel_size" id="wheel_size" class="form-control width100" placeholder="Wheel Size">
+				<option value="0">Wheel Size</option>
+		   		<?php echo $block->getAttributeOptionValues('wheel_size'); ?>
+		   	</select>
+		</div>
+		<div class="form-group col-sm-4">
+			<select name="bolt_pattern[]" id="bolt_pattern" class="form-control width100" placeholder="Bolt Pattern">
+				<option value="0">Bolt Pattern</option>
+        		<?php echo $block->getAttributeOptionValues('bolt_pattern'); ?>
+        	</select>
+		</div>
+		<div class="form-group col-sm-4">
+			<button type="button" class="btn btn-default btn-primary btn-block" id="SBSWheels" onClick="wheelForm();">Search</button>
+		</div>
+	</div>
+	<div id="tab2" class="tab-pane">
+		<div class="finder-title"><span>Shop Tires By Size</span><span class="fancy_arrow_right"></span></div>
+			<form class="form-inline" role="form">
+			<div class="form-group col-sm-4">
+			<select id="tireType" name="tire_type" onChange="SH_sizes();" class="form-control width100">
+			<option value="00">Type of Tire</option>
+			<?php echo $block->getAttributeOptionValues('tire_build'); ?>
+			</select>
+			</div>
+			<!-- Radial -->
+			<div id="tireSize689" class="tireSize" style="display: none;">
+			<div class="form-group col-sm-4">
+			<select name="tire_width" id="tireWidthRadial" class="form-control width100">
+			<option value="00">Width</option>
+			<?php echo $block->getAttributeOptionValues('size_section_width_radial'); ?>
+			</select>
+			</div>
+			<div class="form-group col-sm-4">
+			<select name="tire_ratio" id="tireRatioRadial" class="form-control width100">
+			<option value="00">Aspect Ratio</option>
+			<?php echo $block->getAttributeOptionValues('shop_aspect_ratio_radial'); ?>
+			</select>
+			</div>
+			<div class="form-group col-sm-4">
+			<select name="tire_diameter" class="form-control width100" id="tireDiameterRadial">
+			<option value="00">Diameter</option>
+			<?php echo $block->getAttributeOptionValues('tire_rim_diameter'); ?>
+			</select>
+			</div>
+			</div>
+			<!-- Bias-Ply -->
+			<div id="tireSize690" class="tireSize" style="display: none;">
+			<div class="form-group col-sm-4">
+			<select name="tire_width" id="tireWidthBias" class="form-control width100">
+			<option value="00">Width</option>
+			<?php echo $block->getAttributeOptionValues('shop_width_bias_ply'); ?>
+			</select>
+			</div>
+			<div class="form-group col-sm-4">
+			<select name="tire_diameter" class="form-control width100" id="tireDiameterBias">
+			<option value="00">Diameter</option>
+			<?php echo $block->getAttributeOptionValues('tire_rim_diameter'); ?>
+			</select>
+			</div>
+			</div>
+			<!-- Bias-Look -->
+			<div id="tireSize691" class="tireSize" style="display: none;">
+			<div class="form-group col-sm-4">
+			<select name="tire_width" id="tireWidthBias" class="form-control width100">
+			<option value="00">Width</option>
+			<?php echo $block->getAttributeOptionValues('shop_width_bias_look'); ?>
+			</select>
+			</div>
+			<div class="form-group col-sm-4">
+			<select name="tire_diameter" class="form-control width100" id="tireDiameterBias">
+			<option value="00">Diameter</option>
+			<?php echo $block->getAttributeOptionValues('tire_rim_diameter'); ?>
+			</select>
+			</div>
+			</div>
+			<div class="form-group col-sm-4">
+			<select name="sidewallType" id="sidewallType" class="form-control width100">
+			<option value="00">Type of Sidewall</option>
+			<?php echo $block->getAttributeOptionValues('sidewall_style'); ?>
+			</select>
+			</div>
+			<div class="form-group col-sm-4">
+			<button type="button" class="btn btn-default btn-primary btn-block" id="SBSTires" onClick="tireForm();">Search</button>
+			</div>
+			</form>
+	</div>
+	<div id="tab3" class="tab-pane">
+		<div class="finder-title"><span>Shop By Year/Make/Model</span><span class="fancy_arrow_right"></span></div>
+		<?php 
+		 	echo $block->getLayout()->createBlock('Amasty\Finder\Block\Form')->setBlockId('finder_form')->setId(2)->toHtml();
+		?>
+		</div>
+	</div>
+</div>
+</div>
+
+<script type="text/javascript">
+	function SH_sizes() {
+		var id = jQuery('#tireType').val();
+		if (id == 64) { //Radial
+			jQuery('#tireSize689').show();
+			jQuery('#tireSize690').hide();
+			jQuery('#tireSize691').hide();
+		} 
+		if (id  == 63) { //Bias Ply
+			jQuery('#tireSize689').hide();
+			jQuery('#tireSize691').hide();
+			jQuery('#tireSize690').show();
+		} 
+		if (id  == 62) { //Bias Look Radial
+			jQuery('#tireSize689').hide();
+			jQuery('#tireSize690').hide();
+			jQuery('#tireSize691').show();
+		}
+	}
+
+
+	function addToArray(val) {
+		if(is_array(query)) {
+			query.push(val);
+		} else {
+			query[val];
+		}
+	}
+
+	function is_array(input){
+	    return typeof(input)=='object'&&(input instanceof Array);
+	}
+
+    function tireForm(){
+		var type = jQuery('#tireType').val();
+		var sidewall = jQuery('#sidewallType').val();
+		console.log(sidewall);
+		var query = [];
+		if(type == 64) { // Radial
+			var searchVars = {
+					vars: {
+						size_section_width_radial: jQuery('#tireSize689 #tireWidthRadial option:selected').val(),
+						shop_aspect_ratio_radial: jQuery('#tireSize689 #tireRatioRadial option:selected').val(),
+						tire_rim_diameter: jQuery('#tireSize689 #tireDiameterRadial option:selected').val(),
+						sidewall_style: jQuery('#sidewallType option:selected').val(),
+						tire_build: jQuery("#tireType option:selected").val()
+					},
+					action: 'getAllIds'
+			};
+			jQuery.ajax({
+				type: "POST",
+				url: "/silkcoker/search/searchbysize",
+				data: searchVars,
+				cache: false,
+				beforeSend: function(){
+					//ajaxLoader();
+				},				
+				success: function(data){
+					//console.info(data);
+					window.location = '/tires.html#' + data;
+		 	    }
+			});
+		} else if(type == 62) { // Bias Look Radial (Nostalgia Radial)
+			var searchVars = {
+					vars: {
+						shop_width_bias_look: jQuery('#tireSize691 #tireWidthBias option:selected').val(),
+						tire_rim_diameter: jQuery('#tireSize691 #tireDiameterBias option:selected').val(),
+						sidewall_style: jQuery('#sidewallType option:selected').val(),
+						tire_build: jQuery("#tireType option:selected").val()
+					},
+					action: 'getAllIds'
+			};
+
+			jQuery.ajax({
+				type: "POST",
+				url: "/silkcoker/search/searchbysize",
+				data: searchVars,
+				cache: false,
+				beforeSend: function(){
+				//	ajaxLoader();
+				},				
+				success: function(data){
+					//console.info(data);
+					window.location = '/tires.html#' + data;
+		 	    }
+			});
+		} else if(type == 63) { // Bias Ply
+			var searchVars = {
+					vars: {
+						shop_width_bias_ply: jQuery('#tireSize690 #tireWidthBias option:selected').val(),
+						tire_rim_diameter: jQuery('#tireSize690 #tireDiameterBias option:selected').val(),
+						sidewall_style: jQuery('#sidewallType option:selected').val(),
+						tire_build: jQuery("#tireType option:selected").val()
+					},
+					action: 'getAllIds'
+			};
+
+			jQuery.ajax({
+				type: "POST",
+				url: "/silkcoker/search/searchbysize",
+				data: searchVars,
+				cache: false,
+				beforeSend: function(){
+					//ajaxLoader();
+				},				
+				success: function(data){
+					//console.info(data);
+					window.location = '/tires.html#' + data;
+		 	    }
+			});
+		} else {
+			if(sidewall != 0){
+				var searchVars = {
+						vars: {
+							sidewall_style: jQuery('#sidewallType').val()
+						},
+						action: 'getAllIds'
+				};
+				
+				jQuery.ajax({
+					type: "POST",
+					url: "/silkcoker/search/searchbysize",
+					data: searchVars,
+					cache: false,
+					beforeSend: function(){
+						//ajaxLoader();
+					},
+					success: function(data){
+						window.location = '/tires.html#' + data;
+			 	    }
+				});
+			}
+
+		}
+
+		return false;
+
+	}
+	function getWheel(){
+		var w = '';
+		if(jQuery('#wheel_size').val() != '0') {
+			 w = jQuery('#wheel_size').val();
+		} else {
+			w ='';
+		}
+
+		return w;
+
+	}
+
+	function getBolt(){
+		var w;
+
+		if(jQuery('#bolt_pattern').val() != '0') {
+			 w = jQuery('#bolt_pattern').val();
+		}
+
+		if(w) {
+			return w;
+		} else {
+			var j = '';
+			return j;
+		}
+	}
+	
+	function wheelForm() {
+		var q = new Array;
+		if(getWheel() != '' && getBolt() != '') {
+				q.push('wheel_size='+getWheel());
+				q.push('bolt_pattern='+getBolt());
+				q = q.join('&');
+				window.location = '/wheels.html#' + q;
+		} else if(getWheel() != '') {
+				q.push('wheel_size='+getWheel());
+				window.location = '/wheels.html#' + q;
+		} else if(getBolt() != '') {
+			var t = getBolt();
+			q.push('bolt_pattern='+t);
+			window.location = '/wheels.html#' + q;
+		}
+		return false;
+	}
+</script>

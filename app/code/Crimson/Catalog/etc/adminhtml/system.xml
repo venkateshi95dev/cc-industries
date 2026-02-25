@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog" translate="label" type="text" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="crimson" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>PDP Stock Messages</label>
+                <field id="stock_ok" translate="label" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Simple Selected In Stock</label>
+                    <comment>Selected child in stock message. If message contains "%" elements do not remove them, they will be parsed.</comment>
+                </field>
+                <field id="out_of_stock_dropship" translate="label" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Simple Selected Out Of Stock - Dropship</label>
+                    <comment>Selected child out of stock and dropship enabled message. If message contains "%" elements do not remove them, they will be parsed.</comment>
+                </field>
+            </group>
+            <group id="crimson_homepage_products" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Crimson HomePage Product Sections</label>
+                <field id="cron_enabled" type="select" translate="label comment" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>HomePage "New and Recommended" and "What Others are Buying" Sections Crons Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable or disable the crons that run to set products into the corresponding sections</comment>
+                </field>
+                <field id="generations" type="text" translate="label comment" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Generation Values To Process</label>
+                    <comment><![CDATA[Separated by commas the Generation values to look for.]]></comment>
+                </field>
+                <field id="new_section_schedule" type="text" translate="label comment" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cron Schedule "New and Recommended" Section</label>
+                    <comment><![CDATA[This sets the schedule to the cron that looks products for this section]]></comment>
+                </field>
+                <field id="purchased_section_schedule" type="text" translate="label comment" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cron Schedule "What Others are Buying" Section</label>
+                    <comment><![CDATA[This sets the schedule to the cron that looks products for this section]]></comment>
+                </field>
+                <field id="purchased_price_filter" type="text" translate="label comment" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Purchased Section Price Filter Value</label>
+                    <validate>validate-number</validate>
+                    <comment><![CDATA[This value is used to filter the minimum price for products on this section. If no value is present $25 is the default value.]]></comment>
+                </field>
+                <field id="sections_max_results" type="text" translate="label comment" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sections Max. Results Number</label>
+                    <validate>validate-digits</validate>
+                    <comment><![CDATA[This value is used to set the limit to the results number for each section/generation. If no value is present 10 is the default value.]]></comment>
+                </field>
+            </group>
+            <group id="crimson_disc" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>PDP Discount Group setting</label>
+                <field id="disable_discontinued" type="select" translate="label comment" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disable Add to Cart on discontinued products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="default_availability_message" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Availability Message</label>
+                </field>
+                <field id="availability_messages" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Availability Messages</label>
+                    <frontend_model>Crimson\Catalog\Block\Adminhtml\Form\Field\Messages</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="crimson_availability" translate="label" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>PDP Availability Custom Messages</label>
+                <field id="oos_message" translate="label comment" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Availability Message</label>
+                    <comment>Out Of Stock editable message to be displayed on the PDP. Default: Out of Stock</comment>
+                </field>
+            </group>
+            <group id="crimson_eta" translate="label" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>PDP ETA Information</label>
+                <field id="first_range_message" translate="label comment" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>First Range 0-14 Days</label>
+                    <comment><![CDATA[Message for first range of days.]]></comment>
+                </field>
+                <field id="second_range_message" translate="label comment" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Second Range 15-45 Days</label>
+                    <comment><![CDATA[Message for second range of days. The %1 is the variable that will be replaced by the ETA value imported from MACH.]]></comment>
+                </field>
+                <field id="third_range_message" translate="label comment" type="textarea" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Third Range +46 Days (46 to 500 days for corvette central)</label>
+                    <comment><![CDATA[Message for third range of days.]]></comment>
+                </field>
+                <field id="fourth_range_message" translate="label comment" type="textarea" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Fourth Range +500 Days (For corvette central only)</label>
+                    <comment><![CDATA[Message for fourth range of days (For corvette central only).]]></comment>
+                </field>
+                <field id="default_message" translate="label comment" type="textarea" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Message</label>
+                    <comment><![CDATA[Default message when ETA is not present on the product.]]></comment>
+                </field>
+            </group>
+            <group id="special_price_update" translate="label" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Special Price Cron Update</label>
+                <field id="cron_enabled" type="select" translate="label comment" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cron Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable or disable the cron that runs to update special prices.]]></comment>
+                </field>
+                <field id="cron_schedule" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Cron Schedule</label>
+                    <comment><![CDATA[Special price cron schedule.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

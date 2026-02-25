@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <checkout>
+            <cart>
+                <cart_truck_msg>We are unable to provide accurate shipping charges for this item because it is shipped via truck freight. After your order is placed we will add the appropriate shipping amount to your order. Someone must be available to receive and inspect this item upon delivery.</cart_truck_msg>
+                <cart_truck_msg_under_shipping_method>Calculated based on non-truck freight items only</cart_truck_msg_under_shipping_method>
+            </cart>
+            <paypal_review>
+                <paypal_review_msg><![CDATA[Checkout is not possible, the shipping address coming from PayPal is not complete. Please fix the shipping address in order to place the order.]]></paypal_review_msg>
+            </paypal_review>
+            <configurable_cart_message>
+                <message_1_enabled>1</message_1_enabled>
+                <message_1_text>This is a configurable message. Edit this from Admin > Config > Sales > Checkout > Shopping Cart: Configurable Messages</message_1_text>
+            </configurable_cart_message>
+        </checkout>
+        <iwd_addressvalidation>
+            <general>
+                <only_allow_not_valid_address_if_there_are_not_suggestions>1</only_allow_not_valid_address_if_there_are_not_suggestions>
+            </general>
+        </iwd_addressvalidation>
+    </default>
+</config>

@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="decimal" name="base_custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee- Core charge"/>
+        <column xsi:type="decimal" name="custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="base_custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="decimal" name="custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="tinyint" name="is_canadian_freight"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: shipping to Canada"/>
+        <column xsi:type="tinyint" name="is_truck_frt_0070"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: Truck freight - see item 0070"/>
+        <column xsi:type="text" name="base_canada_taxes"
+                nullable="true"
+                comment="Base Canada taxes JSON"/>
+        <column xsi:type="text" name="canada_taxes"
+                nullable="true"
+                comment="Canada taxes JSON"/>
+    </table>
+    <table name="sales_order_grid">
+        <column xsi:type="decimal" name="base_custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="base_custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="decimal" name="custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="tinyint" name="is_canadian_freight"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: shipping to Canada"/>
+        <column xsi:type="tinyint" name="is_truck_frt_0070"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: Truck freight - see item 0070"/>
+        <column xsi:type="text" name="base_canada_taxes"
+                nullable="true"
+                comment="Canada taxes JSON"/>
+        <column xsi:type="text" name="canada_taxes"
+                nullable="true"
+                comment="Canada taxes JSON"/>
+    </table>
+    <table name="quote">
+        <column xsi:type="decimal" name="base_custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="base_custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="decimal" name="custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="tinyint" name="is_canadian_freight"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: shipping to Canada"/>
+        <column xsi:type="tinyint" name="is_truck_frt_0070"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: Truck freight - see item 0070"/>
+        <column xsi:type="text" name="base_canada_taxes"
+                nullable="true"
+                comment="Canada taxes JSON"/>
+        <column xsi:type="text" name="canada_taxes"
+                nullable="true"
+                comment="Canada taxes JSON"/>
+    </table>
+    <table name="sales_invoice">
+        <column xsi:type="decimal" name="base_custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="custom_fee_core_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Core charge"/>
+        <column xsi:type="decimal" name="base_custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="custom_fee_crate_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Crating fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="custom_fee_freight_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Freight fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="custom_fee_dropship_charge" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Dropship fee"/>
+        <column xsi:type="decimal" name="base_custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Base Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="decimal" name="custom_fee_truck_frt_set_price" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Custom fee - Truck freight prepaid set price fee"/>
+        <column xsi:type="tinyint" name="is_canadian_freight"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: shipping to Canada"/>
+        <column xsi:type="tinyint" name="is_truck_frt_0070"
+                nullable="false" default="0" unsigned="true"
+                comment="Flag: Truck freight - see item 0070"/>
+    </table>
+</schema>

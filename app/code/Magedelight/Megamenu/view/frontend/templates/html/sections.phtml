@@ -1,0 +1,41 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+$group = $block->getGroupName();
+$groupCss = $block->getGroupCss();
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames($group, 'getChildHtml')):?>
+    <div class="sections <?= $escaper->escapeHtmlAttr($groupCss) ?>">
+        <?php $layout = $block->getLayout(); ?>
+        <div class="section-items <?= $escaper->escapeHtmlAttr($groupCss) ?>-items"
+             data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                    $html = $layout->renderElement($name);
+                if (!trim($html) && ($block->getUseForce() != true)) {
+                    continue;
+                }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                ?>
+                <div class="section-item-title <?= $escaper->escapeHtmlAttr($groupCss) ?>-item-title"
+                     data-role="collapsible">
+                    <a class="<?= $escaper->escapeHtmlAttr($groupCss) ?>-item-switch"
+                       data-toggle="switch" href="#<?= $escaper->escapeHtmlAttr($alias) ?>">
+                        <?= /* @noEscape */ $label ?>
+                    </a>
+                </div>
+                <div class="section-item-content <?= $escaper->escapeHtmlAttr($groupCss) ?>-item-content"
+                     id="<?= $escaper->escapeHtmlAttr($alias) ?>"
+                     data-role="content">
+                    <?= /* @noEscape */ $html ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+    <div class="md-menu-overlay">
+    </div>
+<?php endif; ?>

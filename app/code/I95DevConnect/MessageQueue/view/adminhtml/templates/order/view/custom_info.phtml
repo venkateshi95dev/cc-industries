@@ -1,0 +1,96 @@
+<?php /** @noinspection DuplicatedCode */
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+?>
+<?php
+$targetInvoiceIds = $block->getTargetInvoiceId();
+$targetShipmentIds = $block->getTargetShipmentId();
+$component = $block->getComponent();
+$_maxIdsToShow = 3;
+$counter = 0;
+$targetInvoiceId = '';
+if (count($targetInvoiceIds) > 1) {
+    foreach ($targetInvoiceIds as $invoiceid) {
+        $counter++;
+        if ($invoiceid !== null) {
+            $targetInvoiceId.=$invoiceid . ",";
+        }
+        if ($counter == $_maxIdsToShow) {
+            $targetInvoiceId.="<br>";
+            $counter = 0;
+        }
+    }
+    $targetInvoiceId = trim($targetInvoiceId, ",");
+} else {
+    $targetInvoiceId = isset($targetInvoiceIds[0]) ? $targetInvoiceIds[0] : "";
+}
+$targetShipmentId = '';
+if (count($targetShipmentIds) > 1) {
+    foreach ($targetShipmentIds as $shipmentid) {
+        $counter++;
+        $targetShipmentId.=$shipmentid . ",";
+        if ($counter == $_maxIdsToShow) {
+            $targetShipmentId.="<br>";
+            $counter = 0;
+        }
+    }
+    $targetShipmentId = trim($targetShipmentId, ",");
+} else {
+    $targetShipmentId = isset($targetShipmentIds[0]) ? $targetShipmentIds[0] : "";
+}
+?>
+<?php
+if ($block->checkCustomAttribute() && $block->isI95DevConnectEnabled()) {
+    ?>
+<div class="admin__page-section-title">
+    <span class="title"><?= /* @noEscape */ __('Target Information') ?></span></div>
+<!--/* //NOSONAR */--> <table class="admin__table-secondary order-information-table">
+    <?php $order = $block->getTargetOrderId(); ?>
+    <?php
+    $targetOrderId = isset($order[0]['target_order_id']) ? $order[0]['target_order_id'] : null;
+    $targetOrderStatus = isset($order[0]['target_order_status']) ? $order[0]['target_order_status'] : 'New';
+    if ($targetOrderId !== null) {
+        ?>
+        <tr>
+            <th><?= /* @noEscape */  __('Target Order ID') ?></th>
+            <td><?= /* @noEscape */  $targetOrderId ?></td>
+        </tr>
+        <tr>
+            <th><?= /* @noEscape */  __('Target Order Status') ?></th>
+            <td><?= /* @noEscape */  $targetOrderStatus ?></td>
+        </tr>
+        <?php
+    } else {
+        ?>
+        <tr>
+            <th><?= /* @noEscape */ $block->getCustomAttribute(); ?></th>
+        </tr>
+        <?php
+    }
+    ?>
+    <?php
+    if ($targetInvoiceId !== '' && strlen($targetInvoiceId) > 1) {
+        ?>
+        <tr>
+            <th><?= /* @noEscape */  __('Target Invoice ID') ?></th>
+            <td><?= /* @noEscape */  $targetInvoiceId ?></td>
+        </tr>
+
+        <?php
+    }
+
+    if ($targetShipmentId != '' && $component != 'GP') {
+        ?>
+        <tr>
+            <th><?= /* @noEscape */  __('Target Shipment ID') ?></th>
+            <td><?= /* @noEscape */  $targetShipmentId ?></td>
+        </tr>
+
+        <?php
+    }
+    ?>
+</table>
+<?php } ?>

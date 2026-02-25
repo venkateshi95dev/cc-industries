@@ -1,0 +1,47 @@
+<?xml version='1.0'?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<config xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+        xsi:noNamespaceSchemaLocation='urn:magento:framework/Event/etc/events.xsd'>
+<!--    <event name="customer_register_success">-->
+<!--        <observer name="Ebizcharge_Ebizcharge_AddCustomer" instance="Ebizcharge\Ebizcharge\Observer\AddCustomer"/>-->
+<!--    </event>-->
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="Ebizcharge_Ebizcharge_AddOrder" instance="Ebizcharge\Ebizcharge\Observer\AddOrder"/>
+        <observer name="Ebizcharge_Ebizcharge_AddInvoice" instance="Ebizcharge\Ebizcharge\Observer\AddInvoice"/>
+    </event>
+
+    <event name="controller_action_predispatch_checkout_cart_add">
+        <observer name="Ebizcharge_Ebizcharge_checkout_cart_add" instance="Ebizcharge\Ebizcharge\Observer\Cart\BeforeAddItemToCartObserver"/>
+    </event>
+
+    <event name="checkout_cart_update_items_after">
+        <observer name="Ebizcharge_Ebizcharge_checkout_cart_update_after" instance="Ebizcharge\Ebizcharge\Observer\Cart\AfterItemUpdatedToCartObserver"/>
+    </event>
+    <event name="sales_order_place_after">
+        <observer name="ebizcharge_place_order_after" instance="Ebizcharge\Ebizcharge\Observer\Order\OrderPlaceAfter"/>
+    </event>
+
+
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="I95DevConnect_PriceLevel::i95devaddon_pricelevel" title="Price Groups"
+                    module="I95DevConnect_PriceLevel" sortOrder="10" parent="I95DevConnect_MessageQueue::i95devaddons"
+                    action="pricelevel/pricelevel" resource="I95DevConnect_PriceLevel::pricelevel"/>
+        <add id="I95DevConnect_PriceLevel::i95devconfig_pricelevel" title="Price Group Settings"
+                    module="I95DevConnect_PriceLevel" sortOrder="55" parent="I95DevConnect_MessageQueue::i95devconfig"
+                action="adminhtml/system_config/edit/section/i95dev_pricelevel" resource="I95DevConnect_PriceLevel::settings"/>
+    </menu>
+</config>

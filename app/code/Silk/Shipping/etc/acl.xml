@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+  <acl>
+    <resources>
+      <resource id="Magento_Backend::admin">
+        <resource id="Silk_Base::base" title="Silk Base">
+          <resource id="Silk_Base::manage" title="Silk Manage">
+            <resource id="Silk_Shipping::manage" title="Manage Shipping Methods"/>
+          </resource>
+        </resource>
+      </resource>
+    </resources>
+  </acl>
+</config>

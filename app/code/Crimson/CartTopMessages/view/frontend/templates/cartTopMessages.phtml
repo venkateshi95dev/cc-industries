@@ -1,0 +1,42 @@
+<?php $result =  $block->checkDiscountResultQualify();?>
+
+<?php if (is_array($result) && !empty($result) && isset($result['qualify'])): ?>
+  <div id="custom-cart-top-message-block">
+    <?php if (!$result['qualify']): ?>
+        <div class="top-message">
+            <div><?= __($block->getNotQualifiedMessage(),$result['subtotal'],$result['amount'],$result['discount_amount']);?></div>
+        </div>
+    <?php else: ?>
+        <div class="top-message">
+            <div><?= __($block->getQualifiedMessage(),$result['discount_amount']);?></div>
+        </div>
+    <?php endif; ?>
+
+      <div id="restodiscount" tabindex="-1" aria-hidden="true">
+          <div class="block-title">
+              <h3>Over <?= $result['discount_amount']; ?> Discount</h3>
+          </div>
+          <div class="block-content">
+              <p><?= __($block->getModalText(),$result['discount_amount']); ?></p>
+          </div>
+      </div>
+
+      <script>
+          require([
+                  'jquery',
+                  'Magento_Ui/js/modal/modal'],
+                  function($) {
+                      $("#not-qualified-modal").on('click', function(){
+                          var options = {
+                              type: 'popup',
+                              responsive: 'true',
+                              buttons: false,
+                              modalClass: 'custom-block-cart-top-message',
+                          };
+                          $("#restodiscount").modal(options).modal('openModal');
+                      });
+                  });
+      </script>
+
+  </div>
+<?php endif ?>

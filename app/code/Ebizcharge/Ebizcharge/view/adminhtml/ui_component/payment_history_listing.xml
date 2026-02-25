@@ -1,0 +1,523 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">payment_history_listing.payment_history_listing</item>
+            <item name="deps" xsi:type="string">payment_history_listing.payment_history_listing_data_source</item>
+        </item>
+        <item name="spinner" xsi:type="string">payment_history_grid_columns</item>
+    </argument>
+
+
+    <dataSource component="Magento_Ui/js/grid/provider" name="payment_history_listing_data_source">
+        <settings>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Ebizcharge_Ebizcharge::menu_product_subscriptions_history</aclResource>
+        <dataProvider class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider"
+                      name="payment_history_listing_data_source">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>entity_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filters name="listing_filters"/>
+        <paging name="listing_paging"/>
+        <exportButton name="export_button"/>
+
+        <massaction name="listing_massaction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="selectProvider" xsi:type="string">
+                        payment_history_listing.payment_history_listing.payment_history_grid_columns.ids
+                    </item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/tree-massactions</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+            <!-- Mass actions which you want to add in your grid-->
+            <action name="send_email">
+                <argument name="data" xsi:type="array">
+                    <item name="config" xsi:type="array">
+                        <item name="type" xsi:type="string">send_email</item>
+                        <item name="label" xsi:type="string" translate="true">Send Email</item>
+                        <item name="url" xsi:type="url" path="ebizcharge_ebizcharge/recurrings/emailbulkaction">
+                            <param name="actionName">send_email</param>
+                        </item>
+                        <item name="confirm" xsi:type="array">
+                            <item name="title" xsi:type="string" translate="true">Bulk Send Email</item>
+                            <item name="message" xsi:type="string" translate="true">Are you sure you want to send Email?
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </action>
+
+        </massaction>
+        <filterSearch name="fulltext">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="placeholder" xsi:type="string">Search by Ref#, Customer Name, Email, Account Holder </item>
+                </item>
+            </argument>
+        </filterSearch>
+    </listingToolbar>
+
+
+
+    <columns name="payment_history_grid_columns">
+
+        <selectionsColumn name="ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="sortOrder" xsi:type="number">0</item>
+                </item>
+            </argument>
+        </selectionsColumn>
+
+        <column name="payment_ref_number" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\PaymentRecurringReferer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Ref #</item>
+                </item>
+            </argument>
+        </column>
+        <column name="eb_rec_payment_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Internal ID #</item>
+                </item>
+            </argument>
+        </column>
+        <column name="eb_rec_scheduled_payment_internal_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Scheduled ID #</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">desc</item>
+                    <item name="label" xsi:type="string" translate="true">Customer ID</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_email" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\GridIcons">
+            <argument name="data" xsi:type="array" >
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Email</item>
+                </item>
+            </argument>
+        </column>
+        <column name="customer_name" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\CustomerNameRenderer">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Customer Name</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="payment_source">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Source</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_amount" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\PaidAmount">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="resizeEnabled" xsi:type="boolean">true</item>
+                    <item name="resizeDefaultWidth" xsi:type="string">60</item>
+                    <item name="label" xsi:type="string" translate="true">Paid Amount</item>
+                </item>
+            </argument>
+        </column>
+
+        <!--        <column name="payment_card_info" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\ResultCardInfo">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true"> Payment Method</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+        <column name="payment_datetime">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Date</item>
+                </item>
+            </argument>
+        </column>
+        <!--        <column name="store_id">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="visible" xsi:type="boolean">false</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Store ID</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+        <column name="server_ip">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Server IP</item>
+                </item>
+            </argument>
+        </column>
+        <!--        <column name="payment_response" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="visible" xsi:type="boolean">false</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Payment Response</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+
+        <column name="payment_line_items" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Line Items</item>
+                </item>
+            </argument>
+        </column>
+
+        <!--        <column name="payment_detail" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="visible" xsi:type="boolean">false</item>-->
+        <!--                    <item name="resizeEnabled" xsi:type="boolean">true</item>-->
+        <!--                    <item name="resizeDefaultWidth" xsi:type="string">60</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Payment Details</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+        <!--        <column name="payment_check_data" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="visible" xsi:type="boolean">false</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Payment Check Data</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+        <column name="store_id" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="label" xsi:type="string" translate="true">Transaction Details</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_status"  class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Status</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_account_holder">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Account Holder</item>
+                </item>
+            </argument>
+        </column>
+        <!--        <column name="payment_billing_address" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="visible" xsi:type="boolean">false</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Billing Response</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+
+<!--        <column name="payment_billing_address_address" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">-->
+<!--            <argument name="data" xsi:type="array">-->
+<!--                <item name="config" xsi:type="array">-->
+<!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+<!--                    <item name="filter" xsi:type="string">text</item>-->
+<!--                    <item name="indexField" xsi:type="string">payment_billing_address</item>-->
+<!--                    <item name="sorting" xsi:type="string">asc</item>-->
+<!--                    <item name="visible" xsi:type="boolean">false</item>-->
+<!--                    <item name="label" xsi:type="string" translate="true">Bill-Address</item>-->
+<!--                </item>-->
+<!--            </argument>-->
+<!--        </column>-->
+        <column name="payment_billing_address_city" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Bill-City</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_billing_address_country" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Bill-Country</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_billing_address_zipcode" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Bill-Zip</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_billing_address_state" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Bill-State</item>
+                </item>
+            </argument>
+        </column>
+
+
+        <!--        <column name="payment_shipping_address" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">-->
+        <!--            <argument name="data" xsi:type="array">-->
+        <!--                <item name="config" xsi:type="array">-->
+        <!--                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>-->
+        <!--                    <item name="indexField" xsi:type="string">payment_shipping_address</item>-->
+        <!--                    <item name="filter" xsi:type="string">text</item>-->
+        <!--                    <item name="sorting" xsi:type="string">asc</item>-->
+        <!--                    <item name="visible" xsi:type="boolean">false</item>-->
+        <!--                    <item name="label" xsi:type="string" translate="true">Shipping Address</item>-->
+        <!--                </item>-->
+        <!--            </argument>-->
+        <!--        </column>-->
+        <column name="payment_shipping_address_address" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Ship-Address</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_shipping_address_city" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Ship-City</item>
+                </item>
+            </argument>
+        </column>
+        <column name="payment_shipping_address_zipcode" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Ship-Zip</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="payment_shipping_address_phone" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\RenderComplexData">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="indexField" xsi:type="string">payment_billing_address</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Ship-Phone</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="payment_transaction_type">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Transaction Type</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="result_card_info" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\ResultCardInfo">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Payment Method</item>
+                </item>
+            </argument>
+        </column>
+        <column name="result_status" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\ResultStatus">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="filter" xsi:type="string">text</item>
+                    <item name="sorting" xsi:type="string">asc</item>
+                    <item name="label" xsi:type="string" translate="true">Result Status</item>
+                </item>
+            </argument>
+        </column>
+
+        <column name="created_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="label" xsi:type="string" translate="true">Created</item>
+                </item>
+            </argument>
+        </column>
+        <column name="modified_at" class="Magento\Ui\Component\Listing\Columns\Date">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="filter" xsi:type="string">dateRange</item>
+                    <item name="component" xsi:type="string">Magento_Ui/js/grid/columns/date</item>
+                    <item name="dataType" xsi:type="string">date</item>
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Modified</item>
+                </item>
+            </argument>
+        </column>
+
+        <actionsColumn name="actions" class="Ebizcharge\Ebizcharge\Ui\Component\Listing\Column\PaymentHistory\PaymentHistoryActions">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="bodyTmpl" xsi:type="string">ui/grid/cells/html</item>
+                    <item name="component" xsi:type="string">Ebizcharge_Ebizcharge/js/paymenthistory/actions</item>
+                    <item name="indexField" xsi:type="string">entity_id</item>
+                    <item name="sortable" xsi:type="boolean">false</item>
+                    <item name="label" xsi:type="string" translate="true">Actions</item>
+                    <item name="urlEntityParamName" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </actionsColumn>
+    </columns>
+</listing>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="opcphtml-script-hash-1" type="hash" algorithm="sha256">Xhwv8MHcZYQPE/Dumjx4voGn3OaHUvU0O4AzhxdC7n0=</value>
+                <value id="adcheckout-script-hash-2" type="hash" algorithm="sha256">Du4rRPyvYZQ4c11SdoyUcIkCkzEm9orkYx1TYTd7j90=</value>
+                <value id="frcheckout-script-hash-3" type="hash" algorithm="sha256">Du4rRPyvYZQ4c11SdoyUcIkCkzEm9orkYx1TYTd7j90=</value>
+                <value id="account-script-hash-4" type="hash" algorithm="sha256">9uUpOByoiKDRULGhXevgia9nNLuHrgN+IQZcVZDt+9I=</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

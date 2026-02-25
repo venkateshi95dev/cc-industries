@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/system_file.xsd">
+    <system>
+        <section id="recaptcha_frontend">
+            <group id="type_for">
+                <field id="start_a_return_form" translate="label" type="select" sortOrder="1400" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable for the Start a Return Form</label>
+                    <source_model>Magento\ReCaptchaAdminUi\Model\OptionSource\Type</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

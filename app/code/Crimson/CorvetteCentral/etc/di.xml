@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="crimson_import_cc_attribute_values" xsi:type="object">Crimson\CorvetteCentral\Console\Command\ImportAttributeValues</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ProductList\Toolbar">
+        <plugin name="crimson_remove_custom_orders"
+                type="Crimson\CorvetteCentral\Plugin\ProductList\ToolbarPlugin"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <type name="Magento\InventorySales\Model\IsProductSalableCondition\BackOrderNotifyCustomerCondition">
+        <plugin name="backorder_notify_customer_condition_plugin"
+                type="Crimson\CorvetteCentral\Plugin\InventorySales\Model\IsProductSalableCondition\BackOrderNotifyCustomerConditionPlugin"/>
+    </type>
+    <type name="Magento\Directory\Helper\Data">
+        <plugin name="crimson_checkout_is_show_non_required_state"
+                type="Crimson\CorvetteCentral\Plugin\Directory\Helper\DataPlugin"/>
+    </type>
+    <type name="Magento\Customer\Model\Address\AbstractAddress">
+        <plugin name="crimson_checkout_regionid_plugin"
+                type="Crimson\CorvetteCentral\Plugin\Customer\Address\AbstractAddressPlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="crimson_corvette_prevent_discontinued"
+                type="\Crimson\CorvetteCentral\Plugin\Magento\Quote\Model\PreventDiscontinuedProducts"
+                sortOrder="10"/>
+    </type>
+</config>

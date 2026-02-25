@@ -1,0 +1,8 @@
+<?php
+/** @var \Crimson\CorvetteCentral\Block\CmsBanner $block */
+$bannerContent = $block->getBannerContent();
+if (!empty($bannerContent)): ?>
+<div class="cms-page-banner">
+    <?= /* @noEscape */ $bannerContent ?>
+</div>
+<?php endif; ?>

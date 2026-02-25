@@ -1,0 +1,117 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/**
+ * @var \Magedelight\Megamenu\Block\Topmenu $block
+ * @var \Magedelight\Megamenu\ViewModel\Topmenu $viewModel
+ */
+// @codingStandardsIgnoreFile
+$viewModel = $block->getData('viewModel');
+
+$enableCustomMenu = $viewModel->enableCacheMenu();
+$menuData = $viewModel->getMenuData();
+
+$mainMenuHover = $block->primaryMenu['main_menu_hover'];
+?>
+<?php if ($enableCustomMenu == 1 && $menuData != ''): ?>
+    <?= /* @noEscape */ $menuData; ?>
+<?php else: ?>
+    <?php ob_start();
+    $columnsLimit = $block->getColumnsLimit() ?: 0;
+    $_menu = $block->getHtml('level-top', 'submenu', $columnsLimit);
+    $isAmazonMenuCreated = $block->isAmazonMenuCreated();
+    $_amazonMenu = $block->getAmazonMenuHtml();
+    $mainClass = $block->getMenuClass();
+    $burgerStatus = $block->getConfigBurgerStatus();
+    $amazonClass = $isAmazonMenuCreated ? "horizontal has-amazon" : "";
+    ?>
+    <?php if ($block->isPrimaryMenuSelected() || $isAmazonMenuCreated): ?>
+        <div class="menu-container horizontal-menu">
+            <div data-action="navigation" class="<?= /* @noEscape */ $mainClass;
+            ?> <?= /* @noEscape */ $amazonClass ?>">
+                <?php if ($isAmazonMenuCreated) { ?>
+                    <div class="amazon-menu-btn">
+                        <a href="javascript: void(0)"><?= $escaper->escapeUrl(__("Open Menu")); ?></a>
+                    </div>
+                <?php } ?>
+                <?php if ($block->isPrimaryMenuSelected()): ?>
+                    <ul class="md-top-menu-items <?=/* @noEscape */$mainMenuHover?>">
+                        <?= /* @noEscape */ $_menu; ?>
+                    </ul>
+                    <?= /* @noEscape */ $block->menuStyleHtml(); ?>
+                <?php endif; ?>
+            </div>
+            <?php if ($isAmazonMenuCreated) { ?>
+                <div class="md-amazon-menu">
+                    <span class="md-menu-close-btn"></span>
+                    <div class="md-amazon-menu-content">
+                        <?= /* @noEscape */ $_amazonMenu; ?>
+                    </div>
+                </div>
+            <?php } ?>
+        </div>
+        <script type="text/x-magento-init">
+            {
+        "*": {
+            "Magedelight_Megamenu/js/megamenu/topmenu" : {
+                "animation_time": "<?= /* @noEscape */ $block->animationTime(); ?>",
+                "display_overlay": "<?= /* @noEscape */ $block->getPrimaryMenuDisplayOverlay(); ?>"
+            }
+        }
+    }
+    </script>
+        <script type="text/x-magento-init">
+            {
+        "*": {
+            "Magedelight_Megamenu/js/megamenu/amazonmenu" : {
+                "animation_time": "<?= /* @noEscape */ $block->animationTime(); ?>",
+                "display_overlay": "<?= /* @noEscape */ $block->getPrimaryMenuDisplayOverlay(); ?>"
+            }
+        }
+    }
+    </script>
+    <?php endif; ?>
+    <?php if ($burgerStatus): ?>
+        <?php
+        $columnsLimit = $block->getColumnsLimit() ?: 0;
+        $_menuHtml = $block->getBurgerHtml('level-top', 'submenu', $columnsLimit);
+        ?>
+        <?php $navClass = "navigation md-megamenu-burger";
+        $navid =  "md-megamenu-burger";
+        ?>
+        <nav class="<?=
+                    /* @noEscape */ $navClass
+        ?>" id="<?= /* @noEscape */ $navid
+?>" data-action="navigation" style="display: none;">
+            <ul data-mage-init='{"menu":
+            {"responsive":true,
+                "expanded":true,
+                "position":{"my":"left top",
+                    "at":"left bottom"}}}'>
+                <span class="md-menu-close-btn"><?= $escaper->escapeHtml(__('Close Btn')); ?></span>
+                <?= /* @noEscape */ $_menuHtml ?>
+                <?= /* @noEscape */ $block->getChildHtml() ?>
+            </ul>
+        </nav>
+        <script type="text/x-magento-init">
+            {
+            "*": {
+                "Magedelight_Megamenu/js/megamenu/burger" : {
+                    "burger_status": "<?= /* @noEscape */ $burgerStatus; ?>",
+                    "display_overlay": "<?= /* @noEscape */ $block->getPrimaryMenuDisplayOverlay(); ?>"
+                }
+            }
+        }
+    </script>
+    <?php endif; ?>
+    <?php
+    $storeMenuKey = $viewModel->getStoreMenuKey();
+    $fileContent = ob_get_contents();
+    $viewModel->saveVariableByCode($storeMenuKey, $fileContent);
+    ob_end_flush();
+    ?>
+<?php endif; ?>

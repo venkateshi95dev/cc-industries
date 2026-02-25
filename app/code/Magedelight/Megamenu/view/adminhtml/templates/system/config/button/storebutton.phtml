@@ -1,0 +1,38 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+?>
+<?= $block->getButtonHtml() ?>
+<script>
+    require(['jquery', 'jquery/ui'], function($j){
+
+    $j('#store_button').click(function () {
+
+        var submitData = {
+            domain: window.location.hostname,
+            type:'storeMenu'
+        };
+
+        var ajaxRequest;
+        ajaxRequest = $j.ajax({
+            url: "<?= /** @noEscape */ $block->getData('menu_active_url') ?>",
+            data: submitData,
+            dataType: 'json',
+            showLoader: true
+        });
+
+        ajaxRequest.done(function (response, textStatus, jqXHR) {
+            console.log(response);
+            $j('#loader').hide();
+        });
+
+        ajaxRequest.fail(function () {
+            console.log(response);
+            $j('#loader').hide();
+        });
+      });
+    });
+</script>

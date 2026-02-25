@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	<head>
+		<css src="Crimson_Testimonial::lib/owl.carousel/assets/owl.carousel.css" />
+		<css src="Crimson_Testimonial::lib/owl.carousel/assets/owl.theme.default.min.css" />
+		<css src="Crimson_Testimonial::lib/fancybox/jquery.fancybox.css" />
+		<css src="Crimson_Testimonial::css/font-awesome.min.css" />
+		<css src="Crimson_Testimonial::css/styles.css" />
+		<css src="Crimson_Testimonial::css/boostrap.tiny.css" />
+	</head>
+</page>

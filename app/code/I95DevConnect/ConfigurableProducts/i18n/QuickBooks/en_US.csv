@@ -1,0 +1,8 @@
+Configurable Product,Configurable Product
+configurable_pro_01,i95DevConfigurableProduct extension not enabled
+configurable_pro_02,Target Id Not Found
+configurable_pro_03,configurableEntity not set
+configurable_pro_04,itemtype not set
+configurable_pro_05,Product itemtype is wrong
+configurable_pro_06,attributes not set
+configurable_pro_07 %1,Child Sku not exists :: %1

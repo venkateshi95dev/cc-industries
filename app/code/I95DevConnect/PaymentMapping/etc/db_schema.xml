@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="i95dev_payment_mapping_list" resource="default" engine="innodb" comment="i95dev_payment_mapping_list">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="id"/>
+    <column xsi:type="mediumtext" name="mapped_data" nullable="true" comment="ERP &amp; Magento Payment Method Mapping Data"/>
+    <column xsi:type="datetime" name="created_at" on_update="false" nullable="false" comment="Creation Date"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

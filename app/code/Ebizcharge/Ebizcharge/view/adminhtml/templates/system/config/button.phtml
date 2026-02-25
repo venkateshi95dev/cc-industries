@@ -1,0 +1,57 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\System\Config\ValidateMerchantButton;
+
+/** @var ValidateMerchantButton $block */
+
+?>
+<?php // phpcs:ignore ?>
+<script type="text/javascript">
+    //<![CDATA[
+    function <?= $block->escapeHtml($block->getButtonFunction()) ?>_click() {
+        new Ajax.Request('<?= $block->escapeUrl($block->getAjaxUrl()) ?>', {
+            method: 'get',
+            onSuccess: function (transport) {
+                //alert(transport.responseText);
+                if (transport.responseText) {
+                    $('messages').update("");
+                    $('messages').update(transport.responseText);
+                } else {
+                    //location.reload();
+                    location = location
+                }
+            },
+            onFailure: function (transport) {
+                var html = '<ul class="messages"><li class="error-msg"><ul>' +
+                    '<li>Error running request.</li></ul></li></ul>';
+                $('page.messages').update("");
+                $('page.messages').update(html);
+            }
+        });
+    }
+
+    //]]>
+</script>
+
+<?= /* @noEscape */ $block->getButtonHtml(); ?>

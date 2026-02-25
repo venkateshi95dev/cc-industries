@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="sales_convert_quote_address">
+            <field name="ship_adv">
+                <aspect name="to_order_address" />
+            </field>
+            <field name="ship_adv_date">
+                <aspect name="to_order_address" />
+            </field>
+            <field name="ship_adv_dpi">
+                <aspect name="to_order_address" />
+            </field>
+            <field name="ship_adv_di">
+                <aspect name="to_order_address" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

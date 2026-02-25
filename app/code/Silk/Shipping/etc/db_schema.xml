@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mapping_shipping_methods" resource="default" engine="innodb" comment="Mapping Shipping Methods">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Shipping Method Id"/>
+        <column xsi:type="varchar" name="method_code" nullable="true" length="255" comment="Shipping Method Code"/>
+        <column xsi:type="varchar" name="method_title" nullable="true" length="255" comment="Shipping Method Title"/>
+        <column xsi:type="varchar" name="carrier_id" nullable="true" length="255" comment="carrier ID"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true" identity="false"
+                comment="Store Id"/>
+        <column xsi:type="smallint" name="method_status" padding="5" unsigned="true" nullable="false" identity="false"
+                default="0" comment="Shipping Method Status"/>
+        <column xsi:type="text" name="error_message" nullable="true" comment="Error Message"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+
+        <index referenceId="MAPPING_SHIPPING_METHOD_CODE_INDEX" indexType="btree">
+            <column name="method_code"/>
+        </index>
+    </table>
+</schema>

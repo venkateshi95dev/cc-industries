@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cokertire_Magazine::elements" title="Magazine Mgr" module="Cokertire_Magazine" parent="Magento_Backend::content" sortOrder="50" resource="Cokertire_Magazine::elements" translate="title"/>
+        <add id="Cokertire_Magazine::magazine" title="Manage Magazine" module="Cokertire_Magazine" parent="Cokertire_Magazine::elements" sortOrder="10" action="magazine/magazine/" resource="Cokertire_Magazine::magazine" translate="title"/>
+    </menu>
+</config>

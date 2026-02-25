@@ -1,0 +1,31 @@
+{
+  "name": "crimson/sitemapFix",
+  "description": "Fixing issue where Sitemap URLs are not generated correctly when /pub is WebRoot. This module can be removed/uninstalled when this bug is fixed.",
+  "require": {
+    "php": "~7.4.0",
+    "magento/module-sitemap": "*",
+    "magento/magento-composer-installer": "*"
+  },
+  "suggest": {
+  },
+  "type": "magento2-module",
+  "version": "2.3.0",
+  "license": [
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Crimson\\SitemapFix\\": ""
+    }
+  },
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Crimson/SitemapFix"
+      ]
+    ]
+  }
+}

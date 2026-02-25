@@ -1,0 +1,207 @@
+<?php
+$displayType = $helper->getConfig('testimonial_productpage/display_type');
+$buttonText = $helper->getConfig('testimonial_productpage/button_text');
+$category = $helper->getConfig('testimonial_productpage/category');
+$helper = $this->helper('Crimson\Testimonial\Helper\Data');
+$enableCaptcha = $helper->getConfig('general/enable_retcaptcha');
+$enable_heading = $helper->getConfig("testimonial_form/enable_heading");
+$enable_heading = ($enable_heading != null || $enable_heading != "") ? (int)$enable_heading : 1;
+$enableCompany = $helper->getConfig("testimonial_form/enable_company");
+$enableCompany = ($enableCompany != null || $enableCompany != "") ? (int)$enableCompany : 1;
+$enableWebsite = $helper->getConfig("testimonial_form/enable_website");
+$enableWebsite = ($enableWebsite != null || $enableWebsite != "") ? (int)$enableWebsite : 1;
+$blockId = rand() . time();
+$style = '';
+if ($displayType == 'link') {
+    $style = 'style="display:none"';
+}
+?>
+<div class="tmls-form tmls-widget">
+    <?php if ($displayType == 'link'): ?>
+        <div class="tmls-btnsubmit">
+            <div class="testimonial">
+                <div class="add-button">
+                    <a href="#tmls-form<?= $blockId ?>" class="fancybox post-comment add-testimonial add-testimonial<?= $blockId ?> action primary"><?= $buttonText ?></a>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+    <form class="tmls-sform" action="<?= $block->getUrl('testimonial/testimonial/form') ?>" id="tmls-form<?= $blockId ?>" method="post" enctype="multipart/form-data" data-hasrequired="* Required Fields" data-mage-init='{"validation":{}}' <?= $style; ?>>
+        <?php if ($enable_heading) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h2><?= __('Submit your testimonial'); ?></h2>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-fname"><span><?= __('Name'); ?></span><em>*</em></label>
+                <div class="control">
+                    <input name="name" id="tmls-fname" title="<?= __('Name'); ?>" class="input-text" type="text" data-validate="{required:true}" aria-required="true">
+                </div>
+            </div>
+            <input name="categories[]" id="tmls-fcategory" title="<?= __('Category'); ?>" class="input-text" type="hidden" value="<?= $category; ?>">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-fposition"><span><?= __('Position'); ?></span></label>
+                <div class="control">
+                    <input name="job" id="tmls-fposition" title="<?= __('Position'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+        </div>
+        <?php if ($enableCompany || $enableWebsite) { ?>
+            <div class="row">
+                <?php if ($enableCompany) { ?>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label class="label" for="tmls-fcw"><span><?= __('Company Name'); ?></span></label>
+                        <div class="control">
+                            <input name="company_name" id="tmls-fcw" title="<?= __('Company Name'); ?>" class="input-text" type="text">
+                        </div>
+                    </div>
+                <?php } ?>
+                <?php if ($enableWebsite) { ?>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <label class="label" for="tmls-fcpw"><span><?= __('Company Website'); ?></span></label>
+                        <div class="control">
+                            <input name="company_website" id="tmls-fcpw" title="<?= __('Company Website'); ?>" class="input-text" type="text">
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-femail"><span><?= __('Email'); ?></span><em>*</em></label>
+                <div class="control">
+                    <input name="email" id="tmls-femail" title="<?= __('Email'); ?>" class="input-text" type="text" data-validate="{required:true}" aria-required="true">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-faddress"><span><?= __('Address'); ?></span></label>
+                <div class="control">
+                    <input name="address" id="tmls-faddress" title="<?= __('Address'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-ftitle"><span><?= __('Title'); ?></span><em>*</em></label>
+                <div class="control">
+                    <input name="title" id="tmls-ftitle" title="<?= __('Title'); ?>" class="input-text" type="text" data-validate="{required:true}" aria-required="true">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="label" for="rating"><span><?= __('Rating'); ?></span></label>
+                <div class="control" id="stars-default">
+                    <div id="rating_1" class="ratings">
+                        <div id="1" class="star_1  ratings_stars "></div>
+                        <div id="2" class="star_2  ratings_stars "></div>
+                        <div id="3" class="star_3  ratings_stars "></div>
+                        <div id="4" class="star_4 ratings_stars "></div>
+                        <div id="5" class="star_5 ratings_stars "></div>
+                    </div>
+                    <input name="rating" id="total_votes" title="Rating" class="input-text" type="hidden">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="label" for="testimonial"><span><?= __('Let us know your thoughts'); ?></span><em>*</em></label>
+                <div class="control">
+                    <textarea name="testimonial" id="testimonial" title="What’s on your mind?" class="input-text main_txt_area" cols="5" rows="3" data-validate="{required:true}" aria-required="true"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-fimage"><span><?= __('Avatar Image'); ?></span></label>
+                <div class="control">
+                    <input name="image" id="tmls-fimage" title="<?= __('Avatar Image'); ?>" class="input-text" type="file" aria-required="true">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-flinkedin"><span><?= __('Linkedin'); ?></span></label>
+                <div class="control">
+                    <input name="linkedin" id="tmls-flinkedin" title="<?= __('Linkedin'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-ffacebook"><span><?= __('Facebook'); ?></span></label>
+                <div class="control">
+                    <input name="facebook" id="tmls-ffacebook" title="<?= __('Facebook'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-ftwitter"><span><?= __('Twitter'); ?></span></label>
+                <div class="control">
+                    <input name="twitter" id="tmls-ftwitter" title="<?= __('Twitter'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-fyoutube"><span><?= __('Youtube'); ?></span></label>
+                <div class="control">
+                    <input name="youtube" id="tmls-fyoutube" title="<?= __('Youtube'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-fvimeo"><span><?= __('Vimeo'); ?></span></label>
+                <div class="control">
+                    <input name="vimeo" id="tmls-fvimeo" title="<?= __('Vimeo'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <label class="label" for="tmls-fgoogleplus"><span><?= __('Google Plus'); ?></span></label>
+                <div class="control">
+                    <input name="googleplus" id="tmls-fgoogleplus" title="<?= __('Google Plus'); ?>" class="input-text" type="text">
+                </div>
+            </div>
+        </div>
+        <?php if ($enableCaptcha) { ?>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="g-recaptcha" data-sitekey="<?= $helper->getCaptchaSiteKey(); ?>"></div>
+                    <script src='https://www.google.com/recaptcha/api.js'></script>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <input type="hidden" id="return_url" name="return_url" value="<?= $block->getUrl('testimonial/testimonial/view'); ?>">
+                <button type="submit" title="<?= __('Submit'); ?>" name="submit" class="action submit primary testimonial">
+                    <span><?= __('Submit'); ?></span>
+                </button>
+                <button type="reset" class="button" value="Reset"><span><span><?= __('Reset'); ?></span></span></button>
+            </div>
+        </div>
+    </form>
+    <script type="text/javascript">
+        require([
+                'jquery',
+                'Crimson_Testimonial/lib/fancybox/jquery.fancybox.pack',
+                'Crimson_Testimonial/js/testimonial_rating',
+            ],
+            function () {
+                jQuery(document).ready(function ($) {
+                    jQuery("a.add-testimonial<?= $blockId ?>").fancybox({
+                        maxWidth: 800,
+                        minWidth: 800,
+                        openEffect: 'none',
+                        closeEffect: 'none'
+                    });
+                    $('#<?= $blockId ?> .tmls-item').mouseout(function () {
+                        var id = $(this).parent().attr("id");
+                        var num = $(this).attr("id");
+                        $('#total_votes').val(num);
+                    });
+                });
+            });
+    </script>
+</div>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="storepickup_locator_email_notification_email_template_new_shipment"
+              label="New Store Pickup Shipment"
+              file="new_shipment.html"
+              type="html"
+              module="Crimson_AmastyStorePickupWithLocator"
+              area="frontend"/>
+</config>

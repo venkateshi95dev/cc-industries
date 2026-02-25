@@ -1,0 +1,23 @@
+{
+    "name": "crimson/module-attributes",
+    "description": "",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mage2Gen",
+            "email": "info@mage2gen.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~7.3.0|~7.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Crimson\\Attributes\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

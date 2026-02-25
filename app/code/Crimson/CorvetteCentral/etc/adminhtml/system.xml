@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog" translate="true" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="crimson_cart_item" translate="true" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Corvette Central Cart Item Messages</label>
+                <field id="dropship" translate="true" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dropship Item</label>
+                    <comment>Custom message shown for dropship items</comment>
+                </field>
+                <field id="in_stock" translate="true" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>In Stock Item</label>
+                    <comment>Custom message shown for In stock items</comment>
+                </field>
+                <field id="backorder" translate="true" type="text" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Backorder Item</label>
+                    <comment>Custom message shown for Back order items</comment>
+                </field>
+            </group>
+        </section>
+        <section id="general" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="region" showInDefault="1" showInWebsite="1" showInStore="1">
+                <!-- We redefine the field to enable Store and Website scopes -->
+                <field id="display_all" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display All Regions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

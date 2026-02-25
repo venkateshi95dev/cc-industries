@@ -1,0 +1,25 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+$selectedOptions = $block->getSelectedOptions();
+?>
+<select class="selectcolumns admin__control-select">
+    <option <?= /* @noEscape */ $selectedOptions['1']; ?> value="1">
+        <?= /* @noEscape */ __('One Column'); ?>
+    </option>
+    <option <?= /* @noEscape */ $selectedOptions['2']; ?> value="2">
+        <?= /* @noEscape */ __('Two Columns'); ?>
+    </option>
+    <option <?= /* @noEscape */ $selectedOptions['3']; ?> value="3">
+        <?= /* @noEscape */ __('Three Columns'); ?>
+    </option>
+    <option <?= /* @noEscape */ $selectedOptions['4']; ?> value="4">
+        <?= /* @noEscape */ __('Four Columns'); ?>
+    </option>
+    <option <?= /* @noEscape */ $selectedOptions['5']; ?> value="5">
+        <?= /* @noEscape */ __('Five Columns'); ?>
+    </option>
+</select>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Crimson\Testimonial\Api\CategoryRepositoryInterface" type="Crimson\Testimonial\Model\Api\CategoryRepository" />
+    <preference for="Crimson\Testimonial\Api\TestimonialRepositoryInterface" type="Crimson\Testimonial\Model\Api\TestimonialRepository" />
+
+    <preference for="Crimson\Testimonial\Api\Data\CategoryInterface" type="Crimson\Testimonial\Model\Category"/>
+    <preference for="Crimson\Testimonial\Api\Data\TestimonialInterface" type="Crimson\Testimonial\Model\Testimonial"/>
+
+    <preference for="Crimson\Testimonial\Api\Data\TestimonialSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Crimson\Testimonial\Api\Data\CategorySearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="testimonial_testimonial_listing_data_source" xsi:type="string">Crimson\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="testimonial_category_listing_data_source" xsi:type="string">Crimson\Testimonial\Model\ResourceModel\Category\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Crimson\Testimonial\Model\ResourceModel\Testimonial\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ves_testimonial_testimonial</argument>
+            <argument name="eventPrefix" xsi:type="string">testimonial_testimonial_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">testimonial_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Crimson\Testimonial\Model\ResourceModel\Testimonial</argument>
+        </arguments>
+    </type>
+    <type name="Crimson\Testimonial\Model\ResourceModel\Category\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">ves_testimonial_category</argument>
+            <argument name="eventPrefix" xsi:type="string">testimonial_category_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">testimonial_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Crimson\Testimonial\Model\ResourceModel\Category</argument>
+        </arguments>
+    </type>
+    <virtualType name="TestimonialGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="TestimonialGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Crimson\Testimonial\Model\ResourceModel\Testimonial\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">TestimonialGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+</config>

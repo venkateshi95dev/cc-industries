@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="category.description" remove="true" />
+        <referenceContainer name="sidebar.main">
+            <block class="Crimson\ZipCokerWvConsolidation\Block\Finder" name="products.list.size" as="product_list_size" template="Silk_Coker::product/view.phtml"/>
+            <referenceBlock name="catalog.leftnav" remove="true" />
+        </referenceContainer>
+    </body>
+</page>

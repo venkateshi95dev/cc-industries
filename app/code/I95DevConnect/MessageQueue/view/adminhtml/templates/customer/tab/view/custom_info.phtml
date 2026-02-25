@@ -1,0 +1,26 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+?>
+<?php
+if ($block->checkCustomAttribute()) {
+    ?>
+<div class="fieldset-wrapper customer-information">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= /* @noEscape */  __('Target Information') ?></span>
+    </div>
+    <!--/* //NOSONAR */--> <table class="admin__table-secondary">
+        <tbody>
+            <?= /* @noEscape */  $block->getChildHtml(); ?>
+            <tr>
+                <th><?= /* @noEscape */  __('Target Customer ID:') ?></th>
+                <td><?= /* @noEscape */  $block->getCustomAttribute(); ?></td>
+            </tr>
+
+<?php } ?>
+        </tbody>
+    </table>
+</div>

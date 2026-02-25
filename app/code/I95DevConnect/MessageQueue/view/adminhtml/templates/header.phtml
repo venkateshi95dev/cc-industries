@@ -1,0 +1,21 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+
+use Magento\Backend\Helper\Data;
+use Magento\Framework\App\ObjectManager;
+
+$objectManager = ObjectManager::getInstance();
+$backendHelper = $objectManager->create(Data::class)->getHomePageUrl();
+$magentoAdminUrl=str_replace('admin/', '', $backendHelper);
+?>
+<input
+    type="hidden"
+    name="magentoadminurl"
+    id="magentoadminurl"
+    value="<?= /* @noEscape */  $magentoAdminUrl;?>"
+/>
+

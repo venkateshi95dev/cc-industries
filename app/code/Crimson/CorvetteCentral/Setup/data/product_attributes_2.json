@@ -1,0 +1,22 @@
+{
+  "attributes": [
+    {
+      "code": "cc_base_unit_measure",
+      "name": "CorvetteCentral - Base Unit of Measure",
+      "input" : "select",
+      "filterable" : 0,
+      "visible_on_front" : 1,
+      "values": [
+        "ASM",
+        "BOX",
+        "EA",
+        "KIT",
+        "PACK",
+        "PKG",
+        "PR",
+        "ROLL",
+        "SET"
+      ]
+    }
+  ]
+}

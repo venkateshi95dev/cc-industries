@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mach>
+            <customer>
+                <cron_enabled>0</cron_enabled>
+                <customer_update_schedule>0 15 * * *</customer_update_schedule>
+                <customer_export_schedule>*/5 * * * *</customer_export_schedule>
+                <number_customers_update>10</number_customers_update>
+                <number_customers_export>10</number_customers_export>
+            </customer>
+        </mach>
+    </default>
+</config>

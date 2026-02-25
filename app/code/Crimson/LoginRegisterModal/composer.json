@@ -1,0 +1,27 @@
+{
+    "name": "crimson/loginregistermodal",
+    "description": "Magento2 Ajax Login and Registration extension",
+    "require": {
+        "php": "~7.4.0",
+        "magento/framework": "101.0.*"
+    },
+    "type": "magento2-module",
+    "version": "2.1.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Adam Greenwell",
+            "email": "agreenwell@crimsonagility.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "files": ["registration.php"],
+        "psr-4": {
+            "Crimson\\loginregistermodal\\": ""
+        }
+    }
+}

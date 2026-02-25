@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <osco>
+                <active>0</active>
+                <model>Crimson\CorvetteCentralOSCO\Model\Carrier\Osco</model>
+                <url>https://osco1.mozula.com/customers/corvettecentral/oscoJason.php</url>
+                <username>corvettecentral</username>
+                <order_id>order123-pr</order_id>
+                <title>OSCO Shipping</title>
+                <description>OSCO Shipping Integration Rates</description>
+                <best_way_enabled>0</best_way_enabled>
+                <ups_allowed_methods>01,03</ups_allowed_methods>
+                <ups_ca_allowed_methods>11</ups_ca_allowed_methods>
+                <ups_foreign_allowed_methods>08,65</ups_foreign_allowed_methods>
+                <usps_allowed_methods>1</usps_allowed_methods>
+                <eta_specificcountry>US</eta_specificcountry>
+                <atypical_us_regions>AK,AS,AE,AA,AP,FM,GU,HI,MH,MP,PR,VI</atypical_us_regions>
+                <eta_add_days>0</eta_add_days>
+                <log_enabled>0</log_enabled>
+                <sort_order>0</sort_order>
+            </osco>
+        </carriers>
+    </default>
+</config>

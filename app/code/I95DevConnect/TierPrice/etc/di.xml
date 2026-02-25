@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_TierPrice
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <item name="updateTierPriceList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">tierprice</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                    <item name="saveWithSync" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <item name="tierprice" xsi:type="array">
+                    <item name="targetKey" xsi:type="string">sku</item>
+                    <item name="referenceKey" xsi:type="string">sku</item> 
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="method" xsi:type="string">create</item>
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\TierPrice\Model\DataPersistence\TierPrice</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider">
+        <plugin name="i95dev_tierprice_ui_disable_plugin"
+                type="I95DevConnect\TierPrice\Plugin\Ui\DataProvider\Product\Form\Modifier\ProductDataProvider"
+                sortOrder="10" disabled="false"  />
+    </type>
+</config>

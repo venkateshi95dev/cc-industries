@@ -1,0 +1,28 @@
+{
+    "name": "crimson/inventorysalesdeduction",
+    "description": "",
+    "require": {
+        "magento/module-inventory-sales-api": "*",
+        "magento/module-inventory-source-deduction-api": "*",
+        "magento/module-sales": "103.0.3",
+        "php": "~7.4.0|~8.1.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\InventorySalesDeduction\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/InventorySalesDeduction"
+            ]
+        ]
+    }
+}

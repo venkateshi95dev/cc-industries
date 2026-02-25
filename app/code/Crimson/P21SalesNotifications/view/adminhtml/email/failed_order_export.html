@@ -1,0 +1,33 @@
+<!--@subject {{trans "Order failed to export to P21: %error_subject" error_subject=$error_subject}} @-->
+<!--@vars {
+"var magento_order_number":"Magento Order Number",
+"var magento_order_id":"Magento Order ID",
+"var magento_order_link":"Magento Order Link",
+"var lastname":"Customer Last Name",
+"var firstname":"Customer First Name",
+"var email":"Customer Email",
+"var telephone":"Customer Telephone",
+"var error_body|raw":"Error Message From Integration"
+} @-->
+
+<dl class="product options list">
+    <dt class="label"><strong>{{trans "Magento Order Number"}}</strong></dt>
+    <dd class="value"><a href="{{var magento_order_link}}">{{var magento_order_number}}</a></dd>
+
+    <dt class="label"><strong>{{trans "Magento Order ID"}}</strong></dt>
+    <dd class="value"><a href="{{var magento_order_link}}">{{var magento_order_id}}</a></dd>
+
+    <dt class="label"><strong>{{trans "Customer Last Name"}}</strong></dt>
+    <dd class="value">{{var lastname}}</dd>
+
+    <dt class="label"><strong>{{trans "Customer First Name"}}</strong></dt>
+    <dd class="value">{{var firstname}}</dd>
+
+    <dt class="label"><strong>{{trans "Customer Email"}}</strong></dt>
+    <dd class="value">{{var email}}</dd>
+
+    <dt class="label"><strong>{{trans "Customer Telephone"}}</strong></dt>
+    <dd class="value">{{var telephone}}</dd>
+</dl>
+<hr/>
+{{var error_body|raw}}

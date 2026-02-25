@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="crimson_companyimport_create_company_based_on_customer" xsi:type="object">Crimson\CompanyImport\Console\Command\CreateCompanyBasedOnCustomer</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

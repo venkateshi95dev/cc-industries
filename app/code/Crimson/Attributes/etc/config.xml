@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <crimson>
+                <product_truck_msg>Due to the size, weight and/or dimensions of this item it will be delivered by our truck freight carrier. All truck freight shipments are required to be prepaid for the total parts cost plus freight charges by check, money order or credit card. The customer is responsible for being at the provided shipping address to accept delivery.</product_truck_msg>
+                <product_addcharges_msg>This item requires a Crate and Large Package Fee of $%1 that will be added to the shipping amount during checkout.</product_addcharges_msg>
+                <product_dropship_msg>This item ships direct from the manufacturer when it is not in stock</product_dropship_msg>
+                <product_corecharges_msg>This item requires $%1 of core charges. Customers who have purchased a product sold on an exchange basis and had a core deposit applied must return the required rebuildable core within 30 days from the date of shipment. A copy of the original invoice must accompany the return. Failure to return cores within 30 days may result in a reduction or loss of the core deposit. Return freight for cores is the responsibility of the customer.</product_corecharges_msg>
+                <product_nodiscount_msg>This item does not qualify for promotional discounts or wholesale pricing.</product_nodiscount_msg>
+                <product_nodiscountretail_msg>This item does not qualify for promotional or retail discounts.</product_nodiscountretail_msg>
+            </crimson>
+        </catalog>
+    </default>
+</config>

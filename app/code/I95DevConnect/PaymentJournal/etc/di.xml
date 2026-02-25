@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2020 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PaymentJournal
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <item name="getPaymentJournalInfo" xsi:type="array">  
+                    <item name="entityCode" xsi:type="string">paymentJournal</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="classObject" xsi:type="object">\I95DevConnect\PaymentJournal\Model\DataPersistence\PaymentJournal</item>
+                    <item name="sendInfo" xsi:type="string">1</item>
+                    <item name="methodName" xsi:type="string">getInfo</item>
+                </item>
+                <item name="setPaymentJournalResponse" xsi:type="array">                   
+                    <item name="entityCode" xsi:type="string">paymentJournal</item>
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="setResponse" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <!-- First element is value of constant -->         
+                <item name="paymentJournal" xsi:type="array">
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\PaymentJournal\Model\DataPersistence\PaymentJournal</item>
+                    </item>                    
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="\I95DevConnect\MessageQueue\Observer\OutboundObserver\BaseObserver">
+        <arguments>
+            <argument name="observerRouting" xsi:type="array">
+                <item name="payment_journal_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">paymentJournal</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getId</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

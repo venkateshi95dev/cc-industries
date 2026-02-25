@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <catalog>
+            <crimson_cart_item>
+                <dropship><![CDATA[Dropship - This item ships direct from the manufacturer.]]></dropship>
+                <backorder><![CDATA[Out Of Stock - This item is not available to ship but can be ordered.]]></backorder>
+            </crimson_cart_item>
+        </catalog>
+    </default>
+</config>

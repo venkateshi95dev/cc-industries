@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="mach">
+        <job name="mach_update_products" instance="\Crimson\MachCatalog\Cron\UpdateMachUpdatedProducts" method="execute">
+            <schedule>*/20 * * * *</schedule>
+        </job>
+    </group>
+</config>

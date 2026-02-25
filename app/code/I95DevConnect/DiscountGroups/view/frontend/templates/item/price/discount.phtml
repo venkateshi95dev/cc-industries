@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+// phpcs:ignoreFile
+/** @var $block Renderer */
+
+use Magento\Checkout\Block\Item\Price\Renderer;
+
+$_item = $block->getItem();
+?>
+<span class="price-including-tax">
+    <span class="cart-price">
+        <span class="price">
+            <?= /* @noEscape */  $this->helper('Magento\Checkout\Helper\Data')
+                ->formatPrice($block->getDiscountAmount($_item)); ?>
+        </span>
+    </span>
+</span>
