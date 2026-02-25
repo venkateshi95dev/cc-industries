@@ -1,0 +1,128 @@
+<?php
+/** @var Crimson\Category\Block\Category\Sections\MostViewed $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<?php
+$isEnabled = $block->isMostViewedSectionEnabled();
+?>
+<?php if ($isEnabled): ?>
+<?php $childrenIds = $block->hasChildren(); ?>
+<?php if (!empty($childrenIds)): ?>
+<?php
+$result =  $block->getMostViewed($childrenIds);
+if ($result && $result->getSize() > 0) :
+
+    $exist = true;
+    $type = $block->getType();
+    $class = $type;
+
+    $image = 'related_products_list';
+    $title = __($block->getHeaderText());
+    $items = $result;
+
+    $showAddTo = true;
+    $showCart = true;
+    $templateType = $block->getReviewTemplateType();
+    $description = false;
+    $canItemsAddToCart = false;
+?>
+<div class="block <?= /* @escapeNotVerified */ $class ?>">
+    <h2><?= $title; ?></h2>
+    <div class="block-content content" aria-labelledby="block-<?= $escaper->escapeHtml($class) ?>-heading">
+
+        <div class="products wrapper grid products-grid products-<?= $escaper->escapeHtml($type) ?>">
+            <ul class="products owl-carousel list items product-items <?= $escaper->escapeHtml($class) ?>">
+                <?php foreach ($items as $_item): ?>
+                    <li class="item product product-item <?= $escaper->escapeHtml($class) ?>">
+
+                    <div class="product-item-info">
+                        <?= /* @escapeNotVerified */ '<!-- ' . $image . '-->' ?>
+                        <a href="<?= $escaper->escapeUrl($block->getBaseUrl().$_item->getUrlKey().$block->getProductUrlSuffix()) ?>" class="product photo product-item-photo">
+                            <?= $block->getImage($_item, $image)->toHtml() ?>
+                        </a>
+                        <div class="product details product-item-details">
+                            <strong class="product name product-item-name">
+                                <a class="product-item-link" title="<?= $escaper->escapeHtml($_item->getName()) ?>" href="<?= $escaper->escapeUrl($block->getBaseUrl().$_item->getUrlKey().$block->getProductUrlSuffix()) ?>">
+                                    <?= $escaper->escapeHtml($_item->getName()) ?>
+                                </a>
+                            </strong>
+
+                            <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+
+                            <div class="reviews-block-<?= $escaper->escapeHtml($class) ?>">
+                                <?php if ($templateType): ?>
+                                    <?= $block->getReviewsSummaryHtml($_item, $templateType) ?>
+                                <?php endif; ?>
+                            </div>
+
+                            <?php if ($showAddTo || $showCart): ?>
+                                <div class="product actions product-item-actions">
+                                    <?php if ($showCart): ?>
+                                        <div class="actions-primary">
+                                            <?php if ($_item->isSaleable()): ?>
+                                                <?php if ($_item->getTypeInstance()->hasRequiredOptions($_item)): ?>
+                                                    <button class="action tocart primary" data-mage-init='{"redirectUrl": {"url": "<?= $escaper->escapeUrl($block->getAddToCartUrl($_item)) ?>"}}' type="button" title="<?= __('Add to Cart') ?>">
+                                                        <span><?= __('Add to Cart') ?></span>
+                                                    </button>
+                                                <?php else: ?>
+                                                    <?php
+                                                        $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+                                                        $postData = $postDataHelper->getPostData($block->getAddToCartUrl($_item), ['product' => $_item->getEntityId()])
+                                                    ?>
+                                                    <button class="action tocart primary"
+                                                            data-post='<?= /* @escapeNotVerified */ $postData ?>'
+                                                            type="button" title="<?= __('Add to Cart') ?>">
+                                                        <span><?= __('Add to Cart') ?></span>
+                                                    </button>
+                                                <?php endif; ?>
+                                            <?php else: ?>
+                                                <?php if ($_item->getIsSalable()): ?>
+                                                    <div class="stock available"><span><?= __('In stock') ?></span></div>
+                                                <?php else: ?>
+                                                    <div class="stock unavailable"><span><?= __('Out of stock') ?></span></div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
+
+
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+    <script type="text/javascript">
+        require([
+                    'jquery',
+                    'owlcarouselslider'
+                ], function ($) {
+            $(".products.list.<?= $class; ?>.owl-carousel").owlCarousel({
+                                                items: 4,
+                                                pagination: false,
+                                                nav:true,
+                                                dots:false,
+                                                stagePadding:70,
+                                                navText:	['<i class="fa fa-angle-left" aria-hidden="true"></i>','<i class="fa fa-angle-right" aria-hidden="true"></i>'],
+                                                responsiveClass:true,
+                                                responsive:{
+                                                    0:{items:1},
+                                                    426:{items:2},
+                                                    768:{items:2},
+                                                    1024:{items:4},
+                                                    1281:{items:4}
+                                                }
+                                            });
+        });
+    </script>
+
+<?php endif;?>
+<?php endif;?>
+<?php endif;?>

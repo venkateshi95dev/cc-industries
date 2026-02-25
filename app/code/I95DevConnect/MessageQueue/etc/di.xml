@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <!-- First element is value of constant -->
+                <item name="CustomerGroup" xsi:type="array">                    
+                    <!--<item name="targetKey" xsi:type="string">customerGroupId</item>
+                    <item name="referenceKey" xsi:type="string">customerGroupId</item>-->
+                    <item name="syncdetails" xsi:type="array">
+                        <!--item name="method" xsi:type="string" >createCustomerGroup</item-->
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Customer\CustomerGroup</item>
+                    </item>                    
+                </item>
+                <item name="Customer" xsi:type="array">                    
+                    <item name="syncorder" xsi:type="string">1</item>
+                    <item name="gridorder" xsi:type="string">1</item>
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Customer\Customer</item>
+                    </item>
+                </item>
+                <item name="address" xsi:type="array">
+                    <item name="uniqueset" xsi:type="string">targetAddressId,targetCustomerId</item>	
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Customer\Address</item>
+                    </item>				
+                </item>   
+                <item name="product" xsi:type="array">                    
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="method" xsi:type="string" >createProduct</item>
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Product\Product</item>
+                    </item>                				
+                </item>     
+                <item name="inventory" xsi:type="array">                    
+                    <item name="syncdetails" xsi:type="array">
+                        <!--item name="method" xsi:type="string" >createInventory</item-->
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Product\Inventory</item>
+                    </item>
+                </item>
+                <item name="order" xsi:type="array">                    
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="method" xsi:type="string" >createOrder</item>
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Order\Order</item>
+                    </item>
+                </item>
+                <item name="invoice" xsi:type="array">                    
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="method" xsi:type="string" >create</item>
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Invoice\Invoice</item>
+                    </item>
+                </item>
+                <item name="shipment" xsi:type="array">                    
+		    <item name="syncdetails" xsi:type="array">
+                    	<item name="method" xsi:type="string" >createShipment</item>
+                   	<item name="classObject" xsi:type="object" >\I95DevConnect\MessageQueue\Model\DataPersistence\Shipment\Shipment</item>
+                    </item>
+                </item>     
+            </argument>
+        </arguments>
+    </type>
+    <type name="\I95DevConnect\MessageQueue\Observer\OutboundObserver\BaseObserver">
+        <arguments>
+            <argument name="observerRouting" xsi:type="array">
+                <item name="customer_group_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">CustomerGroup</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getCustomerGroupId</item>
+                </item>
+                <item name="customer_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">Customer</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getId</item>
+                </item>  
+                <item name="customer_address_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">address</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getId</item>
+                </item>
+                <item name="catalog_product_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">product</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getId</item>
+                </item>
+                <item name="sales_order_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">order</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getIncrementId</item>
+                </item>	
+                <item name="sales_order_invoice_save_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">invoice</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getIncrementId</item>
+                </item>
+                <item name="sales_order_shipment_save_commit_after" xsi:type="array">                              
+                    <item name="entityCode" xsi:type="string">shipment</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getIncrementId</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>	
+    <preference for="I95DevConnect\MessageQueue\Api\DataPersistenceInterface" type="I95DevConnect\MessageQueue\Model\DataPersistence"/>    
+    <preference for="I95DevConnect\MessageQueue\Api\I95DevResponseInterface" type="I95DevConnect\MessageQueue\Model\I95DevResponse"/>  
+    <preference for="I95DevConnect\MessageQueue\Api\LoggerInterface" type="I95DevConnect\MessageQueue\Model\Logger"/>    
+    <preference for="I95DevConnect\MessageQueue\Api\I95DevErpDataRepositoryInterface" type="I95DevConnect\MessageQueue\Model\I95DevErpDataRepository"/>  
+    <preference for="I95DevConnect\MessageQueue\Api\Data\I95DevErpDataInterface" type="I95DevConnect\MessageQueue\Model\Data\I95DevErpData"/>  
+    <preference for="I95DevConnect\MessageQueue\Api\I95DevErpMQRepositoryInterface" type="I95DevConnect\MessageQueue\Model\I95DevErpMQRepository"/>  
+    <preference for="I95DevConnect\MessageQueue\Api\Data\I95DevErpMQInterface" type="I95DevConnect\MessageQueue\Model\Data\I95DevErpMQ"/>  
+    <preference for="I95DevConnect\MessageQueue\Api\I95DevMagMQRepositoryInterface"
+                type="I95DevConnect\MessageQueue\Model\I95DevMagMQRepository"/>
+    <preference for="I95DevConnect\MessageQueue\Api\Data\I95DevMagMQInterface"
+                type="I95DevConnect\MessageQueue\Model\Data\I95DevMagMQ"/>
+    <preference for="I95DevConnect\MessageQueue\Api\I95DevReverseResponseInterface" type="I95DevConnect\MessageQueue\Model\I95DevReverseResponse"/>    	
+    <type name="Magento\OfflinePayments\Block\Form\Checkmo">
+        <plugin name="i95dev_mq_checkmo_form_override_template"
+                type="I95DevConnect\MessageQueue\Plugin\Block\Form\Checkmo" />
+    </type>
+    <type name="Magento\OfflinePayments\Block\Info\Checkmo">
+        <plugin name="i95dev_mq_checkmo_info_override_template"
+                type="I95DevConnect\MessageQueue\Plugin\Block\Info\Checkmo" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <plugin name="i95dev_mq_sales_order_additional_columns" type="I95DevConnect\MessageQueue\Plugin\SalesOrderCustomColumn"
+                sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="i95devcron-process-ibmq-data" xsi:type="object">I95DevConnect\MessageQueue\Console\Cron</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,28 @@
+<!--@subject {{trans "New Order Shipped for Pickup Order"}} @-->
+<!--@vars {
+"var order_increment_id":"Order Id",
+"var location_name":"Location Name",
+"var shipment_id": "Shipment DB Id",
+"var customer_name": "Customer Name",
+"var customer_email": "Customer Email",
+"var customer_phone": "Customer Phone",
+"var order_id": "Order Id"
+} @-->
+
+{{template config_path="design/email/header_template"}}
+<p>
+    {{trans 'Hello!'}} <br>
+    {{trans 'A new order '}} <strong>{{var order_increment_id}}</strong>
+    {{trans 'has been shipped to be processed in store'}} <strong>{{var location_name}}</strong>.
+</p>
+
+<p>
+    {{trans 'Customer Information'}} <br>
+    {{trans 'Name:'}} <strong>{{var customer_name}}</strong> <br>
+    {{trans 'Email:'}} <strong>{{var customer_email}}</strong> <br>
+    {{trans 'Telephone:'}} <strong>{{var customer_phone}}</strong> <br>
+</p>
+
+{{layout handle="new_shipment_installer_notification" order_id=$order_id shipment_id=$shipment_id area="frontend"}}
+
+{{template config_path="design/email/footer_template"}}

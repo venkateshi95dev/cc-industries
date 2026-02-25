@@ -1,0 +1,163 @@
+<?php
+
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_Cancelorder
+ */
+
+namespace I95DevConnect\CancelOrder\Test\Integration\Cancelorder;
+
+use I95DevConnect\CancelOrder\Test\Integration\Cancelorder\CancelOrderReverseTest;
+/**
+ * Class for cancel order integration testcase
+ */
+class CancelOrderReverseComplexTest extends CancelOrderReverseTest
+{
+
+    /**
+     * Test case for update credit limit
+     * @magentoDbIsolation enabled
+     * @magentoConfigFixture current_website i95devconnect_CancelOrder/cancelorder_enabled_settings/enable_cancelorder 1
+     * @author Hrusikesh Manna
+     */
+    public function testUpdateCustomerCreditLimit()
+    {
+        $file = "/Json/CancelOrderCreditLimit.json";
+        $collection = $this->processTestCase($file);
+        $errorMsg = $this->getErrorData($collection[0][self::ERROR_ID]);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::SUCCESS,
+            $collection[0][self::STATUS],
+            $errorMsg
+        );
+    }
+
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoConfigFixture current_website i95devconnect_CancelOrder/cancelorder_enabled_settings/enable_cancelorder 1
+     * Test case if order is canceled
+     * @author Hrusikesh Manna
+     */
+    public function testCancelorderForCanceledOrder()
+    {
+        $file = self::DATAPATH;
+        $collection = $this->processTestCase($file);
+        $errorMsg = $this->getErrorData($collection[0][self::ERROR_ID]);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::SUCCESS,
+            $collection[0][self::STATUS],
+            $errorMsg
+        );
+        $collection = $this ->createCancelOrderList($file);
+        $errorMsg = $this->getErrorData($collection[1][self::ERROR_ID]);
+        $this->assertSame("Order already cancelled.", $errorMsg);
+    }
+
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoConfigFixture current_website i95devconnect_CancelOrder/cancelorder_enabled_settings/enable_cancelorder 1
+     * Testcase for cancel processing order
+     * @author Hrusikesh Manna
+     */
+    public function testCaseForCancelProcessingOrder()
+    {
+        $file = self::DATAPATH;
+        $this->cancelOrderPrerequistiesData();
+        $invloce = $this->doPartialInvoice();
+        $errorMsg = $this->getErrorData($invloce[0][self::ERROR_ID]);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::SUCCESS,
+            $invloce[0][self::STATUS],
+            $errorMsg
+        );
+        $collection = $this ->createCancelOrderList($file);
+        $errorMsg = $this->getErrorData($collection[0][self::ERROR_ID]);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::SUCCESS,
+            $invloce[0][self::STATUS],
+            $errorMsg
+        );
+    }
+
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoConfigFixture current_website i95devconnect_CancelOrder/cancelorder_enabled_settings/enable_cancelorder 1
+     * Test case for full cancel order for offline payment method
+     * @author Hrusikesh Manna
+     */
+    public function testIfOrderNotInvoicedAndShipped()
+    {
+        $JsonData = $this->readJsonData(self::DATAPATH);
+        $this->cancelOrderPrerequistiesData();
+        $this->createShipment();
+        $response = $this->createRecord($JsonData);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::PENDING,
+            $response[0][self::STATUS],
+            self::ISSUE_MSG
+        );
+        $this->i95devServerRepo->syncMQtoMagento();
+        $collection = $this->getInboundMqData();
+        $errorMsg = $this->getErrorData($collection[0][self::ERROR_ID]);
+        $this->assertSame("Shipment quantity must be invoiced.", $errorMsg);
+    }
+
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoConfigFixture current_website i95devconnect_CancelOrder/cancelorder_enabled_settings/enable_cancelorder 1
+     * Test case for fully invoice order
+     * @author Hrusikesh Manna
+     */
+
+    public function testCalcelOrderFullyInvoiced()
+    {
+        $JsonData = $this->readJsonData("/Json/FullCancelOrderPullData.json");
+        $this->prepareOrderInvoiceReq($JsonData);
+    }
+
+    /**
+     * @magentoDbIsolation enabled
+     * @magentoConfigFixture current_website i95devconnect_CancelOrder/cancelorder_enabled_settings/enable_cancelorder 1
+     * Test Partial cancel order
+     * @author Hrusikesh Manna
+     */
+    public function testFullyInvoicedPartiallyShipped()
+    {
+        $JsonData = $this->readJsonData(self::DATAPATH);
+        $this->prepareOrderInvoiceReq($JsonData);
+        $order = $this->orderModel->load($this->orderId);
+        $orderItems = $order->getAllItems();
+        foreach ($orderItems as $item) {
+            $itemQty = $item->getQtyCanceled();
+        }
+        $this->assertEquals(
+            1,
+            $itemQty,
+            "Canceled item quantity shows wrong"
+        );
+    }
+
+    /**
+     * @param $JsonData
+     */
+    public function prepareOrderInvoiceReq($JsonData)
+    {
+        $this->cancelOrderPrerequistiesData();
+        $this->createInvoice();
+        $response = $this->createRecord($JsonData);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::PENDING,
+            $response[0][self::STATUS],
+            self::ISSUE_MSG
+        );
+        $this->i95devServerRepo->syncMQtoMagento();
+        $collection = $this->getInboundMqData();
+        $errorMsg = $this->getErrorData($collection[0][self::ERROR_ID]);
+        $this->assertEquals(
+            \I95DevConnect\MessageQueue\Helper\Data::SUCCESS,
+            $collection[0][self::STATUS],
+            $errorMsg
+        );
+    }
+}

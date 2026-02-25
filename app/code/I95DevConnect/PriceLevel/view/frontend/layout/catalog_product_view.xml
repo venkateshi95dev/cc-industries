@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+-->
+
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer  name="product.info.main">
+            <block class="I95DevConnect\PriceLevel\Block\Product\View\Tier" name="pricelevel" template="I95DevConnect_PriceLevel::tier.phtml" after="-"/>
+        </referenceContainer>
+    </body>
+</page>

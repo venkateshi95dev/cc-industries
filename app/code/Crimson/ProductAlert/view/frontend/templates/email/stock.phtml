@@ -1,0 +1,46 @@
+<?php
+/** @var $block \Crimson\ProductAlert\Block\Email\StockCustom */
+/** @var $escaper \Magento\Framework\Escaper */
+?>
+<?php if ($_products = $block->getProducts()) : ?>
+    <p><?= $escaper->escapeHtml(__('In stock alert! We wanted you to know that these products are now available:')) ?></p>
+    <table>
+    <?php foreach ($_products as $_product) : ?>
+        <?php
+        $productForImageAndUrl = $_product;
+        if ($block->isProductAPossibleChild($_product)) {
+            $productForImageAndUrl = $block->getProductForImageAndUrl($_product);
+        }
+        ?>
+        <tr>
+            <td class="col photo">
+                <a href="<?= $escaper->escapeUrl($productForImageAndUrl->getProductUrl()) ?>" title="<?= $escaper->escapeHtml($_product->getName()) ?>" class="product photo">
+                    <?= $block->getImage($productForImageAndUrl, 'product_thumbnail_image', ['class' => 'photo image'])->toHtml() ?>
+                </a>
+            </td>
+            <td class="col item">
+                <p>
+                    <strong class="product name">
+                        <a href="<?= $escaper->escapeUrl($productForImageAndUrl->getProductUrl()) ?>"><?= $escaper->escapeHtml($_product->getName()) ?></a>
+                    </strong>
+                </p>
+                <?php if ($shortDescription = $block->getFilteredContent($_product->getShortDescription())) : ?>
+                    <p><small><?= /* @noEscape */  $shortDescription ?></small></p>
+                <?php endif; ?>
+                <?=
+                $block->getProductPriceHtml(
+                    $_product,
+                    \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE,
+                    \Magento\Framework\Pricing\Render::ZONE_EMAIL,
+                    [
+                        'display_label' => __('Price:')
+                    ]
+                );
+                ?>
+                <p><small><a href="<?= $escaper->escapeUrl($block->getProductUnsubscribeUrl($_product->getId())) ?>"><?= $escaper->escapeHtml(__('Click here to stop alerts for this product.')) ?></a></small></p>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+    <p><a href="<?= $escaper->escapeUrl($block->getUnsubscribeUrl()) ?>"><?= $escaper->escapeHtml(__('Unsubscribe from all stock alerts')) ?></a></p>
+<?php endif; ?>

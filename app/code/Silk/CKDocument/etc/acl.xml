@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::content">
+                    <resource id="Magento_Backend::content_elements">
+                        <resource id="Silk_CKDocument::document" title="Cms Document" translate="title" sortOrder="90" >
+                            <resource id="Silk_CKDocument::save" title="Save Document" translate="title" sortOrder="10" />
+                            <resource id="Silk_CKDocument::document_delete" title="Delete Document" translate="title" sortOrder="20" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

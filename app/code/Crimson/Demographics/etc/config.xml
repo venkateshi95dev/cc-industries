@@ -1,0 +1,11 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <demographics>
+            <demographics>
+                <enabled>1</enabled>
+                <required>1</required>
+                <message>Please select your Corvette generation below (select all that apply)</message>
+            </demographics>
+        </demographics>
+    </default>
+</config>

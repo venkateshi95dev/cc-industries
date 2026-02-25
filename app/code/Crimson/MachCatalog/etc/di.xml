@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="machTestGetInventory" xsi:type="object">Crimson\MachCatalog\Console\Command\TestMachGetInventory</item>
+                <item name="machTestGetPrice" xsi:type="object">Crimson\MachCatalog\Console\Command\TestMachGetPrice</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Crimson\MachCatalog\Model\Service\UpdateProducts\ProcessorPool">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="url_key" xsi:type="object">Crimson\MachCatalog\Model\Service\UpdateProducts\ProcessUrl</item>
+                <item name="short_description" xsi:type="object">Crimson\MachCatalog\Model\Service\UpdateProducts\ProcessShortDescription</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogImportExport\Model\Import\Product">
+        <plugin name="crimsonBrandProduct" type="Crimson\MachCatalog\Plugin\Model\Import\ProductPlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin sortOrder="1" name="crimsonMachCatalogQuote" type="Crimson\MachCatalog\Plugin\Model\QuotePlugin"/>
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin sortOrder="1" name="crimsonMachCatalogOrderRepositoryInterface" type="Crimson\MachCatalog\Plugin\Api\OrderRepositoryInterfacePlugin"/>
+    </type>
+
+    <preference for="Magento\InventorySalesApi\Model\GetStockItemDataInterface" type="Crimson\MachCatalog\Model\ResourceModel\GetStockItemData"/>
+</config>

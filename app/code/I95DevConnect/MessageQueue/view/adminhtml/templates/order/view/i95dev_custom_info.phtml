@@ -1,0 +1,106 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2022 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+?>
+
+<?php
+/**
+ * @var \I95DevConnect\MessageQueue\Block\Adminhtml\Order\View\Info $block
+* @var \Magento\Framework\Escaper $escaper
+*/
+
+// I want to check order website with matching one
+$enabledWebsiteIds = $block->getEnabledWebsiteIds();
+$currentOrder = $block->getOrderId();
+$websiteId = $currentOrder->getStore()->getWebsiteId();
+
+if ($block->checkCustomAttribute() && $block->isI95DevConnectEnabled() && in_array($websiteId, $enabledWebsiteIds)) :
+    $order = $block->getTargetOrderId();
+    $targetOrderId = isset($order[0]['target_order_id']) ? $order[0]['target_order_id'] : null;
+    $targetOrderStatus = isset($order[0]['target_order_status']) ? $order[0]['target_order_status'] : 'New';
+    $hasTargetData = ($targetOrderId !== null);
+?>
+ 
+<form action="<?= $escaper->escapeUrl($block->getUrl('customizations/order/saveTarget')) ?>"
+      method="post"
+      id="target-order-form">
+ 
+    <?= $block->getBlockHtml('formkey') ?>
+ 
+    <input type="hidden" name="order_id"
+           value="<?= (int)$block->getRequest()->getParam('order_id') ?>" />
+ 
+    <div class="admin__page-section-title">
+        <span class="title"><?= __('Target Information') ?></span>
+    </div>
+ 
+    <table class="admin__table-secondary order-information-table">
+        <tr>
+            <th><?= __('Target Order ID') ?></th>
+            <td>
+                <?php if ($hasTargetData): ?>
+                    <span class="view-mode"><?= $escaper->escapeHtml($targetOrderId) ?></span>
+                <?php endif; ?>
+                <input type="text"
+                       class="edit-mode"
+                       name="target_order_id"
+                       value="<?= $escaper->escapeHtml($targetOrderId ?? '') ?>"
+                       style="<?= $hasTargetData ? 'display:none;' : '' ?>" />
+            </td>
+        </tr>
+ 
+        <tr>
+            <th><?= __('Target Order Status') ?></th>
+            <td>
+                <?php if ($hasTargetData): ?>
+                    <span class="view-mode"><?= $escaper->escapeHtml($targetOrderStatus) ?></span>
+                <?php endif; ?>
+                <input type="text"
+                       class="edit-mode"
+                       name="target_order_status"
+                       value="<?= $escaper->escapeHtml($targetOrderStatus) ?>"
+                       style="<?= $hasTargetData ? 'display:none;' : '' ?>" />
+            </td>
+        </tr>
+ 
+    <?php foreach ($block->getCustomOrderData() as $data): ?>
+    <tr>
+        <th><?= $escaper->escapeHtml($data['label']) ?></th>
+        <td><?= $escaper->escapeHtml($data['value'], ['br']) ?></td>
+    </tr>
+        <?php endforeach; ?>
+</table>
+ 
+    <div style="margin-top:15px; text-align:right;">
+        <button type="button"
+                id="edit-target"
+                class="action-secondary"
+                style="<?= !$hasTargetData ? 'display:none;' : '' ?>">
+            <?= __('Edit') ?>
+        </button>
+ 
+        <button type="submit"
+                id="save-target"
+                class="action-primary"
+                style="margin-left:10px;<?= $hasTargetData ? ' display:none;' : '' ?>">
+            <?= __('Save') ?>
+        </button>
+    </div>
+ 
+</form>
+ 
+<script>
+require(['jquery'], function ($) {
+    $('#edit-target').on('click', function () {
+        $('.view-mode').hide();
+        $('.edit-mode').show();
+        $('#edit-target').hide();
+        $('#save-target').show();
+    });
+});
+</script>
+ 
+<?php endif; ?>

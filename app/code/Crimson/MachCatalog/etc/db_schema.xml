@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="boolean" name="mach_hsc" nullable="false" default="0" comment="MACH HSC"/>
+    </table>
+
+    <table name="quote_address">
+        <column xsi:type="boolean" name="mach_hsc" nullable="false" default="0" comment="MACH HSC"/>
+    </table>
+
+    <table name="quote_item">
+        <column xsi:type="boolean" name="ships_from_manufacturer" nullable="false" default="0" comment="Dropship"/>
+    </table>
+</schema>

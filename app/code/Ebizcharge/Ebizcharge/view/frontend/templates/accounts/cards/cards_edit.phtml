@@ -1,0 +1,235 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+/**
+ * Displays a form to edit the credit card information
+ * for the selected saved payment method.
+ */
+
+/**
+ * @var Cards $block
+ * @var AchCard $editCardViewModel
+ * @var Escaper $escaper
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\Cards;
+use Ebizcharge\Ebizcharge\ViewModel\AchCard;
+use Ebizcharge\Ebizcharge\ViewModel\CustomerAccount;
+use Magento\Framework\Escaper;
+
+/** @var  $editCardViewModel */
+$editCardViewModel = $block->getData('editCardViewModel');
+
+/** @var $paymentMethod */
+$paymentMethod = $block->getCustomerPaymentMethod();
+$paymentMethodName = $block->getPaymentMethodJsonName();
+$methodName = $block->getPaymentMethodName();
+
+$cardType = $block->getPaymentMethodCardType();
+$cardHolder = $block->getPaymentMethodAccountHolderName();
+$cardExpMonth = $block->getPaymentMethodExpMonth();
+$cardExpYear = $block->getPaymentMethodExpYear();
+$cardNumber = $block->getPaymentMethodCardNumber();
+$createdAt = $block->getPaymentMethodCreatedAt();
+$modifiedAt = $block->getPaymentMethodModifiedAt();
+
+/** @var  $isCreditCardActive */
+$isCreditCardActive = $block->isCreditCardActive();
+/** @var  $isSaveCreditCardAllowed */
+$isSaveCreditCardAllowed = $block->isSaveCardsAllowed();
+
+$isDefaultPaymentMethod = (int)$block->getPaymentMethodProfileSecondarySort() === 0 ? 1 : 0;
+
+
+/**
+ * if credit cards are active from configuration
+ */
+if ($isCreditCardActive) {
+
+    /** @var CustomerAccount $ebizAccountViewModel */
+    $ebizAccountViewModel = $block->getData('ebizAccountViewModel');
+
+    // Get Magento Directory module Helper
+    $dirHelper = $ebizAccountViewModel->getDirectoryHelper();
+    ?>
+<form class="form-address-edit"
+      action="<?= $escaper->escapeUrl($block->getUrl('ebizcharge/cards/updateaction', ['_secure' => true])) ?>"
+      method="post" id="form-validate"
+      enctype="multipart/form-data"
+      data-hasrequired="<?= /* @noEscape */ __('* Required Fields'); ?>"
+      onsubmit='(function ($) {
+          $("#form-validate").valid() &&  $("body").trigger("processStart");
+      })(jQuery)'>
+
+    <?= /* @noEscape */$block->getBlockHtml('formkey'); ?>
+
+    <input type="hidden" name="cid" value="<?= $escaper->escapeHtmlAttr($block->getCustomerId()) ?>"/>
+    <input type="hidden" name="mid" value="<?= /* @noEscape */ $block->getEbzcMethodId(); ?>"/>
+    <input type="hidden" name="ebiz_token" value="<?= /* @noEscape */ $block->getEbzcCustToken(); ?>"/>
+    <input type="hidden" name="method_type" value="<?= /* @noEscape */ $block->getPaymentMethodType(); ?>"/>
+
+    <input type="hidden" name="card_number" value="<?= /* @noEscape */ $cardNumber; ?>"/>
+    <input type="hidden" name="created_at" value="<?= /* @noEscape */ $createdAt; ?>"/>
+    <input type="hidden" name="modified_at" value="<?= /* @noEscape */ date('Y-m-d\TH:i:s') . '+00:00'; ?>"/>
+    <input type="hidden" name="action" value="edit" />
+    <input type="hidden" name="is_update" value="update" />
+    <input type="hidden" name="is_from_customer_account" value="1"/>
+
+    <fieldset class="fieldset items">
+        <legend class="legend">
+            <span>
+                <b><?= /* @noEscape */ $escaper->escapeHtml($block->getPaymentMethodJsonType()); ?></b>
+            </span>
+        </legend>
+        <div class="field row-form-field required">
+            <input type="hidden" id="method_name" placeholder="Saved Payment Method" name="method_name"
+                   value="<?= /* @noEscape */ $block->getPaymentMethodNameJsonString(); ?>"   />
+            <input type="hidden" name="payment_method_json_name"
+                   value="<?= /* @noEscape */ $block->getPaymentMethodNameJsonString(); ?>">
+        </div>
+        <br>
+        <div class="field row-form-field required">
+            <label class="label" for="cc_holder"><span><?= /* @noEscape */ __('Name on Card'); ?></span></label>
+            <input type="text" class="input-text"
+                   placeholder="Name on Card"
+                   title="<?= /* @noEscape */ __('Name on Card'); ?>"
+                   value="<?= $escaper->escapeHtmlAttr($cardHolder) ?>"
+                   name="cc_holder" id="cc_holder" data-input="cc_holder" autocomplete="off"
+                   data-validate="{'required-entry':true}"/>
+        </div>
+        <div class="field row-form-field required">
+            <label for="cc_exp_month" class="label">
+                <span><?= /* @noEscape */ __('Expiration Date') ?></span>
+            </label>
+            <div class="fields  group group-2">
+                <div class="field">
+                    <select id="cc_exp_month"
+                            name="cc_exp_month"
+                            class="select month"
+                            data-validate="{'required-entry':true, 'validate-cc-exp':'#cc_exp_year'}">
+                        <option disabled><?= /* @noEscape */ __('Please select month') ?></option>
+                        <?php foreach ($editCardViewModel->getMonths() as $key => $month): ?>
+                            <?php $selected = $cardExpMonth == $key ? 'selected="selected"' : ''; ?>
+                            <option value="<?= $escaper->escapeHtmlAttr($key) ?>"
+                                <?= $escaper->escapeHtml($selected); ?>>
+                                <?= $escaper->escapeHtmlAttr($month); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="field ">
+                    <select id="cc_exp_year move-right" name="cc_exp_year" class="select year move-right"
+                            data-validate="{required:true}">
+                        <option disabled><?= /* @noEscape */ __('Please select year') ?></option>
+                        <?php foreach ($editCardViewModel->getYears() as $year): ?>
+                            <?php $selected = $cardExpYear == $year ? 'selected="selected"' : ''; ?>
+                            <option value="<?= $escaper->escapeHtmlAttr($year) ?>"
+                                <?= /* @noEscape */ $selected; ?>>
+                                <?= $escaper->escapeHtml($year) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field row-form-field required">
+            <label class="label" for="avs_street">
+                <span><?= /* @noEscape */ __('Billing Street'); ?></span>
+            </label>
+            <input type="text" class="input-text required-entry" placeholder="Billing Street"
+                   title="<?= /* @noEscape */ __('Card Billing Street'); ?>"
+                   name="avs_street"
+                   id="avs_street"
+                   value="<?= /* @noEscape */ $block->getPaymentMethodAvsStreet(); ?>"
+                   data-input="avs_street"
+                   autocomplete="off"
+                   data-validate="{required:true}"/>
+        </div>
+        <div class="field row-form-field required">
+            <label class="label" for="avs_zip">
+                <span><?= /* @noEscape */ __('Billing Zip / Postal Code'); ?></span>
+            </label>
+            <input type="text" class="input-text required-entry"
+                   title="<?= /* @noEscape */ __('Billing Zip/Postal Code'); ?>" name="avs_zip" id="avs_zip"
+                   value="<?= $escaper->escapeHtmlAttr($block->getPaymentMethodAvsZip()) ?>"
+                   data-input="avs_zip" autocomplete="off" data-validate="{required:true}"/>
+        </div>
+
+        <div class="field row-form-field default">
+            <input type="checkbox" id="default" name="default" value="1"
+                   class="checkbox"
+                <?= /* @noEscape */ $isDefaultPaymentMethod === 1 ? 'checked' : '' ?> >
+            <label class="label" for="default">
+                <span><?= /* @noEscape */ __('Make this my default credit card.') ?></span>
+            </label>
+        </div>
+    </fieldset>
+
+    <?php if ($isSaveCreditCardAllowed) { ?>
+    <div class="actions-toolbar actions-toolbar-buttons row-form-field">
+        <div class="primary">
+            <a href="<?= $escaper->escapeUrl($block->getUrl('ebizcharge/cards/listaction')) ?>">
+                <button type="button" title="<?= /* @noEscape */ __('Cancel'); ?>" class="cancel-btn">
+                    <span><?= /* @noEscape */ __('Cancel'); ?></span>
+                </button>
+            </a>
+            <button type="submit" class="action primary" title="<?= /* @noEscape */ __('Update Card'); ?>">
+                <span><?= /* @noEscape */ __('Update Card'); ?></span>
+            </button>
+        </div>
+    </div>
+    <?php } else { ?>
+    <div class="message info empty margin-top payment-error-message-container">
+        <span><?= /* @noEscape */ /* phpcs:ignore */ __('Save Credit cards are disabled at system, kindly contact the webmaster.<br/>'); ?></span>
+        <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/')) ?>"
+           target="_parent"><?= /* @noEscape */ __("&#x203A; Go to Customer Account"); ?></a>
+    </div>
+    <?php }?>
+
+</form>
+<script type="text/x-magento-init">
+    {
+        "#form-validate": {
+            "validation": {}
+        },
+        "#country": {
+            "regionUpdater": {
+                "optionalRegionAllowed": "<?= /* @noEscape */ ($block->getConfig('general/region/display_all') ?
+                'true' : 'false'); ?>",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $dirHelper->getRegionJson(); ?>,
+                "defaultRegion": "<?= /* @noEscape */ $escaper->escapeHtml($block->getRegionId()) ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $dirHelper->getCountriesWithOptionalZip(true); ?>
+            }
+        }
+    }
+</script>
+    <?php
+} else {
+    ?>
+    <div class="message info empty margin-top payment-error-message-container">
+        <span><?= /* @noEscape */ /* phpcs:ignore */ __('Credit card payments are disabled at Gateway, kindly contact the webmaster.<br/>'); ?></span>
+        <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/')) ?>"
+           target="_parent"><?= /* @noEscape */ __("&#x203A; Go to Customer Account"); ?></a>
+    </div>
+<?php } ?>

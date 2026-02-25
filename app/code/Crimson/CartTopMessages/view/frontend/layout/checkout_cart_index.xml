@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Crimson\CartTopMessages\Block\Cart\TopMessages" name="crimson.cart.top.messages" template="Crimson_CartTopMessages::cartTopMessages.phtml" before="-"></block>
+        </referenceContainer>
+        <referenceContainer name="page.messages">
+            <block name="crimson.cart.configurable.messages" template="Crimson_CartTopMessages::configurable_messages.phtml" before="-">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Crimson\CartTopMessages\ViewModel\ConfigurableMessage</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

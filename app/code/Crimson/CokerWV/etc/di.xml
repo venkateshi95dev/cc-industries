@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="crimson_assing_admin_users_roles" xsi:type="object">Crimson\CokerWV\Console\Command\AssignAdminUsersRolesCommand</item>
+                <item name="crimson_build_categories_tree" xsi:type="object">Crimson\CokerWV\Console\Command\BuildCategoriesTree</item>
+                <item name="crimson_coker_wv_import_cms_pages" xsi:type="object">Crimson\CokerWV\Console\Command\ImportCmsPagesCommand</item>
+                <item name="crimson_coker_wv_import_cms_blocks" xsi:type="object">Crimson\CokerWV\Console\Command\ImportCmsBlocksCommand</item>
+                <item name="crimson_coker_wv_import_coupons" xsi:type="object">Crimson\CokerWV\Console\Command\ImportCouponCodes</item>
+                <item name="crimson_coker_wv_import_newsletter_subscribers" xsi:type="object">Crimson\CokerWV\Console\Command\ImportNewsletterSubscribersCommand</item>
+                <item name="crimson_assign_categories_content" xsi:type="object">Crimson\CokerWV\Console\Command\AssignCokerWvCategoriesContent</item>
+                <item name="crimson_coker_wv_import_blog_data" xsi:type="object">Crimson\CokerWV\Console\Command\ImportBlogDataCommand</item>
+                <item name="crimson_coker_wv_ImportShowpagesCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportShowpagesCommand</item>
+                <item name="crimson_coker_wv_import_faq_data" xsi:type="object">Crimson\CokerWV\Console\Command\ImportFaqDataCommand</item>
+                <item name="crimson_coker_wv_assign_blog_store" xsi:type="object">Crimson\CokerWV\Console\Command\AssignBlogToStoreCommand</item>
+                <item name="crimson_coker_wv_ImportAmastyShopbyData" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastyShopbyData</item>
+                <item name="crimson_coker_wv_ImportAmastyBannerRule" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastyBannerRuleCommand</item>
+                <item name="crimson_coker_wv_customer_addresses_import" xsi:type="object">Crimson\CokerWV\Console\Command\CustomerAddressesImport</item>
+                <item name="crimson_coker_wv_set_themes" xsi:type="object">Crimson\CokerWV\Console\Command\SetThemes</item>
+                <item name="crimson_coker_wv_ImportAmastyCrossLinkCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastyCrossLinkCommand</item>
+                <item name="crimson_coker_wv_ImportAmastyFinderCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastyFinderCommand</item>
+                <item name="crimson_coker_wv_AssignPidAmastyFinderCommand" xsi:type="object">Crimson\CokerWV\Console\Command\AssignPidAmastyFinderCommand</item>
+                <item name="crimson_coker_wv_ImportDistributorsCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportDistributorsCommand</item>
+                <item name="crimson_coker_wv_ImportDisclaimersCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportDisclaimersCommand</item>
+                <item name="crimson_coker_wv_ImportAmastySeoRedirectCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastySeoRedirectCommand</item>
+                <item name="crimson_coker_wv_ImportAmastyFiltersCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastyFiltersCommand</item>
+                <item name="crimson_coker_wv_ImportAmastyRelatedProductRuleCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportAmastyRelatedProductRuleCommand</item>
+                <item name="crimson_coker_wv_ImportComboPackCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportComboPackCommand</item>
+                <item name="crimson_coker_wv_ImportWeeeTaxCommand" xsi:type="object">Crimson\CokerWV\Console\Command\ImportWeeeTaxCommand</item>
+                <item name="crimson_coker_wv_BraintreeVaultCommand" xsi:type="object">Crimson\CokerWV\Console\Command\BraintreeVaultCommand</item>
+                <item name="crimson_coker_wv_CleanupOrphanCouponCodes" xsi:type="object">Crimson\CokerWV\Console\Command\CleanupOrphanCouponCodes</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Mostviewed\Model\Backend\Pack\Initialization">
+        <arguments>
+            <argument name="processors" xsi:type="array">
+                <item name="pack" xsi:type="object">Amasty\Mostviewed\Model\Backend\Pack\Initialization\PackProcessor</item>
+                <item name="store" xsi:type="object">Amasty\Mostviewed\Model\Backend\Pack\Initialization\StoreProcessor</item>
+                <item name="conditional_discounts" xsi:type="object">Amasty\Mostviewed\Model\Backend\Pack\Initialization\ConditionalDiscountProcessor</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Fedex\Model\Carrier">
+        <plugin name="crimson_cokerbundlefedexrate_request_by_bundle_plugin" type="Crimson\CokerWV\Plugin\Fedex\Model\GenerateRequestPerBundleItemPlugin"/>
+    </type>
+</config>

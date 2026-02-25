@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-right" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="catalog_request_form_container" as="catalog_request_form_container" label="Request Form Wrapper" htmlTag="div" htmlClass="catalog-request-form-wrapper">
+                <block class="Magento\Cms\Block\Block" name="catalog_request_top_custom_block">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">catalog-request-top-custom-block</argument>
+                    </arguments>
+                </block>
+                <block class="Crimson\MachCatalogRequest\Block\Form"
+                        name="catalog_request_form" template="Crimson_MachCatalogRequest::request_form.phtml">
+                    <arguments>
+                        <argument name="attribute_data" xsi:type="object">Magento\Customer\Block\DataProviders\AddressAttributeData</argument>
+                    </arguments>
+
+                    <container name="catalog_request_form.additional.info">
+                        <block name="catalog_request_form.recaptcha" class="Magento\ReCaptchaUi\Block\ReCaptcha" template="Magento_ReCaptchaFrontendUi::recaptcha.phtml" after="-" ifconfig="recaptcha_frontend/type_for/mach_catalog_request">
+                            <arguments>
+                                <argument name="recaptcha_for" xsi:type="string">mach_catalog_request</argument>
+                                <argument name="jsLayout" xsi:type="array">
+                                    <item name="components" xsi:type="array">
+                                        <item name="recaptcha" xsi:type="array">
+                                            <item name="component" xsi:type="string">Magento_ReCaptchaFrontendUi/js/reCaptcha</item>
+                                        </item>
+                                    </item>
+                                </argument>
+                            </arguments>
+                        </block>
+                    </container>
+                </block>
+            </container>
+            <block class="IWD\AddressValidation\Block\Frontend\Popup" name="crimson.catalog.request.form.iwd.address.validation.popup" template="Crimson_MachCatalogRequest::address_validation.phtml" after="-"/>
+        </referenceContainer>
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true" />
+    </body>
+</page>

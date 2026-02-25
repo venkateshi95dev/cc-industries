@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ConfigurableProducts
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="i95dev_connect_extensions" translate="label" sortOrder="1000000">
+            <label>I95Dev Connect</label>
+        </tab>
+        <section id="configurableproducts" translate="label" type="text" sortOrder="30" showInDefault="1"
+                 showInWebsite="1" showInStore="0">
+            <label>i95Dev Configurable Products Settings</label>
+            <class>separator-top</class>
+            <tab>i95dev_connect_extensions</tab>
+            <resource>I95DevConnect_ConfiguranbleProducts::settings</resource>
+            <group id="i95dev_enabled_settings" translate="label" type="text" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Configurable Products Extension</label>
+                <field id="is_enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Extension(Enable)</label>
+                    <comment>To enable or disable the Extension.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+
+        </section>
+    </system>
+</config>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Arushi Bansal
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ShippingMapping
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\I95DevConnect\ShippingMapping\Api\ShippingMappingManagementInterface"
+                type="\I95DevConnect\ShippingMapping\Model\ShippingMappingManagement"/>
+    <preference for="\I95DevConnect\ShippingMapping\Api\Data\ShippingMappingDataInterface"
+                type="\I95DevConnect\ShippingMapping\Model\Data\ShippingMappingData"/>
+    <preference for="\I95DevConnect\ShippingMapping\Api\ShippingMethodMagInterface"
+                type="\I95DevConnect\ShippingMapping\Model\ShippingMethodMag"/>
+
+    <type name="\I95DevConnect\MessageQueue\Model\DataPersistence\Order\Order\Forward\ShippingAddress">
+        <plugin name="mapping_shipmethod_forward" type="\I95DevConnect\ShippingMapping\Plugin\ShippingMethodForward"
+                sortOrder="1" disabled="false"/>
+    </type>
+    <type name="\I95DevConnect\MessageQueue\Model\DataPersistence\Order\Order\Create">
+        <plugin name="mapping_shipmethod_reverse" type="\I95DevConnect\ShippingMapping\Plugin\ShippingMethodReverse"
+                sortOrder="1" disabled="false"/>
+    </type>
+</config>

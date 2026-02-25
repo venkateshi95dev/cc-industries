@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Crimson\CorvetteCentralCustomFees\Api\Data\CanadaTaxItemInterface"
+                type="Crimson\CorvetteCentralCustomFees\Model\Data\CanadaTaxItem" />
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="Crimson_CorvetteCentralCustomFees::addCustomFeeToOrderExtensionAttr"
+                type="Crimson\CorvetteCentralCustomFees\Plugin\Magento\Sales\Api\OrderRepositoryInterface\AddCustomFeeToOrderExtensionAttr"/>
+    </type>
+
+    <virtualType name="Crimson\CorvetteCentralCustomFees\Model\Total\CoreCharge"
+                 type="Crimson\CorvetteCentralCustomFees\Model\Total\BaseCharge">
+        <arguments>
+            <argument name="feeCode" xsi:type="string">custom_fee_core_charge</argument>
+            <argument name="feeTitle" xsi:type="string">Core Charge</argument>
+            <argument name="feeAttrCode" xsi:type="string">cc_core_charge</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Crimson\CorvetteCentralCustomFees\Model\Total\CrateCharge"
+                 type="Crimson\CorvetteCentralCustomFees\Model\Total\BaseCharge">
+        <arguments>
+            <argument name="feeCode" xsi:type="string">custom_fee_crate_charge</argument>
+            <argument name="feeTitle" xsi:type="string">Oversize Shipping / Crate Fee</argument>
+            <argument name="feeAttrCode" xsi:type="string">cc_packaging_charge</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Crimson\CorvetteCentralCustomFees\Model\Total\FreightCharge"
+                 type="Crimson\CorvetteCentralCustomFees\Model\Total\BaseCharge">
+        <arguments>
+            <argument name="feeCode" xsi:type="string">custom_fee_freight_charge</argument>
+            <argument name="feeTitle" xsi:type="string">Freight Fee</argument>
+            <argument name="feeAttrCode" xsi:type="string">cc_freight_charge</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Crimson\CorvetteCentralCustomFees\Model\Total\DropshipCharge"
+                 type="Crimson\CorvetteCentralCustomFees\Model\Total\BaseCharge">
+        <arguments>
+            <argument name="feeCode" xsi:type="string">custom_fee_dropship_charge</argument>
+            <argument name="feeTitle" xsi:type="string">Drop Ship Charge</argument>
+            <argument name="feeAttrCode" xsi:type="string">cc_may_ship_from_manufacturer</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Crimson\CorvetteCentralCustomFees\Model\Total\TruckFreightSetPrice"
+                 type="Crimson\CorvetteCentralCustomFees\Model\Total\BaseCharge">
+        <arguments>
+            <argument name="feeCode" xsi:type="string">custom_fee_truck_frt_set_price</argument>
+            <argument name="feeTitle" xsi:type="string">TRUCK-FRT-PREPAID - Set Price</argument>
+            <argument name="feeAttrCode" xsi:type="string">cc_truck_freight_type</argument>
+        </arguments>
+    </virtualType>
+</config>

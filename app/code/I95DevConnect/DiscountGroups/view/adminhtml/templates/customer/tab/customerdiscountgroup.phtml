@@ -1,0 +1,38 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+?>
+<div class="fieldset-wrapper customer-cdg-information entry-edit form-inline">
+    <div class="fieldset-wrapper-title">
+        <span class="title"><?= /* @noEscape */ __($block->getTabLabel()) ?></span>
+    </div>
+    <div>
+        <table class="admin__table-secondary">
+            <tbody>
+                <?php
+                $customerCdg = $block->getCustomerCdg();
+                ?>
+                <tr>               
+                    <th><?= /* @noEscape */ $block->escapeHtml(__('Discount Group')) ?></th>
+
+                    <?php
+                    if ($customerCdg == '') {
+                        ?>
+                        <td><?= /* @noEscape */ __('Not Available'); ?></td>
+                        <?php
+                    } else {
+                        ?>
+                        <td><?= /* @noEscape */ $customerCdg; ?></td>
+                        <?php
+                    }
+                    ?>
+                </tr>
+            </tbody>
+            <?= /* @noEscape */ $block->getChildHtml(); ?>
+        </table>
+    </div>
+</div>

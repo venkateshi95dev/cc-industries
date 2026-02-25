@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2020 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PaymentMapping
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="I95DevConnect_PaymentMapping" setup_version="1.0.1">
+        <sequence>
+            <module name = "I95DevConnect_MessageQueue" />
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,6 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\Finder\Controller\Index\Options">
+        <plugin name="Crimson_ZipCokerWvConsolidation::plugin_amasty_finder_controller_index_options" type="Crimson\ZipCokerWvConsolidation\Plugin\Amasty\Finder\Controller\Index\Options"/>
+    </type>
+</config>

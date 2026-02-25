@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+
+?>
+
+<fieldset class="admin__fieldset payment-method"
+          id="payment_form_<?= $escaper->escapeHtml($block->getMethodCode())
+            ?>" style="display:none">
+    <?php
+    if ($block->getMethod()->getPayableTo()): ?>
+        <label class="label"><span><?= $escaper->escapeHtml(__('Make Check payable to:'))
+        ?></span></label> <?= /* @noEscape */
+        $escaper->escapeHtml($block->getMethod()->getPayableTo()) ?>
+        <?php
+    endif; ?>
+    <?php
+    if ($block->getMethod()->getMailingAddress()): ?>
+        <div class="admin__field">
+            <label class="admin__field-label"><span><?= $escaper->escapeHtml(__('Send Check to:'))
+            ?></span></label>
+            <div class="admin__field-control checkmo-mailing-address">
+                <?= /* @noEscape */
+                nl2br($escaper->escapeHtml($block->getMethod()->getMailingAddress())) ?>
+            </div>
+        </div>
+        <?php
+    endif; ?>
+    <div class="admin__field-control _required">
+        <input type="text" id="check_number" name="payment[check_number]"
+               title="<?= /* @noEscape */
+                $escaper->escapeHtml(__("Cheque Number")) ?>"
+               class="required-entry admin__control-text"
+               value=""/>
+    </div>
+</fieldset>

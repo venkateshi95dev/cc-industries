@@ -1,0 +1,146 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\SyncAssets\Upload\Tab\Customers;
+
+/**
+ * @var Customers $block
+ */
+$syncData = $block->getUploadCustomerSyncUpdate();
+?>
+<div class="uplaod-customers" id="uplaod_customers_container" data-bind="scope: 'uplaod_customers_container'">
+    <div class="section-content">
+
+        <div class="messages breadcrumb-messages upload-notice">
+            <div class="message">
+                <span>
+                    <?= /* @noEscape */ __('Please wait, currently orders uploading is in progress.') ?>
+                </span>
+            </div>
+        </div>
+        <div id="customers-step-1" class="steps">
+            <div style="display: none" class="step-messages">
+                <?= /* @noEscape */ __(
+                    'Please check how many customers are available to upload @ EBizCharge Gateway'
+                )?>
+            </div>
+            <h3 id="customer_progress_bar_breadcrumbs" class="progress-bar-breadcrumbs checking-message messages"></h3>
+            <div id="customers_progress" class="customers_progress result_table">
+                <h3  class="messages">
+                    <?= /* @noEscape */ __('Uploaded Customers :')?> <span id="uploaded_customers">
+                        <?= /* @noEscape */ $block->getTotalRemoteUplaoded();?></span>/
+                    <span id="total_customers"><?= /* @noEscape */ $block->getCustomersAtEbizcharge();?></span>
+                </h3>
+            </div>
+            <div id="customer_results_table">
+                <table  class="table admin__table-primary table-responsive table-bordered">
+                    <tbody>
+                        <tr>
+                            <td><?= /* @noEscape */ __('Last uploaded :')?></td>
+                            <td>
+                                <span id="last_uploaded_date_customers">
+                                    <?= /* @noEscape */ $block->getLastUploaded(); ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?= /* @noEscape */ __('Last uploaded customers :')?></td>
+                            <td>
+                                <span id="last_uploaded_customers">
+                                    <?= /* @noEscape */ $block->getLastUploadedCustomers(); ?>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><?= /* @noEscape */ __('Customers available to upload :')?> </td>
+                            <td><span id="to_upload_customers">--</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="uplaod_progress_bar_customer" class="progress-bar">
+                <div class="progress-bar-label"
+                     data-bind="text: uplaod_progress_label_customer"
+                     id="progress_bar_label_customer">0%</div>
+            </div>
+            <button id="check_customers_btn" class="action-primary" type="button"
+                    title="Check Customers @ EBizCharge Gateway"
+                    data-step="#customers-step-1"> <?= /* @noEscape */ __('Refresh Customers')?></button>
+
+            <button id="uplaod_customers_btn" class="action-primary" type="button"
+                    title="Upload Customers to EBizCharge Gateway"
+                    data-step="#customers-step-2" disabled> <?= /* @noEscape */ __('Upload Customers')?></button>
+        </div>
+
+    </div>
+</div>
+
+<?php /** Adding Magento UI JS Core App */ ?>
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Magento_Ui/js/core/app": {
+           "components": {
+                "upload_customers_container": {
+                    "component" : "Ebizcharge_Ebizcharge/js/uploads/component/upload-resources",
+                    "upload"  : {
+                           "check_ajax_url": "<?= $block->escapeUrl($block->getCustomersCheckAtEbizchargeUrl()) ?>",
+                           "upload_ajax_url": "<?= $block->escapeUrl(
+                               $block->getCustomersUploadsFromEbizchargeUrl()
+                           ) ?>",
+                           "progress_bar_ajax_url" : "<?= $block->escapeUrl($block->getProgressBarUrl()) ?>",
+                           "resource_view_url" : "<?= $block->escapeUrl($block->getViewUploadedCustomersUrl()) ?>",
+                           "uploading_status" : "<?= /* @noEscape */ $block->syncStatus()?>",
+                           "progress_bar"      : "uplaod_progress_bar_customer",
+                           "check_resource_btn" : "check_customers_btn",
+                           "upload_resource_btn" : "uplaod_customers_btn",
+                           "view_resource_btn" : "view_customers_btn",
+                           "breadcrumb_messages": "breadcrumb-messages",
+                           "resource_status_container" : "customer_results_table",
+                           "progress_bar_label" : "progress_bar_label_customer",
+                           "progress_bar_breadcrumbs" : "customer_progress_bar_breadcrumbs",
+                           "resource_integration_progress" : "customers_progress",
+                           "current_progress_value" : "current_progress_value",
+                           "uploaded_resources" : "uploaded_customers",
+                           "total_resources" : "total_customers",
+                           "progress_request_type" : "uploaded_customer_progress",
+                           "upload_type" : "upload_customers",
+                           "results_table" : "customer_results_table",
+                           "id_uploaded_resources" : "upload_customers",
+                           "id_total_resource" : "total_customers",
+                           "request_type" : "customers",
+                           "http_request_type": "GET",
+                           "sync_title" : "sync_title_upload",
+                           "last_uploaded_date_resource":"last_uploaded_date_customers",
+                           "last_uplaoded_resource":"last_uploaded_customers",
+                           "to_uplaod_resource":"to_upload_customers"
+                         }
+                    }
+                }
+            }
+        }
+  }
+</script>

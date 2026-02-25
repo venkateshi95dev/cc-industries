@@ -1,0 +1,43 @@
+<ul class="top-header-links">
+<li><a href="{{store url=''}}our-story.html">Since 1977</a></li>
+<li><a href="{{store url=''}}catalog/request/form">Request a free parts catalog</a></li>
+<li class="hours-modal"><a class="hours-modal-link" href="#">Hours of Operation</a>
+<div class="hours-modal-content">
+<h3>Call Center Hours</h3>
+  <p>Zip Corvette sales and customer service representatives are here to serve you during the following hours:</p>
+  <ul class="unstyled">
+    <li>Mon-Thur. 8:30am-6pm</li>
+    <li>Friday: 8:30am-5:30pm</li>
+    <li>Saturday: 10am-3pm</li>
+  </ul>
+  <p>(Eastern Standard Time)</p>
+  <hr />
+  <p>Our showroom is open to the public Monday-Friday from 8:30am-5:30pm (EST). We take orders in our showroom or you may call your order in over the phone and we will prepare your items in advance so you do not have to wait.</p>
+  <hr />
+  <p>Our performance and installation facility is open Monday-Friday from 8:30am-5:30pm (EST). Visit our showroom to setup an appointment to have your Corvette tuned, accessorized, enhanced or more. Read more about our <a title="Zip Corvette Installs" href="/we-install-corvette-parts">performance and installation facility here</a>. *All work requires an appointment.</p>
+  <p> Other questions? <a title="Contact Us" href="/contact-us">Contact us here</a>&nbsp;24 hours a day 7 days a week.</p>
+</div>
+</li>
+<li><a href="http://www.corvettemagazine.com/" target="_blank" rel="noopener">Tech Articles</a></li>
+<li><a href="{{store url=''}}accessories/corvette-gift-cards.html">Gift Cards</a></li>
+<li><a href="{{store url=''}}quick-fix.html">Quick Fix</a></li>
+<li><a href="{{store url=''}}new-parts-and-accessories.html">NEW Items</a></li>
+<li class="sub-banner-2">
+  <!-- ko scope: 'advanced-store-hours' -->
+    <div class="dropdown phone" data-toggle="popover" style="display: none" data-bind="visible: isStoreOpen()">We are currently open <a href="tel:1.800.962.9632"><span class="number">1.800.962.9632 </span></a> <span id="header-contact" data-trigger="click" data-placement="bottom" data-html="true" data-title="We are here to help." data-content="<ul class='header-contact-popdown'>
+        <li><i class='fa fa-phone-square fa-2x'></i> 1-800-962-9632</li>
+        <li><i class='fa fa-envelope-square fa-2x'></i> <a href='https://secure.livechatinc.com/licence/4282571/open_chat.cgi' title='Email Us' target='_blank'>Email</a></li>
+        <li><i class='fa fa-keyboard-o fa-2x'></i> <a href='https://secure.livechatinc.com/licence/4282571/open_chat.cgi' title='Live Chat' target='_blank'>Live Chat</a></li>
+      </ul>"></span></div>
+
+    <div class="dropdown chat" data-toggle="popover" style="display: none" data-bind="visible: !isStoreOpen()">We are currently closed <a href="#" onclick="LC_API && LC_API.open_chat_window && LC_API.open_chat_window()">Leave a message</a> <span id="header-contact" data-trigger="click" data-placement="bottom" data-html="true" data-title="We are here to help." data-content="<ul class='header-contact-popdown'>
+        <li><i class='fa fa-envelope-square fa-2x'></i> <a href='https://secure.livechatinc.com/licence/4282571/open_chat.cgi' title='Email Us' target='_blank'>Email</a></li>
+        <li><i class='fa fa-keyboard-o fa-2x'></i> <a href='https://secure.livechatinc.com/licence/4282571/open_chat.cgi' title='Live Chat' target='_blank'>Live Chat</a></li>
+      </ul>"></span>
+      </div>
+  <!-- /ko -->
+</li>
+</ul>
+<!-- IS+ --><script async src="//acp-magento.appspot.com/js/acp-magento.js?v=2&mode=magento&UUID=9ee96e7c-a074-4da2-b9ed-648929d3da0c&store=1"></script><!-- IS+ -->
+
+{{block class="Crimson\StoreHours\Block\UiComponent"}}

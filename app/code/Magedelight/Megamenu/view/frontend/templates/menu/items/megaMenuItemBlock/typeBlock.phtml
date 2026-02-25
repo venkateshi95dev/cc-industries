@@ -1,0 +1,26 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @var  \Magedelight\Megamenu\Model\MenuItems|\Magedelight\Megamenu\Api\Data\MenuItemsInterface $menuItem */
+/** @var  \Magedelight\Megamenu\Block\Topmenu $menuBlock */
+/** @var  \Magedelight\Megamenu\Model\MegamenuManagement $menuManagement */
+$menuBlock = $block->getData('menu_block');
+$menuItems = $block->getData('menu_items');
+$key = $block->getData('items_key');
+$menuManagement = $block->getData('menu_management');
+$cmsBlock = $menuManagement->loadCmsBlock($menuItems[$key]->value);
+?>
+<li class="mega-static-block">
+    <?php if ($menuItems[$key]->showtitle == '1'): ?>
+        <h2><?= $escaper->escapeHtml(__($cmsBlock->getTitle())) ?></h2>
+    <?php endif; ?>
+    <ul>
+        <li>
+            <?= $menuBlock->getBlockObjectHtml($menuItems[$key]->value); ?>
+        </li>
+    </ul>
+</li>

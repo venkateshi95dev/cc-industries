@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="checkout" translate="label" type="text" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="cart">
+                <label>Cart Messages</label>
+                <field id="cart_truck_msg" translate="label" type="textarea" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Truck Freight Message</label>
+                </field>
+                <field id="cart_truck_msg_under_shipping_method" translate="label" type="textarea" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cart Truck Freight Message Under Shipping Method</label>
+                </field>
+            </group>
+            <group id="paypal_review" translate="label" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>PayPal Review Order Page</label>
+                <field id="paypal_review_msg" translate="label" type="textarea" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>PayPal Review Order Error Message</label>
+                    <comment><![CDATA[This message will be displayed if the shipping address is missing the Zip Code or Region.]]></comment>
+                </field>
+            </group>
+            <group id="configurable_cart_message" translate="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shopping Cart: Configurable Messages</label>
+                <field id="message_1_enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message Enabled [1]</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="message_1_text" translate="label" type="textarea" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message Text [1]</label>
+                    <depends>
+                        <field id="message_enabled_1">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="iwd_addressvalidation">
+            <group id="addresvalidation_opc">
+                <group id="general">
+                    <field id="only_allow_not_valid_address_if_there_are_not_suggestions" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Only Allow Invalid Address Checkout If There Are Not Suggestions</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>If yes, then customers with an invalid address will be able to place their order if no other address suggestions are available.</comment>
+                        <config_path>iwd_addressvalidation/general/only_allow_not_valid_address_if_there_are_not_suggestions</config_path>
+                    </field>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog" translate="label" type="text" sortOrder="305" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="crimson" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Crimson Product Messages</label>
+                <field id="product_truck_msg" translate="label" type="textarea" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Truck Freight Message</label>
+                </field>
+                <field id="product_addcharges_msg" translate="label" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Additional Charges Message</label>
+                </field>
+                <field id="product_dropship_msg" translate="label" type="textarea" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Dropship Message</label>
+                </field>
+                <field id="product_corecharges_msg" translate="label" type="textarea" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Core Charges Message</label>
+                </field>
+                <field id="product_nodiscount_msg" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product No Discount Wholesale Message</label>
+                </field>
+                <field id="product_nodiscountretail_msg" translate="label" type="textarea" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product No Retail Discount Message</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

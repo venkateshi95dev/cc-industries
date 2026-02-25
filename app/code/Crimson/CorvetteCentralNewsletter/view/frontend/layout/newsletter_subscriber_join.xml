@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="full-width-with-left-sidebar" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="content">
+            <block name="subscriber.join" class="Magento\Newsletter\Block\Subscribe" template="Crimson_CorvetteCentralNewsletter::subscribe.phtml" />
+        </referenceBlock>
+        <referenceBlock name="page.main.title" remove="true" />
+    </body>
+</page>

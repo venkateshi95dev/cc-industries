@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+
+    <system>
+        <section id="performance" translate="label"
+                 type="text" sortOrder="10"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Performance</label>
+            <tab>crimson_agility</tab>
+            <resource>Magento_Config::config</resource>
+
+            <group id="server_push" translate="label"
+                   type="text" sortOrder="20"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Preload / Preconnect Tweaks</label>
+
+                <field id="enabled" translate="label comment"
+                       type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Performance Functionalities</label>
+                    <comment>Turn on/off all frontend-performance features.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="additional_preconnect" translate="label comment"
+                       type="textarea" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Additional Preconnect Entries</label>
+                    <comment><![CDATA[One URL per line, e.g.<br>
+                            https://fonts.gstatic.com<br>https://fonts.googleapis.com]]></comment>
+                    <depends>
+                        <field id="performance/server_push/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="additional_image" translate="label"
+                    type="textarea" sortOrder="40" showInDefault="1">
+                    <label>Additional Images</label>
+
+                    <comment><![CDATA[
+                One image URL per line. <br>
+                • Same-origin: `/media/wysiwyg/hero.webp` <br>
+                • CDN / external: `https://cdn.example.com/images/hero.webp`
+                ]]></comment>
+
+                    <tooltip>Each URL will be preloaded on every page, if present.</tooltip>
+                    <depends>
+                        <field id="performance/server_push/enabled">1</field>
+                    </depends>
+                </field>
+
+                <field id="additional_script" translate="label"
+                    type="textarea" sortOrder="50" showInDefault="1">
+                    <label>Additional JS</label>
+                    <comment><![CDATA[
+                One JavaScript file per line.<br>
+                • **Internal URL** – `magepack/bundle-common.js`<br>
+                • **External URL** – `https://cdn.example.com/js/analytics.js`
+                ]]></comment>
+                    <depends><field id="performance/server_push/enabled">1</field></depends>
+                </field>
+
+                <field id="additional_style" translate="label"
+                    type="textarea" sortOrder="60" showInDefault="1">
+                    <label>Additional CSS</label>
+                    <comment><![CDATA[
+                One CSS file per line.<br>
+                • **Internal URL** – `styles-m.css`<br>
+                • **External URL** – `https://cdn.example.com/css/critical.css`
+                ]]></comment>
+                    <depends><field id="performance/server_push/enabled">1</field></depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

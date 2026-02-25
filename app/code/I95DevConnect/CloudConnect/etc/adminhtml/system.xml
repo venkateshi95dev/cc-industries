@@ -1,0 +1,135 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_CloudConnect
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="i95dev_genericconnect_extensions" sortOrder="999" translate="label">
+            <label>i95Dev Cloud</label>
+        </tab>
+        <section id="i95dev_adapter_configurations" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="10"
+                 translate="label">
+            <label>i95Dev Cloud</label>
+            <tab>i95dev_genericconnect_extensions</tab>
+            <resource>I95DevConnect_CloudConnect::config_i95dev_genericconnect</resource>
+            <group id="enabled_disabled" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="10"
+                   translate="label">
+                <label>I95dev Cloud Configuration</label>
+                <field id="enabled" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="10" translate="label"
+                       type="select">
+                    <label>Enabled</label>
+                    <comment>Select &quot;Yes&quot; for enable the module</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="crmerp" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>CRM / ERP</label>
+                    <comment>Select your CRM/ERP</comment>
+                    <source_model>I95DevConnect\CloudConnect\Model\Config\Source\CrmErp</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="target_url" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Webservice Url</label>
+                    <comment>To Handle All Requests.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="instance_type" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Instance Type</label>
+                    <comment>Type of the Instance Deployed.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="client_id" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="60"
+                       translate="label" type="text">
+                    <label>Client Id</label>
+                    <comment>Enter Client Id</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="subscription_key" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="70"
+                       translate="label" type="text">
+                    <label>Subscription Key</label>
+                    <comment>Enter Subscription Key</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="endpoint_code" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="80"
+                       translate="label" type="text">
+                    <label>Endpoint Code</label>
+                    <comment>Enter Endpoint Code</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="token" showInDefault="1" showInStore="0" showInWebsite="1" sortOrder="80" translate="label"
+                       type="text">
+                    <label>Api Authentication Token</label>
+                    <comment>Enter Api Authentication Token</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="logs_enabled" translate="label" type="select" sortOrder="80" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Enable Logs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="i95dev_shipping_mapping" translate="label" type="text" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="0">
+                <label>Shipping Mapping</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Enable(extension)</label>
+                    <comment>To enable or disable the extension.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="update_shipmethod" translate="label" type="button" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Update Shipping Methods on cloud</label>
+                    <frontend_model>I95DevConnect\CloudConnect\Block\System\Config\Button</frontend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="i95dev_payment_mapping" translate="label" type="text" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="0">
+                <label>Payment Mapping</label>
+                <field id="enabled" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1"
+                       showInStore="0">
+                    <label>Enable(extension)</label>
+                    <comment>To enable or disable the extension.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="update_payment_method" translate="label" type="button" sortOrder="2" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Update Payment Methods on cloud</label>
+                    <frontend_model>I95DevConnect\CloudConnect\Block\System\Config\Payment\Button</frontend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

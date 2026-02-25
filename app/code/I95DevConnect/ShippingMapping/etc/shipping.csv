@@ -1,0 +1,163 @@
+1,1,m2eproshipping_m2eproshipping,M2EPROSHIPPING-M2EPROSHIPPING,m2eproshipping_m2eproshipping,0,0
+2,2,flatrate_flatrate,FIXED-FLATRATE,flatrate_flatrate,1,1
+3,3,freeshipping_freeshipping,FREE-FREESHIP,Free,0,0
+4,4,storepickup_storepickup,STOREPICKUP-STOREPICKUP,Fixed,0,0
+5,5,ups_1DM,UPS-1DM,Next Day Air Early AM,0,0
+6,5,ups_1DML,UPS-1DML,Next Day Air Early AM Letter,0,0
+7,5,ups_1DA,UPS-1DA,Next Day Air,0,0
+8,5,ups_1DAL,UPS-1DAL,Next Day Air Letter,0,0
+9,5,ups_1DAPI,UPS-1DAPI,Next Day Air Intra (Puerto Rico),0,0
+10,5,ups_1DP,UPS-1DP,Next Day Air Saver,0,0
+11,5,ups_1DPL,UPS-1DPL,Next Day Air Saver Letter,0,0
+12,5,ups_2DM,UPS-2DM,2nd Day Air AM,0,0
+13,5,ups_2DML,UPS-2DML,2nd Day Air AM Letter,0,0
+14,5,ups_2DA,UPS-2DA,2nd Day Air,0,0
+15,5,ups_2DAL,UPS-2DAL,2nd Day Air Letter,0,0
+16,5,ups_3DS,UPS-3DS,3 Day Select,0,0
+17,5,ups_GND,UPS-GND,Ground,0,0
+18,5,ups_GNDCOM,UPS-GNDCOM,Ground Commercial,0,0
+19,5,ups_GNDRES,UPS-GNDRES,Ground Residential,0,0
+20,5,ups_STD,UPS-STD,Canada Standard,0,0
+21,5,ups_XPR,UPS-XPR,Worldwide Express,0,0
+22,5,ups_WXS,UPS-WXS,Worldwide Express Saver,0,0
+23,5,ups_XPRL,UPS-XPRL,Worldwide Express Letter,0,0
+24,5,ups_XDM,UPS-XDM,Worldwide Express Plus,0,0
+25,5,ups_XDML,UPS-XDML,Worldwide Express Plus Letter,0,0
+26,5,ups_XPD,UPS-XPD,Worldwide Expedited,0,0
+27,6,usps_Bound Printed Matter,USPS-BPM,Bound Printed Matter,0,0
+28,6,usps_Express Mail,USPS-EXPMAIL,Express Mail,0,0
+29,6,usps_62,USPS-EXPMFRE,Express Mail Flat Rate Envelope,0,0
+30,6,usps_63,USPS-EXPMFREHP,Express Mail Flat Rate Envelope Hold For Pickup,0,0
+31,6,usps_64,USPS-EXPMFRESHG,Express Mail Flat-Rate Envelope Sunday/Holiday Guarantee,0,0
+32,6,usps_27,USPS-EXPMHP,Priority Mail Express Flat Rate Envelope Hold For Pickup,0,0
+33,6,usps_INT_1,USPS-EXPMI,Express Mail International,0,0
+34,6,usps_INT_10,USPS-EXPMIFRE,Express Mail International Flat Rate Envelope,0,0
+35,6,usps_Express Mail PO to PO,USPS-EXPMPOPO,Express Mail PO to PO,0,0
+36,6,usps_Express Mail Sunday/Holiday Guarantee,USPS-EXPMSHG,Express Mail Sunday/Holiday Guarantee,0,0
+37,6,usps_First-Class Mail International Large Envelope,USPS-FCMILE,First-Class Mail International Large Envelope,0,0
+38,6, usps_INT_14,USPS-FCMIL,First-Class Mail International Letters,0,0
+39,6,usps_INT_15,USPS-FCMIP,First-Class Mail International Package,0,0
+40,6,usps_61,USPS-FC,First-Class Package Service,0,0
+41,6,usps_First-Class Mail,USPS-FCM,First-Class Mail,0,0
+42,6,usps_First-Class Mail Flat,USPS-FCMF,First-Class Mail Flat,0,0
+43,6,usps_0_FCLE,USPS-FCMLE,First-Class Mail Large Envelope,0,0
+44,6,usps_INT_13,USPS-FCMI,First-Class Mail International,0,0
+45,6,usps_0_FCL,USPS-FCML,First-Class Mail Letter,0,0
+46,6,usps_0_FCP,USPS-FCMP,First-Class Mail Parcel,0,0
+47,6,usps_First-Class Mail Package,USPS-FCMPK,First-Class Mail Package,0,0
+48,6,usps_INT_4,USPS-GXG,Global Express Guaranteed (GXG),0,0
+49,6,usps_INT_7,USPS-GXGNDNR,Global Express Guaranteed Non-Document Non-Rectangular,0,0
+50,6,usps_INT_6,USPS-GEGNDR,Global Express Guaranteed Non-Document Rectangular,0,0
+51,6,usps_7,USPS-LM,Library Mail Parcel,0,0
+52,6,usps_6,USPS-MM,Media Mail Parcel,0,0
+53,6,usps_4,USPS-PP,Standard Post,0,0
+54,6,usps_1,USPS-PMAIL,Priority Mail,0,0
+55,6,usps_28,USPS-PMSFRB,Priority Mail Small Flat Rate Box,0,0
+56,6,usps_17,USPS-PMMFRB,Priority Mail Medium Flat Rate Box,0,0
+57,6,usps_22,USPS-PMLFRB,Priority Mail Large Flat Rate Box,0,0
+58,6,usps_Priority Mail Flat Rate Box,USPS-PMFRB,Priority Mail Flat Rate Box,0,0
+59,6,usps_16,USPS-PMFRE,Priority Mail Flat Rate Envelope,0,0
+60,6,usps_INT_2,USPS-PMI,Priority Mail International,0,0
+61,6,usps_INT_9,USPS-PMIFRB,Priority Mail International Flat Rate Box,0,0
+62,6,usps_INT_8,USPS-PMIFRE,Priority Mail International Flat Rate Envelope,0,0
+63,6,usps_INT_16,USPS-PMISFRB,Priority Mail International Small Flat Rate Box,0,0
+64,6,usps_Priority Mail International Medium Flat Rate Box,USPS-PMIMFRB,Priority Mail International Medium Flat Rate Box,0,0
+65,6,usps_INT_11,USPS-PMILFRB,Priority Mail International Large Flat Rate Box,0,0
+66,6,usps_INT_12,USPS-GXGEN,USPS GXG Envelopes,0,0
+67,6,usps_2,USPS-usps_2,Priority Mail Express Hold For Pickup,0,0
+68,6,usps_0_FCPC,USPS-usps_0_FCPC,First-Class Mail Postcards,0,0
+69,6,usps_3,USPS-usps_3,Priority Mail Express,0,0
+70,6,usps_13,USPS-usps_13,Priority Mail Express Flat Rate Envelope,0,0
+71,6,usps_23,USPS-usps_23,First-Class Mail Large Postcards,0,0
+72,6,usps_25,USPS-usps_25,Priority Mail Express Sunday/Holiday Delivery Flat Rate Envelope,0,0
+73,6,usps_29,USPS-usps_29,Priority Mail Padded Flat Rate Envelope,0,0
+74,6,usps_30,USPS-usps_30,Priority Mail Express Legal Flat Rate Envelope,0,0
+75,6,usps_31,USPS-usps_31,Priority Mail Express Legal Flat Rate Envelope Hold For Pickup,0,0
+76,6,usps_32,USPS-usps_32,Priority Mail Express Sunday/Holiday Delivery Legal Flat Rate Envelope,0,0
+77,6,usps_33,USPS-usps_33,Priority Mail Hold For Pickup,0,0
+78,6,usps_34,USPS-usps_34,Priority Mail Large Flat Rate Box Hold For Pickup,0,0
+79,6,usps_35,USPS-usps_35,Priority Mail Medium Flat Rate Box Hold For Pickup,0,0
+80,6,usps_36,USPS-usps_36,Priority Mail Small Flat Rate Box Hold For Pickup,0,0
+81,6,usps_37,USPS-usps_37,Priority Mail Flat Rate Envelope Hold For Pickup,0,0
+82,6,usps_38,USPS-usps_38,Priority Mail Gift Card Flat Rate Envelope,0,0
+83,6,usps_39,USPS-usps_39,Priority Mail Gift Card Flat Rate Envelope Hold For Pickup,0,0
+84,6,usps_40,USPS-usps_40,Priority Mail Window Flat Rate Envelope,0,0
+85,6,usps_41,USPS-usps_41,Priority Mail Window Flat Rate Envelope Hold For Pickup,0,0
+86,6,usps_42,USPS-usps_42,Priority Mail Small Flat Rate Envelope,0,0
+87,6,usps_43,USPS-usps_43,Priority Mail Small Flat Rate Envelope Hold For Pickup,0,0
+88,6,usps_44,USPS-usps_44,Priority Mail Legal Flat Rate Envelope,0,0
+89,6,usps_45,USPS-usps_45,Priority Mail Legal Flat Rate Envelope Hold For Pickup,0,0
+90,6,usps_46,USPS-usps_46,Priority Mail Padded Flat Rate Envelope Hold For Pickup,0,0
+91,6,usps_47,USPS-usps_47,Priority Mail Regional Rate Box A,0,0
+92,6,usps_48,USPS-usps_48,Priority Mail Regional Rate Box A Hold For Pickup,0,0
+93,6,usps_49,USPS-usps_49,Priority Mail Regional Rate Box B,0,0
+94,6,usps_50,USPS-usps_50,Priority Mail Regional Rate Box B Hold For Pickup,0,0
+95,6,usps_53,USPS-usps_53,First-Class Package Service Hold For Pickup,0,0
+96,6,usps_55,USPS-usps_55,Priority Mail Express Flat Rate Boxes,0,0
+97,6,usps_56,USPS-usps_56,Priority Mail Express Flat Rate Boxes Hold For Pickup,0,0
+98,6,usps_57,USPS-usps_57,Priority Mail Express Sunday/Holiday Delivery Flat Rate Boxes,0,0
+99,6,usps_58,USPS-usps_58,Priority Mail Regional Rate Box C,0,0
+100,6,usps_59,USPS-usps_59,Priority Mail Regional Rate Box C Hold For Pickup,0,0
+101,6,usps_INT_5,USPS-usps_INT_5,Global Express Guaranteed Document,0,0
+102,6,usps_INT_17,USPS-usps_INT_17,Priority Mail Express International Legal Flat Rate Envelope,0,0
+103,6,usps_INT_18,USPS-usps_INT_18,Priority Mail International Gift Card Flat Rate Envelope,0,0
+104,6,usps_INT_19,USPS-usps_INT_19,Priority Mail International Window Flat Rate Envelope,0,0
+105,6,usps_INT_20,USPS-usps_INT_20,Priority Mail International Small Flat Rate Envelope,0,0
+106,6,usps_INT_21,USPS-usps_INT_21,First-Class Mail International Postcard,0,0
+107,6,usps_INT_22,USPS-usps_INT_22,Priority Mail International Legal Flat Rate Envelope,0,0
+108,6,usps_INT_23,USPS-usps_INT_23,Priority Mail International Padded Flat Rate Envelope,0,0
+109,6,usps_INT_24,USPS-usps_INT_24,Priority Mail International DVD Flat Rate priced box,0,0
+110,6,usps_INT_25,USPS-usps_INT_25,Priority Mail International Large Video Flat Rate priced box,0,0
+111,6,usps_INT_26,USPS-usps_INT_26,Priority Mail Express International Flat Rate Boxes,0,0
+112,6,usps_INT_27,USPS-usps_INT_27,Priority Mail Express International Padded Flat Rate Envelope,0,0
+113,7,royalmail_letter,ROYAL-LETTE,Royal Letter,0,0
+114,7,royalmail_largeletter,ROYAL-LRGLTR,Royal Large Letter,0,0
+115,7,royalmail_secondclass,ROYAL-SENDCL,Royal Mail Second Class,0,0
+116,7,royalmail_secondclassrecordedsignedfor,ROYAL-SNDCLSRE,Royal Mail Second Class Record Signed For,0,0
+117,7,royalmail_firstclass,ROYAL-FIRSTCLASS,Royal Mail First Class,0,0
+118,7,royalmail_firstclassrecordedsignedfor,ROYAL-FSTCLSRE,Royal Mail First Class Recorded Signed For,0,0
+119,7,royalmail_standardparcel,ROYAL-STRDPRCL,Royal Mail Standard Parcel,0,0
+120,7,royalmail_standardparcel100,ROYAL-SRDPR100,RoyalMail_StandardParcel100,0,0
+121,7,royalmail_standardparcel250,ROYAL-SRDPR250,RoyalMail_StandardParcel250,0,0
+122,7,royalmail_standardparcel500,ROYAL-SRDPR500,RoyalMail_StandardParcel500,0,0
+123,7,royalmail_specialdeliverynextday500,ROYAL-RYLSPLNXTDAY500,RoyalMail_SpecialDeliveryNextDay500,0,0
+124,7,royalmail_specialdeliverynextday1000,ROYAL-RYSPLNXTDAY1000,RoyalMail_SpecialDeliveryNextDay1000,0,0
+125,7,royalmail_specialdeliverynextday2500,ROYAL-RYSPLNXTDAY2500,RoyalMail_SpecialDeliveryNextDay2500,0,0
+126,7,royalmail_specialdelivery9am50,ROYAL-RYMALSPLDVRY9AM,RoyalMail_SpecialDelivery9am50,0,0
+127,7,royalmail_specialdelivery9am1000,ROYAL-RYSPLDRY9AM1000,RoyalMail_SpecialDelivery9am1000,0,0
+128,7,royalmail_specialdelivery9am2500,ROYAL-PYSPLDRY9AM2500,RoyalMail_SpecialDelivery9am2500,0,0
+129,7,royalmail_airmail,ROYAL-RYLMAIL_AIRMAIL,RoyalMail_Airmail,0,0
+130,7,royalmail_airsure,ROYAL-RYLMAIL_AIRSURE,RoyalMail_Airsure,0,0
+131,7,royalmail_airsureinsurance,ROYAL-RYMAL_AIRSURINS,RoyalMail_AirSureInsurance,0,0
+132,7,royalmail_internationalsignedfor,ROYAL-RYLMAL_INTNSIGN,RoyalMail_International Signed For,0,0
+133,7,royalmail_internationalsignedforinsurance,ROYAL-RYL_INTNTSINSUR,RoyalMail_International Signed For Insurance,0,0
+134,7,royalmail_surfacemail,ROYAL-RYMAL_SRFCEMAIL,RoyalMail_SurfaceMail,0,0
+135,8,australiapost_SEA,AUS-AUSPOS_SEA,AustraliaPost_SEA,0,0
+136,8,australiapost_AIR,AUS-AUSPOST_AIR,Australiapost_AIR,0,0
+137,8,australiapost_EPI,AUS-AUSPOST_EPI,Australiapost_EPI,0,0
+138,9,fedex_PRIORITY_OVERNIGHT,FEDEX-PRIOVRNT,Priority Overnight,0,0
+139,9,fedex_STANDARD_OVERNIGHT,FEDEX-STDOVRNT,Standard Overnight,0,0
+140,9,fedex_FIRST_OVERNIGHT,FEDEX-FOVRNT,First Overnight,0,0
+141,9,fedex_FEDEX_2_DAY,FEDEX-2D,2Day,0,0
+142,9,fedex_FEDEX_2_DAY_AM,FEDEX-2D_AM,2Day,0,0
+143,9,fedex_FEDEX_EXPRESS_SAVER,FEDEX-EXPS,Express Saver,0,0
+144,9,fedex_INTERNATIONAL_PRIORITY,FEDEX-IP,International Priority,0,0
+145,9,fedex_INTERNATIONAL_ECONOMY,FEDEX-IE,International Economy,0,0
+146,9,fedex_INTERNATIONAL_FIRST,FEDEX-IF,International First,0,0
+147,9,fedex_FEDEX_1_DAY_FREIGHT,FEDEX-1DFT,1 Day Freight,0,0
+148,9,fedex_FEDEX_2_DAY_FREIGHT,FEDEX-2DFT,2 Day Freight,0,0
+149,9,fedex_FEDEX_2_DAY_FREIGHT,FEDEX-3DFT,3 Day Freight,0,0
+150,9,fedex_GROUND_HOME_DELIVERY,FEDEX-HD,Home Delivery,0,0
+151,9,fedex_INTERNATIONAL_PRIORITY_FREIGHT,FEDEX-IPF,Intl Priority Freight,0,0
+152,9,fedex_INTERNATIONAL_ECONOMY_FREIGHT,FEDEX-IEF,Intl Economy Freight,0,0
+153,9,fedex_EUROPE_FIRST_INTERNATIONAL_PRIORITY,FEDEX-EFP,Europe First Priority,0,0
+154,9,fedex_FEDEX_GROUND,FEDEX-GROUND,Ground,0,0
+155,9,fedex_INTERNATIONAL_GROUND,FEDEX-IN_GROUND,International Ground,0,0
+156,9,fedex_SMART_POST,FEDEX-SMART_POS,Smart Post,0,0
+157,9,fedex_FEDEX_FREIGHT,FEDEX-FERIGHT,Freight,0,0
+158,9,fedex_FEDEX_NATIONAL_FREIGHT,FEDEX-NTON_FERR,National Freight,0,0
+159,10,dhl_S,DHL-S,Second Day Service,0,0
+160,10,dhl_G,DHL-G,Ground,0,0
+161,10,dhl_IE,DHL-IE,International Express,0,0
+162,10,dhl_E SAT,DHL-E SAT,Express Saturday,0,0
+163,10,dhl_E 10:30AM,DHL-E 10:30AM,Express 10:30 AM,0,0

@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+/**
+* Defines default configurations for EBizCharge.
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <ebizcharge_ebizcharge>
+                <active>0</active>
+                <model>EbizchargeFacade</model>
+                <title>EBizCharge</title>
+                <payment_action>authorize</payment_action>
+                <envoirnment_prefix>MAG</envoirnment_prefix>
+                <division_id></division_id>
+                <is_gateway>1</is_gateway>
+                <can_use_checkout>1</can_use_checkout>
+                <pci_compliance_enable>0</pci_compliance_enable>
+                <pci_compliance_action_url>https://soapapi1.ebizcharge.net/v2</pci_compliance_action_url>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_sale>1</can_sale>
+                <can_capture_partial>1</can_capture_partial>
+                <can_use_internal>1</can_use_internal>
+                <can_refund_partial_per_invoice>1</can_refund_partial_per_invoice>
+                <can_refund>1</can_refund>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_edit>1</can_edit>
+                <can_review_payment>1</can_review_payment>
+                <request_card_code_admin>1</request_card_code_admin>
+                <can_deny_payment>1</can_deny_payment>
+                <cctypes>AE,VI,MC,DI,JCB</cctypes>
+                <recurring_frequency>daily,weekly,monthly,quarterly,bi-annually,annually</recurring_frequency>
+                <allowspecific>0</allowspecific>
+                <min_order_total>0.50</min_order_total>
+                <enable_card>0</enable_card>
+                <save_card>0</save_card>
+                <enableAch>0</enableAch>
+                <save_bank_accounts>0</save_bank_accounts>
+                <enable_webform>0</enable_webform>
+                <save_payment>0</save_payment>
+                <show_saved_methods>0</show_saved_methods>
+                <recurring_payments>0</recurring_payments>
+                <indefinite_recurring>0</indefinite_recurring>
+                <!--<enable_surcharge>0</enable_surcharge>-->
+                <order_status>processing</order_status>
+                <description>EBizCharge Payment Tranansaction</description>
+                <sort_order>0</sort_order>
+                <error_msg>EBizCharge payment authorization error.</error_msg>
+
+                <uploadeconnect>0</uploadeconnect>
+                <synccustomers>1</synccustomers>
+                <syncitems>1</syncitems>
+                <syncorders>1</syncorders>
+
+                <downloadeconnect>0</downloadeconnect>
+                <downloadcustomers>1</downloadcustomers>
+                <downloaditems>1</downloaditems>
+                <downloadorders>1</downloadorders>
+                <downloadinvoices>1</downloadinvoices>
+                <itemssyncsetting>upload</itemssyncsetting>
+                <unit_of_measure>lbs</unit_of_measure>
+
+                <!--<syncinvoices>0</syncinvoices>-->
+                <shippingmethod>flatrate_flatrate</shippingmethod>
+                <emailtemplates>d5c92dc4-74a9-4cc7-a359-b9f8d8d9fd25</emailtemplates>
+
+                <enable_logs>1</enable_logs>
+                <!--<logs_file>ebizcharge.log</logs_file>-->
+                <group>ebizcharge_group</group>
+            </ebizcharge_ebizcharge>
+        </payment>
+        <default>
+            <dev>
+                <static>
+                    <sign>0</sign>
+                </static>
+            </dev>
+        </default>
+    </default>
+</config>

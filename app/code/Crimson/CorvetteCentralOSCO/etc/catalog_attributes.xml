@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Catalog:etc/catalog_attributes.xsd">
+    <group name="quote_item">
+        <attribute name="cc_airshipmentok"/>
+        <attribute name="cc_packageexists"/>
+        <attribute name="cc_length"/>
+        <attribute name="cc_width"/>
+        <attribute name="cc_height"/>
+        <attribute name="cc_net_weight"/>
+        <attribute name="cc_packages"/>
+    </group>
+</config>

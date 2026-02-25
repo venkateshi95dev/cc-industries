@@ -1,0 +1,7 @@
+{
+    "name": "crimson/module-corvette-central-custom-fees",
+    "type": "magento2-module",
+    "description": "",
+    "version": "1.0.0",
+    "require": {}
+}

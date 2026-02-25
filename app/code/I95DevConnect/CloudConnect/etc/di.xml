@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_CloudConnect
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="I95DevConnect\CloudConnect\Api\Data\DataInterface"
+                type="I95DevConnect\CloudConnect\Model\Data\Data"/>
+    <preference for="I95DevConnect\CloudConnect\Api\Data\RequestInterface"
+                type="I95DevConnect\CloudConnect\Model\Data\Request"/>
+    <preference for="I95DevConnect\CloudConnect\Api\Data\ResponseInterface"
+                type="I95DevConnect\CloudConnect\Model\Data\Response"/>
+    <preference for="I95DevConnect\CloudConnect\Api\Data\ContextInterface"
+                type="I95DevConnect\CloudConnect\Model\Data\Context"/>
+    <preference for="I95DevConnect\CloudConnect\Api\PullDataInterface"
+                type="I95DevConnect\CloudConnect\Model\PullData"/>
+    <preference for="I95DevConnect\CloudConnect\Api\PushResponseInterface"
+                type="I95DevConnect\CloudConnect\Model\PushResponse"/>
+    <preference for="I95DevConnect\CloudConnect\Api\PushDataInterface"
+                type="I95DevConnect\CloudConnect\Model\PushData"/>
+    <preference for="I95DevConnect\CloudConnect\Api\PullResponseInterface"
+                type="I95DevConnect\CloudConnect\Model\PullResponse"/>
+    <preference for="I95DevConnect\MessageQueue\Model\Logger" type="I95DevConnect\CloudConnect\Model\Logger"/>
+
+    <preference for="I95DevConnect\MessageQueue\Block\Adminhtml\Outbound\Grid"
+                type="I95DevConnect\CloudConnect\Block\Adminhtml\Outbound\Grid"/>
+    <preference for="I95DevConnect\MessageQueue\Block\Adminhtml\MessageQueue\Grid"
+                type="I95DevConnect\CloudConnect\Block\Adminhtml\MessageQueue\Grid"/>
+
+
+    <type name="I95DevConnect\CloudConnect\Model\ServiceMethod\ServiceMethod">
+        <arguments>
+            <argument name="connectServiceRoute" xsi:type="array">
+
+                <item name="getEntityInfo" xsi:type="array">
+                    <item name="classObject" xsi:type="object">
+                        \I95DevConnect\CloudConnect\Model\ServiceMethod\Forward\GetEntityInfo
+                    </item>
+                </item>
+                <item name="getInfoResponse" xsi:type="array">
+                    <item name="classObject" xsi:type="object">
+                        \I95DevConnect\CloudConnect\Model\ServiceMethod\Forward\GetInfoResponse
+                    </item>
+                </item>
+                <item name="erpResponse" xsi:type="array">
+                    <item name="classObject" xsi:type="object">
+                        \I95DevConnect\CloudConnect\Model\ServiceMethod\Forward\ErpResponse
+                    </item>
+                </item>
+                <item name="reverse" xsi:type="array">
+                    <item name="classObject" xsi:type="object">
+                        \I95DevConnect\CloudConnect\Model\ServiceMethod\Reverse\Reverse
+                    </item>
+                </item>
+                <item name="reverseResponse" xsi:type="array">
+                    <item name="classObject" xsi:type="object">
+                        \I95DevConnect\CloudConnect\Model\ServiceMethod\Reverse\ReverseResponse
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\CloudConnect\Model\Service">
+        <arguments>
+            <argument name="serviceEntityCode" xsi:type="array">
+                <item name="product" xsi:type="string">Product</item>
+                <item name="inventory" xsi:type="string">Inventory</item>
+                <item name="Cutomer" xsi:type="string">Customer</item>
+                <item name="CustomerGroup" xsi:type="string">CustomerGroup</item>
+                <item name="order" xsi:type="string">SalesOrder</item>
+                <item name="invoice" xsi:type="string">Invoice</item>
+                <item name="shipment" xsi:type="string">Shipment</item>
+                <item name="cancelorder" xsi:type="string">CancelOrder</item>
+                <item name="configurableproduct" xsi:type="string">ConfigurableProduct</item>
+                <item name="tierprice" xsi:type="string">TierPrices</item>
+                <item name="taxbuspostinggroup" xsi:type="string">TaxBusPostingGroup</item>
+                <item name="taxproductpostinggroup" xsi:type="string">TaxProductPostingGroup</item>
+                <item name="taxpostingsetup" xsi:type="string">TaxPostingSetup</item>
+                <item name="salesQuote" xsi:type="string">SalesQuote</item>
+                <item name="editOrder" xsi:type="string">EditOrder</item>
+                <item name="paymentTerm" xsi:type="string">PaymentTerm</item>
+                <item name="accountreceivables" xsi:type="string">AccountReceivable</item>
+                <item name="cashreceipts" xsi:type="string">CashReceipt</item>
+                <item name="penalty" xsi:type="string">financeCharge</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\CloudConnect\Helper\ConfigHelper">
+        <arguments>
+            <argument name="reverseSkipEntities" xsi:type="array">
+                <item name="address" xsi:type="string">address</item>
+            </argument>
+            <argument name="forwardSkipEntities" xsi:type="array">
+                <item name="address" xsi:type="string">address</item>
+                <item name="shipment" xsi:type="string">shipment</item>
+                <item name="invoice" xsi:type="string">invoice</item>
+                <item name="inventory" xsi:type="string">inventory</item>
+                <item name="taxbuspostinggroup" xsi:type="string">taxbuspostinggroup</item>
+                <item name="taxproductpostinggroup" xsi:type="string">taxproductpostinggroup</item>
+                <item name="taxpostingsetup" xsi:type="string">taxpostingsetup</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="i95devcron-pull-data" xsi:type="object">I95DevConnect\CloudConnect\Console\PullDataCron</item>
+                <item name="i95devcron-pull-response" xsi:type="object">I95DevConnect\CloudConnect\Console\PullResponseCron</item>
+                <item name="i95devcron-push-data" xsi:type="object">I95DevConnect\CloudConnect\Console\PushDataCron</item>
+                <item name="i95devcron-push-response" xsi:type="object">I95DevConnect\CloudConnect\Console\PushResponseCron</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

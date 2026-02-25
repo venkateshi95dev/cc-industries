@@ -1,0 +1,32 @@
+{
+    "name": "crimson/catalog",
+    "description": "",
+    "require": {
+        "php": "~7.3.0|~7.4.0",
+        "magento/module-catalog": "*",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\Catalog\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/Catalog"
+            ]
+        ]
+    }
+}

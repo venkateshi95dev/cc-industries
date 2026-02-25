@@ -1,0 +1,1374 @@
+@charset "UTF-8";
+/*! normalize.css v3.0.1 | MIT License | git.io/normalize */
+/* line 9, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_normalize.scss */
+html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* latin */
+/*@font-face {*/
+    /*font-family: 'Montserrat';*/
+    /*font-style: normal;*/
+    /*font-weight: 400;*/
+    /*src: local('Montserrat-Regular'), url(https://fonts.gstatic.com/s/montserrat/v7/zhcz-_WihjSQC0oHJ9TCYAzyDMXhdD8sAj6OAJTFsBI.woff2) format('woff2');*/
+    /*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;*/
+/*}*/
+
+/*!* latin *!*/
+/*@font-face {*/
+    /*font-family: 'Montserrat';*/
+    /*font-style: normal;*/
+    /*font-weight: 700;*/
+    /*src: local('Montserrat-Bold'), url(https://fonts.gstatic.com/s/montserrat/v7/IQHow_FEYlDC4Gzy_m8fcmaVI6zN22yiurzcBKxPjFE.woff2) format('woff2');*/
+    /*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;*/
+/*}*/
+
+/*!* line 19, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_normalize.scss *!*/
+body {
+    margin: 0;
+}
+
+/*!* line 32, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_normalize.scss *!*/
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+group,
+main,
+nav,
+section,
+summary {
+    display: block;
+}
+
+
+/*!* line 27, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_scaffolding.scss *!*/
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.428571429;
+    color: #333333;
+    background-color: #fff;
+}
+
+.woodenwheels .margin_top2{
+    margin-top: 2em;
+}
+@media (min-width: 768px) {
+    /* line 62, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_type.scss */
+    .lead {
+        font-size: 21px;
+    }
+}
+
+/*!* line 10, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_grid.scss *!*/
+/*.container {*/
+    /*margin-right: auto;*/
+    /*margin-left: auto;*/
+    /*padding-left: 15px;*/
+    /*padding-right: 15px;*/
+/*}*/
+
+@media (min-width: 768px) {
+    /* line 10, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_grid.scss */
+    .container {
+        width: 750px;
+    }
+}
+
+@media (min-width: 992px) {
+    /* line 10, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_grid.scss */
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    /* line 10, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_grid.scss */
+    .container {
+        width: 1170px;
+    }
+}
+
+/*!* line 39, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/_grid.scss *!*/
+/*.row {*/
+    /*margin-left: -15px;*/
+    /*margin-right: -15px;*/
+/*}*/
+
+
+/* line 14, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.row:before, .row:after {
+    content: " ";
+    display: table;
+}
+
+/* line 19, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
+.row:after {
+    clear: both;
+}
+
+@media (min-width: 768px) {
+   /*!* line 35, ../../lib/ruby/compass_extensions/bootstrap-sass-3.2.0.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss *!*/
+    div.col-sm-5 {
+        width: 33.6666666667% !important;
+    }
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+
+
+@media screen and (max-width: 767px) {
+}
+
+
+
+@media (min-width: 768px) {
+}
+
+
+/*!* line 21, ../sass/style.scss *!*/
+body {
+    background: #f5f0e7;
+    font-family: proxima-nova-soft, sans-serif;
+    color: #000;
+}
+
+/*!* line 24, ../sass/style.scss *!*/
+.smooth-hover, .search-btn:hover, .thumb-one a, .thumb-two a, .thumb-three a, .brown-panel-btn, .footer-inn a, .social-icon a {
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    text-decoration: none;
+}
+
+
+/*!*HEADER*!*/
+/*!* line 105, ../sass/style.scss *!*/
+
+.dragracetires .headers {
+    background: url(../images/dragracetires/header.png) center top no-repeat;
+    background-size: cover;
+    padding: 37px 0;
+    position: relative;
+    z-index: 999;
+}
+
+/*!* line 108, ../sass/style.scss *!*/
+.header-left {
+    float: left;
+    width: 870px;
+    border: 2px solid #fff;
+    background: url(../images/dragracetires/header-img.png) center top no-repeat;
+    height: 534px;
+    padding: 30px 450px 0 37px;
+}
+
+/* line 110, ../sass/style.scss */
+.header-left h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    margin: 0px;
+    padding: 0px 0 10px;
+    font-size: 36px;
+}
+
+/* line 111, ../sass/style.scss */
+.header-left h3 {
+    color: #fff;
+    margin: 0px 0 20px;
+    padding: 0px;
+    font-size: 22px;
+    font-family: proxima-nova, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* line 112, ../sass/style.scss */
+.header-left p {
+    color: #fff;
+    margin: 0px;
+    padding: 0px 0 10px;
+    font-size: 18px;
+    line-height: 30px;
+}
+
+/* line 115, ../sass/style.scss */
+.header-right {
+    float: left;
+    width: 300px;
+    border-right: 2px solid #fff;
+    border-top: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+ /*line 117, ../sass/style.scss*/
+.thumb-one {
+    border-bottom: 2px solid #fff;
+    min-height: 177px;
+    background: url(../images/dragracetires/1.png) 0 top no-repeat;
+    padding: 20px 0 0 15px;
+}
+
+/* line 118, ../sass/style.scss */
+.thumb-one h2 {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #1f1004;
+    margin: 0px;
+    text-transform: uppercase;
+    line-height: 20px;
+}
+
+.thumb-one h2:hover, .thumb-two h2:hover, .thumb-three h2:hover {
+    text-decoration: none;
+}
+
+/* line 120, ../sass/style.scss */
+.thumb-one a {
+    color: #1f1004;
+    text-decoration: none;
+}
+
+/* line 121, ../sass/style.scss */
+.thumb-one a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* line 124, ../sass/style.scss */
+.thumb-two {
+    border-bottom: 2px solid #fff;
+    min-height: 177px;
+    background: url(../images/dragracetires/2.png) 0 top no-repeat;
+    padding: 20px 0 0 15px;
+}
+
+/* line 125, ../sass/style.scss */
+.thumb-two h2 {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #1f1004;
+    margin: 0px;
+    text-transform: uppercase;
+    line-height: 20px;
+}
+
+/* line 127, ../sass/style.scss */
+.thumb-two a {
+    color: #1f1004;
+    text-decoration: none;
+}
+
+/* line 128, ../sass/style.scss */
+.thumb-two a:hover {
+    color: #87744b;
+    text-decoration: none;
+}
+
+/* line 131, ../sass/style.scss */
+.thumb-three {
+    min-height: 176px;
+    background: url(../images/dragracetires/3.png) 0 top no-repeat;
+    padding: 20px 0 0 15px;
+}
+
+/* line 132, ../sass/style.scss */
+.thumb-three h2 {
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    margin: 0px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+/* line 134, ../sass/style.scss */
+.thumb-three a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* line 135, ../sass/style.scss */
+.thumb-three a:hover {
+    color: #f7a827;
+    text-decoration: none;
+}
+
+/*NAVIGATION*/
+/* line 140, ../sass/style.scss */
+.navigation {
+    background: none;
+    border: 0px;
+    margin-bottom: 0px;
+    height: auto;
+}
+
+/* line 141, ../sass/style.scss */
+.navigation-inn {
+    margin: 0px;
+    padding: 0px;
+}
+
+/* line 143, ../sass/style.scss */
+.navigation-inn li {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-family: proxima-nova, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    color: #3b2319;
+    background: url(../images/dragracetires/border.png) center right no-repeat;
+    margin-right: 9px;
+    padding-right: 9px;
+}
+
+/* line 144, ../sass/style.scss */
+.navigation-inn a {
+    color: #3b2319 !important;
+}
+
+/* line 145, ../sass/style.scss */
+.navigation-inn a:hover {
+    color: #459de8 !important;
+}
+
+/* line 146, ../sass/style.scss */
+.navigation-inn ul li ul {
+    background: #f4e0b4;
+}
+
+/* line 147, ../sass/style.scss */
+.navigation-inn ul li li {
+    background: none;
+    width: 100%;
+    padding: 0px 0px;
+}
+
+/* line 150, ../sass/style.scss */
+.blog-img {
+    float: left;
+    margin-top: 12px;
+    margin-left: 10px;
+}
+
+/*BROWN PANEL*/
+/* line 182, ../sass/style.scss */
+.brown-panel {
+    background: url(../images/dragracetires/brown-bg-2.png) left top no-repeat;
+    margin: -13px 0 60px;
+    padding: 122px 0;
+    color: #fff;
+}
+
+/* line 183, ../sass/style.scss */
+.brown-panel h2 {
+    font-size: 35px;
+    margin: 0px;
+    padding: 0 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* line 184, ../sass/style.scss */
+.brown-panel p {
+    font-size: 16px;
+    line-height: 30px;
+}
+
+/* line 186, ../sass/style.scss */
+.brown-panel h3 {
+    margin: 0px;
+    padding: 0 0 15px;
+    font-size: 22px;
+    font-family: proxima-nova, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* line 192, ../sass/style.scss */
+.brown-panel-btn {
+    background: #c21734;
+    color: #fff;
+    padding: 10px 40px;
+    text-decoration: none;
+    font-size: 13px;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0px;
+    text-align: center;
+    border-radius: 20px;
+    font-family: "gothamMedium";
+}
+
+/* line 194, ../sass/style.scss */
+.brown-panel-btn:hover {
+    background: #fff;
+    color: #c21734;
+    text-decoration: none;
+}
+
+/*HOME CONTENT*/
+/* line 199, ../sass/style.scss */
+.home-content-left {
+    padding-right: 40px;
+    margin-bottom: 50px;
+}
+
+/* line 200, ../sass/style.scss */
+.home-content-left h2 {
+    font-size: 18px;
+    margin: 0px;
+    padding: 0 0 15px;
+    color: #1f1004;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* line 202, ../sass/style.scss */
+.home-content-left img {
+    border-radius: 10px;
+    border: 2px solid #fff;
+    margin-bottom: 20px;
+}
+
+/* line 203, ../sass/style.scss */
+.home-content-left p {
+    font-size: 16px;
+    line-height: 30px;
+}
+
+/* line 205, ../sass/style.scss */
+.home-content-left h3 {
+    font-size: 22px;
+    margin: 0px;
+    padding: 0 0 15px;
+    font-family: proxima-nova, sans-serif;
+    font-style: normal;
+    font-weight: 700;
+}
+
+/* line 209, ../sass/style.scss */
+.home-content-right {
+    margin: 0px;
+    padding-left: 40px;
+}
+
+/* line 210, ../sass/style.scss */
+.home-content-right h2 {
+    font-size: 18px;
+    margin: 0px;
+    padding: 0 0 15px;
+    color: #1f1004;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* line 212, ../sass/style.scss */
+.home-content-right img {
+    border-radius: 10px;
+    border: 2px solid #fff;
+    margin-bottom: 20px;
+}
+
+/* line 213, ../sass/style.scss */
+.home-content-right p {
+    font-size: 16px;
+    line-height: 30px;
+}
+
+/*!*RACER TIPS*!*/
+/*!* line 219, ../sass/style.scss *!*/
+/*.racer-tips {*/
+    /*margin: 0px 0 30px 0px;*/
+    /*padding: 75px 0 0px 45px;*/
+    /*background: url(../images/dragracetires/car.png) left top no-repeat;*/
+    /*height: 354px;*/
+/*}*/
+
+/* line 220, ../sass/style.scss */
+.racer-tips h2 {
+    font-size: 52px;
+    margin: 0px;
+    padding: 0 0 10px;
+    color: #1f1004;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* line 221, ../sass/style.scss */
+.racer-tips h3 {
+    font-size: 23px;
+    color: #1f1004;
+    margin: 0px;
+    padding: 0 0 0px;
+}
+
+/*!*FOOTER*!*/
+
+
+/*!*MEDIA QUERIES*!*/
+@media screen and (min-width: 320px) and (max-width: 380px) {
+
+
+    /* line 328, ../sass/style.scss */
+    .header-left {
+        width: 100%;
+        padding: 20px;
+        height: auto;
+    }
+
+    /* line 329, ../sass/style.scss */
+    .header-left h2 {
+        font-size: 23px;
+    }
+
+    /* line 330, ../sass/style.scss */
+    .header-left p {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    /* line 331, ../sass/style.scss */
+    .header-left img {
+        width: 100%;
+    }
+
+    /* line 332, ../sass/style.scss */
+    .header-right img {
+        width: 100%;
+    }
+
+    /* line 333, ../sass/style.scss */
+    .header-right {
+        width: 100%;
+        border: 2px solid #fff;
+    }
+
+    /*!* line 334, ../sass/style.scss *!*/
+    .thumb-one {
+        background-size: cover;
+    }
+
+    /* line 335, ../sass/style.scss */
+    .thumb-two {
+        background-size: cover;
+    }
+
+    /* line 336, ../sass/style.scss */
+    .thumb-three {
+        background-size: cover;
+    }
+
+    /* line 337, ../sass/style.scss */
+    .brown-panel {
+        padding: 40px 0;
+        background-size: auto 100%;
+    }
+
+    /* line 338, ../sass/style.scss */
+    .tire {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        width: 80%;
+    }
+
+    /* line 339, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 20px;
+    }
+
+    /* line 340, ../sass/style.scss */
+    .brown-panel h3 {
+        font-size: 19px;
+        padding-bottom: 10px;
+    }
+
+    /* line 341, ../sass/style.scss */
+    .red-title {
+        margin: 10px 0 20px;
+        width: 100%;
+    }
+
+    /* line 342, ../sass/style.scss */
+    .brown-panel p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    /* line 343, ../sass/style.scss */
+    .home-content-left {
+        padding-right: 15px;
+    }
+
+    /* line 344, ../sass/style.scss */
+    .middle-content-img {
+        display: none;
+    }
+
+    /* line 345, ../sass/style.scss */
+    .home-content-right {
+        padding-left: 15px;
+    }
+
+    /* line 346, ../sass/style.scss */
+    /*.racer-tips {*/
+        /*background: url(../images/dragracetires/car.png) center top no-repeat;*/
+        /*background-size: 100%;*/
+        /*padding: 75px 15px 0px 15px;*/
+        /*height: auto;*/
+    /*}*/
+
+    /* line 347, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* line 348, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+
+
+    /*!* line 365, ../sass/style.scss *!*/
+    /*.row {*/
+        /*margin-right: 0;*/
+        /*margin-left: 0;*/
+    /*}*/
+
+    /* line 366, ../sass/style.scss */
+    .brown-panel-btn {
+        padding: 10px;
+        font-size: 10px;
+    }
+}
+
+@media screen and (min-width: 381px) and (max-width: 480px) {
+
+    /* line 380, ../sass/style.scss */
+    .header-left {
+        width: 100%;
+        padding: 20px;
+        height: auto;
+        float: none;
+    }
+
+    /* line 381, ../sass/style.scss */
+    .header-left h2 {
+        font-size: 23px;
+    }
+
+    /* line 382, ../sass/style.scss */
+    .header-left p {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    /* line 383, ../sass/style.scss */
+    .header-left img {
+        width: 100%;
+    }
+
+    /* line 384, ../sass/style.scss */
+    .header-right img {
+        width: 100%;
+    }
+
+    /* line 385, ../sass/style.scss */
+    .header-right {
+        width: 311px;
+        float: none;
+        margin: 10px auto;
+        border: 2px solid #fff;
+    }
+
+    /*!* line 386, ../sass/style.scss *!*/
+    .thumb-one {
+        background-size: 100% 100%;
+    }
+
+    /* line 387, ../sass/style.scss */
+    .thumb-two {
+        background-size: 100% 100%;
+    }
+
+    /* line 388, ../sass/style.scss */
+    .thumb-three {
+        background-size: 100% 100%;
+    }
+
+    /* line 389, ../sass/style.scss */
+    .brown-panel {
+        padding: 40px 0;
+        background-size: auto 100%;
+    }
+
+    /* line 390, ../sass/style.scss */
+    .tire {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        width: 80%;
+    }
+
+    /* line 391, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 20px;
+    }
+
+    /* line 392, ../sass/style.scss */
+    .red-title {
+        margin: 3px 0 10px;
+    }
+
+    /* line 393, ../sass/style.scss */
+    .brown-panel p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    /* line 394, ../sass/style.scss */
+    .home-content-left {
+        padding-right: 15px;
+    }
+
+    /* line 395, ../sass/style.scss */
+    .middle-content-img {
+        display: none;
+    }
+
+    /* line 396, ../sass/style.scss */
+    .home-content-right {
+        padding-left: 15px;
+    }
+
+    /* line 397, ../sass/style.scss */
+    /*.racer-tips {*/
+        /*background: url(../images/dragracetires/car.png) center top no-repeat;*/
+        /*background-size: 100%;*/
+        /*padding: 75px 15px 0px 15px;*/
+        /*height: auto;*/
+    /*}*/
+
+    /* line 398, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* line 399, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    /*!*!* line 416, ../sass/style.scss *!*!*/
+    /*.row {*/
+        /*margin-right: 0;*/
+        /*margin-left: 0;*/
+    /*}*/
+}
+
+@media screen and (min-width: 481px) and (max-width: 550px) {
+
+    /* line 432, ../sass/style.scss */
+    .header-left {
+        width: 100%;
+        padding: 20px;
+        height: auto;
+        float: none;
+    }
+
+    /* line 433, ../sass/style.scss */
+    .header-left h2 {
+        font-size: 23px;
+    }
+
+    /* line 434, ../sass/style.scss */
+    .header-left p {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    /* line 435, ../sass/style.scss */
+    .header-left img {
+        width: 100%;
+    }
+
+    /* line 436, ../sass/style.scss */
+    .header-right img {
+        width: 100%;
+    }
+
+    /* line 437, ../sass/style.scss */
+    .header-right {
+        width: 311px;
+        float: none;
+        margin: 10px auto;
+        border: 2px solid #fff;
+    }
+
+    /*!* line 438, ../sass/style.scss *!*/
+    .thumb-one {
+        background-size: 100% 100%;
+    }
+
+    /* line 439, ../sass/style.scss */
+    .thumb-two {
+        background-size: 100% 100%;
+    }
+
+    /* line 440, ../sass/style.scss */
+    .thumb-three {
+        background-size: 100% 100%;
+    }
+
+    /* line 441, ../sass/style.scss */
+    .brown-panel {
+        padding: 40px 0;
+        background-size: auto 100%;
+    }
+
+    /* line 442, ../sass/style.scss */
+    .tire {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        width: 80%;
+    }
+
+    /* line 443, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 20px;
+    }
+
+    /* line 444, ../sass/style.scss */
+    .red-title {
+        margin: 3px 0 10px;
+    }
+
+    /* line 445, ../sass/style.scss */
+    .brown-panel p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    /* line 446, ../sass/style.scss */
+    .home-content-left {
+        padding-right: 15px;
+    }
+
+    /* line 447, ../sass/style.scss */
+    .middle-content-img {
+        display: none;
+    }
+
+    /* line 448, ../sass/style.scss */
+    .home-content-right {
+        padding-left: 15px;
+    }
+
+    /* line 449, ../sass/style.scss */
+    /*.racer-tips {*/
+        /*background: url(../images/dragracetires/car.png) center top no-repeat;*/
+        /*background-size: 100%;*/
+        /*padding: 115px 15px 0px 15px;*/
+        /*height: auto;*/
+    /*}*/
+
+    /* line 450, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* line 451, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    /*!* line 469, ../sass/style.scss *!*/
+    /*.row {*/
+        /*margin-right: 0;*/
+        /*margin-left: 0;*/
+    /*}*/
+}
+
+@media screen and (min-width: 551px) and (max-width: 650px) {
+
+    /* line 484, ../sass/style.scss */
+    .header-left {
+        width: 100%;
+        padding: 20px;
+        height: auto;
+        float: none;
+    }
+
+    /* line 485, ../sass/style.scss */
+    .header-left h2 {
+        font-size: 23px;
+    }
+
+    /* line 486, ../sass/style.scss */
+    .header-left p {
+        font-size: 15px;
+        line-height: 23px;
+    }
+
+    /* line 487, ../sass/style.scss */
+    .header-left img {
+        width: 100%;
+    }
+
+    /* line 488, ../sass/style.scss */
+    .header-right img {
+        width: 100%;
+    }
+
+    /* line 489, ../sass/style.scss */
+    .header-right {
+        width: 311px;
+        float: none;
+        margin: 10px auto;
+        border: 2px solid #fff;
+    }
+
+    /*!* line 490, ../sass/style.scss *!*/
+    .thumb-one {
+        background-size: 100% 100%;
+    }
+
+    /* line 491, ../sass/style.scss */
+    .thumb-two {
+        background-size: 100% 100%;
+    }
+
+    /* line 492, ../sass/style.scss */
+    .thumb-three {
+        background-size: 100% 100%;
+    }
+
+    /* line 493, ../sass/style.scss */
+    .brown-panel {
+        padding: 40px 0;
+        background-size: auto 100%;
+    }
+
+    /* line 494, ../sass/style.scss */
+    .tire {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        width: 80%;
+    }
+
+    /* line 495, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 20px;
+    }
+
+    /* line 496, ../sass/style.scss */
+    .red-title {
+        margin: 3px 0 10px;
+    }
+
+    /* line 497, ../sass/style.scss */
+    .brown-panel p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    /* line 498, ../sass/style.scss */
+    .home-content-left {
+        padding-right: 15px;
+    }
+
+    /* line 499, ../sass/style.scss */
+    .middle-content-img {
+        display: none;
+    }
+
+    /* line 500, ../sass/style.scss */
+    .home-content-right {
+        padding-left: 15px;
+    }
+
+    /* line 501, ../sass/style.scss */
+    /*.racer-tips {*/
+        /*background: url(../images/dragracetires/car.png) center top no-repeat;*/
+        /*background-size: 100%;*/
+        /*padding: 120px 15px 0px 15px;*/
+        /*height: auto;*/
+    /*}*/
+
+    /* line 502, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 30px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    /* line 503, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    /*!* line 520, ../sass/style.scss *!*/
+    /*.row {*/
+        /*margin-right: 0;*/
+        /*margin-left: 0;*/
+    /*}*/
+}
+
+@media screen and (min-width: 651px) and (max-width: 767px) {
+
+    /*!* line 536, ../sass/style.scss *!*/
+    .brown-panel {
+        padding: 40px 0;
+        background-size: auto 100%;
+    }
+
+    /* line 537, ../sass/style.scss */
+    .tire {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        width: 80%;
+    }
+
+    /* line 538, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 20px;
+    }
+
+    /* line 539, ../sass/style.scss */
+    .red-title {
+        margin: 3px 0 10px;
+    }
+
+    /* line 540, ../sass/style.scss */
+    .brown-panel p {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    /* line 541, ../sass/style.scss */
+    .home-content-left {
+        padding-right: 15px;
+    }
+
+    /* line 542, ../sass/style.scss */
+    .middle-content-img {
+        display: none;
+    }
+
+    /* line 543, ../sass/style.scss */
+    .home-content-right {
+        padding-left: 15px;
+    }
+
+    /* line 544, ../sass/style.scss */
+    /*.racer-tips {*/
+        /*background: url(../images/dragracetires/car.png) center top no-repeat;*/
+        /*background-size: 100%;*/
+        /*padding: 40px 15px 0px 15px;*/
+        /*height: 190px;*/
+        /*background-size: 100% 100%;*/
+    /*}*/
+
+    /* line 545, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 24px;
+    }
+
+    /* line 546, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 16px;
+    }
+
+    /*!* line 564, ../sass/style.scss *!*/
+    .brown-panel-btn {
+        padding: 10px 25px;
+    }
+
+    /* line 565, ../sass/style.scss */
+    .brown-panel h3 {
+        font-size: 20px;
+    }
+
+    /* line 567, ../sass/style.scss */
+    .header-left {
+        width: 58%;
+        padding: 25px;
+    }
+
+    /* line 568, ../sass/style.scss */
+    .header-right {
+        width: 38%;
+    }
+
+    /* line 569, ../sass/style.scss */
+    .header-space {
+        padding: 0 15px;
+        margin: 0 15px;
+    }
+
+    /* line 570, ../sass/style.scss */
+    .header-inn {
+        float: left;
+        width: 100%;
+        margin: 0 15px;
+    }
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+
+    /*!* line 612, ../sass/style.scss *!*/
+    .racer-tips {
+        background-size: 105% 90%;
+        padding: 65px 0 0px 20px;
+        height: 320px;
+    }
+
+    /* line 613, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 40px;
+    }
+
+    /* line 614, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+    }
+
+    /* line 615, ../sass/style.scss */
+    .brown-panel {
+        padding: 80px 0 60px;
+        background-size: auto 100%;
+    }
+
+    /* line 616, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 30px;
+    }
+
+    /* line 617, ../sass/style.scss */
+    .red-title {
+        margin: 10px 0 20px;
+    }
+
+    /* line 618, ../sass/style.scss */
+    .home-content-left h2 {
+        font-size: 16px;
+    }
+
+    /* line 619, ../sass/style.scss */
+    .home-content-right h2 {
+        font-size: 16px;
+        padding-bottom: 23px;
+    }
+
+    /* line 622, ../sass/style.scss */
+    .header-left {
+        width: 58%;
+        padding: 30px 130px 0 37px;
+    }
+
+    /* line 623, ../sass/style.scss */
+    .header-right {
+        width: 38%;
+    }
+
+    /* line 624, ../sass/style.scss */
+    .header-space {
+        padding: 0 15px;
+        margin: 0 15px;
+    }
+
+    /* line 625, ../sass/style.scss */
+    .header-inn {
+        float: left;
+        width: 100%;
+        margin: 0 15px;
+    }
+
+}
+
+@media screen and (min-width: 992px) and (max-width: 1024px) {
+
+    /*!* line 663, ../sass/style.scss *!*/
+    .racer-tips {
+        background-size: 105% 90%;
+        padding: 65px 0 0px 20px;
+        height: 320px;
+    }
+
+    /* line 664, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 40px;
+    }
+
+    /* line 665, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+    }
+
+    /* line 666, ../sass/style.scss */
+    .brown-panel {
+        padding: 80px 0 60px;
+        background-size: auto 100%;
+    }
+
+    /* line 667, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 30px;
+    }
+
+    /* line 668, ../sass/style.scss */
+    .red-title {
+        margin: 10px 0 20px;
+    }
+
+    /* line 669, ../sass/style.scss */
+    .home-content-left h2 {
+        font-size: 16px;
+    }
+
+    /* line 670, ../sass/style.scss */
+    .home-content-right h2 {
+        font-size: 16px;
+    }
+
+    /* line 673, ../sass/style.scss */
+    .header-left {
+        width: 64%;
+        padding: 30px 130px 0 37px;
+    }
+
+    /* line 674, ../sass/style.scss */
+    .header-right {
+        width: 313px;
+    }
+
+    /* line 675, ../sass/style.scss */
+    .header-space {
+        padding: 0 15px;
+        margin: 0 15px;
+    }
+
+    /* line 676, ../sass/style.scss */
+    .header-inn {
+        float: left;
+        width: 100%;
+        margin: 0 15px;
+    }
+}
+
+@media screen and (min-width: 1025px) and (max-width: 1200px) {
+
+    /*!* line 712, ../sass/style.scss *!*/
+    .racer-tips {
+        background-size: 105% 90%;
+        padding: 65px 0 0px 20px;
+        height: 320px;
+    }
+
+    /* line 713, ../sass/style.scss */
+    .racer-tips h2 {
+        font-size: 40px;
+    }
+
+    /* line 714, ../sass/style.scss */
+    .racer-tips h3 {
+        font-size: 20px;
+    }
+
+    /* line 715, ../sass/style.scss */
+    .brown-panel {
+        padding: 80px 0 60px;
+        background-size: auto 100%;
+    }
+
+    /* line 716, ../sass/style.scss */
+    .brown-panel h2 {
+        font-size: 30px;
+    }
+
+    /* line 717, ../sass/style.scss */
+    .red-title {
+        margin: 10px 0 20px;
+    }
+
+    /* line 718, ../sass/style.scss */
+    .home-content-left h2 {
+        font-size: 16px;
+    }
+
+    /* line 719, ../sass/style.scss */
+    .home-content-right h2 {
+        font-size: 16px;
+    }
+
+    /* line 722, ../sass/style.scss */
+    .header-left {
+        width: 64%;
+        padding: 30px 130px 0 37px;
+    }
+
+    /* line 723, ../sass/style.scss */
+    .header-right {
+        width: 313px;
+    }
+
+    /* line 724, ../sass/style.scss */
+    .header-space {
+        padding: 0 15px;
+        margin: 0 15px;
+    }
+
+    /* line 725, ../sass/style.scss */
+    .header-inn {
+        float: left;
+        width: 100%;
+        margin: 0 15px;
+    }
+}
+
+@media screen and (min-width: 991px) and (max-width: 1018px) {
+    /* line 729, ../sass/style.scss */
+    body {
+        overflow-x: hidden;
+    }
+}
+

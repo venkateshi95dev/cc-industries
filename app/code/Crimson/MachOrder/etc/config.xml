@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mach>
+            <order>
+                <export_schedule>*/5 * * * *</export_schedule>
+                <update_from_mach_short_term_number_months>1</update_from_mach_short_term_number_months>
+                <update_from_mach_short_term_schedule>0 */12 * * *</update_from_mach_short_term_schedule>
+                <update_from_mach_long_term_number_months>3</update_from_mach_long_term_number_months>
+                <update_from_mach_long_term_schedule>35 21 * * *</update_from_mach_long_term_schedule>
+                <mach_order_update_scheduled>*/10 * * * *</mach_order_update_scheduled>
+                <add_order_error_threshold>5</add_order_error_threshold>
+                <atypical_shipping_method_mach_code>EXS</atypical_shipping_method_mach_code>
+            </order>
+        </mach>
+    </default>
+</config>

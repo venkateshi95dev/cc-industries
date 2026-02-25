@@ -1,0 +1,32 @@
+{
+    "name": "crimson/machcatalog",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "crimson/machbase": "*",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "2.3.0",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\MachCatalog\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/MachCatalog"
+            ]
+        ]
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "name": "silk/module-cndocument",
+    "description": "CN Document for Pantone",
+    "config":
+    {
+        "sort-packages": true
+    },
+    "require":
+    {
+        "magento/framework": "*"
+    },
+    "type": "magento2-module",
+    "autoload":
+    {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4":
+        {
+            "Silk\\ProductImage\\": ""
+        }
+    },
+    "version": "1.0.0"
+}

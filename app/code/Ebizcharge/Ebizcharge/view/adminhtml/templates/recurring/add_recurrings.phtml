@@ -1,0 +1,336 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\Recurring\Recurrings;
+
+/**
+ * @var Recurrings $block
+ */
+
+$_code = 'payment';
+$viewModel = $block->getViewModel();
+$requestCC = $block->getRequestCardCodeAdmin();
+$getAchStatus = $block->getAchStatus();
+$requestCC = ($requestCC == true) ? 1 : 0;
+$suggessionsActionUrl = $block->getSuggessionActionUrl();
+$loaderImageSrc = $block->getLoader();
+
+/** @var  $defaultDropDownProducts */
+$defaultDropDownProducts = $block->getDefaultDropDownProducts();
+/** @var  $defaultDropDownCustomers */
+$defaultDropDownCustomers = $block->getDefaultDropDownCustomers();
+$disabled = $block->isRecurringFieldsDisabled();
+?>
+
+<div id="ebiz-avs-cvv-msg-div">
+    <div class="messages">
+        <div class="message message-error error">
+            <div id="avs-cvv-msg"></div>
+        </div>
+    </div>
+</div>
+
+<div id="container" class="main-col recurring-main-panel-container">
+    <form class=""
+          action="<?= $block->escapeUrl($block->getUrl(
+              'ebizcharge_ebizcharge/recurrings/saveaction',
+              ['_secure' => true]
+          )) ?>"
+          method="post" id="subscription-add-form" enctype="multipart/form-data"
+          data-hasrequired="<?= /** @noEscape */ __('* Required Fields'); ?>">
+        <div class="mainContainer">
+            <?= /** @noEscape */ $block->getBlockHtml('formkey'); ?>
+            <input type="hidden" name="requestCC" id="requestCC" value="<?= /** @noEscape */ $requestCC; ?>">
+            <input type="hidden" name="addressActionUrl" id="addressActionUrl"
+                   value="<?= $block->escapeUrl($block->getUrl(
+                       'ebizcharge_ebizcharge/recurrings/addressaction'
+                   )) ?>">
+            <input type="hidden" name="loadCustomerUrl" id="loadCustomerUrl"
+                   value="<?= $block->escapeUrl($block->getUrl(
+                       'ebizcharge_ebizcharge/recurrings/loadcustomeraction'
+                   )) ?>">
+            <input type="hidden" name="loadCustomerAddressUrl" id="loadCustomerAddressUrl"
+                   value="<?= $block->escapeUrl($block->getUrl(
+                       'ebizcharge_ebizcharge/recurrings/loadcustomeraddressaction'
+                   )) ?>">
+            <input type="hidden" name="recurringAlreadyExistUrl" id="recurringAlreadyExistUrl"
+                   value="<?= $block->escapeUrl($block->getUrl(
+                       'ebizcharge_ebizcharge/recurrings/recurringexist'
+                   )) ?>">
+            <input type="hidden"
+                   value="<?= /** @noEscape */ $loaderImageSrc; ?>"
+                   id="search_image_loader_src"/>
+            <input type="hidden"
+                   value="<?= $block->escapeUrl($suggessionsActionUrl) ?>"
+                   id="suggessions_search_action_url"/>
+
+            <input type="hidden" name="payment_method_name" id="payment_method_name" value=""/>
+            <input type="hidden" name="surcharge_amount" id="ec-surcharge-amount" value="0"/>
+            <input type="hidden" name="surcharge_percentage" id="ec-surcharge-percentage" value="0"/>
+            <input type="hidden" name="tax_amount" id="tax-amount" value="0"/>
+            <input type="hidden" name="shipping_amount" id="shipping-amount" value="0"/>
+            <input type="hidden" name="quote_id" id="quote-id" value="0"/>
+            <input type="hidden" name="grand_total" id="grand-total" value="0"/>
+
+
+
+
+            <div class="fr-main">
+                <div class="fr-left">
+                    <span ><?= /** @noEscape */ __('Select Customer') ?></span>
+                </div>
+                <div class="fr-right">
+                    <div class="frmSearch">
+                        <input type="text"
+                               autocomplete="none"
+                               name="customer_select"
+                               class="width-custom-fifty admin__control-select quote-updater-event required required-entry"
+                               id="customer-search-box"
+                               placeholder="&#128270;  <?= /** @noEscape */ __("Search customer by name, ID")?>"
+                               data-msg-required="Please select valid customer."
+                            <?= /** @noEscape */ $disabled;?>
+                        />
+                        <div <?= /** @noEscape */ $disabled;?>
+                            class="suggession-container"
+                            id="customers-suggesstion-box"><?= /** @noEscape */ $defaultDropDownCustomers ?></div>
+                    </div>
+                    <input type="hidden" class="quote-updater-event" name="customer_id" id="selectdivCustomer" value=""/>
+
+                </div>
+            </div>
+            <div class="fr-main">
+                <div class="fr-left">
+                    <span class="red-asterisk"><?= /** @noEscape */ __('Select Product') ?></span>
+                </div>
+                <div class="fr-right">
+                    <div class="frmSearch">
+
+                        <input autocomplete="off"
+                               type="text"
+                               class="width-custom-fifty subscribe-pre-action  quote-updater-event admin__control-select required required-entry"
+                               id="product-search-box"
+                               placeholder="&#128270; <?= /** @noEscape */ __("Search Products name, sku, id")?>"
+                               data-msg-required="Please select a product."
+                            <?= /** @noEscape */ $disabled ?>
+                        />
+                        <div class="suggession-container "
+                             id="product-suggesstion-box"><?= /** @noEscape */ $defaultDropDownProducts ?></div>
+                    </div>
+                    <input type="hidden" class="quote-updater-event" name="product_id" id="selectdivProduct" value=""/>
+
+                </div>
+            </div>
+
+            <div class="fr-main">
+                <div class="fr-left">
+                    <span class="red-asterisk"><?= /** @noEscape */ __('Select Quantity') ?></span>
+                </div>
+                <div class="fr-right">
+                    <input type="number" class="qtyWidth subscribe-pre-action quote-updater-event"
+                           name="qty"
+                           id="qty"
+                           value="1"
+                           minlength="1" maxlength="3" oninput="this.value = this.value.replace(/[^1-9\.]/g,'');"
+                           <?= /** @noEscape */ $disabled;?>
+                           data-validate='{"required":true}'
+                           data-msg-required="Please select product quantity."/>
+                </div>
+            </div>
+            <br/>
+            <div class="new-line"></div>
+            <div class="fr-main">
+                <div class="subscribed-items" id="subscribed-items"></div>
+            </div>
+
+            <div class="new-line"></div>
+            <br/><br/>
+            <p class="border"></p>
+            <div class="fr-main">
+                <h2 class="label"><?= /** @noEscape */ __('Customer Addresses: ') ?></h2>
+                <br/>
+
+                <button type="button"
+                        class="action subscribe-pre-action"
+                        id="address_btn"
+                        data-trigger="trigger"
+                        <?= /** @noEscape */ $disabled?>>
+                    <span data-bind="i18n: 'Add Address'"></span>
+                </button>
+            </div>
+
+            <div class="fr-main">
+                <div class="fr-left">
+                    <span class="red-asterisk"><?= /** @noEscape */ __('Billing Address')?></span>
+                </div>
+                <div class="fr-right">
+                    <select name="addressBill"
+                            class="width-custom-fifty  subscribe-pre-action quote-updater-event admin__control-select required required-entry"
+                            id="addressBill"
+                            data-validate="{required:true}"
+                            data-msg-required="Please select billing address." <?= /** @noEscape */ $disabled ?>>
+                        <option value=""><?= /** @noEscape */ __('Select Billing Address')?></option>
+                    </select>
+                </div>
+            </div>
+            <div class="fr-main">
+                <div class="fr-left">
+                    <span class="red-asterisk"><?= /** @noEscape */ __('Shipping Address')?></span>
+                </div>
+                <div class="fr-right">
+                    <select name="addressShip"
+                            class="width-custom-fifty  subscribe-pre-action quote-updater-event admin__control-select required required-entry"
+                            id="addressShip"
+                            data-validate="{required:true}"
+                            data-msg-required="Please select shipping address." <?= /** @noEscape */ $disabled ?>>
+                        <option value=""><?= /** @noEscape */ __('Select Shipping Address')?></option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="new-line"></div>
+            <br/><br/>
+            <p class="border"></p>
+            <div class="recUpdate">
+
+                <div class="fr-main">
+                    <h2 class="label"><?= /** @noEscape */ __('Subscription Information: ')?></h2>
+                    <br/>
+
+                    <div class="fr-left">
+                        <span class="red-asterisk"><?= /** @noEscape */ __('Frequency')?></span>
+                    </div>
+                    <div class="fr-right">
+                        <select name="schedule" id="freqId"
+                                class="admin__control-select  subscribe-pre-action required required-entry"
+                                data-validate="{required:true}"
+                                data-msg-required="Please select valid frequency." <?= /** @noEscape */ $disabled ?>>
+                            <option value=""><?= /** @noEscape */ __('Please select frequency')?></option>
+                            <?php $block->getConfiguredFrequencies(); ?>
+                        </select>
+                    </div>
+
+                    <div class="new-line"></div>
+
+                    <div id="dates">
+                        <div class="fr-left">
+                            <label class="label " for="start_date">
+                                <span class="red-asterisk recurring-dates">
+                                    <?= /** @noEscape */ __('Start Date'); ?>
+                                </span>
+                            </label>&nbsp;
+                        </div>
+                        <div class="fr-right">
+                            <input type="text"
+                                   class="input-text dateclass  subscribe-pre-action start-date required required-entry hasDatepicker
+                                   admin__control-select "
+                                   title="<?= /** @noEscape */ __('Start Date'); ?>"
+                                   name="start_date"
+                                   id="start_date"
+                                   value="<?= /** @noEscape */ $start ?? '' ?>"
+                                   data-input="start_date"
+                                   autocomplete="off"
+                                   data-validate="{required:true}"
+                                   placeholder="YYYY-MM-DD"
+                                   <?= /** @noEscape */ $disabled ?>
+                                   data-msg-required="Please select valid start date."/>
+                        </div>
+                        <div class="new-line"></div>
+                        <div id="end-date-div">
+                            <div class="fr-left">
+                                <label class="label" for="expire_date">
+                                    <span class="red-asterisk "><?= /** @noEscape */ __('End Date'); ?></span>
+                                </label>
+                            </div>
+                            <div class="fr-right">
+                                <input type="text"
+                                       class="dateclass  subscribe-pre-action end-date input-text required required-entry
+                                       admin__control-select"
+                                       title="<?= /** @noEscape */ __('End Date'); ?>"
+                                       name="expire_date"
+                                       id="expire_date"
+                                       value="<?= /** @noEscape */ $expire ?? '' ?>"
+                                       data-input="expire_date"
+                                       autocomplete="off"
+                                       data-validate="{required:true}"
+                                       placeholder="YYYY-MM-DD"
+                                       <?= /** @noEscape */ $disabled ?>
+                                       data-msg-required="Please select valid end date."/>
+                            </div>
+                        </div>
+                        <div class="new-line"></div>
+                        <div class="fr-left">
+                            <label class="label" for="indefinately">
+                                <?= /** @noEscape */ __('Recur Indefinitely'); ?> &nbsp;
+                            </label>
+
+                        </div>
+                        <div class="fr-right">
+                            <div id="indefinately">
+                                <div class="field required indefinately">
+                                    <input <?= /** @noEscape */ $disabled ?>
+                                        type="checkbox"
+                                        class="action action-gift  subscribe-pre-action"
+                                        id="rec_indefinitely"
+                                        name="rec_indefinitely"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="new-line"></div>
+            <br/>
+            <p class="border"></p>
+
+            <div class="fr-main">
+                <h2 class="label"><?= /** @noEscape */ __('Shipping Method: ')?></h2>
+                <br/>
+
+                <div class="fr-left">
+                    <span class="red-asterisk"><?= /** @noEscape */ __('Shipping Method')?></span>
+                </div>
+                <div class="fr-right">
+                    <select name="shipping_method"
+                            class=" admin__control-select  subscribe-pre-action quote-updater-event required required-entry"
+                            id="shippingMethod"
+                            data-validate="{required:true}"
+                            data-msg-required="Please select shipping method.">
+
+                        <?= /** @noEscape */ $block->getShippingMethods(); ?>
+                    </select>
+                </div>
+            </div>
+            <br/>
+            <div class="new-line"></div>
+            <br/> <br/>
+            <p class="border"></p>
+            <div class="fr-main">
+                <h2 class="label"><?= /** @noEscape */ __('Payment Method: ')?></h2>
+
+                <?=
+                /** adding payment panels */
+                /** @noEscape */
+                $block->getChildHtml('ebizcharge.recurrings.payments'); ?>
+            </div>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Crimson_Testimonial::testimonial" title="Testimonial" module="Crimson_Testimonial" sortOrder="70" resource="Crimson_Testimonial::testimonial"/>
+		<add id="Crimson_Testimonial::testimonial_new" title="Add New Testimonial" module="Crimson_Testimonial" sortOrder="10" parent="Crimson_Testimonial::testimonial" action="testimonial/testimonial/new" resource="Crimson_Testimonial::testimonial_edit"/>
+		<add id="Crimson_Testimonial::testimonial_manage" title="Manage Testimonials" module="Crimson_Testimonial" sortOrder="20" parent="Crimson_Testimonial::testimonial" action="testimonial/testimonial/index" resource="Crimson_Testimonial::testimonial"/>
+		<add id="Crimson_Testimonial::category_new" title="Add New Category" module="Crimson_Testimonial" sortOrder="30" parent="Crimson_Testimonial::testimonial" action="testimonial/category/new" resource="Crimson_Testimonial::category_edit"/>
+		<add id="Crimson_Testimonial::category_manage" title="Manage Categories" module="Crimson_Testimonial" sortOrder="40" parent="Crimson_Testimonial::testimonial" action="testimonial/category/index" resource="Crimson_Testimonial::category"/>
+		<add id="Crimson_Testimonial::configuration" title="Settings" module="Crimson_Testimonial" sortOrder="50" parent="Crimson_Testimonial::testimonial" action="adminhtml/system_config/edit/section/testimonial" resource="Crimson_Testimonial::config_testimonial"/>
+	</menu>
+</config>

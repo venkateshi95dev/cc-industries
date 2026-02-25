@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magedelight_Base::root">
+                    <resource id="Magedelight_Base::md_modules">
+                        <resource id="Magedelight_Megamenu::root" title="Magedelight Mega Menu" sortOrder="45">
+                            <resource id="Magedelight_Megamenu::save" title="Save Menu" sortOrder="100" />
+                            <resource id="Magedelight_Megamenu::delete" title="Delete Menu" translate="title" sortOrder="20" />
+                            <resource id="Magedelight_Megamenu::edit" title="Edit Menu" translate="title" sortOrder="20" />
+                            <resource id="Magedelight_Megamenu::menus" title="Manage Menus" translate="title" sortOrder="10" />
+                            <resource id="Magedelight_Megamenu::sampleimport" title="Menu Sample Import" translate="title" sortOrder="10" />
+                            <resource id="Magedelight_Megamenu::label" title="Label Management" translate="title" sortOrder="10" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Magedelight_Base::config_root">
+                               <resource id="Magedelight_Megamenu::config_root" title="Megamenu Configuration" sortOrder="45" />
+                            </resource>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

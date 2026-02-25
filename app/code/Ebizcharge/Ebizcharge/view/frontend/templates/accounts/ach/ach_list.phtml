@@ -1,0 +1,191 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+/**
+ * If there are saved payment methods, this will display a list of all of them.
+ * If there are no saved payment methods, this will display a message with a
+ * button to add a new payment method.
+ *
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\ACH;
+use Magento\Framework\Escaper;
+
+/**
+ * @var ACH $block
+ * @var Escaper $escaper
+ */
+
+$achStatus = $block->getAchStatus();
+$creditCardStatus = $block->getCreditCardsStatus();
+$bankAcountsPaymentMethods = $block->getPaymentMethods();
+?>
+<div class="table-wrapper my-credit-cards">
+
+    <?php if ($achStatus) {
+        ?>
+        <div class="searchTabCustom">
+            <ul class="items order-links">
+
+                <li class="nav item"
+                    onclick="location.href = '<?= /* phpcs:ignore */ $escaper->escapeUrl($block->getUrl('ebizcharge/cards/listaction/')); ?>'">
+                    <span class="payment-tab"><?= /* @noEscape */ __("Stored Cards"); ?></span>
+                </li>
+
+                <?php if ($achStatus) { ?>
+                    <li class="nav item current active-tab">
+                        <span class="payment-tab"><?= /* @noEscape */ __("Stored Bank Accounts"); ?></span>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+        <br/><br/><br/>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a href="<?= $escaper->escapeUrl($block->getUrl(
+                    'ebizcharge/ach/addaction',
+                    ['_secure' => true]
+                )) ?>">
+                    <button type="button"
+                            class="action primary"
+                            title="<?= /* @noEscape */ __('Add New Bank Account'); ?>">
+                        <span><?= /* @noEscape */ __("Add New Bank Account"); ?></span>
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <table class="data table data-list-table">
+            <thead class="data-list-table-headings">
+                <tr>
+                    <th><?= /* @noEscape */ __('Account Holder'); ?></th>
+                    <th><?= /* @noEscape */ __('Account Type & Number'); ?></th>
+                    <th class="text-align-center"><?= /* @noEscape */ __('Routing'); ?></th>
+                    <th class="text-align-center"><?= /* @noEscape */ __('Default'); ?></th>
+                    <th> <?= /* @noEscape */ __('Actions'); ?> </th>
+                </tr>
+            </thead>
+            <tbody class="data-list-table-listings">
+
+            <?php if (count($bankAcountsPaymentMethods) > 0) { ?>
+
+                <?php foreach ($bankAcountsPaymentMethods as $payment) {
+                    $balance = isset($payment->Balance) ? $payment->Balance : 0;
+                    $accountType = $payment->AccountType ?? "*"; ?>
+                    <tr>
+                        <td>
+                            <span class="account-title">
+                                &#9868; <?= $escaper->escapeHtml($payment->AccountHolderName) ?>
+                            </span>
+                        </td>
+                        <td>
+                            <img
+                                src="<?= $escaper->escapeUrl($block->getViewFileUrl(
+                                    'Ebizcharge_Ebizcharge::images/Icon-Bank-Account.svg'
+                                )) ?>"
+                                alt="<?= /* @noEscape */ __("Bank Account"); ?>"/>
+                            <?= $escaper->escapeHtml(
+                                ucwords($accountType) . ' xxxxxxxx' . substr($payment->Account, -4)
+                            ) ?>
+                        </td>
+                        <td class="text-align-center">  <?= $escaper->escapeHtml($payment->Routing ?? '*') ?></td>
+                        <td class="text-align-center">
+                            <?= /* @noEscape */ isset($payment->SecondarySort) && $payment->SecondarySort == 0 ?
+                            '<span class="tick-icon-yes">&#10003; Yes</span>' :
+                            '<span class="tick-icon-no">-</span>'; ?>
+                        </td>
+                        <td data-th="Actions" class="col actions action-width">
+                            <a style="transform: rotate(0deg)"
+                               href="<?= $escaper->escapeUrl($block->getUrl('ebizcharge/ach/editaction', [
+                                '_secure' => true,
+                                'cid' => $block->getCustomerId(),
+                                'mid' => $payment->MethodID,
+                                'method' => urlencode($payment->MethodName)
+                               ])) ?>"
+                               class="icons">
+                                <i class="edit-icon"> &#9998;</i>
+                            </a>
+                            <span class="action-buttons-separator"> | </span>
+
+                            <form class="form float-left"
+                                  action="<?= $escaper->escapeUrl($block->getUrl(
+                                      'ebizcharge/ach/deleteaction'
+                                  )); ?>"
+                                  method="post">
+                                <?= $block->getBlockHtml('formkey'); ?>
+                                <input name="cid"
+                                       value="<?= $escaper->escapeHtml($block->getCustomerId()) ?>"
+                                       type="hidden"/>
+                                <input name="mid"
+                                       value="<?= $escaper->escapeHtml($payment->MethodID) ?>"
+                                       type="hidden"/>
+                                <input name="method"
+                                       value="<?= $escaper->escapeHtml(urlencode($payment->MethodName)) ?>"
+                                       type="hidden"/>
+
+                                <button type="submit"
+                                        class="icons icon-cross delete-action-button"
+                                        data-mage-init='{
+                                        "Ebizcharge_Ebizcharge/js/deleteWidget":{
+                                            "type": "popup",
+                                            "modalClass": "my-credit-cards-popup",
+                                            "toggleEvent": "click",
+                                            "title": "<?= /* @noEscape */ __('Delete') ?>",
+                                            "content": "<?= /* @noEscape */
+                                               __("Are you sure you want to delete this bank account:") .
+                                               $payment->MethodName ?>?"
+                                        }
+                                    }'>
+                                    <i class="delete-button"> &#x292C; </i>
+                                </button>
+                            </form>
+
+                        </td>
+                    </tr>
+                    <?php
+                }
+            } else { ?>
+                <tr>
+                    <td colspan="5">
+                        <div class="message info empty margin-top">
+                            <span><?= /* @noEscape */ __('You have no saved bank accounts.'); ?></span>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+
+        <?php
+    } else { ?>
+
+        <div class="message info empty margin-top">
+            <span>
+                <?= /* @noEscape */
+                __('Bank Account are disabled at Gateway, kindly contact the webmaster.'); ?>
+            </span>
+            <a href="<?= $escaper->escapeUrl($block->getUrl('customer/account/')) ?>"
+               target="_parent"><?= /* @noEscape */ __("Got to Customer Account"); ?></a>
+        </div>
+    <?php } ?>
+</div>

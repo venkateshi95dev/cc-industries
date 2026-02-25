@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
+    <exchange name="magento" type="topic" connection="amqp">
+        <binding id="crimson.abandonmentreport.savestockdata"
+                 topic="crimson.abandonmentreport.savestockdata"
+                 destinationType="queue"
+                 destination="crimson.abandonmentreport.savestockdata"/>
+    </exchange>
+</config>

@@ -1,0 +1,142 @@
+
+<div id="wrapper">
+    <div id="content" class="product margin_btm3">
+      <?php
+       $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+       $cmsPage = $objectManager->get('\Magento\Cms\Model\Page');
+        $cms_id = $cmsPage->getIdentifier();
+        $cms_title =$cmsPage->getTitle();
+        $cms_content = $cmsPage->getContent();
+        $filter = $objectManager->create('Magento\Cms\Model\Template\FilterProvider');
+            $storeId = $objectManager->get('Magento\Store\Model\StoreManagerInterface')->getStore()->getId();
+        $cms_content = $filter->getBlockFilter()->setStoreId($storeId)->filter($cms_content);
+        $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+        $url = $storeManager->getStore()->getBaseUrl();
+        $mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+      ?>
+        <div class="container padding_l05r05 margin_btm3">
+            <div class="row padding0">
+              <div class="cms_left_block col-lg-3 col-sm-4 col-md-3 col-xs-12" style="margin-top: 30px">
+                    <div class="padding_top1">
+                        <div class="padding1 padding_top15">
+                        <?php
+                            switch ($cms_id) {
+                            case 'hot-rod-steel-wheels':
+                                $adlink = 'wheels/hot-rod.html';
+                                $type = 'products';
+                                break;
+                            case 'redline-tires':
+                                $adlink = 'tires/styles/redline-tires.html';
+                                $type = 'products';
+                                break;
+                            case 'model-a-tires':
+                                $adlink = 'universal-model-a-tire.html';
+                                $type = 'products';
+                                break;
+                            case 'wide-white-wall-tires':
+                                $adlink = 'tires/styles/whitewall-tires.html';
+                                $type = 'products';
+                                break;
+                            case 'firestone-bias-ply-tires':
+                                $adlink = 'firestone-bias-ply-pie-crust-whitewall.html';
+                                $type = 'products';
+                                break;
+                            case 'adjustable-spoke-model-a-wheels':
+                                $adlink = 'model-a-wheel-adjustable-spoke.html';
+                                $type = 'products';
+                                break;
+                            case 'firestone-dirt-track':
+                                $adlink = 'tires/brands/firestone-dirt-track.html';
+                                $type = 'products';
+                                break;
+                            case 'firestone-f560':
+                                $adlink = 'firestone-f560-radial-tire.html';
+                                $type = 'products';
+                                break;
+                            case 'low-rider-tires':
+                                $adlink = 'tires/styles/lowrider.html';
+                                $type = 'products';
+                                break;
+                            case 'premium-sport-tires':
+                                $adlink = 'tires/brands/premium-sport.html';
+                                $type = 'products';
+                                break;
+                            case 'radial-whitewall-tires':
+                                $adlink = 'tires.html?sidewall_style=1774&tire_build=1627';
+                                $type = 'products';
+                                break;
+                            case 'cafe-racer':
+                                $adlink = 'tires/styles/motorcycle-bike.html';
+                                $type = 'products';
+                                break;
+                            case 'fiat-500':
+                                $adlink = 'american-classic-1-6-inch-whitewall-185-55r15.html';
+                                $type = 'products';
+                                break;
+                            case 'bfg-radial-ta-tires':
+                                $adlink = 'bf-goodrich-radial-t-a-tires.html';
+                                $type = 'products';
+                                break;
+                            case '16-inch-bias-looking-radials':
+                                $adlink = 'american-classic-bias-look-radial-whitewall.html';
+                                $type = 'products';
+                                break;
+                            case 'real-whitewalls':
+                                $adlink = 'tires/styles/whitewall-tires.html';
+                                $type = 'products';
+                                break;
+                            case 'about-us':
+                                $adlink = 'coker-classic-nostalgia-radial-whitewall.html';
+                                $type = 'about';
+                                break;
+                            case 'history':
+                                $adlink = NULL;
+                                $type = 'history';
+                                break;
+                            default: '';
+                                $adlink = NULL;
+                                $type = NULL;
+                                break;
+                        }
+                        if($adlink):
+                            echo '<div class="margin_btm1">';
+                            echo '<a class="cms-ad" href="'.$url.$adlink.'" title="'.$cms_title.'"><img class="img-responsive" src="'.$block->getViewFileUrl('Silk_Coker::images/'.$type.'/'.$cms_id.'-ad.jpg').'" alt="'.$cms_id.'-ad"/></a>';
+                            echo '</div>';
+                        endif;
+
+                        ?>
+                        <?php echo $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('cms_left_block')->toHtml(); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9 padding0 mobile100 mob_pad1" style="margin: 30px 0;">
+                    <div class="padding_top1">
+                        <div class="page-title">
+                            <h1 class="brown_font uppercase font20"><?php echo $cms_title; ?></h1>
+                            <div class="padding0">
+                                <div class="brown_separator"></div>
+                            </div>
+                            <div class="padding_top1">
+                                <?php
+                                if($type):
+                                    echo '<img class="img-responsive" src="'.$block->getViewFileUrl('Silk_Coker::images/'.$type.'/'.$cms_id.'.jpg').'" alt="'.$cms_id.'"/>';
+                                endif;
+                                ?>
+                            </div>
+                        </div>
+                        <?php echo $cms_content; ?>
+                    </div>
+                    <?php if($adlink): ?>
+                        <div class="margin_top3 visible-xs">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <button class="btn btn-primary btn-lg btn-block text-center" onclick="location.href='<?php echo $url.$adlink; ?>';">Shop <?php echo $cms_title ?></button>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer_push"></div>
+</div>
+

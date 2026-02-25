@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <crimson_weltpixel>
+            <log>
+                <is_enabled>0</is_enabled>
+                <is_enabled_observer>0</is_enabled_observer>
+                <is_override_cookies_enabled>0</is_override_cookies_enabled>
+                <is_log_override_cookies_enabled>0</is_log_override_cookies_enabled>
+            </log>
+        </crimson_weltpixel>
+    </default>
+</config>

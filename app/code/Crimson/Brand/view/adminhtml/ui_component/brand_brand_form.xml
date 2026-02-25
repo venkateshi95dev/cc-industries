@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">brand_brand_form.brand_brand_form_data_source</item>
+            <item name="deps" xsi:type="string">brand_brand_form.brand_brand_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Brand Information</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">brand_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Crimson\Brand\Block\Adminhtml\Brand\Edit\Buttons\Back</item>
+            <item name="delete" xsi:type="string">Crimson\Brand\Block\Adminhtml\Brand\Edit\Buttons\Delete</item>
+            <item name="reset" xsi:type="string">Crimson\Brand\Block\Adminhtml\Brand\Edit\Buttons\Reset</item>
+            <item name="save" xsi:type="string">Crimson\Brand\Block\Adminhtml\Brand\Edit\Buttons\Save</item>
+            <item name="save_and_continue" xsi:type="string">Crimson\Brand\Block\Adminhtml\Brand\Edit\Buttons\SaveAndContinue</item>
+        </item>
+    </argument>
+    <dataSource name="brand_brand_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Crimson\Brand\Model\DataProvider</argument>
+            <argument name="name" xsi:type="string">brand_brand_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">brand_id</argument>
+            <argument name="requestFieldName" xsi:type="string">brand_id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="brand/brand/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="brand_details">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Brand Details</item>
+            </item>
+        </argument>
+        <field name="brand_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Brand ID</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="dataScope" xsi:type="string">brand_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="name" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Name</item>
+                    <item name="dataScope" xsi:type="string">name</item>
+                </item>
+            </argument>
+            <settings>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
+            </settings>
+        </field>
+        <field name="small_image">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="label" xsi:type="string" translate="true">Small Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="previewTmpl" xsi:type="string">Crimson_Brand/small-image-preview</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="brand/brand/upload/field/small_image"/>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="large_image">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">string</item>
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="label" xsi:type="string" translate="true">Large Image</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="formElement" xsi:type="string">imageUploader</item>
+                    <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                    <item name="previewTmpl" xsi:type="string">Crimson_Brand/large-image-preview</item>
+                    <item name="uploaderConfig" xsi:type="array">
+                        <item name="url" xsi:type="url" path="brand/brand/upload/field/large_image"/>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Description</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="dataScope" xsi:type="string">description</item>
+                </item>
+            </argument>
+        </field>
+        <field name="created_at" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">brand</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataScope>created_at</dataScope>
+            </settings>
+        </field>
+        <field name="updated_at" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">brand</item>
+                </item>
+            </argument>
+            <settings>
+                <visible>false</visible>
+                <dataScope>updated_at</dataScope>
+            </settings>
+        </field>
+        <field name="url_key" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">brand</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">URL Key</label>
+                <dataScope>url_key</dataScope>
+            </settings>
+        </field>
+        <field name="cms_id">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Cms\Model\Config\Source\Page</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">CMS Page</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="dataScope" xsi:type="string">cms_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="display">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">brand</item>
+                    <item name="dataScope" xsi:type="string">display</item>
+                    <item name="dataType" xsi:type="string">boolean</item>
+                    <item name="formElement" xsi:type="string">checkbox</item>
+                    <item name="prefer" xsi:type="string">toggle</item>
+                    <item name="toggleLabels" xsi:type="array">
+                        <item name="on" xsi:type="string">Yes</item>
+                        <item name="off" xsi:type="string">No</item>
+                    </item>
+                    <item name="label" xsi:type="string" translate="true">Display on PDP</item>
+                    <item name="valueMap" xsi:type="array">
+                        <item name="true" xsi:type="string">1</item>
+                        <item name="false" xsi:type="string">0</item>
+                    </item>
+                    <item name="default" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

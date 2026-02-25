@@ -1,0 +1,120 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+// Add the tabs container
+?>
+<div class="admin__page-section">
+    <div class="ui-tabs">
+        <ul class="tabs-horiz ">
+            <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active">
+                <a href="#import_settings_content" title="Sample Data Import" class="ui-tabs-anchor">
+                    <?= /* @noEscape */ __('Sample Data Import'); ?>
+                </a>
+            </li>
+            <li class="ui-state-default ui-corner-top">
+                <a href="#file_upload_content" title="Upload XML File" class="ui-tabs-anchor">
+                    <?= /* @noEscape */ __('Upload XML File'); ?>
+                </a>
+            </li>
+        </ul>
+
+        <div class="ui-tabs-panel" id="import_settings_content">
+            <form action="<?= /* @noEscape */ $block->getFormAction() ?>" method="post" enctype="multipart/form-data">
+                <?= $block->getBlockHtml('formkey'); ?>
+                <div class="admin__fieldset-wrapper-content">
+                    <fieldset class="admin__fieldset">
+                        <div class="admin__field">
+                            <label class="admin__field-label" for="override">
+                                <span><?= /* @noEscape */ __('Override Existing Data'); ?></span>
+                            </label>
+                            <div class="admin__field-control">
+                                <select class="admin__control-select" name="override" id="override">
+                                    <option value="1"><?= /* @noEscape */ __('Yes'); ?></option>
+                                    <option value="0"><?= /* @noEscape */ __('No'); ?></option>
+                                </select>
+                                <div class="admin__field-note">
+                                    <span><?= /* @noEscape */ __("If the identifiers of the static blocks and menus are already exist, you can set to \"Yes\" , then click the \"Import\" button."); ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin__field">
+                            <label class="admin__field-label" for="store_id">
+                                <span><?= /* @noEscape */ __('Import Data'); ?></span>
+                            </label>
+                            <div class="admin__field-control">
+                                <input id='importData' type="submit" value="Import" class='action-primary scalable'>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+
+        <div class="ui-tabs-panel" id="file_upload_content" style="display: none;">
+            <form action="<?= /* @noEscape */ $block->getFormAction() ?>" method="post" enctype="multipart/form-data">
+                <?= $block->getBlockHtml('formkey'); ?>
+                <div class="admin__fieldset-wrapper-content">
+                    <fieldset class="admin__fieldset">
+                        <div class="admin__field">
+                            <label class="admin__field-label" for="import_file">
+                                <span><?= /* @noEscape */ __('Upload XML File'); ?></span>
+                            </label>
+                            <div class="admin__field-control">
+                                <input id="import_file" name="import_file" type="file" class="input-file" accept=".xml" required="required">
+                                <div class="admin__field-note">
+                                    <span><?= /* @noEscape */ __("Please upload a valid XML file"); ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin__field">
+                            <label class="admin__field-label" for="file_override">
+                                <span><?= /* @noEscape */ __('Override Existing Data'); ?></span>
+                            </label>
+                            <div class="admin__field-control">
+                                <select class="admin__control-select" name="override" id="file_override">
+                                    <option value="1"><?= /* @noEscape */ __('Yes'); ?></option>
+                                    <option value="0"><?= /* @noEscape */ __('No'); ?></option>
+                                </select>
+                                <div class="admin__field-note">
+                                    <span><?= /* @noEscape */ __("If the identifiers in the XML file already exist, you can set to \"Yes\" to override them."); ?></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="admin__field">
+                            <label class="admin__field-label">Import File</label>
+                            <div class="admin__field-control">
+                                <input id='importXmlFile' type="submit" value="Import XML" class='action-primary scalable'>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    require(['jquery'], function($) {
+        $(document).ready(function() {
+            // Tab switching functionality
+            $('.ui-tabs-anchor').on('click', function(e) {
+                e.preventDefault();
+
+                // Get the target panel ID
+                var targetPanel = $(this).attr('href');
+
+                // Deactivate all tabs
+                $('.tabs-horiz li').removeClass('ui-tabs-active ui-state-active');
+                $('.ui-tabs-panel').hide();
+
+                // Activate clicked tab
+                $(this).parent().addClass('ui-tabs-active ui-state-active');
+                $(targetPanel).show();
+            });
+        });
+    });
+</script>

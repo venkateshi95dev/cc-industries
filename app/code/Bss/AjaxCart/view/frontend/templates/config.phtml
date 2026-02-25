@@ -1,0 +1,52 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxCart
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Bss\AjaxCart\Block\Ajax\Template
+ */
+?>
+<?php
+    $helper = $block->getAjaxHelper();
+    $btnTextColor = $helper->getBtnTextColor();
+    $btnContinueBackground = $helper->getBtnContinueBackground();
+    $btnContinueHover = $helper->getBtnContinueHover();
+    $btnViewcartBackground = $helper->getBtnViewcartBackground();
+    $btnViewcartHover = $helper->getBtnViewcartHover();
+?>
+<style>
+    #bss_ajaxcart_popup .btn-continue .continue {
+        background: #<?php echo $block->escapeHtml($btnContinueBackground); ?>!important;
+        color: #<?php echo $block->escapeHtml($btnTextColor); ?>!important;
+    }
+
+    #bss_ajaxcart_popup .btn-continue .continue:hover {
+        background: #<?php echo $block->escapeHtml($btnContinueHover); ?>!important;
+    }
+
+    #bss_ajaxcart_popup .btn-viewcart .viewcart {
+        background: #<?php echo $block->escapeHtml($btnViewcartBackground); ?>!important;
+        color: #<?php echo $block->escapeHtml($btnTextColor); ?>!important;
+    }
+
+    #bss_ajaxcart_popup .btn-viewcart .viewcart:hover {
+        background: #<?php echo $block->escapeHtml($btnViewcartHover); ?>!important;
+    }
+</style>

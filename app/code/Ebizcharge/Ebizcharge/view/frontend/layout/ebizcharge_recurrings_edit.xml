@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+/**
+* Declares the block and sets the template for the Cards/EditAction controller.
+*
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="head.additional">
+            <block
+                ifconfig="payment/ebizcharge_ebizcharge/active" after="-"
+                class="Magento\Framework\View\Element\Template"
+                name="ebizcharge_ebizcharge.accounts.recurring.edit.css"
+                template="Ebizcharge_Ebizcharge::html/accounts/accounts.phtml"
+            />
+        </referenceContainer>
+        <referenceBlock name="head.components">
+            <block class="Magento\Framework\View\Element\Js\Components" name="customer_account_edit_head_components"
+                   template="Magento_Customer::js/components.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Manage Subscription</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="customer_account_navigation">
+            <action method="setActive">
+                <argument name="path" xsi:type="string">ebizcharge/recurrings/index</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <block class="Ebizcharge\Ebizcharge\Block\Customer\Account\Recurrings" name="ebizcharge.recurrings.update"
+                   cacheable="false" ifconfig="payment/ebizcharge_ebizcharge/active" template="accounts/subscriptions/subscriptions_edit.phtml">
+                <arguments>
+                    <argument name="pciComplianceViewModel" xsi:type="object">Ebizcharge\Ebizcharge\ViewModel\PciCompliance</argument>
+                </arguments>
+                <block class="Ebizcharge\Ebizcharge\Block\Customer\Account\Cards" name="ebizcharge.cards.validate" ifconfig="payment/ebizcharge_ebizcharge/active" template="Ebizcharge_Ebizcharge::accounts/cards/popup/validation-response.phtml" after="-">
+                    <arguments>
+                        <argument name="pciComplianceViewModel" xsi:type="object">Ebizcharge\Ebizcharge\ViewModel\PciCompliance</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

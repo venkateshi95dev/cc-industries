@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="quote_address">
+        <column xsi:type="boolean" name="ship_adv" nullable="false" default="0" comment="Y or N Address Verification"/>
+        <column xsi:type="datetime" name="ship_adv_date" on_update="false" nullable="true" comment="Date Verified"/>
+        <column xsi:type="varchar" name="ship_adv_dpi" nullable="true" length="10" comment="Delivery Point Indicator"/>
+        <column xsi:type="varchar" name="ship_adv_di" nullable="true" length="10" comment="Delivery Indicator (B)usiness (R)esidential"/>
+    </table>
+
+    <table name="sales_order_address">
+        <column xsi:type="boolean" name="ship_adv" nullable="false" default="0" comment="Y or N Address Verification"/>
+        <column xsi:type="datetime" name="ship_adv_date" on_update="false" nullable="true" comment="Date Verified"/>
+        <column xsi:type="varchar" name="ship_adv_dpi" nullable="true" length="10" comment="Delivery Point Indicator"/>
+        <column xsi:type="varchar" name="ship_adv_di" nullable="true" length="10" comment="Delivery Indicator (B)usiness (R)esidential"/>
+    </table>
+</schema>

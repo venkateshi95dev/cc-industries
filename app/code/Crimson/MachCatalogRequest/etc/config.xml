@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <mach>
+            <catalog_request>
+                <enabled>1</enabled>
+                <footer_request_catalog_image_url>https://s3.amazonaws.com/zip-corvette/web/catalogs/catalog-footer-img.png</footer_request_catalog_image_url>
+                <available_catalogs backend_model="Crimson\MachCatalogRequest\Model\System\Config\Backend\ArraySerialized"><![CDATA[{"_1550255436708_708":{"value":"53-62","label":"53-62","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c1-parts-catalog.jpg","sort_order":"1"},"_1550255435493_493":{"value":"63-67","label":"63-67","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c2-parts-catalog.jpg","sort_order":"2"},"_1550255531627_627":{"value":"68-82","label":"68-82","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c3-parts-catalog.jpg","sort_order":"3"},"_1550255532635_635":{"value":"84-96","label":"84-96","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c4-parts-catalog.jpg","sort_order":"4"},"_1550255533558_558":{"value":"97-04","label":"97-04","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c5-parts-catalog.jpg","sort_order":"5"},"_1550255542733_733":{"value":"05-13","label":"05-13","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c6-parts-catalog.jpg","sort_order":"6"},"_1550255545788_788":{"value":"C7","label":"C7","catalog_image_url":"https://s3.amazonaws.com/zip-corvette/web/catalogs/c7-parts-catalog.jpg","sort_order":"7"},"__empty":""}]]></available_catalogs>
+            </catalog_request>
+        </mach>
+
+        <recaptcha_frontend>
+            <type_for>
+                <mach_catalog_request>recaptcha</mach_catalog_request>
+            </type_for>
+        </recaptcha_frontend>
+    </default>
+</config>

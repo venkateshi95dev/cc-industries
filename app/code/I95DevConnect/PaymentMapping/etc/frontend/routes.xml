@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2020 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PaymentMapping
+ */
+-->
+<!--suppress ALL -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="paymentmapping" frontName="paymentmapping">
+            <module name="I95DevConnect_PaymentMapping" />
+        </route>
+    </router>
+</config>

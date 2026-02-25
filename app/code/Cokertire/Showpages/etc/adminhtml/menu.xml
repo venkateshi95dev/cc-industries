@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Cokertire_Showpages::elements" title="Showpages" module="Cokertire_Showpages" parent="Magento_Backend::content" sortOrder="120" resource="Cokertire_Distributors::elements" translate="title"/>
+        <add id="Cokertire_Showpages::showpages" title="Showpages" module="Cokertire_Showpages" parent="Cokertire_Showpages::elements" sortOrder="10" action="showpages/showpages/" resource="Cokertire_Showpages::showpages" translate="title"/>
+    </menu>
+</config>

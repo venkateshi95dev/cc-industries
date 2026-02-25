@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="megamenu_menu_listing_data_source" xsi:type="string">
+                    Magedelight\Megamenu\Model\ResourceModel\Menu\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magedelight\Megamenu\Model\ResourceModel\Menu\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">megamenu_menus</argument>
+            <argument name="eventPrefix" xsi:type="string">megamenu_menu_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">menu_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Magedelight\Megamenu\Model\ResourceModel\Menu</argument>
+        </arguments>
+    </type>
+
+    <preference for="Magento\Theme\Block\Html\Topmenu"
+                type="Magedelight\Megamenu\Block\Topmenu" />
+    <preference for="Magedelight\Megamenu\Api\MegamenuManagementInterface"
+                type="Magedelight\Megamenu\Model\MegamenuManagement" />
+
+    <preference for="Magedelight\Megamenu\Api\CacheRepositoryInterface"
+                type="Magedelight\Megamenu\Model\CacheRepository"/>
+    <preference for="Magedelight\Megamenu\Api\Data\CacheInterface"
+                type="Magedelight\Megamenu\Model\Cache"/>
+    <preference for="Magedelight\Megamenu\Api\Data\CacheSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Magento\Framework\Filesystem\DriverInterface"
+                type="Magento\Framework\Filesystem\Driver\File" />
+
+    <preference for="Magedelight\Megamenu\Api\LabelRepositoryInterface" type="Magedelight\Megamenu\Model\LabelRepository"/>
+    <preference for="Magedelight\Megamenu\Api\Data\LabelInterface" type="Magedelight\Megamenu\Model\Label"/>
+    <preference for="Magedelight\Megamenu\Api\Data\LabelSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Magedelight\Megamenu\Model\ResourceModel\Label\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">megamenu_label</argument>
+            <argument name="resourceModel" xsi:type="string">Magedelight\Megamenu\Model\ResourceModel\Label\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="magedelight_megamenu_label_listing_data_source" xsi:type="string">Magedelight\Megamenu\Model\ResourceModel\Label\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Cache\Type\FrontendPool">
+        <arguments>
+            <argument name="typeFrontendMap" xsi:type="array">
+                <item name="md_megamenu_cache" xsi:type="string">page_cache</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\App\Cache\TypeListInterface">
+        <arguments>
+            <argument name="typesConfig" xsi:type="array">
+                <item name="md_megamenu_cache" xsi:type="array">
+                    <item name="label" xsi:type="string">Mega Menu Cache</item>
+                    <item name="description" xsi:type="string">Cache for Mega Menu HTML</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

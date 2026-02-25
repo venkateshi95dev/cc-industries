@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Crimson\Demographics\Block\Demographics $block
+ */
+?>
+<fieldset class="fieldset create account generation">
+    <legend class="legend"><span><?= __('Additional Information') ?></span></legend>
+    <p>
+        <div class="field car_demos">
+            <label class="generation-selection-message"><?= __('Please select your Corvette generation below (select all that apply)') ?></label>
+            <label for="car_demos" class="label generation-label"><span><?= __('Corvette Generation') ?></span></label>
+            <div class="control" id="car_demos">
+                    <?php foreach ($block->getDemographicsOptions() as $option) : ?>
+                        <?php if (!empty($option['value'])) : ?>
+                            <input type="checkbox"
+                                   name="car_demos[]"
+                                   title="<?= __('Corvette Generation') ?>"
+                                   class="checkbox"
+                                   value="<?= $option['value'] ?>"
+                                   data-validate="{required:false}"
+                            />
+                            <span style="padding-right: 15px;"><?= $option['label'] ?></span>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+            </div>
+        </div>
+    </p>
+</fieldset>

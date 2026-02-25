@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ErrorData
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="i95devconnect_errors_emails_reports" label="Error Reports" file="template.html" type="html" module="I95DevConnect_ErrorData" area="frontend"/>
+    <template id="i95devconnect_error_report" label="Error Report" file="template_error_report.html" type="html" module="I95DevConnect_ErrorData" area="frontend"/>
+</config>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="company_billing_quote_plugin"
+                type="Crimson\Checkout\Plugin\Quote\CompanyBillingQuotePlugin"
+                sortOrder="999" />
+    </type>
+</config>

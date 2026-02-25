@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <update handle="productimage"/>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="img_document_form"/>
+            <block class="Magento\Framework\View\Element\Template" name="product.image.add.product.content" template="Silk_ProductImage::products/add_product.phtml">
+                <block class="Silk\ProductImage\Block\Adminhtml\Product\AddProduct\Tabs" name="product.image.add.product.tabs" as="img_product_add_product_tabs" template="Magento_Backend::widget/tabshoriz.phtml">
+                    <arguments>
+                        <argument name="id" xsi:type="string">img_product_add_product</argument>
+                        <argument name="dest_element_id" xsi:type="string">img_product_add_product_tabs_content</argument>
+                    </arguments>
+                    <block class="Magento\Framework\View\Element\Template" name="product.image.add.product.tabs.nametab" template="Silk_ProductImage::products/add_product/tabs/nametab.phtml" />
+                    <block class="Silk\ProductImage\Block\Adminhtml\Product\AddProduct\Tabs\SkuTab" name="product.image.add.product.tabs.skutab" template="Silk_ProductImage::products/add_product/tabs/skutab.phtml" />
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

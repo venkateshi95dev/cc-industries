@@ -1,0 +1,234 @@
+<?php
+$imageHelper = $this->helper("Crimson\Testimonial\Helper\Image");
+$helper = $this->helper("Crimson\Testimonial\Helper\Data");
+$collection = $this->getTestimonialCollection();
+$blockId = rand() . time();
+$tabId = 'testimonials' . $blockId;
+$tmls_pretext = $helper->getConfig('testimonial_productpage/tmls_pretext');
+$widget_class = $helper->getConfig('testimonial_productpage/widget_class');
+
+// General Setings
+$testimonial_color = $helper->getConfig('testimonial_productpage/testimonial_color');
+$testimonial_bgcolor = $helper->getConfig('testimonial_productpage/testimonial_bgcolor');
+$contetnStyle = '';
+if ($testimonial_color) {
+    $contetnStyle .= 'color:' . $testimonial_color . ';';
+}
+if ($testimonial_bgcolor) {
+    $contetnStyle .= 'background-color:' . $testimonial_bgcolor . ';';
+}
+if ($contetnStyle) {
+    $contetnStyle = 'style="' . $contetnStyle . '"';
+}
+$widget_title = $helper->getConfig('testimonial_productpage/widget_title');
+$show_name = $helper->getConfig('testimonial_productpage/show_name');
+$nickname_color = $helper->getConfig('testimonial_productpage/nickname_color');
+$show_email = $helper->getConfig('testimonial_productpage/show_email');
+$show_company = $helper->getConfig('testimonial_productpage/show_company');
+$show_title = $helper->getConfig('testimonial_productpage/show_title');
+$title_color = $helper->getConfig('testimonial_productpage/title_color');
+$show_rating = $helper->getConfig('testimonial_productpage/show_rating');
+$show_date = $helper->getConfig('testimonial_productpage/show_date');
+$show_socialnetworks = $helper->getConfig('testimonial_productpage/show_socialnetworks');
+$show_job = $helper->getConfig('testimonial_productpage/show_job');
+$show_address = $helper->getConfig('testimonial_productpage/show_address');
+$show_image = $helper->getConfig('testimonial_productpage/show_image');
+$image_width = (int)$helper->getConfig('testimonial_productpage/image_width');
+$image_height = (int)$helper->getConfig('testimonial_productpage/image_height');
+$custom_height = (int)$helper->getConfig('testimonial_productpage/custom_height');
+$show_readmore = $helper->getConfig('testimonial_productpage/show_readmore');
+$readmoreStyle = '';
+if ($testimonial_color) {
+    $readmoreStyle .= 'color:' . $testimonial_color . ';';
+}
+if ($readmoreStyle) {
+    $readmoreStyle = 'style="' . $readmoreStyle . '"';
+}
+$readmore_char = (int)$helper->getConfig('testimonial_productpage/readmore_char');
+$color = $helper->getConfig('testimonial_productpage/color');
+
+// OWL Carousel
+$number_item_percolumn = (int)$helper->getConfig('testimonial_productpage/number_item_percolumn', 4);
+$large_max_items = (int)$helper->getConfig('testimonial_productpage/large_max_items', 6);
+$large_items = (int)$helper->getConfig('testimonial_productpage/large_items', 5);
+$portrait_items = (int)$helper->getConfig('testimonial_productpage/portrait_items', 4);
+$tablet_items = (int)$helper->getConfig('testimonial_productpage/tablet_items', 4);
+$tablet_small_items = (int)$helper->getConfig('testimonial_productpage/tablet_small_items', 2);
+$mobile_items = (int)$helper->getConfig('testimonial_productpage/mobile_items', 1);
+$autoplay = $helper->getConfig('testimonial_productpage/autoplay');
+$autoplay_timeout = (int)$helper->getConfig('testimonial_productpage/autoplay_timeout', 3000);
+$autoplay_hover_pause = $helper->getConfig('testimonial_productpage/autoplay_hover_pause');
+$dots = $helper->getConfig('testimonial_productpage/dots');
+$nav = $helper->getConfig('testimonial_productpage/nav');
+$nav_next = $helper->getConfig('testimonial_productpage/nav_next');
+$nav_pre = $helper->getConfig('testimonial_productpage/nav_pre');
+$rtl = $helper->getConfig('testimonial_productpage/rtl');
+$loop = $helper->getConfig('testimonial_productpage/loop');
+$ajaxBlockId = 'testimonial-carousel-' . $blockId;
+$height_type = $helper->getConfig('testimonial_productpage/height_type');
+$total = $collection->count();
+?>
+<div id="<?= $tabId; ?>" class="block widget tmls-widget tmls-slide tmls-slide1 <?= $widget_class; ?>">
+    <?php if ($widget_title || $tmls_pretext) { ?>
+        <div class="block-title content-heading">
+            <?php if ($widget_title) { ?><h2 class="title"><?= $widget_title ?></h2><?php } ?>
+            <?php if ($tmls_pretext) { ?><p class="info"><?= $tmls_pretext; ?></p><?php } ?>
+        </div>
+    <?php } ?>
+    <?php if ($tmls_pretext) { ?>
+        <div class="tmls-pretext"><?= $tmls_pretext; ?></div>
+    <?php } ?>
+    <div class="tab-content testimonial-content">
+        <?php if ($total) { ?>
+            <div class="tmls-images">
+                <div class="tmls-paginationContainer"></div>
+            </div>
+        <?php } ?>
+        <?php if ($total) { ?>
+            <div class="tmls-contents tmls-slider tmls-slider<?= $blockId ?>" data-autoplay="true" data-pauseonhover="false" data-scrollduration="500" data-pauseduration="9000" data-transitioneffect="crossfade">
+                <?php foreach ($collection as $obj) { ?>
+                    <?php
+                    $imgSrc = $obj->getImage();
+                    if ($image_width && $image_height) {
+                        $imgSrc = $imageHelper->resizeImage($imgSrc, $image_width, $image_height);
+                    } else {
+                        $imgSrc = $helper->getMediaUrl() . $imgSrc;
+                    }
+                    ?>
+                    <div class="tmls-item tmls-item<?= $obj->getId() ?>" data-bgimg="<?= $imgSrc; ?>" data-imageradius="<?= $imgSrc; ?>'">
+                        <?php // Title ?>
+                        <?php if ($show_title): ?>
+                            <div class="tmls-title" <?php if ($title_color){ ?>style="color:<?= $title_color; ?>"<?php } ?>><span><?= $obj->getTitle(); ?></span></div>
+                        <?php endif; ?>
+
+                        <?php // Conent ?>
+                        <?php if ($content = $obj->getTestimonial()): ?>
+                            <div class="tmls-testimonial" <?= $contetnStyle ?>>
+                                <?php if ($show_readmore && (strlen($content) > $readmore_char)){ ?>
+                                <div class="tmls-excerpttext"><?php } ?>
+                                    <?php $excerpttext = ''; ?>
+                                    <?php if ($show_readmore) {
+                                        if (strlen($content) > $readmore_char) {
+                                            $excerpttext = $helper->subString($content);
+                                        }
+                                    } ?>
+                                    <p><?= $excerpttext ?: $content ?>
+                                        <?php if ($show_readmore && (strlen($content) > $readmore_char)) { ?>
+                                            <a href="#" role="button" onclick="return false;" <?= $readmoreStyle ?> class="tmls-readmorelink"><?= __('Read More') ?></a>
+                                        <?php } ?>
+                                    </p>
+                                </div>
+                                <?php if ($show_readmore && (strlen($content) > $readmore_char)) { ?>
+                                    <div class="tmls-fulltext"><p><?= $content; ?></p></div>
+                                <?php } ?>
+                            </div>
+                            <?php $content = ''; ?>
+                        <?php endif; ?>
+
+                        <?php if ($show_date || $show_address || $show_name): ?>
+                            <div class="tmls-meta">
+                                <?php if ($show_date): ?>
+                                    <span class="tmls-date"><?= $obj->getCreateTime(); ?></span>
+                                <?php endif; ?>
+                                <?php if ($show_address): ?>
+                                    <span class="tmls-address"><?= $obj->getAddress(); ?></span>
+                                <?php endif; ?>
+
+                                <?php // WebSite & Company ?>
+                                <?php if (($show_company && $obj->getCompanyName()) || ($show_job && $obj->getJob())) { ?>
+                                    <div class="tmls-company">
+                                        <?php if ($show_job && $obj->getJob()) {
+                                            echo $obj->getJob() . ' / ';
+                                        } ?>
+                                        <?php if (($show_company && $obj->getCompanyName())) { ?>
+                                            <?php $companySite = $obj->getCompanyWebsite(); ?>
+                                            <?php if ($companySite) { ?><a href="<?= $companySite ?>" title="<?= $obj->getCompanyName(); ?>"><?php } ?>
+                                            <span class="tmls-company-website"><?= $obj->getCompanyName(); ?></span>
+                                            <?php if ($companySite) { ?></a><?php } ?>
+                                        <?php } ?>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        <?php endif; ?>
+
+                        <?php // Rating ?>
+                        <?php if ($show_rating) { ?>
+                            <div class="tmls-rating">
+                                <?php
+                                $star = $obj->getRating();
+                                for ($k = 1; $k < 6; $k++) {
+                                    if ($star + 0.5 > $k) {
+                                        $class = "star_" . $k . " ratings_blank ratings_over";
+                                    } else {
+                                        $class = "star_" . $k . " ratings_blank";
+                                    }
+                                    echo '<div class="' . $class . '"></div>';
+                                }
+                                ?>
+                            </div>
+                        <?php } ?>
+                        <?php // Nick Name ?>
+                        <?php if ($show_name): ?>
+                            <div class="tmls-name" <?php if ($nickname_color){ ?>style="color:<?= $nickname_color ?>"<?php } ?>><?= $obj->getNickName(); ?></div>
+                        <?php endif; ?>
+                        <?php // Social Networks ?>
+                        <?php if ($show_socialnetworks) { ?>
+                            <div class="tmls-socialnetworks">
+                                <?php
+                                $linkedin = $obj->getLinkedin();
+                                $facebook = $obj->getFacebook();
+                                $twitter = $obj->getTwitter();
+                                $youtube = $obj->getYoutube();
+                                $vimeo = $obj->getVimeo();
+                                $google = $obj->getGoogleplus();
+                                ?>
+                                <?php if ($linkedin || $facebook || $twitter || $youtube || $vimeo || $google || $show_email) { ?>
+                                    <ul class="list-social">
+                                        <?php if ($linkedin) { ?>
+                                            <li class="icon-social"><a class="facebook" href="<?= $facebook ?>"> <i class="fa fa-facebook"></i> </a></li><?php } ?>
+                                        <?php if ($google) { ?>
+                                            <li class="icon-social"><a class="google" href="<?= $google ?>"> <i class="fa fa-google-plus"></i></a></li><?php } ?>
+                                        <?php if ($twitter) { ?>
+                                            <li class="icon-social"><a class="twitter" href="<?= $twitter ?>"> <i class="fa fa-twitter"></i></a></li><?php } ?>
+                                        <?php if ($youtube) { ?>
+                                            <li class="icon-social"><a class="youtube" href="<?= $youtube ?>"> <i class="fa fa-youtube"></i> </a></li><?php } ?>
+                                        <?php if ($linkedin) { ?>
+                                            <li class="icon-social"><a class="linkedin" href="<?= $linkedin ?>"> <i class="fa fa-linkedin"></i></a></li><?php } ?>
+                                        <?php if ($vimeo) { ?>
+                                            <li class="icon-social"><a class="vimeo" href="<?= $vimeo ?>"> <i class="fa fa-vimeo"></i> </a></li><?php } ?>
+                                        <?php if ($show_email) { ?>
+                                            <li class="icon-social"><a class="email" href="mailto:<?= $obj->getEmail() ?>"> <i class="fa fa-envelope"></i></a></li><?php } ?>
+                                    </ul>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+        <script>
+            require(['jquery'], function ($) {
+                $(document).ready(function () {
+                    require(['jquery',
+                        'Crimson_Testimonial/js/carouFredSel',
+                        'Crimson_Testimonial/js/testimonial-carousel'], function ($, carouFredSel, testimonial) {
+                        jQuery(document).ready(function ($) {
+                            var testimonial = $('#<?= $tabId; ?>').testimonial().data('ves-testimonial');
+                            testimonial.tmlsSliderPlay($('.tmls-slider<?= $blockId ?>'));
+                            //tmls_slider_play($('.tmls-slider<?= $blockId ?>'));
+                            $('#<?= $tabId ?> .tmls-readmorelink').click(function () {
+                                var parent = $(this).parents('.tmls-testimonial');
+                                $(parent).find('.tmls-excerpttext').hide();
+                                $(parent).find('.tmls-fulltext').fadeIn('slow');
+                            });
+                            $('#<?= $tabId ?> .tmls-item').mouseleave(function () {
+                                $(this).find('.tmls-excerpttext').fadeIn('slow');
+                                $(this).find('.tmls-fulltext').hide();
+                            });
+                        });
+                    });
+                })
+            })
+        </script>
+    </div>
+</div>

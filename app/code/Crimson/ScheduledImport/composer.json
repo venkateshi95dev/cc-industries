@@ -1,0 +1,31 @@
+{
+    "name": "crimson/scheduledimport",
+    "description": "",
+    "require": {
+        "php": "~7.3.0|~7.4.0",
+        "magento/module-scheduled-import-export": "*",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+    },
+    "type": "magento2-module",
+    "version": "2.3.1",
+    "license": [
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\ScheduledImport\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/ScheduledImport"
+            ]
+        ]
+    }
+}

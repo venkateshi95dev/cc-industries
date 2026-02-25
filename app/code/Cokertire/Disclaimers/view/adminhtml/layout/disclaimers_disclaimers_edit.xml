@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Cokertire\Disclaimers\Block\Adminhtml\Disclaimers\Edit" name="cokertire_disclaimers_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Cokertire\Disclaimers\Block\Adminhtml\Disclaimers\Edit\Tabs" name="cokertire_disclaimers_tabs">
+                <block class="Cokertire\Disclaimers\Block\Adminhtml\Disclaimers\Edit\Tab\Disclaimers" name="cokertire_disclaimers_edit_tab_disclaimers"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">disclaimers</argument>
+                    <argument name="block" xsi:type="string">cokertire_disclaimers_edit_tab_disclaimers</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

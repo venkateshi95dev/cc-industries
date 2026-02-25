@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../lib/internal/Magento/Framework/ObjectManager/etc/config.xsd">
+
+    <virtualType name="MagazineGirdFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="MagazineGridDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Cokertire\Magazine\Model\ResourceModel\Magazine\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">MagazineGirdFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <type name="Cokertire\Magazine\Model\ResourceModel\Magazine\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magazine</argument>
+            <argument name="eventPrefix" xsi:type="string">Cokertire_Magazine_collection</argument>
+            <argument name="eventObject" xsi:type="string">Cokertire_Magazine_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Cokertire\Magazine\Model\ResourceModel\Magazine</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="ct_magazine_listing_data_source" xsi:type="string">Cokertire\Magazine\Model\ResourceModel\Magazine\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

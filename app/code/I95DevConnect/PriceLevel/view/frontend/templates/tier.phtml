@@ -1,0 +1,39 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+$tierPrices = $block->getProductPriceList();
+
+if (!empty($tierPrices) && count($tierPrices) > 0) {
+    ?>
+    <ul class="prices-tier items">
+    <?php
+    foreach ($tierPrices as $index => $tierPrice) {
+        if ($tierPrice['qty'] != 1) {
+            ?>
+                <li class="item">
+                <?php
+		// phpcs:disable
+                $price = isset($tierPrice['price']) ? $tierPrice['price'] : '';
+                $currencyPrice = $this->helper('\Magento\Framework\Pricing\Helper\Data')
+                        ->currency(number_format($price, 2), true, false);
+                //@codingStandardsIgnoreEnd
+                $savePercent = $block->getSavePercent($price);
+                /* @noEscape */ echo __(
+                    'Buy %1 for %2 each and <strong class="benefit">save'
+                        . '<span class="percent tier-%3">&nbsp;%4</span>%</strong>',
+                    $tierPrice['qty'] * 1,
+                    $currencyPrice,
+                    $index,
+                    $savePercent
+                ); ?>
+                </li>
+            <?php
+        }
+    } ?>
+    </ul>
+    <?php
+}
+?>

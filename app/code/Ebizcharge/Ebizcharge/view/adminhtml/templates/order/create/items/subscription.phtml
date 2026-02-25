@@ -1,0 +1,74 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\Items\Renderer\DefaultRenderer;
+use Ebizcharge\Ebizcharge\Model\Recurring;
+
+/**
+ * @var  $block DefaultRenderer
+ */
+$orderItem = $block->getItem();
+$itemId = $orderItem->getId();
+$productId = $orderItem->getProductId();
+
+/**
+ * @var $orderItemOptions
+ */
+$orderItemOptions = $orderItem->getBuyRequest();
+$recurrings = $orderItemOptions->getRecurring();
+$qty = $orderItemOptions->getQty();
+$isRecurringIndefinite = isset($recurrings["rec_indefinitely"]) ? $recurrings["rec_indefinitely"] : 0;
+$isRecurringIndefinite = $isRecurringIndefinite && $isRecurringIndefinite > 0;
+
+//if ($recurrings && count($recurrings) > 0) {
+if (isset($recurrings['rec_frequency']) && !empty($recurrings['rec_frequency'])) { ?>
+    <br/>
+    <div class="subscribe subscribed-item">
+        <div class="label">&#10026;
+            <b> <?= /* @noEscape */
+                __('Subscribed'); ?></b></div>
+        <div class="label"> <?= /* @noEscape */
+            __('Frequency:'); ?><b> <?= /* @noEscape */
+                $recurrings['rec_frequency']; ?></b></div>
+        <div class="label"> <?= /* @noEscape */
+            __('Qty Subscribed:'); ?><b> <?= /* @noEscape */
+                $qty; ?></b></div>
+        <div class="label"> <?= /* @noEscape */
+            __('Start :'); ?><b> <?= /* @noEscape */
+                $recurrings['sdate']; ?></b></div>
+        <?php
+        if ($isRecurringIndefinite) { ?>
+            <div class="label">
+                <b><?= /* @noEscape */
+                    __("Indefinite(" . Recurring::DEFAULT_INDEFINITE_RECURRING_LIMIT . " Year)"); ?></b>
+            </div>
+        <?php } else { ?>
+            <div class="label"> <?= /* @noEscape */
+                __('End :'); ?><b> <?= /* @noEscape */ $recurrings['edate']; ?></b></div>
+
+        <?php } ?>
+
+    </div>
+<?php } ?>

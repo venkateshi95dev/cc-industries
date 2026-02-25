@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="pricelist" xsi:type="array">
+                    <item name="class" xsi:type="string">I95DevConnect\PriceLevel\Ui\DataProvider\Product\Form\Modifier\Pricelist</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Customer\Block\Adminhtml\Group\Edit\Form">
+        <plugin name="i95dev_customer_group_form" type="I95DevConnect\PriceLevel\Plugin\Block\Adminhtml\Customer\Group\Edit\Form"/>
+    </type>
+    <type name="Magento\Catalog\Ui\DataProvider\Product\Form\ProductDataProvider">
+        <plugin name="i95dev_disable_tier_prices_ui"
+                type="I95DevConnect\PriceLevel\Plugin\Ui\DataProvider\Product\Form\Modifier\ProductDataProviderPlugin"/>
+    </type>
+</config>

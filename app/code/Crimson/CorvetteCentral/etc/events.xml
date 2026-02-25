@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- Trigger before order is saved -->
+    <event name="sales_order_save_before">
+        <observer name="crimson_checkout_clear_state"
+                  instance="Crimson\CorvetteCentral\Observer\ClearStateObserver"/>
+    </event>
+</config>

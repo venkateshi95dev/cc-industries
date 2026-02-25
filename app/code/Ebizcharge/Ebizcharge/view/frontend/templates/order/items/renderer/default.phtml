@@ -1,0 +1,253 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+
+use Ebizcharge\Ebizcharge\Api\Data\RecurringInterface;
+use Magento\Framework\Escaper;
+use Magento\Sales\Block\Order\Item\Renderer\DefaultRenderer;
+
+/** @var DefaultRenderer $block */
+/** @var Escaper $escaper */
+
+$_item = $block->getItem();
+$buyRequest = $_item->getBuyRequest() ?? null;
+$recurringItem = $buyRequest->getRecurring() ?? [];
+$isRecurredItem = isset($recurringItem['rec_activate']) && (int)$recurringItem['rec_activate'] === 1;
+
+?>
+<tr id="order-item-row-<?= $escaper->escapeHtml((int)$_item->getId()) ?>">
+    <td class="col name" data-th="<?= /* @noEscape */
+    __('Product Name') ?>">
+        <strong class="product name product-item-name"><?= $escaper->escapeHtml($_item->getName()) ?></strong>
+        <?php if($_options = $block->getItemOptions()) { ?>
+            <dl class="item-options">
+                <?php foreach ($_options as $_option) { ?>
+                    <dt><?= $escaper->escapeHtml($_option['label']) ?></dt>
+                    <?php if (!$block->getPrintStatus()) { ?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <dd<?= (isset($_formatedOptionValue['full_view']) ? ' class="tooltip wrapper"' : '') ?>>
+                            <?= $escaper->escapeHtml($_formatedOptionValue['value'], ['a']) ?>
+                            <?php if (isset($_formatedOptionValue['full_view'])) { ?>
+                                <div class="tooltip content">
+                                    <dl class="item options">
+                                        <dt><?= $escaper->escapeHtml($_option['label']) ?></dt>
+                                        <dd><?= $escaper->escapeHtml($_formatedOptionValue['full_view']) ?></dd>
+                                    </dl>
+                                </div>
+                            <?php } ?>
+                        </dd>
+                    <?php } else { ?>
+                        <?php $optionValue = $_option['print_value'] ?? $_option['value'] ?>
+                        <dd><?= $escaper->escapeHtml($optionValue) ?></dd>
+                    <?php } ?>
+                <?php } ?>
+            </dl>
+        <?php } ?>
+        <?php $addtInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addtInfoBlock) { ?>
+            <?= $addtInfoBlock->setItem($_item)->toHtml() ?>
+        <?php } ?>
+        <?= $escaper->escapeHtml($_item->getDescription()) ?>
+
+        <?php
+        /** setting block data */
+        /** @var $orderItemOptions */
+        $orderItemOptions = $_item->getProductOptions();
+
+        if (isset($orderItemOptions["info_buyRequest"])) {
+            /** @var  $infoBuyRequest */
+            $infoBuyRequest = $orderItemOptions["info_buyRequest"];
+
+            if (isset($infoBuyRequest["recurring"]) && count($infoBuyRequest["recurring"]) > 0) {
+                $recurringItem = $infoBuyRequest["recurring"] ?? [];
+                if ($isRecurredItem) { ?>
+                    <div class="subscribe subscribed-item">
+                        <div class="label">
+                            <b><?= /* @noEscape */
+                                __("Status:"); ?></b>
+                            <?= /* @noEscape */
+                            __("Subscribed"); ?>
+                        </div>
+                        <div class="label">
+                            <b><?= /* @noEscape */
+                                __("Frequency:"); ?></b>
+                            <?= /* @noEscape */
+                                $recurringItem['rec_frequency'] ?? RecurringInterface::RECURRING_FREQUENCIES_DAILY; ?>
+                        </div>
+                        <div class="label">
+                            <b><?= /* @noEscape */
+                                __("Qty Subscribed:"); ?></b>
+                            <?= /* @noEscape */
+                                $infoBuyRequest['qty'] ?? 0; ?>
+                        </div>
+                        <div class="label">
+                            <b><?= /* @noEscape */
+                                __("Start Date:"); ?></b>
+                            <?= /* @noEscape */
+                                $recurringItem['sdate'] ?? ''; ?>
+                        </div>
+                        <?php
+                        if (isset($recurringItem['rec_indefinitely']) && (int)$recurringItem['rec_indefinitely'] > 0) {
+                            ?>
+                            <div class="label">
+                                <b><?= /* @noEscape */
+                                    __("Indefinite(" . RecurringInterface::DEFAULT_INDEFINITE_RECURRING_LIMIT . " Year)"); ?>
+                                </b>
+                            </div>
+                        <?php } else {
+                            ?>
+                            <div class="label">
+                                <b><?= /* @noEscape */
+                                    __("End Date:"); ?></b>
+                                <?= /* @noEscape */
+                                    $recurringItem['edate'] ?? ''; ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <?php
+                }
+            }
+        }
+        $originalPrice = $_item->getOriginalPrice();
+        $baseOriginalPrice = $_item->getBaseOriginalPrice();
+        if($isRecurredItem){
+            $_item->setPrice($originalPrice);
+            $_item->setBasePrice($originalPrice);
+        }
+
+   ?>
+
+    </td>
+    <td class="col sku" data-th="<?= /* @noEscape */
+    __('SKU') ?>">
+        <?= /* @noEscape */
+        $block->prepareSku($block->getSku()) ?>
+    </td>
+    <td class="col price" data-th="<?= /* @noEscape */
+    __('Price') ?>">
+        <?= $block->getItemPriceHtml() ?>
+    </td>
+    <td class="col qty" data-th="<?= /* @noEscape */
+    __('Qty') ?>">
+        <ul class="items-qty">
+            <?php if ($block->getItem()->getQtyOrdered() > 0) { ?>
+                <li class="item">
+                    <span class="title"><?= /* @noEscape */
+                        __('Ordered') ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyOrdered() ?></span>
+                </li>
+            <?php } ?>
+            <?php if ($block->getItem()->getQtyShipped() > 0) { ?>
+                <li class="item">
+                    <span class="title"><?= /* @noEscape */
+                        __('Shipped') ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyShipped() ?></span>
+                </li>
+            <?php } ?>
+            <?php if ($block->getItem()->getQtyCanceled() > 0) { ?>
+                <li class="item">
+                    <span class="title"><?= /* @noEscape */
+                        __('Canceled') ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyCanceled() ?></span>
+                </li>
+            <?php } ?>
+            <?php if ($block->getItem()->getQtyRefunded() > 0) { ?>
+                <li class="item">
+                    <span class="title"><?= /* @noEscape */
+                        __('Refunded') ?></span>
+                    <span class="content"><?= (float)$block->getItem()->getQtyRefunded() ?></span>
+                </li>
+            <?php } ?>
+        </ul>
+    </td>
+
+
+    <?php
+
+    if ($isRecurredItem) {
+
+        $item = $_item;
+
+        $item->setBasePrice($_item->getTaxAmount());
+        $item->setPrice($_item->getTaxAmount());
+        ?>
+        <td class="col tax" data-th="<?= /* @noEscape */
+        __('Tax') ?>">
+            <?= $block->getItemPriceHtml($item) ?>
+        </td>
+        <?php
+        $orderItem = $_item;
+        $orderItem->setBasePrice($_item->getEcShippingAmount());
+        $orderItem->setPrice($_item->getEcShippingAmount());
+        ?>
+        <td class="col shipping" data-th="<?= /* @noEscape */
+        __('Shipping') ?>">
+            <?= $block->getItemPriceHtml($orderItem) ?>
+        </td>
+
+    <?php } ?>
+
+    <?php
+    $orderItem = $_item;
+    if ($isRecurredItem) {
+        $orderItem = $_item;
+        $surchargePurcentage = $block->getOrder()->getEcSurchargePercentage() ?? 0;
+        $surchargeAmount = (float)$_item->getEcSurchargeAmount() > 0 ? (float)$_item->getEcSurchargeAmount() : (float)$orderItem->getRowTotal() * (float)$surchargePurcentage / 100;
+        $orderItem->setBasePrice($surchargeAmount);
+        $orderItem->setPrice($surchargeAmount);
+
+        if ($surchargeAmount > 0) {
+            ?>
+            <td class="col subtotal" data-th="<?= /* @noEscape */
+            __('Surcharge') ?>">
+                <?= $block->getItemPriceHtml($orderItem) ?>
+            </td>
+        <?php } else {
+            $orderItem->setBasePrice(0);
+            $orderItem->setPrice(0);
+            ?>
+            <td class="col subtotal" data-th="<?= /* @noEscape */
+            __('Surcharge') ?>"><?= $block->getItemPriceHtml($orderItem) ?></td>
+        <?php }
+    } else {  ?>
+        <td class="col subtotal" data-th="<?= /* @noEscape */ __('Subtotal') ?>">
+            <?= $block->getItemRowTotalHtml($orderItem) ?>
+        </td>
+    <?php } ?>
+
+    <?php
+    if ($isRecurredItem) {
+        $orderItem = $_item;
+        $orderItemPrice = $_item->getOriginalPrice() ?? 0;
+        $orderItemRowTotalInclTax = (float)$_item->getRowTotalInclTax() + (float)$surchargeAmount ?? 0;
+        $orderItem->setBaseRowTotal($orderItemRowTotalInclTax);
+        $orderItem->setRowTotal($orderItemRowTotalInclTax);
+        ?>
+        <td class="col subtotal" data-th="<?= /* @noEscape */
+        __('Row Grand Total') ?>">
+            <?= $block->getItemRowTotalHtml($orderItem) ?>
+        </td>
+    <?php } ?>
+</tr>

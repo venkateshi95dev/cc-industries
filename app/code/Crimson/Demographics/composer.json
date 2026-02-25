@@ -1,0 +1,37 @@
+{
+  "name": "crimson/demographics",
+  "description": "",
+  "require": {
+    "php": "~7.3.0|~7.4.0",
+    "crimson/machbase": "*",
+    "crimson/machorder": "*",
+    "magento/module-checkout": "*",
+    "magento/module-customer": "*",
+    "magento/module-customer-custom-attributes": "*",
+    "magento/module-sales": "*",
+    "magento/magento-composer-installer": "*"
+  },
+  "suggest": {
+  },
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Crimson\\Demographics\\": ""
+    }
+  },
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Crimson/Demographics"
+      ]
+    ]
+  }
+}

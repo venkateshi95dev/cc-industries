@@ -1,0 +1,89 @@
+<?php
+    $showpages =  $this->getShowpages();
+?>
+<div id="content">
+	<div class="container margin_btm2">
+		<div class="padding_l1r1">
+			<h1 class="birch_std_60 dark_brown uppercase text-center margin0 padding_t05b05"><?php echo date("Y") ?> <?= __('Events And Schedules');?></h1>
+			<div class="brown_font clearfix padding_btm05 bold font16">
+				<div class="col-sm-12 hidden-xs">
+					<div class="padding05">
+						<div class="col-sm-2 padding0">
+							<div class="padding_l15"><?= __('Date');?></div>
+						</div>
+						<div class="col-sm-5">
+							<div class="padding_l05"><?= __('Event');?></div>
+						</div>
+						<div class="col-sm-2 padding0">
+							<div class="padding_l05"><?= __('Show Space');?></div>
+						</div>
+						<div class="col-sm-3">
+							<div class="col-xs-12 col-sm-10 padding0">
+								<div class="row">
+									<div class="padding_l05"><?= __('City/State');?></div>
+								</div>
+							</div>
+							<div class="col-sm-2">
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="padding0">
+				<div class="brown_separator"></div>
+			</div>
+			 <?php if(count($showpages)): ?>
+				<ul class="margin0 padding0">
+					<?php foreach($showpages as $showpage): ?>
+					<?php
+					$current_year = date('Y');
+					if($block->getShowYear($showpage) == $current_year): // only show events that are happening in the current year
+					?>
+					<li class="light_grey padding1 col-xs-12 border_btm shows">
+						<div class="grey_txt nounderline hover_white">
+							<div class="col-xs-12">
+								<div class="padding05">
+									<div class="col-sm-2">
+										<div><?php echo $block->getShowDate($showpage); ?></div>
+									</div>
+									<div class="col-sm-5">
+										<a href="<?php echo $this->getViewUrl($showpage["showpages_id"]) ?>" title="<?php echo $showpage['show_title'] ?>">
+											<div class="bold">
+												<?php echo $showpage['show_title'] ?>
+											</div>
+										</a>
+									</div>
+									<div class="col-sm-2">
+										<div><span class="visible-xs inline-block italic col-xs-5 padding0">Show Space:&nbsp;</span><span class="inline-block"><?php echo $showpage['show_space'] ?></span></div>
+									</div>
+									<div class="col-sm-3">
+										<div class="col-xs-12 col-sm-10">
+											<div class="row">
+												<div class=""><?php echo $showpage['show_city'] ?>, <?php echo $showpage['show_state'] ?></div>
+											</div>
+										</div>
+										<div class="col-sm-2 hidden-xs">
+											<a href="<?php echo $this->getBaseUrl(); ?>tools/show_ics.php?show=<?php echo $showpage['showpages_id']; ?>">
+												<div class="glyphicon blue_cal" style="font-size:20px;"></div>
+											</a>
+										</div>
+										<div class="visible-xs col-xs-12 padding0">
+											<div class="margin_top1">
+												<a href="<?php echo $this->getBaseUrl(); ?>tools/show_ics.php?show=<?php echo $showpage['showpages_id']; ?>"><?= __('Add to calendarAdd to calendar');?></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</li>
+					<?php
+						endif;
+						endforeach;
+					?>
+				</ul>
+			<?php endif; ?>
+		</div>
+	</div>
+</div>

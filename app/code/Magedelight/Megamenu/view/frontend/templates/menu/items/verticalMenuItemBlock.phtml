@@ -1,0 +1,72 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @noinspection PhpComposerExtensionStubsInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @var  \Magedelight\Megamenu\Model\MenuItems|\Magedelight\Megamenu\Api\Data\MenuItemsInterface $item */
+/** @var  \Magedelight\Megamenu\Block\Topmenu $menuBlock */
+/** @var  \Magedelight\Megamenu\Model\MegamenuManagement $menuManagement */
+$menuBlock = $block->getData('menu_block');
+$item = $block->getData('menu_item');
+$menuManagement = $block->getData('menu_management');
+$liClass = $menuBlock->getActiveClass($item) . ' ' . $item->getItemClass();
+$megaMenuLink = $menuManagement->generateMenuUrl($item) ?: '#';
+$megaMenuName = $menuManagement->generateMenuItemName($item);
+$catDisplay = false;
+$primaryMenu = $menuBlock->getPrimaryMenu();
+$showCatCount = $primaryMenu->getShowCategoryCount();
+$subcats = [];
+if ($item->getItemType() === 'category' && (int) $item->getCategoryDisplay() === (int) 1) {
+    $categoryLoad = $menuManagement->getCategoryById($item->getObjectId());
+    $countChild = $categoryLoad->getChildrenCount();
+    $subcats = $menuManagement->getChildrenCategories($categoryLoad);
+    if (!empty($subcats)) {
+        $catDisplay = true;
+    }
+    /* Code Added to display Menu label */
+    $getLabel = $categoryLoad->getData('md_label');
+    $menuLabelHtml = '';
+    if (isset($getLabel) && $getLabel != '') {
+        $mdLabelShape = $categoryLoad->getData('md_label_shape') ?
+            $categoryLoad->getData('md_label_shape')  : '';
+        $color = $categoryLoad->getData('md_label_text_color');
+        $backgroundColor = $categoryLoad->getData('md_label_background_color');
+        $menuLabelHtml .= '<span class="md-label-text ' . $mdLabelShape . '" style="color:' .
+            $color . '!important;background-color:' .
+            $backgroundColor . '!important; ">' . __($getLabel) . '</span>';
+    }
+}
+if ($menuBlock->getCmsBlockConfig($item, 'left', 'enable') ||
+    $menuBlock->getCmsBlockConfig($item, 'right', 'enable') ||
+    $menuBlock->getCmsBlockConfig($item, 'header', 'enable') ||
+    $menuBlock->getCmsBlockConfig($item, 'bottom', 'enable')
+) {
+    $catDisplay = true;
+}
+if ($catDisplay) {
+    $liClass .= ' dropdown menu-dropdown-icon category-item nav-' . $item->getItemId();
+    ?>
+    <li class="<?= /* @noEscape */ $liClass ?>" data-nav-id="nav-<?=
+                                                                    $escaper->escapeHtml($item->getItemId()) ?>">
+        <a href="<?= /* @noEscape */ $menuManagement->generateMenuUrl($item) ?: '#' ?>">
+            <span class="megaitemicons"><?= /* @noEscape */ $item->getItemFontIcon() ?></span>
+            <?= /* @noEscape */ __($menuManagement->generateMenuItemName($item)) ?>
+            <?php if ($showCatCount) {
+                echo '(' . $escaper->escapeHtml($countChild) . ')';
+            }
+            ?>
+            <?= /* @noEscape */ $menuLabelHtml ?>
+        </a>
+    </li>
+<?php } else { ?>
+    <li class="<?= /* @noEscape */ $escaper->escapeUrl($liClass) ?>">
+        <a href="<?= $escaper->escapeUrl($megaMenuLink) ?>">
+            <span class="megaitemicons"><?= /* @noEscape */ $item->getItemFontIcon() ?></span>
+            <?= $escaper->escapeHtml(__($megaMenuName)) ?>
+        </a>
+    </li>
+<?php } ?>

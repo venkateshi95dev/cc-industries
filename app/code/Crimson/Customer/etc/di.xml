@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- PREFERENCES -->
+    <preference for="Magento\Customer\Controller\Account\ForgotPasswordPost" type="Crimson\Customer\Controller\Account\ForgotPasswordPost" />
+    <preference for="Magento\Customer\Controller\Account\CreatePost" type="Crimson\Customer\Controller\Account\CreatePostCustom" />
+    <preference for="Magento\Customer\Controller\Account\LoginPost" type="Crimson\Customer\Controller\Account\LoginPostCustom" />
+
+    <!-- PLUGINS -->
+    <type name="Magento\CustomAttributeManagement\Block\Form">
+        <plugin name="zip_excluding_coker_wv_customer_attributes"
+                type="Crimson\Customer\Plugin\Block\FormPlugin"
+                sortOrder="10"
+        />
+    </type>
+    <type name="Magento\Customer\Api\AccountManagementInterface">
+        <plugin name="crimson_catalog_request_login_and_company_billing_address"
+                type="Crimson\Customer\Plugin\Api\AccountManagement"
+                sortOrder="1"
+        />
+    </type>
+</config>

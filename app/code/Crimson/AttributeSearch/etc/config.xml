@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/config.xsd">
+    <default>
+        <crimson_attribute_search>
+            <general>
+                <enabled_attributes>model_year</enabled_attributes>
+                <fast_simon>1</fast_simon>
+                <select_title>ALL PARTS</select_title>
+                <tooltip_text>Click button drop-down to lock your search to specific years or catalogs. Choose ALL PARTS to clear the lock and search all years, all catalogs or GM #.</tooltip_text>
+            </general>
+        </crimson_attribute_search>
+    </default>
+</config>

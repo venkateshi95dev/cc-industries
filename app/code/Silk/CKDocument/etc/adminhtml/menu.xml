@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Silk_CKDocument::cms_document" title="Manage Document" translate="title" module="Silk_CKDocument" sortOrder="1010" parent="Magento_Backend::content_elements" action="ckdocument/ckdocumentlist" resource="Silk_CKDocument::document"/>
+    </menu>
+</config>

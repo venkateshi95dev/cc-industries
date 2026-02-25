@@ -1,0 +1,29 @@
+{
+  "name": "crimson/weltpixel-ga4",
+  "description": "Extending module WeltPixel_GA4",
+  "require": {
+    "weltpixel/module-ga4": "*"
+  },
+  "suggest": {
+  },
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": [
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Crimson\\WeltPixelGA4\\": ""
+    }
+  },
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Crimson/WeltPixelGA4"
+      ]
+    ]
+  }
+}

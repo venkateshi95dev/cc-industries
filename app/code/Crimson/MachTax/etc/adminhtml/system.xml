@@ -1,0 +1,24 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mach">
+            <group id="tax" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Mach Tax</label>
+                <field id="enabled" type="select" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="region_filter_mode" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Filter Requests by Region</label>
+                    <source_model>Crimson\MachTax\Model\Tax\Source\Filter\Region\Mode</source_model>
+                </field>
+                <field id="region_filter_list" translate="label comment" type="multiselect" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <source_model>Crimson\MachTax\Model\Tax\Source\Filter\Region\RegionList</source_model>
+                    <comment>Select regions to use Mach tax services. Ignored if Filter Requests by Region is set to None.</comment>
+                </field>
+                <field id="country_filter_list" translate="label" type="multiselect" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

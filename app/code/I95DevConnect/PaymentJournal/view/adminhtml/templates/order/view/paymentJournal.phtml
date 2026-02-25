@@ -1,0 +1,14 @@
+<?php
+if (isset($block->getCashReceipt()[0]['receipt_id'])) {
+    ?>
+<br/>
+<section class="admin__page-section tcs-shipping-block">
+    <div class="admin__page-section-title">
+        <strong class="title"><?= $escaper->escapeHtml(__('Payment Journal Information')) ?>
+        </strong>
+    </div>
+    <p>Cash Receipt Id: <?= $escaper->escapeHtml(__($block->getCashReceipt()[0]['receipt_id'])); ?></p>
+</section>
+    <?php
+}
+?>

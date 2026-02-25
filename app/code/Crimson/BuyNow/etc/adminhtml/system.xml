@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="basic_setting" sortOrder="999" translate="label comment" type="text" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Coker BuyNow Feed Settings</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable BuyNow Feeds</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable CSV file creation.]]></comment>
+                </field>
+                <field id="brand_filter" translate="label comment" type="multiselect"  sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Brand Filter</label>
+                    <source_model>Crimson\BuyNow\Model\Config\Source\Product\BrandItemAttributeOptions</source_model>
+                    <comment><![CDATA[Brands selection.]]></comment>
+                </field>
+                <field id="generate_schedule" translate="label comment" type="text"  sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Cron Schedule</label>
+                    <source_model>Crimson\BuyNow\Model\Config\Source\Product\BrandItemAttributeOptions</source_model>
+                    <comment><![CDATA[Cron schedule for the CSV file generation.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

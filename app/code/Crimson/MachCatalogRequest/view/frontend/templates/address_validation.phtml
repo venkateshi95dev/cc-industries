@@ -1,0 +1,26 @@
+<?php
+/**
+ * @var \IWD\AddressValidation\Block\Frontend\Popup $block
+ */
+?>
+<script type="text/javascript">
+    // <![CDATA[
+    require(['Crimson_MachCatalogRequest/js/address_validation'],
+        function(iwdAddressValidation) {
+            var addressValidation = new iwdAddressValidation();
+            addressValidation.init({
+                urlValidation: '<?=$block->getValidateUrl(); ?>',
+                allowInvalidAddress: '<?=$block->getAllowNotValidAddress(); ?>',
+                formId: '#catalog-request-form',
+                nextStepButtonId: "#catalog-request-form button.submit",
+                content: {
+                    'header' : '<?=__($block->getHelper()->getContentHeader()); ?>',
+                    'makeChoice' : 'Please select an option',
+                    'updateAddress' : 'Please, recheck and update address before continue.',
+                    'validatingAddress' : 'Validating address ...'
+                }
+            });
+        }
+    );
+    // ]]>
+</script>

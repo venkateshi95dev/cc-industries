@@ -1,0 +1,48 @@
+{
+  "attribute_sets": [
+    {
+      "set_name": "CC_Shirt",
+      "attributes": [
+        "cc_year",
+        "cc_color",
+        "cc_size",
+        "cc_cove",
+        "cc_interior",
+        "cc_exterior",
+        "cc_logo",
+        "cc_stinger"
+      ]
+    },
+    {
+      "set_name": "CC_Original_Parts",
+      "attributes": [
+        "cc_year",
+        "cc_date",
+        "cc_option"
+      ]
+    },
+    {
+      "set_name": "CC_Accessories",
+      "attributes": [
+        "cc_year",
+        "cc_body_style",
+        "cc_color",
+        "cc_option",
+        "cc_quarter",
+        "cc_style"
+      ]
+    },
+    {
+      "set_name": "CC_Parts",
+      "attributes": [
+        "cc_year",
+        "cc_code",
+        "cc_option",
+        "cc_ratio",
+        "cc_transmission",
+        "cc_trim",
+        "cc_model"
+      ]
+    }
+  ]
+}

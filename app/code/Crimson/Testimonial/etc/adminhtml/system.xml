@@ -1,0 +1,297 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="vesalltab" translate="label" sortOrder="400">
+            <label>Testimonial</label>
+        </tab>
+        <section id="testimonial" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Configuration</label>
+            <tab>vesalltab</tab>
+            <resource>Crimson_Testimonial::config_testimonial</resource>
+            <group id="general" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dateformat" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Date Format</label>
+                    <source_model>Crimson\Testimonial\Model\Config\Source\DateFormat</source_model>
+                    <comment><![CDATA[Full: Tuesday, April 12, 1952 AD or 3:30:42pm PST<br/>LONG: January 12, 1952 or 3:30:32pm<br/>MEDIUM: Jan 12, 1952<br/>SHORT: 12/13/52 or 3:30pm]]></comment>
+                </field>
+                <field id="recaptcha_heading" translate="label comment" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>reCaptcha Settings</label>
+                    <frontend_model>Crimson\Testimonial\Block\Adminhtml\System\Config\Form\Field\Heading1</frontend_model>
+                </field>
+                <field id="enable_retcaptcha" translate="label comment" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="recaptcha_site_key" translate="label comment" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>reCaptcha Site Key</label>
+                </field>
+                <field id="recaptcha_secret_key" translate="label comment" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>reCaptcha Secret Key</label>
+                </field>
+                <field id="enable_form" translate="label comment" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Testimonial Form</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="form_require_customer" translate="label comment" type="select" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Customers Logged In Submit Testimonial?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_form">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="testimonial_productpage" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Testimonial In Product Page</label>
+                <field id="enable_product" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="widget_title" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Testimonial Title</label>
+                </field>
+                <field id="widget_class" translate="label comment" type="text" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Testimonial Classes</label>
+                    <comment><![CDATA[Our Classes: <br/>1. Testimonial Content: <b>content-no-radius</b>, <b>content-small-radius</b>, <b>content-medium-radius</b>, <b>content-large-radius</b><br/>2. Image: <b>image-small-radius</b>, <b>image-medium-radius</b>, <b>image-large-radius</b><br/>3. Image Size: <b>no-image</b>, <b>small-image</b>, <b>medium-image</b>, <b>large-image</b>, <b>xlarge-image</b><br/>4. Image Scale: <b>tmls-grayscale</b>]]></comment>
+                </field>
+                <field id="layout" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Layout</label>
+                    <source_model>Crimson\Testimonial\Model\Config\Source\Layout</source_model>
+                </field>
+                <field id="block_template" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Template</label>
+                    <comment><![CDATA[Input custom module template file path. For example: <b>Crimson_Testimonial::product/style1.phtml</b>. Empty for default]]></comment>
+                </field>
+                <field id="category" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category</label>
+                    <source_model>Crimson\Testimonial\Model\Config\Source\Category</source_model>
+                </field>
+                <field id="order_by" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Order By</label>
+                    <source_model>Crimson\Testimonial\Model\Config\Source\OrderBy</source_model>
+                </field>
+                <field id="grid_column" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Grid Column</label>
+                </field>
+                <field id="grid_pagination" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Grid Pagination</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="item_of_per" translate="label comment" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Item Per Page</label>
+                    <depends>
+                        <field id="*/*/grid_pagination">1</field>
+                    </depends>
+                </field>
+                <!--<field id="testimonial_heading" translate="label comment" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Testimonial</label>
+                    <source_model>Crimson\Testimonial\Block\Adminhtml\System\Config\Form\Field\Heading</source_model>
+                </field>-->
+                <field id="testimonial_color" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Testimonial Content Color</label>
+                    <comment><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></comment>
+                </field>
+                <field id="testimonial_bgcolor" translate="label comment" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Testimonial Content Background Color</label>
+                    <comment><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></comment>
+                </field>
+                <field id="show_name" translate="label comment" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Nick Name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="nickname_color" translate="label comment" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Nichkname Color</label>
+                    <depends>
+                        <field id="*/*/show_name">1</field>
+                    </depends>
+                </field>
+                <field id="show_address" translate="label comment" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_email" translate="label comment" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Email</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_company" translate="label comment" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Company</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_job" translate="label comment" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Job</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_title" translate="label comment" type="select" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Title</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title_color" translate="label comment" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title Color</label>
+                    <comment><![CDATA[Input color name or color code. Example: #CC0000, white,...]]></comment>
+                    <depends>
+                        <field id="*/*/show_title">1</field>
+                    </depends>
+                </field>
+                <field id="show_image" translate="label comment" type="select" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Image</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="image_width" translate="label comment" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Width</label>
+                    <depends>
+                        <field id="*/*/show_image">1</field>
+                    </depends>
+                </field>
+                <field id="image_height" translate="label comment" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Image Height</label>
+                    <depends>
+                        <field id="*/*/show_image">1</field>
+                    </depends>
+                </field>
+                <field id="show_rating" translate="label comment" type="select" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Rating</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_socialnetworks" translate="label comment" type="select" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Social Networks</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_date" translate="label comment" type="select" sortOrder="230" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Date</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_readmore" translate="label comment" type="select" sortOrder="240" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Readmore Link</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="readmore_char" translate="label comment" type="text" sortOrder="250" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max chars in content</label>
+                    <comment><![CDATA[Put number to limit characters shown on each content. If the number of character are longer than you did input, it's automatically cut and added " Read More" at the end. If you want to show entire content, leave it blank]]></comment>
+                    <depends>
+                        <field id="*/*/show_readmore">1</field>
+                    </depends>
+                </field>
+                <!--<field id="tabsettings_heading" translate="label comment" type="text" sortOrder="260" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>OWL Carousel Settings</label>
+                    <source_model>Crimson\Testimonial\Block\Adminhtml\System\Config\Form\Field\Heading</source_model>
+                </field>-->
+                <field id="number_item_percolumn" translate="label comment" type="text" sortOrder="270" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number of Item per Column</label>
+                    <comment><![CDATA[Multiple Row]]></comment>
+                </field>
+                <field id="custom_height" translate="label comment" type="text" sortOrder="280" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom Height</label>
+                </field>
+                <field id="large_max_items" translate="label comment" type="text" sortOrder="290" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Columns On Page (Large display)</label>
+                    <comment><![CDATA[Show number items when screen size 1200px and up]]></comment>
+                </field>
+                <field id="large_items" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Columns On Page</label>
+                    <comment><![CDATA[Show number items when screen size between 1199px and 980px]]></comment>
+                </field>
+                <field id="portrait_items" translate="label comment" type="text" sortOrder="310" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Columns On Page (Portrait tablets)</label>
+                    <comment><![CDATA[Show number items when screen size between 979px and 769px]]></comment>
+                </field>
+                <field id="tablet_items" translate="label comment" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Columns On Page (Phones to tablets)</label>
+                    <comment><![CDATA[Show number items when screen size between 768px and 641px]]></comment>
+                </field>
+                <field id="tablet_small_items" translate="label comment" type="text" sortOrder="330" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Columns On Page (Phones to Small tablets)</label>
+                    <comment><![CDATA[Show number items when screen size between 768px and 641px]]></comment>
+                </field>
+                <field id="mobile_items" translate="label comment" type="text" sortOrder="340" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Number Columns On Page (Phones)</label>
+                    <comment><![CDATA[Show number items when screen size bellow 480px]]></comment>
+                </field>
+                <field id="autoplay" translate="label comment" type="select" sortOrder="350" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Autoplay</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="autoplay_time" translate="label comment" type="text" sortOrder="360" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Autoplay Time</label>
+                    <depends>
+                        <field id="*/*/autoplay">1</field>
+                    </depends>
+                </field>
+                <field id="autoplay_hover_pause" translate="label comment" type="select" sortOrder="370" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Autoplay Hover Pause</label>
+                    <comment><![CDATA[Pause on mouse hover.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="dots" translate="label comment" type="select" sortOrder="380" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show dots navigations</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="nav" translate="label comment" type="select" sortOrder="390" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show next/prev buttons.</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="nav_next" translate="label comment" type="text" sortOrder="400" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Navigation Next Button Text</label>
+                    <depends>
+                        <field id="*/*/nav">1</field>
+                    </depends>
+                </field>
+                <field id="nav_pre" translate="label comment" type="text" sortOrder="410" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Navigation Previous Button Text</label>
+                    <depends>
+                        <field id="*/*/nav">1</field>
+                    </depends>
+                </field>
+                <field id="rtl" translate="label comment" type="select" sortOrder="420" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>RTL Layout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="loop" translate="label comment" type="select" sortOrder="430" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Loop</label>
+                    <comment><![CDATA[Infinity loop. Duplicate last and first items to get loop illusion.]]></comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+            </group>
+            <group id="testimonial_form" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Testimonial Form Settings</label>
+                <field id="enable_heading" translate="label comment" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Heading</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_position" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Position</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_company" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Company</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_website" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Website</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_address" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_rating" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Rating</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_avatar" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Avatar</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_social" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Social Accounts</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,78 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko if: isCalculated() && quoteIsVirtual == 0 -->
+    <!-- ko if: isBothPricesDisplayed() -->
+    <tr class="totals shipping excl">
+        <th class="mark" scope="row">
+            <span class="label" data-bind="text: title + ' ' + excludingTaxMessage"></span>
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+        </th>
+        <td class="amount">
+            <span class="price"
+                  data-bind="text: getExcludingValue(), attr: {'data-th': excludingTaxMessage}"></span>
+        </td>
+    </tr>
+    <tr class="totals shipping incl">
+        <th class="mark" scope="row">
+            <span class="label" data-bind="text: title + ' ' + includingTaxMessage"></span>
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+        </th>
+        <td class="amount">
+            <span class="price"
+                  data-bind="text: getIncludingValue(), attr: {'data-th': title + ' ' + excludingTaxMessage}"></span>
+        </td>
+    </tr>
+    <!-- /ko -->
+    <!-- ko if: isIncludingDisplayed() -->
+    <tr class="totals shipping incl">
+        <th class="mark" scope="row">
+            <span class="label" data-bind="i18n: title"></span>
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+            <!-- ko if: getValue() == '$0.00' && isTruckShip() -->
+            <a href="javascript:void(0)"
+               class="shipping-pop-up"><span class="text" data-bind="i18n: 'Why is this $0.00?'"></span></a>
+            <div class="shipping-pop-up-display">
+                <span class="shipping-tip"
+                      data-bind="text: getTruckShipMessage()"
+                ></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: getValue() != '$0.00' && isTruckShip() -->
+            <div data-bind="text: getTruckShipMessageUnderShippingMethod()" class="truck-ship-message"></div>
+            <!-- /ko -->
+        </th>
+        <td class="amount">
+            <span class="price"
+                  data-bind="text: getIncludingValue(), attr: {'data-th': title}"></span>
+        </td>
+    </tr>
+    <!-- /ko -->
+    <!-- ko if: isExcludingDisplayed() -->
+    <tr class="totals shipping excl">
+        <th class="mark" scope="row">
+            <span class="label" data-bind="i18n: title"></span>
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+            <!-- ko if: getValue() == '$0.00' && isTruckShip() -->
+            <a href="javascript:void(0)"
+               class="shipping-pop-up"><span class="text" data-bind="i18n: 'Why is this $0.00?'"></span></a>
+            <div class="shipping-pop-up-display">
+                <span class="shipping-tip"
+                      data-bind="text: getTruckShipMessage()"
+                ></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: getValue() != '$0.00' && isTruckShip() -->
+            <div data-bind="text: getTruckShipMessageUnderShippingMethod()" class="truck-ship-message"></div>
+            <!-- /ko -->
+        </th>
+        <td class="amount">
+            <span class="price"
+                  data-bind="text: getValue(), attr: {'data-th': title}"></span>
+        </td>
+    </tr>
+    <!-- /ko -->
+<!-- /ko -->

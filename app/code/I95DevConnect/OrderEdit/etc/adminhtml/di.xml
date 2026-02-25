@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_OrderEdit
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Backend\Block\Widget\Button\Toolbar">
+        <plugin name="editorderFormToolbarButtons" type="I95DevConnect\OrderEdit\Plugin\Block\Order\Widget\Button\Toolbar" />
+    </type>
+</config>

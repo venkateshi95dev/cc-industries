@@ -1,0 +1,36 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @var  \Magedelight\Megamenu\Model\MenuItems|\Magedelight\Megamenu\Api\Data\MenuItemsInterface $menuItem */
+/** @var  \Magedelight\Megamenu\Block\Topmenu $menuBlock */
+/** @var  \Magedelight\Megamenu\Model\MegamenuManagement $menuManagement */
+/** @var \Magento\Catalog\Model\Category $category */
+$menuBlock = $block->getData('menu_block');
+$menuItems = $block->getData('menu_items');
+$key = $block->getData('items_key');
+$menuManagement = $block->getData('menu_management');
+$category = $block->getData('category');
+$subCats = $block->getData('sub_category');
+?>
+<?php if ($menuManagement->isAllowPermission($category->getId())): ?>
+    <?php //$subCats = $menuManagement->getChildrenCategories($category);
+    ?>
+    <li class="megaCategoryBlock">
+        <?php if (count($subCats) > 0): ?>
+            <?= /* @noEscape */ $menuBlock->getChildColumnForSubCategory(
+                $menuItems,
+                $key,
+                $category,
+                $subCats
+            ); ?>
+        <?php else: ?>
+        <h2><a href="<?= /* @noEscape */ $category->getUrl() ?>">
+                <?= $escaper->escapeHtml(__($category->getName()))
+        ?></a></h2>
+    </li>
+    <?php endif; ?>
+<?php endif; ?>

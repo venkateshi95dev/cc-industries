@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">backinstockalert_grid.backinstockalert_grid_data_source</item>
+        </item>
+    </argument>
+
+    <settings>
+        <!-- buttons tag -->
+        <spinner>backinstockalert_columns</spinner>
+        <deps>
+            <dep>backinstockalert_grid.backinstockalert_grid_data_source</dep>
+        </deps>
+    </settings>
+
+    <dataSource name="backinstockalert_grid_data_source"  component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">alert_stock_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>Crimson_ProductAlert::back_in_stock_alert</aclResource>
+        <dataProvider name="backinstockalert_grid_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+            <settings>
+                <requestFieldName>id</requestFieldName>
+                <primaryFieldName>main_table.alert_stock_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <exportButton name="export_button"/>
+        <filterSearch name="fulltext"/>
+        <filters name="listing_filters">
+        </filters>
+        <!-- massaction tag -->
+        <paging name="listing_paging"/>
+    </listingToolbar>
+
+    <columns name="backinstockalert_columns">
+
+        <selectionsColumn name="ids">
+            <settings>
+                <indexField>alert_stock_id</indexField>
+            </settings>
+        </selectionsColumn>
+
+        <column name="alert_stock_id" sortOrder="5">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">ID</label>
+            </settings>
+        </column>
+
+        <column name="customer_id" sortOrder="10">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer ID</label>
+            </settings>
+        </column>
+
+        <column name="customer_email" sortOrder="20">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Email</label>
+            </settings>
+        </column>
+
+        <column name="product_id" sortOrder="30">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Product ID</label>
+            </settings>
+        </column>
+
+        <column name="sku" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">SKU</label>
+            </settings>
+        </column>
+
+        <column name="add_date" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="50">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Add Date</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="send_date" class="Magento\Ui\Component\Listing\Columns\Date" component="Magento_Ui/js/grid/columns/date" sortOrder="60">
+            <settings>
+                <filter>dateRange</filter>
+                <dataType>date</dataType>
+                <label translate="true">Send Date</label>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+
+        <column name="status" sortOrder="70">
+            <settings>
+                <filter>select</filter>
+                <options class="Crimson\ProductAlert\Ui\Component\Listing\Column\Status"/>
+                <dataType>select</dataType>
+                <label translate="true">Status</label>
+            </settings>
+        </column>
+
+        <column name="website_id" sortOrder="80">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Website ID</label>
+            </settings>
+        </column>
+
+    </columns>
+</listing>

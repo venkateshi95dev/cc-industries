@@ -1,0 +1,22 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php $_source  = $block->getSource() ?>
+<?php $block->setPriceDataObject($_source) ?>
+
+<?php if ((float) $_source->getDiscountGroupAmount()): ?>
+    <tr>
+        <td class="label"><?php /* @escapeNotVerified */ echo __('Discount Group Amount') ?></td>
+        <td>
+            <?php /* @escapeNotVerified */ echo $block->displayPrices($_source->getBaseDiscountGroupAmount(), $_source->getDiscountGroupAmount()); ?>
+        </td>
+    </tr>
+<?php endif; ?>

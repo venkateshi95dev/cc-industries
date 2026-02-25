@@ -1,0 +1,174 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+.magazine, .entire_book {
+	margin: 0 auto;
+}
+
+.hide {
+	display: none !important;
+}
+
+.arrow,
+.arrow img {
+	position: relative;
+	display: block;
+	height: 35px;
+	width: 35px;
+	margin: 0 auto;
+}
+
+.display_catalog {
+	position: relative;
+	margin: 0 auto;
+}
+
+.disable {
+   pointer-events: none;
+   cursor: default;
+}
+
+ul#pages,
+ul.split_pages {
+	margin: 0 auto;
+	padding: 0;
+}
+
+.btn-area {
+	background-color: rgba(0,0,0,0.7);
+	width: calc(100% + 100px);
+	margin-left: -50px;
+}
+
+a.btn {
+		background-color: rgba(0,0,0,0.7);
+  	border: none;
+  	color: #fff;
+  	text-decoration: none;
+  	font-size: 12px;
+  	font-family: verdana;
+}
+
+.menu_title {
+	float: right;
+}
+
+/*#pages {
+	width: 100%
+	margin: 0 auto;
+	padding: 0;
+}
+
+.split_pages {
+	margin: 0 auto;
+	padding: 0;
+}
+
+.split_pages li {
+	list-style: none;
+	display: inline;
+}*/
+
+.zindex100 {
+	z-index: 100;
+	position: absolute;
+}
+
+.zindex300 {
+	z-index: 300;
+	position: absolute;
+}
+
+.control-central {
+	 left: 50%;
+	 top: 0;
+}
+
+.move {
+	width: 50px !important;
+  	background-color: #000;
+  	opacity: 0.4;
+	height: 100vh;
+	margin-left: -50px
+}
+
+.move-right {
+	float: right;
+}
+
+.move-left {
+	float: left;
+}
+
+.move:hover {
+  opacity: 1;
+}
+
+.page_header {
+	line-height: 30px;
+}
+
+.viewfull,
+.exitfull {
+	position: absolute;
+	top: -30px;
+	width: 100%;
+	/*left: calc(50% - 30px);*/
+	padding: 5px 30px;
+}
+
+.catalog_footer {
+	position: absolute;
+	bottom: 0;
+	z-index: 500;
+	height: 198px;
+	overflow-x: scroll;
+}
+
+ul.footer_pages {
+	display: none;
+	background-color: rgba(0, 0, 0, 0.5);
+	height: 198px;
+	padding: 10px;
+}
+
+ul.footer_pages li {
+	float: left;
+	margin-right: 10px;
+}
+
+ul.footer_pages li a {
+	position: relative;
+}
+
+ul.footer_pages li a:hover img {
+	opacity: 0.9;
+	filter: alpha(opacity=90); /* For IE8 and earlier */
+}
+
+ul.footer_pages li a span {
+	position: absolute;
+	display: block;
+	top: 0;
+	left: calc(50% - 25px);
+	font-size: 30px;
+	color: white;
+	text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+	background-color: rgba(0,0,0,0.7);
+	padding: 2px 5px;
+	border-radius: 4px;
+}
+
+ul.footer_pages li a span.b-text {
+	display: none;
+}
+
+.btn.viewfull, .btn.exitfull{
+	text-transform: capitalize;
+}

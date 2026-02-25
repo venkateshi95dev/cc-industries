@@ -1,0 +1,71 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+?>
+<?php
+/**
+ * @var $block \Magedelight\Megamenu\Block\ShortcodeMenu
+ */
+?>
+<?php $_menu = $block->getHtml() ?>
+<?php
+$randomNumber = random_int(100000, 999999);
+?>
+<div class="section-item-content" id="<?= /* @noEscape */ 'shortcode_menu_'.$randomNumber; ?>">
+    <div class="menu-container shortcodemenu">
+        <div class="menu <?= /* @noEscape */ $block->getMenuDesign(); ?> <?php
+        if ($block->isStickyEnable() == '1'):
+            echo "stickymenu";
+        endif;
+        ?>">
+            <ul>
+                <?= /* @noEscape */ $_menu; ?>
+            </ul>
+            <?=  $block->menuStyleHtml();
+            ?>
+        </div>
+        <?php
+        if ($block->isStickyEnable() == '1') {
+            ?>
+            <div class="stickyalias"> </div>
+            <?php
+        }
+        ?>
+    </div>
+</div>
+
+<script>
+    var animation_time = '<?= /* @noEscape */ $block->animationTime(); ?>';
+    require(['jquery'], function ($) {
+
+        var nav = $('.shortcodemenu');
+        if (nav.length) {
+            var stickyHeaderTop = nav.offset().top;
+            var menuWidth = jQuery('.shortcodemenu .menu.stickymenu').width();
+            //var topMargin;
+            $(window).scroll(function () {
+                if ($(window).width() >= 767) {
+                    if ($(window).scrollTop() > stickyHeaderTop) {
+                        $('.shortcodemenu .stickymenu').css({position: 'fixed', top: '0px', 'max-width': menuWidth});
+                        $('.stickyalias').css('display', 'block');
+                    } else {
+                        $('.shortcodemenu .stickymenu').css({position: 'static', top: '0px'});
+                        $('.stickyalias').css('display', 'none');
+                    }
+                }
+            });
+            <?php $shortCodeSel = ".section-item-content .menu-container.shortcodemenu .menu > ul > li.dropdown";?>
+            $('#shortcode_menu_<?= /* @noEscape */ $randomNumber . $shortCodeSel?>').each(function (e) {
+                $(this).children('a').after('<span class="plus"></span>');
+            });
+            <?php $dropdown = $shortCodeSel ." span.plus"; ?>
+            $('#shortcode_menu_<?= /* @noEscape */ $randomNumber .$dropdown ?>').click(function (e) {
+                $(this).siblings('a').toggleClass('active');
+                $(this).toggleClass('active').siblings('ul').slideToggle('500');
+            });
+        }
+    });
+</script>

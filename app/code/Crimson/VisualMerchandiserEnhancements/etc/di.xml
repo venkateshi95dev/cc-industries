@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\VisualMerchandiser\Model\Rules\Rule\Source" type="Crimson\VisualMerchandiserEnhancements\Model\Rules\Rule\Source" />
+    <preference for="Magento\VisualMerchandiser\Model\Config\Source\AllowedAttributes" type="Crimson\VisualMerchandiserEnhancements\Model\Config\Source\AllowedAttributes" />
+</config>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mgs
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mgs.com license that is
+ * available through the world-wide-web at this URL:
+ * http://magesolution.com/license-agreement.html
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mgs
+ * @package     Mgs_Revslider
+ * @copyright   Copyright (c) 2015 Mgs (http://magesolution.com/)
+ * @license     http://magesolution.com/license-agreement.html
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+
+        <add id="Silk_Core::base" title="Silk" translate="title" module="Silk_Core" sortOrder="72" resource="Silk_Core::base"/>
+        <add id="Silk_Core::configuration" title="Configuration" translate="title" parent="Silk_Core::base"
+             module="Silk_Core" sortOrder="1000" resource="Silk_Core::configuration"/>
+    </menu>
+</config>

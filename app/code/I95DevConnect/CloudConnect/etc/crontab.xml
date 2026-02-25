@@ -1,0 +1,22 @@
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_CloudConnect
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="i95devconnect">
+        <job name="I95DevCloudConnectLogClean" instance="\I95DevConnect\CloudConnect\Model\DataClean" method="logClean">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job instance="I95DevConnect\CloudConnect\Cron\SendShippingMapping" method="execute"
+             name="send_shipping_mapping">
+            <schedule>0 0 * * *</schedule>
+        </job>
+        <job instance="I95DevConnect\CloudConnect\Cron\SendPaymentMapping" method="execute" name="send_payment_mapping">
+            <schedule>0 0 * * *</schedule>
+        </job>
+    </group>
+</config>

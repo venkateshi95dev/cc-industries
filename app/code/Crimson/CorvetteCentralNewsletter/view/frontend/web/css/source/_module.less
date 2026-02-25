@@ -1,0 +1,48 @@
+& when (@media-common = true) {
+    .block.newsletter-fields {
+        padding-top: @indent__xl;
+        display: flex;
+        flex-direction: column;
+        max-width: 50%;
+        margin: 0 auto;
+        font-size: 14px;
+        h2.title {
+            border-bottom: 8px solid @border-color__base;
+            padding-bottom: @indent__s;
+        }
+        fieldset.content {
+            border: none;
+            input[type="text"],input[type="email"]{
+                height: 34px;
+                font-size: 14px;
+            }
+        }
+        i{
+            font-size: 14px;
+        }
+
+        form.subscribe {
+            display: flex;
+            flex-direction: column;
+            gap: @indent__m;
+        }
+
+        .label, legend {
+            font-weight: @font-weight__regular;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block.newsletter-fields {
+        form.subscribe {
+            width: 87%;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .block.newsletter-fields {
+        max-width: 87%;
+    }
+}

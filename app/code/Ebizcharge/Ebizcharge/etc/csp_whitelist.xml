@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2022 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      TekHQS https://www.tekhqs.com
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <value id="ebiz-3d-secure-cdn" type="host">https://cdn1.ebizcharge.net</value>
+                <value id="cardinal-3d-secure" type="host">https://songbird.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-staging" type="host">https://songbirdstag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-staging" type="host">https://centinelapi.cardinalcommerce.com</value>
+                <value id="jquery-crypto-js" type="host">https://cdnjs.cloudflare.com</value>
+                <value id="trusted-insights" type="host">https://insight.adsrvr.org/</value>
+                <value id="dpm-demdex-net" type="host">https://dpm.demdex.net</value>
+                <value id="amc-global" type="host">https://amcglobal.sc.omtrdc.net</value>
+                <value id="cardinal-3d-secure-geo-stag" type="host">https://geostag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-geo" type="host">https://geo.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-centinelapi-stag" type="host">https://centinelapistag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-centinelapi" type="host">https://centinelapi.cardinalcommerce.com</value>
+                <value id="google-analytics" type="host">https://analytics.google.com</value>
+                <value id="vimeo" type="host">https://vimeo.com</value>
+
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="ebiz-3ds-api" type="host">3dsapi.ebizcharge.net</value>
+                <value id="ebiz-3ds-api-1" type="host">kg668dbov0.execute-api.us-east-1.amazonaws.com</value>
+                <value id="ebizcharge-3ds-stag" type="host">ebizcharge3ds-staging1.azurewebsites.net</value>
+                <value id="ebiz" type="host">*.ebizcharge.net</value>
+                <value id="cardinal-3d-secure" type="host">https://songbird.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-staging" type="host">https://songbirdstag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-staging" type="host">https://centinelapi.cardinalcommerce.com</value>
+                <value id="jquery-crypto-js" type="host">https://cdnjs.cloudflare.com</value>
+                <value id="trusted-insights" type="host">https://insight.adsrvr.org/</value>
+                <value id="dpm-demdex-net" type="host">https://dpm.demdex.net</value>
+                <value id="amc-global" type="host">https://amcglobal.sc.omtrdc.net</value>
+                <value id="cardinal-3d-secure-geo-stag" type="host">https://geostag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-geo" type="host">https://geo.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-centinelapi-stag" type="host">https://centinelapistag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-centinelapi" type="host">https://centinelapi.cardinalcommerce.com</value>
+                <value id="google-analytics" type="host">https://analytics.google.com</value>
+                <value id="vimeo" type="host">https://vimeo.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="cardinal-3d-secure" type="host">https://songbird.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-staging" type="host">https://songbirdstag.cardinalcommerce.com</value>
+                <value id="cardinal-3d-secure-staging" type="host">https://centinelapi.cardinalcommerce.com</value>
+                <value id="cardinal-cardinal-frame" type="host">https://*.cardinalcommerce.com</value>
+                <value id="cardinal-api" type="host">https://*.centinelapi.cardinalcommerce.com</value>
+                <value id="trusted-insights" type="host">https://insight.adsrvr.org/</value>
+                <value id="google-analytics" type="host">https://analytics.google.com</value>
+                <value id="vimeo" type="host">https://vimeo.com</value>
+            </values>
+        </policy>
+        <policy id="frame-ancestors">
+            <values>
+                <value id="youtube" type="host">https://www.youtube.com</value>
+                <value id="maps" type="host">https://www.google.com/maps</value>
+                <value id="trusted" type="host">https://www.google.com/</value>
+                <value id="trusted-insights" type="host">https://insight.adsrvr.org/</value>
+                <value id="google-analytics" type="host">https://analytics.google.com</value>
+                <value id="vimeo" type="host">https://vimeo.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

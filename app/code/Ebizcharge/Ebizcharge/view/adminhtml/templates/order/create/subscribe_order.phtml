@@ -1,0 +1,271 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+/**
+ * @var Configurable $block
+ */
+
+use Ebizcharge\Ebizcharge\ViewModel\SubscribeOrder;
+use Magento\ConfigurableProduct\Block\Adminhtml\Product\Composite\Fieldset\Configurable;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+use Ebizcharge\Ebizcharge\Model\Config as ConfigModel;
+
+
+/**
+ * @var SecureHtmlRenderer $secureRenderer
+ */
+
+$_product = $block->getProduct();
+
+/**
+ *
+ * @var SubscribeOrder $subscribeViewModel
+ */
+$subscribeViewModel = $block->getData('subscribeViewModel');
+$itemId = $subscribeViewModel->getItemId();
+$productId = $subscribeViewModel->getProductId();
+$recurringIndefinite = $subscribeViewModel->recIndefinitely() ? 1 : '0';
+$customerId = $subscribeViewModel->getCustomerId();
+$isRecurringEnabled = $subscribeViewModel->isRecurringEnabled();
+
+
+
+if($customerId && $isRecurringEnabled){
+
+?>
+<fieldset id="catalog_product_composite_configure_fields_configurable" class="fieldset admin__fieldset">
+    <legend class="legend admin__legend">
+        <span><?= $block->escapeHtml(__('Subscribe Options')) ?></span>
+    </legend>
+    <div class="product-options fieldset admin__fieldset">
+
+        <input type="hidden"
+               id="recurring_item_<?= $block->escapeHtml($itemId) ?>"
+               name="recurring[itemid]"
+               value="<?= $block->escapeHtml($itemId) ?>"/>
+
+        <div class="field admin__field">
+            <label class="label admin__field-label"><?= /** @noEscape */ __("Subscribe Product") ?></label>
+            <div class="control admin__field-control">
+                <div class="admin__actions-switch" data-role="switcher">
+                    <input
+                        type="checkbox"
+                        class="admin__actions-switch-checkbox"
+                        id="rec_activate_<?= $block->escapeHtml($itemId) ?>"
+                        name="recurring[rec_activate]"
+                        <?= /** @noEscape */ $subscribeViewModel->isProductSubscribed() ? ' checked="checked"' : '' ?>>
+                    <label class="admin__actions-switch-label" for="rec_activate_<?= $block->escapeHtml($itemId); ?>">
+                        <span class="admin__actions-switch-text"
+                              data-text-on="Yes"
+                              data-text-off="No">
+                        </span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="field admin__field required">
+            <label class="label admin__field-label"><?= /** @noEscape */ __("Frequency"); ?></label>
+            <div class="control admin__field-control">
+                <select name="recurring[rec_frequency]"
+                    id="rec_frequency_<?= $block->escapeHtml($itemId) ?>"
+                        data-id="rec_frequency_<?= $block->escapeHtml($itemId) ?>"
+                        class="admin__control-select required-entry remove-super-attribute-select"
+                    <?= /** @noEscape */ !$subscribeViewModel->getSelectedFrequency() ? ' disabled' : ''; ?>>
+                    <?php $subscribeViewModel->getConfiguredFrequencies(); ?>
+                </select>
+            </div>
+        </div>
+
+        <div class="field admin__field required">
+            <label class="label admin__field-label"
+                   for="start_date_<?= $block->escapeHtml($itemId); ?>">
+                <?= /** @noEscape */ __("Start Date") ?>
+            </label>
+            <div class="control admin__field-control">
+                <input type="text"
+                       name="recurring[sdate]"
+                       id="start_date_<?= $block->escapeHtml($itemId) ?>"
+                       data-id="start_date_<?= $block->escapeHtml($itemId) ?>"
+                       class="input-text admin__control-text required-entry"
+                       value="<?= /** @noEscape */ $subscribeViewModel->getStartDate(); ?>"
+                    <?= /** @noEscape */ !$subscribeViewModel->getStartDate() ? ' disabled' : ''; ?>>
+            </div>
+        </div>
+
+        <div class="field admin__field required"
+             id="end_date_panel_<?= $block->escapeHtml($itemId) ?>">
+            <label class="label admin__field-label"
+                   for="end_date_<?= $block->escapeHtml($itemId) ?>">
+                <?= /** @noEscape */ __("End Date"); ?>
+            </label>
+            <div class="control admin__field-control">
+                <input type="text"
+                       name="recurring[edate]"
+                       id="end_date_<?= $block->escapeHtml($itemId); ?>"
+                       data-item-id="<?= $block->escapeHtml($itemId) ?>"
+                       data-id="end_date_<?= $block->escapeHtml($itemId) ?>"
+                       class="input-text admin__control-text required-entry"
+                       data-validate="{
+                       required: true,
+                       'ebizChargeFrequencyDateRange': true
+                       }"
+                       value="<?= /** @noEscape */ $subscribeViewModel->getEndDate(); ?>"
+                    <?= /** @noEscape */ !$subscribeViewModel->getEndDate() ? ' disabled' : '' ?>>
+            </div>
+        </div>
+
+        <div class="field admin__field">
+            <label class="label admin__field-label"
+                   for="rec_indefinitely_<?= $block->escapeHtml($itemId) ?>">
+                <?= /** @noEscape */ __("Recur Indefinitely") ?>
+            </label>
+            <div class="control admin__field-control">
+                <input type="checkbox"
+                       name="recurring[rec_indefinitely]"
+                       id="rec_indefinite_<?= $block->escapeHtml($itemId); ?>"
+                       data-id="rec_indefinite_<?= $block->escapeHtml($itemId) ?>"
+                       value="<?= /** @noEscape */ $subscribeViewModel->recIndefinitely(); ?>"
+                    <?= /** @noEscape */ $subscribeViewModel->recIndefinitely() ? ' checked="checked"' : '' ?>
+                    <?= /** @noEscape */ !$subscribeViewModel->ifSubscribed() ? ' disabled' : '' ?>
+                >
+            </div>
+
+        </div>
+    </div>
+</fieldset>
+
+<?php
+$scriptString = <<<script
+require([
+    "jquery",
+    "mage/calendar"
+], function($, calendar) {
+
+        let endDatePanel = $('#end_date_panel_$itemId');
+        let recIndefinitely = $recurringIndefinite;
+
+        if(recIndefinitely){
+                endDatePanel.hide();
+        }
+                $('.action-close').on('click', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            //closeDialog(); // Replace with actual logic
+            console.log(e.target.id);
+         });
+
+        $('#start_date_$itemId, #end_date_$itemId').calendar({
+            buttonText: '',
+            minDate: '+1d',
+            dateFormat: 'Y-mm-dd',
+            showOn: 'both',
+            onSelect: function(date) {
+                if (this.id === 'end_date_$itemId') {
+
+                     $("#end_date_$itemId").datepicker('option', date, date);
+
+                }
+            },
+            beforeShow: function(){
+                 $(this).attr("autocomplete", "off");
+            }
+        });
+
+         $('#rec_activate_$itemId').on('click', function () {
+
+            if(!checkPrevFormFilled()) {
+                    return false
+            }
+
+            let disabled = true;
+
+            if ($('#rec_activate_$itemId').is(':checked') == true) {
+                disabled = false;
+
+            }
+
+           toggleSubscriptionForm(disabled);
+
+        });
+
+        $('.super-attribute-select').on('click', function(){
+            if(!checkPrevFormFilled() && $('#rec_activate_$itemId').is(':checked') == true) {
+                 $("#rec_activate_$itemId").trigger("click");
+
+                 /** disable subscription fields */
+                 toggleSubscriptionForm(true);
+            }
+
+        });
+
+        /** check if user has selected a product variation */
+        function checkPrevFormFilled() {
+
+            let fieldsCount = jQuery('.super-attribute-select').length;
+
+            /** form has no parent fields */
+            if(fieldsCount < 1) {
+                return true;
+            }
+
+            let lastFieldValue = jQuery('.super-attribute-select').last().val();
+
+            if(lastFieldValue == null || lastFieldValue == '') {
+                    return false
+            }
+            return true;
+        }
+
+        /** Enable disable subscription form */
+        function toggleSubscriptionForm(disabled) {
+            $('#rec_frequency_$itemId, #start_date_$itemId, #end_date_$itemId, #rec_indefinite_$itemId')
+            .prop( "disabled", disabled );
+        }
+
+        $('#rec_indefinite_$itemId').on('click', function () {
+
+            let disabled = false;
+
+            if ($('#rec_indefinite_$itemId').is(':checked') == true) {
+                disabled = true;
+                endDatePanel.hide();
+            } else {
+                endDatePanel.show();
+            }
+
+           $('#end_date_$itemId').prop( "disabled", disabled );
+
+        });
+});
+script;
+?>
+
+<?= /* @noEscape */
+$secureRenderer->renderTag('script', [], $scriptString, false) ?>
+
+
+    <?php
+}
+?>

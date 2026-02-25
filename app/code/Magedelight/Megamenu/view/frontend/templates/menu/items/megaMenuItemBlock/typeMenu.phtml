@@ -1,0 +1,39 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @var  \Magedelight\Megamenu\Model\MenuItems|\Magedelight\Megamenu\Api\Data\MenuItemsInterface $menuItem */
+/** @var  \Magedelight\Megamenu\Block\Topmenu $menuBlock */
+/** @var  \Magedelight\Megamenu\Model\MegamenuManagement $menuManagement */
+$menuBlock = $block->getData('menu_block');
+$menuItems = $block->getData('menu_items');
+$key = $block->getData('items_key');
+$menuManagement = $block->getData('menu_management');
+$menus = $menuManagement->loadMenuById($menuItems[$key]->value)->getData();
+?>
+<li class="megaNormalMenu">
+    <?php if ($menuItems[$key]->showtitle == '1'): ?>
+        <?php if (isset($menus['menu_name']) && ! empty($menus['menu_name'])): ?>
+            <h2><?= $escaper->escapeHtml(__($menus['menu_name'])) ?></h2>;
+        <?php endif; ?>
+    <?php endif; ?>
+    <ul>
+        <?php $menuChildItems = $menuManagement->loadMenuItems(0, 'ASC', $menuItems[$key]->value); ?>
+        <?php foreach ($menuChildItems as $menuItem): ?>
+            <?php
+                $linkUrl = $menuManagement->generateMenuUrl($menuItem);
+                $linkName = $menuManagement->generateMenuItemName($menuItem);
+                $dataclass = $block->getActiveClass($menuItem).' '.$menuItem->getItemClass();
+            ?>
+            <li class="<?= /* @noEscape */ $dataclass ?>">
+                <a href="<?= /* @noEscape */ $linkUrl ?>">
+                    <span class="megaitemicons"><?= /* @noEscape */ $menuItem->getItemFontIcon() ?></span>
+                    <?= /* @noEscape */ __($linkName) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</li>

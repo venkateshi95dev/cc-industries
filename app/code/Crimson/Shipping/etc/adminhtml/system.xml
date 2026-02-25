@@ -1,0 +1,277 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <group id="tablerate_twoday" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Table Rates - Two-Day</label>
+                <field id="handling_type" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Calculate Handling Fee</label>
+                    <source_model>Magento\Shipping\Model\Source\HandlingType</source_model>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Handling Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="condition_name" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Condition</label>
+                    <source_model>Magento\OfflineShipping\Model\Config\Source\Tablerate</source_model>
+                </field>
+                <field id="include_virtual_price" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Include Virtual Products in Price Calculation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="export" translate="label" type="Crimson\Shipping\Block\Adminhtml\System\Config\Form\Field\ExportTwoday" sortOrder="5" showInDefault="0" showInWebsite="1" showInStore="0">
+                    <label>Export</label>
+                </field>
+                <field id="import" translate="label" type="Magento\OfflineShipping\Block\Adminhtml\Form\Field\Import" sortOrder="6" showInDefault="0" showInWebsite="1" showInStore="0">
+                    <label>Import</label>
+                    <backend_model>Crimson\Shipping\Model\System\Config\Backend\Shipping\TablerateTwoDay</backend_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+            <group id="tablerate_surepost" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Table Rates - Surepost</label>
+                <field id="physical_value_cutoff" translate="label comment" type="text" sortOrder="7" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Physical Value Cutoff</label>
+                    <comment>Any package with a value higher than this amount will not allow this shipping method.</comment>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="weight_value_cutoff" translate="label comment" type="text" sortOrder="7" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Weight Value Cutoff</label>
+                    <comment>Any package with a value higher than this amount will not allow this shipping method.</comment>
+                    <validate>validate-number</validate>
+                </field>
+                <field id="mach_shipvia_code" translate="label comment" type="text" sortOrder="8" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Mach Shipping Code</label>
+                    <comment>This is the shipping method code that will be sent to Mach.</comment>
+                </field>
+                <field id="zipcode_valid_digits_active" translate="label comment" type="select" sortOrder="9" showInStore="0" showInWebsite="1" showInDefault="1">
+                    <label>Zip Codes Wildcard Digits</label>
+                    <comment>If it is Yes then the asterisk is going to be used as a wildcard.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="handling_type" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Calculate Handling Fee</label>
+                    <source_model>Magento\Shipping\Model\Source\HandlingType</source_model>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Handling Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="condition_name" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Condition</label>
+                    <source_model>Crimson\Shipping\Model\System\Config\Source\Shipping\TablerateSurepost</source_model>
+                </field>
+                <field id="include_virtual_price" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Include Virtual Products in Price Calculation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="export" translate="label" type="Crimson\Shipping\Block\Adminhtml\System\Config\Form\Field\ExportSurepost" sortOrder="5" showInDefault="0" showInWebsite="1" showInStore="0">
+                    <label>Export</label>
+                </field>
+                <field id="import" translate="label" type="Magento\OfflineShipping\Block\Adminhtml\Form\Field\Import" sortOrder="6" showInDefault="0" showInWebsite="1" showInStore="0">
+                    <label>Import</label>
+                    <backend_model>Crimson\Shipping\Model\System\Config\Backend\Shipping\TablerateSurepost</backend_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+            <group id="tablerate_zipflatrate" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Table Rates - Zip Flat Rate</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Title</label>
+                </field>
+                <field id="condition_name" translate="label" type="select" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Condition</label>
+                    <source_model>Crimson\Shipping\Model\System\Config\Source\Shipping\Tableratezipflatrate</source_model>
+                </field>
+                <field id="zipcode_valid_digits_active" translate="label comment" type="select" sortOrder="5" showInStore="0" showInWebsite="1" showInDefault="1">
+                    <label>Zip Codes Wildcard Digits</label>
+                    <comment>If it is Yes then the asterisk is going to be used as a wildcard.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="handling_type" translate="label" type="select" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Calculate Handling Fee</label>
+                    <source_model>Magento\Shipping\Model\Source\HandlingType</source_model>
+                </field>
+                <field id="handling_fee" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Handling Fee</label>
+                    <validate>validate-number validate-zero-or-greater</validate>
+                </field>
+                <field id="include_virtual_price" translate="label" type="select" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Include Virtual Products in Price Calculation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="export" translate="label" type="Crimson\Shipping\Block\Adminhtml\System\Config\Form\Field\ExportZipFlatRate" sortOrder="9" showInDefault="0" showInWebsite="1" showInStore="0">
+                    <label>Export</label>
+                </field>
+                <field id="import" translate="label" type="Magento\OfflineShipping\Block\Adminhtml\Form\Field\Import" sortOrder="10" showInDefault="0" showInWebsite="1" showInStore="0">
+                    <label>Import</label>
+                    <backend_model>Crimson\Shipping\Model\System\Config\Backend\Shipping\Tableratezipflatrate</backend_model>
+                </field>
+                <field id="mach_shipvia_code" translate="label comment" type="text" sortOrder="11" showInStore="1" showInWebsite="1" showInDefault="1">
+                    <label>Mach Shipping Code</label>
+                    <comment>This is the shipping method code that will be sent to Mach.</comment>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="92" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <frontend_class>shipping-skip-hide</frontend_class>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+            <group id="atypicalregions" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Atypical Region Shipping</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Is Active?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Name</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+            <group id="atypicalusregions" translate="label" type="text" sortOrder="105" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Atypical US Region Shipping</label>
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Is Active?</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Name</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+            </group>
+            <group id="freeshipping" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="regions_excluded" translate="label comment" type="multiselect" sortOrder="95" showInDefault="1" showInWebsite="1">
+                    <label>Excluded Regions</label>
+                    <source_model>Crimson\Shipping\Model\Directory\Config\Source\USRegions</source_model>
+                    <comment><![CDATA[Selected US regions will be excluded from this shipping method.]]></comment>
+                </field>
+            </group>
+        </section>
+        <section id="shipping">
+            <group id="cart_sidebar_messaging" translate="label" type="text" sortOrder="150"
+                showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cart Sidebar Messaging</label>
+                <field id="enable_cart_sidebar_tax_message" translate="label" type="select" sortOrder="100"
+                    showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Enable Cart Sidebar Tax Message</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cart_sidebar_tax_message" translate="label" type="textarea" sortOrder="101"
+                    showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Cart Sidebar Tax Message</label>
+                    <comment>Accepts HTML. Allowed tags: span, strong, br, ul, ol, li, p, div</comment>
+                    <depends>
+                        <field id="enable_shipping_policy">1</field>
+                    </depends>
+                </field>
+                <field id="enable_cart_sidebar_shipping_update" translate="label" type="select" sortOrder="105"
+                    showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Enable Cart Sidebar Shipping Update</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cart_sidebar_shipping_update" translate="label" type="textarea" sortOrder="106"
+                    showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Cart Sidebar Shipping Update</label>
+                    <comment>Accepts HTML. Allowed tags: span, strong, br, ul, ol, li, p, div</comment>
+                    <depends>
+                        <field id="enable_shipping_policy">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

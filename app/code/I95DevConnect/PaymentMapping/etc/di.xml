@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2020 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PaymentMapping
+ */
+-->
+<!--suppress ALL -->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="\I95DevConnect\PaymentMapping\Api\PaymentMappingManagementInterface" type="\I95DevConnect\PaymentMapping\Model\PaymentMappingManagement"/>
+    <preference for="\I95DevConnect\PaymentMapping\Api\Data\PaymentMappingDataInterface" type="\I95DevConnect\PaymentMapping\Model\Data\PaymentMappingData"/>
+    <preference for="\I95DevConnect\PaymentMapping\Api\PaymentMethodMagInterface" type="\I95DevConnect\PaymentMapping\Model\PaymentMethodMag"/>
+    <type name="\I95DevConnect\MessageQueue\Model\DataPersistence\Order\Order\Forward\Payment\PaymentInfo">
+      <plugin name="mapping_shipmethod_forward" type="\I95DevConnect\PaymentMapping\Plugin\PaymentMethodForward" sortOrder="1" disabled="false" />
+    </type>
+    <type name="\I95DevConnect\MessageQueue\Model\DataPersistence\Order\Order\Create">
+      <plugin name="mapping_payments_reverse" type="\I95DevConnect\PaymentMapping\Plugin\PaymentMethodReverse" sortOrder="1" disabled="false" />
+    </type>
+</config>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="critical_css_block">
+            <arguments>
+                <argument name="criticalCssViewModel" xsi:type="object">Crimson\Theme\Block\Html\Header\CartCriticalCss</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

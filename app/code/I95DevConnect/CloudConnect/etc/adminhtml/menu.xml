@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_CloudConnect
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="I95DevConnect_CloudConnect::i95dev_genericconnect" title="i95dev Cloud Settings"
+             module="I95DevConnect_CloudConnect" sortOrder="15"
+             action="adminhtml/system_config/edit/section/i95dev_adapter_configurations"
+             resource="I95DevConnect_CloudConnect::config_i95dev_genericconnect"
+             parent="I95DevConnect_MessageQueue::i95devconfig"/>
+    </menu>
+</config>

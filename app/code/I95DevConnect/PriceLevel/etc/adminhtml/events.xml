@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_collect_totals_before">
+        <observer name="admin_pricelevel_sales_quote_collect_totals_before" instance="I95DevConnect\PriceLevel\Observer\AdminQuoteCollectTotalsBefore" />
+    </event>
+    <event name="view_block_abstract_to_html_before">
+        <observer name="i95dev_adminhtml_block_html_before" instance="I95DevConnect\PriceLevel\Observer\TierPriceObserver" />
+    </event>
+</config>

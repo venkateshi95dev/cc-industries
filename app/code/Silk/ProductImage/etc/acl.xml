@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Silk_ProductImage::global_configuration" title="Silk Image global config"
+                                      sortOrder="1900"/>
+                 <resource id="Silk_ProductImage::configuration" title="Configuration">
+                        <resource id="Silk_ProductImage::document" title="Cms Document" translate="title" sortOrder="90" >
+                            <resource id="Silk_ProductImage::save" title="Save Document" translate="title" sortOrder="10" />
+                            <resource id="Silk_ProductImage::document_delete" title="Delete Document" translate="title" sortOrder="20" />
+                        </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

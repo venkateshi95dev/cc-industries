@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="core_charge" instance="Crimson\MachOrderFees\Model\Total\Quote\CoreCharge" sort_order="225"/>
+            <item name="additional_handling" instance="Crimson\MachOrderFees\Model\Total\Quote\AdditionalHandling" sort_order="460"/>
+        </group>
+    </section>
+    <section name="order_invoice">
+        <group name="totals">
+            <item name="core_charge" instance="Crimson\MachOrderFees\Model\Total\Invoice\CoreCharge" sort_order="600"/>
+            <item name="additional_handling" instance="Crimson\MachOrderFees\Model\Total\Invoice\AdditionalHandling" sort_order="600"/>
+        </group>
+    </section>
+</config>

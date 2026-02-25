@@ -1,0 +1,145 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\SyncAssets\Upload\Tab\Items;
+
+/**
+ * @var Items $block
+ */
+$syncData = $block->getUploadProductSyncUpdate();
+?>
+<div class="upload-items"  id="upload_products_container" data-bind="scope: 'upload_products_container'">
+    <div class="section-content">
+
+        <div class="messages breadcrumb-messages upload-notice">
+            <div class="message">
+                <span>
+                    <?= /* @noEscape */ __('Please wait, currently orders uploading is in progress.') ?>
+                </span>
+            </div>
+        </div>
+
+        <div id="products-step-1" class="steps">
+            <div style="display: none"
+                 class="step-messages">
+                <?= /* @noEscape */ __(
+                    'Please check how many products are available to upload @ EBizCharge Gateway'
+                )?>
+            </div>
+            <h3 id="products_progress" class="messages result_table">
+                <?= /* @noEscape */ __('Uploaded Products :')?> <span id="uploaded_products">
+                    <?= /* @noEscape */ $block->getTotalRemoteUplaoded();?>
+                </span>/
+                <span id="total_products"><?= /* @noEscape */ $block->getProductsAtEbizcharge();?></span>
+            </h3>
+            <h3 id="product_progress_bar_breadcrumbs" class="progress-bar-breadcrumbs checking-message messages"></h3>
+
+            <div id="product_results_table">
+            <table  class="table admin__table-primary table-responsive table-bordered">
+                <tbody>
+                <tr>
+                    <td><?= /* @noEscape */ __('Last uploaded :')?></td>
+                    <td>
+                        <span id="last_uploaded_products">
+                            <?= /* @noEscape */ $block->getLastUploaded(); ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?= /* @noEscape */ __('Last uploaded products :')?></td>
+                    <td>
+                        <span id="last_uplaoded_products">
+                            <?= /* @noEscape */ $block->getLastUploadedProducts(); ?>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><?= /* @noEscape */ __('Products available to upload :')?></td>
+                    <td><span id="to_upload_products">--</span></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <div id="product_upload_progress_bar" class="progress-bar">
+                <div class="progress-bar-label" id="progress_bar_label_items">0%</div>
+            </div>
+
+            <button id="check_products_btn" class="action-primary" type="button"
+                    title="Check Products @ EBizCharge Gateway"
+                    data-step="#products-step-1"> <?= /* @noEscape */ __('Refresh Products')?></button>
+
+            <button id="upload_products_btn" class="action-primary" type="button"
+                    title="Upload Products from EBizCharge Gateway"
+                    data-step="#products-step-2" disabled> <?= /* @noEscape */ __('Upload Products')?></button>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Magento_Ui/js/core/app": {
+           "components": {
+                "upload_products_container": {
+                    "component" : "Ebizcharge_Ebizcharge/js/uploads/component/upload-resources",
+                    "upload"  : {
+                           "check_ajax_url": "<?= $block->escapeUrl($block->getProductsCheckAtEbizchargeUrl()) ?>",
+                           "upload_ajax_url": "<?= $block->escapeUrl($block->getProductsUploadsFromEbizchargeUrl()) ?>",
+                           "progress_bar_ajax_url" : "<?= $block->escapeUrl($block->getProgressBarUrl()) ?>",
+                           "resource_view_url" : "<?= $block->escapeUrl($block->getViewUploadProductsUrl()) ?>",
+                           "uploading_status" : "<?= /* @noEscape */ $block->syncStatus()?>",
+                           "progress_bar"      : "product_upload_progress_bar",
+                           "check_resource_btn" : "check_products_btn",
+                           "upload_resource_btn" : "upload_products_btn",
+                           "view_resource_btn" : "view_products_btn",
+                           "breadcrumb_messages": "breadcrumb-messages",
+                           "resource_status_container" : "product_check_table_2",
+                           "progress_bar_label" : "progress_bar_label_items",
+                           "progress_bar_breadcrumbs" : "product_progress_bar_breadcrumbs",
+                           "resource_integration_progress" : "products_progress",
+                           "current_progress_value" : "current_progress_value",
+                           "uploaded_resources" : "uploaded_products",
+                           "total_resources" : "total_products",
+                           "progress_request_type" : "uploaded_product_progress",
+                           "upload_type" : "upload_products",
+                           "results_table" : "product_results_table",
+                           "id_check_table_2" : "product_check_table_2",
+                           "id_uploaded_resources" : "uploaded_products",
+                           "id_total_resource" : "total_products",
+                           "http_request_type": "GET",
+                           "request_type" : "products",
+                           "sync_title" : "sync_title_upload",
+                           "last_uploaded_date_resource":"last_uploaded_date_products",
+                           "last_uplaoded_resource":"last_uplaoded_products",
+                           "to_uplaod_resource":"to_upload_products"
+                         }
+                    }
+                }
+            }
+        }
+  }
+</script>

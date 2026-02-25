@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PriceLevel
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="erpconnect_forward_customerresponse">
+        <observer name="i95dev_pricelevel_forward_customerresponse" instance="I95DevConnect\PriceLevel\Observer\Forward\CustomerResponseObserver" />
+    </event>
+    <event name="erpconnect_messagequeuetomagento_aftersave_CustomerGroup">
+        <observer name="i95dev_erpconnect_messagequeuetomagento_aftersave_CustomerGroup" instance="I95DevConnect\PriceLevel\Observer\ReverseSyc\CustomerGroupPriceLevel" />
+    </event>
+    <event name="erpconnect_messagequeuetomagento_beforesave_customer">
+        <observer name="i95dev_erpconnect_messagequeuetomagento_beforesave" instance="I95DevConnect\PriceLevel\Observer\ReverseSyc\CustomerPriceLevel" />
+    </event>
+</config>

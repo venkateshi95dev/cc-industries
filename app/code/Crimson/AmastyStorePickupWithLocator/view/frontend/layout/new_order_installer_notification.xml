@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Items" design_abstraction="custom">
+    <update handle="new_installer_email_order_renderers"/>
+    <body>
+        <block class="Magento\Sales\Block\Order\Email\Items" name="items" template="Crimson_AmastyStorePickupWithLocator::email/order/items.phtml" cacheable="false">
+            <block class="Magento\Framework\View\Element\RendererList" name="new.installer.email.order.renderers" as="renderer.list"/>
+        </block>
+    </body>
+</page>

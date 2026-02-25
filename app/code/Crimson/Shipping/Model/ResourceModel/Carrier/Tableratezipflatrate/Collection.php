@@ -1,0 +1,99 @@
+<?php
+
+namespace Crimson\Shipping\Model\ResourceModel\Carrier\Tableratezipflatrate;
+
+use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+
+/**
+ * Class Collection
+ * @package Crimson\Shipping\Model\ResourceModel\Carrier\Tableratezipflatrate
+ */
+class Collection extends AbstractCollection
+{
+    /**
+     * Directory/country table name
+     *
+     * @var string
+     */
+    protected $_countryTable;
+
+    /**
+     * Directory/country_region table name
+     *
+     * @var string
+     */
+    protected $_regionTable;
+
+    /**
+     * Define resource model and item
+     *
+     * @return void
+     */
+    protected function _construct()
+    {
+        $this->_init(
+            \Crimson\Shipping\Model\Carrier\Tableratezipflatrate::class,
+            \Crimson\Shipping\Model\ResourceModel\Carrier\Tableratezipflatrate::class
+        );
+        $this->_countryTable = $this->getTable('directory_country');
+        $this->_regionTable = $this->getTable('directory_country_region');
+    }
+
+    /**
+     * Initialize select, add country iso3 code and region name
+     *
+     * @return void
+     */
+    public function _initSelect()
+    {
+        parent::_initSelect();
+
+        $this->_select->joinLeft(
+            ['country_table' => $this->_countryTable],
+            'country_table.country_id = main_table.dest_country_id',
+            ['dest_country' => 'iso3_code']
+        )->joinLeft(
+            ['region_table' => $this->_regionTable],
+            'region_table.region_id = main_table.dest_region_id',
+            ['dest_region' => 'code']
+        );
+
+        $this->addOrder('dest_country', self::SORT_ORDER_ASC);
+        $this->addOrder('dest_region', self::SORT_ORDER_ASC);
+        $this->addOrder('dest_zip', self::SORT_ORDER_ASC);
+        $this->addOrder('condition_value', self::SORT_ORDER_ASC);
+    }
+
+    /**
+     * Add website filter to collection
+     *
+     * @param $websiteId
+     * @return Collection
+     */
+    public function setWebsiteFilter($websiteId): Collection
+    {
+        return $this->addFieldToFilter('website_id', $websiteId);
+    }
+
+    /**
+     * Add condition name (code) filter to collection
+     *
+     * @param $conditionName
+     * @return Collection
+     */
+    public function setConditionFilter($conditionName): Collection
+    {
+        return $this->addFieldToFilter('condition_name', $conditionName);
+    }
+
+    /**
+     * Add country filter to collection
+     *
+     * @param $countryId
+     * @return Collection
+     */
+    public function setCountryFilter($countryId): Collection
+    {
+        return $this->addFieldToFilter('dest_country_id', $countryId);
+    }
+}

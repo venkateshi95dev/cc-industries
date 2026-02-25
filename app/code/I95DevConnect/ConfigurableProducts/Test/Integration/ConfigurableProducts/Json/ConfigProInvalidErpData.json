@@ -1,0 +1,37 @@
+{
+    "RequestData": [
+        {
+            "TargetId": "shirt",
+            "Reference": "shirt",
+            "InputData": "w1aJKR12dkMaWv4Xicj4cAep19eYf0KkGB7cC3MwuHYWjv+CfhqrCnUbG/aXHP82b+LTh8tObyUUoF2hT8ekLaUFofwxjfku2tvuK21UzxEuGfRAiUfaHQadhl2HhKmEvpTEpAEnrC8MjLNUHKCYCC/7JjooqtpVDx49xbzXC1gRqwRe3Kk7vR/OVf5o/1TBA+cqWOkw7ubuNhEp2rhSA4xmTK47d7oH33b0wJhin3D1XqEMRdTx+3L74yzRZYY3s1CN3aMU6vkAl1vWt1sAsxj/RodbaCzmSjtMcv4EJhLAxZ0DU2eK/yhDne9LjlDpCq2rEKBqKqfjNF9WmQZtduBHLBEQMLSeZS9OrSM+hfvzauLRDVlGpCzqawqYraKX80dlu2FJa2SPQlThTl5pQz3+MtGALbaX4QDlR8XvkxNxH8SV5dBYAN7OPev7KTZ+QMzKujBnbu81vzbB54GZUfzHvacPVosQlI08iFaPpc31np+ou5hWsnOb0qMqgecc",
+            "MessageId": 292,
+            "SourceId": null,
+            "Message": null,
+            "Result": true,
+            "StatusId": 0,
+            "LastSyncTime": null
+        },
+        {
+            "TargetId": "shirt1",
+            "Reference": "shirt1",
+            "InputData": "X5LR/ocHwyRZRQNZlFpIP8yvvdqmKNj+FHHK81h97OoQbKojBH5ZnFD15wxbdlkA8nIROK5IYoLc/G3sjNNTz25zXwslBgVzwGMcFVNld7aJ2RwSChE7MmjC4bV2chiFiW3bdmSY1xWSi/7UCZvazwb8WZIKXntBENwcyk5G3f++zo6ZRt1XT23ZA+nXECzZfSQrQpc4PDJkYf/CJWzCvxVE6ur8vGdWxxlS/cXBougr8KJT129pyAKAYvt+6eR7OEgn6+ketPge2nq4KlLtliTIH967dOgo0VnWzmS6gnqdUoD3Hyor9fd38VaR7nmhPqRj19bPxIs7wZ0qoSbpcecOK/nKruo8rJSIQslU8FrYfUZ9ArC9RzrBDtxOto2+IMYK65aWB3BsKtwdLuLUmV4/3rMNKga+A8TZWTVwyPGhDUPic1pCc2leOaEKmMsdFBdJYoKeLkl90/YjuLSvCg==",
+            "MessageId": 292,
+            "SourceId": null,
+            "Message": null,
+            "Result": true,
+            "StatusId": 0,
+            "LastSyncTime": null
+        },
+        {
+            "TargetId": "shirt2",
+            "Reference": "shirt2",
+            "InputData": "X5LR/ocHwyRZRQNZlFpIP5582yP70iBNDb9qQhpJkNXxfSWB0DjfmvAAYwrycpIkbiEzpiBR8CROL1AJWvsAztHR/M4vqrPzKnnGMziMSxdLLboYJUonLE/JuSF/6ZZdts0jgHDLKm3EktNR4L4wg+r42Aw1l/jCtMmE797pjFRUB1XLCCh0gA/S1XABtnc7OzTU1G+Flw4R/xFmNy3cSQLy0krsUTXBRXeWV12Ru7I2s2+g57rNCgN/VlEF9E+wOxEBCF+ZjqvcPG7F/6L4gL63HgCGFgQGMpW38kABdRJumyD1iYza3Vr2CpJr44q+iMJnx4Ybpsqhixt08AL2USLn5Q9N6vSQCD3IUmf6ZRNh7S6KNksp7narktQdlZGo+cgmFhgwrBhrj0I9kaiJpTPaN/i870Bqztz8AEu9MTjWfX32pjuk58ZQhGXzw6Nem0YP7G9PyMomCDeFm1NPjmsxgMjqrfwUbwosaiTRouXYdRh07WUEsClIg7fWs4n7",
+            "MessageId": 292,
+            "SourceId": null,
+            "Message": null,
+            "Result": true,
+            "StatusId": 0,
+            "LastSyncTime": null
+        }
+    ]
+}

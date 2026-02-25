@@ -1,0 +1,74 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxCart
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Bss\AjaxCart\Block\Ajax\Template
+ */
+?>
+<?php
+$helper = $block->getAjaxHelper();
+$routeName = $block->getRequest()->getRouteName();
+$popupAnimation = $helper->getConfigAnimation();
+$addUrl = $block->getUrl('ajaxcart');
+$quickview = 'false';
+$isProductView = 'false';
+
+if ($block->getRequest()->getModuleName() == 'ajaxcart') {
+    $quickview = 'true';
+    $isProductView = 'true';
+}
+
+if ($block->getRequest()->getFullActionName() == 'catalog_product_view') {
+    $isProductView = 'true';
+}
+
+$isEnable = $helper->isEnabled();
+
+if ($isProductView == 'true' && !$helper->isEnabledProductView()) {
+    $isEnable = false;
+}
+
+if ($block->getRequest()->getFullActionName() == 'checkout_cart_configure') {
+    $isEnable = false;
+}
+?>
+
+<?php if ($isEnable) :?>
+    <div id="bss_ajaxcart_popup" class="white-popup mfp-with-anim mfp-hide"></div>
+
+    <script type="text/x-magento-init">
+    {
+        "body": {
+            "bssAjaxCart": {
+                "addUrl": "<?php echo $block->escapeUrl($addUrl); ?>",
+                "quickview": "<?php echo $block->escapeJsQuote($quickview); ?>",
+                "isProductView": "<?php echo $block->escapeJsQuote($isProductView); ?>",
+                "quickViewUrl": "<?php echo $block->escapeUrl($block->getUrl('ajaxcart/index/view')); ?>",
+                "addToCartSelector": "<?php echo $block->escapeJsQuote($helper->getAddToCartSelector()); ?>",
+                "flyToCart": <?= $block->getConfigFlyToCart()?>,
+                "routeName":"<?=$block->escapeHtml($routeName)?>",
+                "animationPopup": "<?= $popupAnimation ?>",
+                "fullActionName": "<?= $block->getRequest()->getFullActionName() ?>"
+            }
+        }
+    }
+    </script>
+<?php endif; ?>

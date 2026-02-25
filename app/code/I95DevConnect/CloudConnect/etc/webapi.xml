@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_CloudConnect
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/CloudConnect/PullData" method="POST">
+        <service class="I95DevConnect\CloudConnect\Api\PullDataInterface" method="syncData"/>
+        <resources>
+            <resource ref="I95DevConnect_CloudConnect::apimethods"/>
+        </resources>
+    </route>
+    <route url="/V1/CloudConnect/PushData" method="POST">
+        <service class="I95DevConnect\CloudConnect\Api\PushDataInterface" method="syncData"/>
+        <resources>
+            <resource ref="I95DevConnect_CloudConnect::apimethods"/>
+        </resources>
+    </route>
+    <route url="/V1/CloudConnect/PushResponse" method="POST">
+        <service class="I95DevConnect\CloudConnect\Api\PushResponseInterface" method="syncResponse"/>
+        <resources>
+            <resource ref="I95DevConnect_CloudConnect::apimethods"/>
+        </resources>
+    </route>
+    <route url="/V1/CloudConnect/PullResponse" method="POST">
+        <service class="I95DevConnect\CloudConnect\Api\PullResponseInterface" method="syncResponse"/>
+        <resources>
+            <resource ref="I95DevConnect_CloudConnect::apimethods"/>
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance dc" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.cart.form">
+            <action method="setTemplate" ifconfig="i95devconnect_discountgroups/discountgroups_enabled_settings/enable_dg">
+                <argument name="template" xsi:type="string">I95DevConnect_DiscountGroups::form.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.totals">
+           <arguments>
+               <argument name="jsLayout" xsi:type="array">
+                   <item name="components" xsi:type="array">
+                       <item name="block-totals" xsi:type="array">
+                           <item name="children" xsi:type="array">
+                               <item name="discountgroupdiscount" xsi:type="array">
+                                   <item name="component"  xsi:type="string">I95DevConnect_DiscountGroups/js/view/checkout/summary/discountgroup-discount</item>
+                                   <item name="sortOrder" xsi:type="string">20</item>
+                                   <item name="config" xsi:type="array">
+                                       <item name="discountgroupdiscount" xsi:type="string" translate="true">Discount Group Amount</item>
+                                   </item>
+                               </item>
+                           </item>
+                       </item>
+                   </item>
+               </argument>
+           </arguments>
+        </referenceBlock>
+    </body>
+</page>

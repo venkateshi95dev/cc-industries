@@ -1,0 +1,215 @@
+<?php
+/**
+ * BSS Commerce Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://bsscommerce.com/Bss-Commerce-License.txt
+ *
+ * @category   BSS
+ * @package    Bss_AjaxCart
+ * @author     Extension Team
+ * @copyright  Copyright (c) 2017-2018 BSS Commerce Co. ( http://bsscommerce.com )
+ * @license    http://bsscommerce.com/Bss-Commerce-License.txt
+ */
+?>
+<?php
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Bss\AjaxCart\Block\Ajax\Template
+ */
+?>
+<?php
+    $helper = $block->getAjaxHelper();
+    $imageHelper = $block->getImageHelper();
+    $resultItem = $block->getItem();
+    $product = $resultItem->getProduct();
+    $resultPrice = $helper->getProductTaxDisplayType() == \Magento\Tax\Model\Config::DISPLAY_TYPE_EXCLUDING_TAX ?
+                        $resultItem->getPrice() : $resultItem->getPriceInclTax();
+    $weeTax = $block->getWeeHelper()->getWeeeTaxAppliedAmount($resultItem);
+    if ($weeTax) {
+        $resultPrice += $weeTax;
+    }
+    $cart = $block->getCartHelper()->getCart();
+    $showContinue = $helper->isShowContinueBtn();
+    $showCartInfo = $helper->isShowCartInfo();
+    $showCheckoutLink = $helper->isShowCheckoutLink();
+    $countDown = ($helper->getCountDownTime() > 0) ? $helper->getCountDownTime() : 0;
+    $animation = $helper->getConfigAnimation();
+?>
+<div class="popup">
+    <div class="block">
+        <div class="header">
+            <strong><?php echo $block->escapeHtml(__('Shopping Cart')); ?></strong>
+        </div>
+        <p class="message">
+            <?php echo $block->escapeHtml(__('You added ')); ?>
+            <a href="<?php echo $block->escapeUrl($product->getProductUrl()); ?>"
+                title="<?php echo $block->escapeHtml($resultItem->getName()); ?>">
+            <?php echo $block->escapeHtml($resultItem->getName());?>
+            </a>
+            <?php echo $block->getRelatedAdded() ? $block->escapeHtml(__(' and related products')) : ''; ?>
+            <?php echo $block->escapeHtml(__(' to your shopping cart.')); ?>
+        </p>
+
+        <?php if ($helper->isShowProductImage()) :?>
+            <div class="product-image">
+                <img src="<?php echo $block->escapeUrl(
+                    $imageHelper->init(
+                        $product,
+                        'category_page_list',
+                        ['height' => $helper->getImageSize() , 'width'=> $helper->getImageSize()]
+                    )->getUrl()
+                ); ?>">
+                <?php if ($helper->isShowProductPrice() && $product->getTypeId() != \Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE) :?>
+                    <div>
+                        <span>
+                            <?php
+                                echo $block->escapeHtml(
+                                    $block->getPricingHelper()->currency(
+                                        $resultPrice,
+                                        true,
+                                        false
+                                    )
+                                );
+                            ?>
+                        </span>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($showCartInfo || $showCheckoutLink) :?>
+            <div class="cart-info">
+                <?php if ($showCartInfo) : ?>
+                <div class="items-count">
+                    <span>
+                        <?php
+                        if ($cart->getItemsQty() > 1) {
+                            echo $block->escapeHtml(__('There are '));
+                        } else {
+                            echo $block->escapeHtml(__('There is '));
+                        }
+                        ?>
+                        <a href="<?php echo $block->escapeUrl($block->getUrl('checkout/cart')); ?>">
+                            <?php
+                            echo $block->escapeHtml($cart->getItemsQty());
+                            if ($cart->getItemsQty() > 1) {
+                                echo $block->escapeHtml(__(' items'));
+                            } else {
+                                echo $block->escapeHtml(__(' item'));
+                            }
+                            ?>
+                        </a>
+                        <?php echo $block->escapeHtml(__(' in your cart.')); ?>
+                    </span>
+                </div>
+                <div class="subtotal">
+                    <?php $displayType = $helper->getSubtotalDisplayType(); ?>
+                    <?php $quote = $block->getCartHelper()->getQuote(); ?>
+                    <?php
+                        $cartSubTotalInclTax = $block->escapeHtml(
+                            $block->getPricingHelper()->currency(
+                                $quote->getGrandTotal(),
+                                true,
+                                false
+                            )
+                        );
+                        $cartSubTotalExclTax = $block->escapeHtml(
+                                $block->getPricingHelper()->currency(
+                                $quote->getSubtotal(),
+                                true,
+                                false
+                            )
+                        );
+                    ?>
+                    <span>
+                        <?php
+                            if ($displayType == 1) {
+                                echo $block->escapeHtml(__('Cart Subtotal: '));
+                                echo $cartSubTotalExclTax;
+                            } else if ($displayType == 2) {
+                                echo $block->escapeHtml(__('Cart Subtotal: '));
+                                echo $cartSubTotalInclTax;
+                            }
+                        ?>
+                    </span>
+                    <?php if ($displayType == 3): ?>
+                        <span>
+                            <?php echo $block->escapeHtml(__('Cart Subtotal: ')); ?>
+                            <?php echo $cartSubTotalInclTax; ?>
+                        </span><br>
+                        <span>
+                            <?php echo $cartSubTotalExclTax . $block->escapeHtml(__(' Excl. Tax')); ?>
+                        </span>
+                    <?php endif; ?>
+                </div>
+                <?php endif; ?>
+                <?php if ($showCheckoutLink) : ?>
+                <div class="checkout-link">
+                    <a href="<?php echo $block->escapeUrl($block->getUrl('checkout')); ?>">
+                        <span><?php echo $block->escapeHtml(__('Go to checkout')); ?></span>
+                    </a>
+                </div>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <?php echo $block->getChildHtml('ajaxcart.popup.suggest'); ?>
+
+    <div class="action clearfix">
+        <div class="btn-viewcart <?php echo (!$showContinue) ? 'full-width' : ''; ?>">
+            <a
+                href="<?php echo $block->escapeUrl($block->getUrl('checkout/cart')); ?>"
+                title="<?php echo $block->escapeHtml(__($helper->getBtnViewcartText())); ?>"
+                class="view-cart"
+            >
+                <button class="viewcart"
+                    type="button"
+                    title="<?php echo $block->escapeHtml(__($helper->getBtnViewcartText())); ?>">
+                    <span><?php echo $block->escapeHtml(__($helper->getBtnViewcartText())); ?></span>
+                    <?php if ($helper->getCountDownActive() == \Bss\AjaxCart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_VIEW_CART_BTN
+                                && $helper->getCountDownTime() > 0) :?>
+                        <span class="<?php echo ($helper->getCountDownActive() == \Bss\AjaxCart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_VIEW_CART_BTN) ? 'countdown' : ''; ?>">
+                            (<?php echo $block->escapeHtml($helper->getCountDownTime()); ?>)
+                        </span>
+                    <?php endif; ?>
+                </button>
+            </a>
+        </div>
+
+        <?php if ($showContinue) : ?>
+        <div class="btn-continue">
+            <button
+                class="continue"
+                type="button"
+                title="<?php echo $block->escapeHtml(__($helper->getBtnContinueText())); ?>"
+            >
+                <span><?php echo $block->escapeHtml(__($helper->getBtnContinueText())); ?></span>
+                <?php if ($helper->getCountDownActive() == \Bss\AjaxCart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_CONTINUE_BTN
+                            && $helper->getCountDownTime() > 0) :?>
+                    <span class="<?php echo ($helper->getCountDownActive() == \Bss\AjaxCart\Model\Config\Source\Countdown::POPUP_COUNTDOWN_CONTINUE_BTN) ? 'countdown' : ''; ?>">
+                        (<?php echo $block->escapeHtml($helper->getCountDownTime()); ?>)
+                    </span>
+                <?php endif; ?>
+            </button>
+        </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "#bss_ajaxcart_popup": {
+            "bssPopup": {
+                "countDown": <?php echo $block->escapeJsQuote($countDown); ?>
+            }
+        }
+    }
+</script>
+

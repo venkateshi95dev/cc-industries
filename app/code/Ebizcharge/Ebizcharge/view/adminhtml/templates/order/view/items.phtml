@@ -1,0 +1,63 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Magento\Sales\Block\Adminhtml\Order\View\Items;
+
+/**
+ * @var Items $block
+ */
+$_order = $block->getOrder()
+?>
+<div class="admin__table-wrapper">
+    <table class="data-table admin__table-primary edit-order-table">
+        <thead>
+        <tr class="headings">
+            <?php $i = 0;
+            $columns = $block->getColumns();
+            $lastItemNumber = count($columns) ?>
+            <?php foreach ($columns as $columnName => $columnTitle): ?>
+                <?php $i++; ?>
+                <th class="col-<?= $block->escapeHtmlAttr($columnName) ?><?= /* @noEscape */
+                ($i === $lastItemNumber ? ' last' : '') ?>">
+                    <span><?= $block->escapeHtml($columnTitle) ?></span>
+                </th>
+            <?php endforeach; ?>
+        </tr>
+        </thead>
+        <?php $_items = $block->getItemsCollection(); ?>
+        <?php $i = 0;
+        foreach ($_items as $_item): ?>
+            <?php if ($_item->getParentItem()):
+                continue;
+            else:
+                $i++;
+            endif; ?>
+            <tbody class="<?= /* @noEscape */ $i % 2 ? 'even' : 'odd' ?>">
+                <?= $block->getItemHtml($_item) ?>
+                <?= /* @noEscape */ $block->getItemExtraInfoHtml($_item) ?>
+            </tbody>
+        <?php endforeach; ?>
+    </table>
+</div>

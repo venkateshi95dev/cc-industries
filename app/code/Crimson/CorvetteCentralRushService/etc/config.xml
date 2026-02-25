@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <shipping>
+            <rush_service>
+                <enabled>0</enabled>
+                <rush_label><![CDATA[RUSH Service $5.95]]></rush_label>
+                <rush_message><![CDATA[Ships same-day if ordered by 1pm EST]]></rush_message>
+            </rush_service>
+        </shipping>
+    </default>
+</config>

@@ -1,0 +1,126 @@
+<link href="<?php echo $block->getViewFileUrl('Silk_Coker::css/woodenwheels.css'); ?>" rel="stylesheet" type="text/css" />
+<?php 
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $scopeConfig = $objectManager->create("Magento\Framework\App\Config\ScopeConfigInterface");
+    $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+    $phone = $scopeConfig->getValue("general/store_information/phone", $storeScope);
+?>
+<div id="wrapper" class="woodenwheels">
+		<div id="content" class="product margin_btm3">
+	      <div class="container padding_l05r05 margin_btm3">
+	          <div class="row padding0">
+	          <div class="col-sm-12 padding0 mobile100 mob_pad1">
+	            <div class="padding_top1">
+	              <div class="page-title margin_btm2">
+					<div class="padding_top1">
+						<h1>
+							<a href="#" title="Brand New Wooden Wheels" style="cursor:default;">
+								<img class="img-responsive center-block"  src="<?php echo $block->getViewFileUrl('Silk_Coker::images/header.png'); ?>"  alt="Brand New Wooden Wheels"/>
+							</a>
+						</h1>
+					</div>
+	              </div>
+				  <div class="middle clearfix">
+					<h3 class="font36 brown_font bold text-center margin_top2">Coker Does It Once Again!</h3>
+					<div class="divider margin_top2 margin_btm1 center-block"></div>
+					<div class="col-sm-10 col-sm-offset-1">
+						<p class="font18 margin_top1 text-center">We continue to expand our expertise and offerings in the Collector Tire and Wheel market with the introduction of our new service to use your hubs and either provide new felloe bands for you or we can use yours if you have them. We also make new rims and felloe bands right here in our Machine Shop!</p>
+					</div>
+				   </div>
+				   <div class="spokes_bg margin_top2 clearfix padding_tb2 hidden-xs">
+						<div class="spokes_inner">
+							<div class="row">
+								<div class="spokes_inner_bg center-block clearfix">
+									<div class="spokes_content text-center">
+										<div class="font36 bold margin_btm05 brown_font">For Fitment And Installation Questions</div>
+										<div class="font18">Call and speak to our sales person</div>
+										<div class="horizontal_line_1 margin_top1 margin_btm1 padding_l2r2"></div>
+										<a class="brown_font" href="tel:<?php echo $phone; ?>"><span class="number font40 text-center"><?php echo $phone; ?></span></a>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6 col-sm-offset-3 margin_top3">
+									<a href="#video" class="seevideo">
+										<div class="ribbon_left"></div>
+										<div class="ribbon orange">
+											<i class="fa fa-play-circle white_font font36 lh52 pull-left" style="margin-right:10px;margin-left:15px;"></i>
+											<div class="white_font font24 pull-left lh52">Watch How It's Made.</div>
+										</div>
+										<div class="ribbon_right"></div>
+									</a>
+							   </div>
+							</div>
+						</div>
+				   </div>
+				   <div class="icons margin_top2 clearfix padding_tb2 hidden-xs">
+						<h3 class="font36 brown_font bold text-center margin_t2b2">Why Choose Coker Tires<br/>Wood Wheel Shop?</h3>
+                      <div class="row">
+
+                      </div>
+				   </div>
+                   <div class="pricing margin_top2 clearfix padding_tb2 margin_btm2">
+                       <h3 class="font36 brown_font bold text-center margin_top2">Wooden Wheel Pricing</h3>
+                       <div class="divider margin_top2 margin_btm1 center-block"></div>
+                       <p class="font18 margin_top1 text-center margin_btm2">All wheels are custom hand-crafted. Pricing may vary so call for details.</p>
+                       <div class="row padding04">
+                           <div class="col-sm-6">
+                               <img class="img-responsive" src="<?php echo $block->getViewFileUrl('Silk_Coker::images/big_wheel.png') ?>" alt="Wooden Wheel Image"/>
+                           </div>
+                           <div class="col-sm-6">
+                               <div class="item margin_top2">
+                                   <div><span class="brown_font font20 bold">Model T Ford&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange_font relative">$875 <span class="uppercase up">Up</span> </span></div>
+                                   <div>(Item # 99500)</div>
+                                   <ul class="item-list margin0 padding0">
+                                       <li>Non Demountable Rim</li>
+                                       <li>Round Felloe w/Oval Spokes</li>
+                                   </ul>
+                                   <div class="horizontal_line_1 margin_top1 margin_btm1"></div>
+                               </div>
+                               <div class="item margin_top2">
+                                   <div><span class="brown_font font20 bold">Demountable/Detachable&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange_font relative">$875 <span class="uppercase up">Up</span> </span></div>
+                                   <div>(Item # 99501)</div>
+                                   <ul class="item-list margin0 padding0">
+                                       <li>Up To 27" Rims</li>
+                                   </ul>
+                                   <div class="horizontal_line_1 margin_top1 margin_btm1"></div>
+                               </div>
+                               <div class="item margin_top2">
+                                   <div><span class="brown_font font20 bold">Demountable/Detachable&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange_font relative">$875 <span class="uppercase up">Up</span> </span></div>
+                                   <div>(Item # 99502)</div>
+                                   <ul class="item-list margin0 padding0">
+                                       <li>Up To 28" Rims</li>
+                                   </ul>
+                                   <div class="horizontal_line_1 margin_top1 margin_btm1"></div>
+                               </div>
+                               <div class="item margin_top2">
+                                   <div><span class="brown_font font20 bold">Specialty Wheels&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange_font relative">$975 <span class="uppercase up">Up</span> </span></div>
+                                   <div>(Item # 99503)</div>
+                                   <ul class="item-list margin0 padding0">
+                                       <li>Special wheels with large felloes or large spokes, or that require additional machining for hubs.</li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                   <div id="video" class="video_bg margin_top4 clearfix padding_tb2">
+                       <div class="video_inner">
+                           <div class="embed-responsive embed-responsive-16by9 vid_surround">
+                                <iframe id="youtube_video" class="embed-responsive-item" width="720" height="405" src="//www.youtube.com/embed/f9Je3oftazY" frameborder="0" allowfullscreen="" kwframeid="1"></iframe>
+                            </div>
+                       </div>
+                   </div>
+				   <div class="contact margin_top4 clearfix padding_tb2 text-center">
+						<h3 class="font32 brown_font">Call for more info about Coker Tires Wooden Wheels</h3>
+						<a class="brown_font" href="tel:<?php echo $phone; ?>"><span class="number font40"><?php echo $phone; ?></span></a>
+                   </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+		</div>
+		<div class="footer_push"></div>
+</div>
+<style type="text/css">
+  
+</style>

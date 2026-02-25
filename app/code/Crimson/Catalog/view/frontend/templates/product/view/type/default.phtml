@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var $block \Crimson\Catalog\Block\Product\View\Type\Simple
+ * @var $escaper \Magento\Framework\Escaper
+ */
+
+$_product = $block->getProduct();
+?>
+
+<?php if ($block->displayProductStockStatus() && !$block->getIsServiceProduct()): ?>
+<?php $dropship = (bool)$_product->getData('ships_from_manufacturer');?>
+<?php $qty = $block->getSimpleStockInfo();?>
+    <?php if ($_product->isAvailable() && $qty > 0 && !$dropship): ?>
+        <?PHP $shippingTime = $block->getShippingTimeInfo();?>
+        <div class="stock available" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('<span class="label label-success"><i class="fa fa-check-circle"></i>In Stock</span> - %1', $shippingTime) ?></span>
+        </div>
+    <?php elseif($dropship && $qty > 0): ?>
+        <?PHP $shippingTime = $block->getShippingTimeInfo();?>
+        <div class="stock available" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('<span class="label label-success"><i class="fa fa-check-circle"></i>In Stock</span> - %1', $shippingTime) ?></span>
+        </div>
+    <?php elseif($dropship && $qty <= 0): ?>
+        <div class="stock dropship" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ __('<span class="label label-info"><i class="fa fa-truck"></i>Dropship</span> - This item ships direct from the manufacturer and is not eligible for express shipping.') ?></span>
+        </div>
+    <?php else: ?>
+        <div class="stock unavailable" title="<?= /* @escapeNotVerified */ __('Availability') ?>">
+            <span><?= /* @escapeNotVerified */ $block->getBackorderETAMessage() ?></span>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

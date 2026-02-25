@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_product_add_after">
+        <observer name="crimson_customreports_queue_stock_data_on_add_to_cart"
+                  instance="Crimson\CustomReports\Observer\QueueStockDataOnAddToCart"/>
+    </event>
+    <event name="checkout_cart_update_items_after">
+        <observer name="crimson_customreports_queue_stock_data_on_update_cart"
+                  instance="Crimson\CustomReports\Observer\QueueStockDataOnUpdateCart"/>
+    </event>
+    <event name="checkout_cart_save_after">
+        <observer name="crimson_customreports_queue_stock_data_on_save_cart"
+                  instance="Crimson\CustomReports\Observer\QueueStockDataOnSaveCart"/>
+    </event>
+</config>

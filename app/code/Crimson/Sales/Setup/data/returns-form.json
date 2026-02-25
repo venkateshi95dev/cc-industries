@@ -1,0 +1,170 @@
+[
+  [
+    {
+      "type": "textinput",
+      "name": "textinput-1752494009560",
+      "entity_id": "",
+      "label": "Order Number",
+      "className": "form-control",
+      "style": "",
+      "placeholder": "",
+      "required": "1",
+      "description": "",
+      "validation": "",
+      "regexp": "",
+      "errorMessage": "",
+      "value": "",
+      "maxlength": "",
+      "layout": "one",
+      "parentType": "input",
+      "dependency": []
+    },
+    {
+      "type": "textinput",
+      "name": "textinput-1752494049796",
+      "entity_id": "",
+      "label": "Contact First Name",
+      "className": "form-control",
+      "style": "default",
+      "placeholder": "",
+      "required": "1",
+      "description": "",
+      "validation": "",
+      "regexp": "",
+      "errorMessage": "",
+      "value": "",
+      "maxlength": "",
+      "layout": "one",
+      "parentType": "input",
+      "dependency": []
+    },
+    {
+      "type": "textinput",
+      "name": "textinput-1752494078394",
+      "entity_id": "",
+      "label": "Contact Last Name",
+      "className": "form-control",
+      "style": "default",
+      "placeholder": "",
+      "required": "1",
+      "description": "",
+      "validation": "",
+      "regexp": "",
+      "errorMessage": "",
+      "value": "",
+      "maxlength": "",
+      "layout": "one",
+      "parentType": "input",
+      "dependency": []
+    },
+    {
+      "type": "textinput",
+      "name": "textinput-1752494103151",
+      "entity_id": "",
+      "label": "Contact Email",
+      "className": "form-control",
+      "style": "default",
+      "placeholder": "",
+      "required": "1",
+      "description": "",
+      "validation": "validate-email",
+      "regexp": "",
+      "errorMessage": "",
+      "value": "",
+      "maxlength": "",
+      "layout": "one",
+      "parentType": "input",
+      "dependency": []
+    },
+    {
+      "type": "textinput",
+      "name": "textinput-1752494118320",
+      "entity_id": "",
+      "label": "Contact Phone number",
+      "className": "form-control",
+      "style": "default",
+      "placeholder": "",
+      "description": "",
+      "validation": "",
+      "regexp": "",
+      "errorMessage": "",
+      "value": "",
+      "maxlength": "",
+      "layout": "one",
+      "parentType": "input",
+      "dependency": []
+    },
+    {
+      "type": "dropdown",
+      "name": "dropdown-1752494167190",
+      "entity_id": "",
+      "label": "Return Reason",
+      "className": "form-control",
+      "style": "",
+      "placeholder": "",
+      "required": "1",
+      "description": "",
+      "layout": "one",
+      "parentType": "options",
+      "values": [
+        {
+          "label": "Changed Mind",
+          "value": "option-1",
+          "selected": "1"
+        },
+        {
+          "label": "Defective Item",
+          "value": "option-2"
+        },
+        {
+          "label": "Price Issue",
+          "value": "option-3"
+        },
+        {
+          "label": "Core Return",
+          "value": "option-4"
+        },
+        {
+          "label": "Received wrong item",
+          "value": "option-5"
+        },
+        {
+          "label": "Item arrived damaged",
+          "value": "option-6"
+        }
+      ],
+      "dependency": []
+    },
+    {
+      "type": "textarea",
+      "name": "textarea-1752494293866",
+      "entity_id": "",
+      "label": "Comments",
+      "className": "form-control",
+      "style": "",
+      "placeholder": "",
+      "description": "",
+      "rows": "",
+      "value": "",
+      "maxlength": "",
+      "layout": "one",
+      "parentType": "input",
+      "dependency": []
+    },
+    {
+      "type": "file",
+      "name": "file-1752494318960",
+      "entity_id": "",
+      "label": "File Upload",
+      "className": "form-control",
+      "style": "",
+      "description": "",
+      "allowed_extension": "",
+      "max_file_size": "",
+      "multiple": "1",
+      "layout": "one",
+      "parentType": "select",
+      "dependency": []
+    }
+  ]
+]

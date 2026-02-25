@@ -1,0 +1,33 @@
+<?php
+/**
+ * @namespace   Crimson
+ * @module      ${MODULE}
+ * @author      Peter Talavera
+ * @email       ptalavera@crimsonagility.com
+ * @date        4/8/2019 5:17 PM
+ * @brief
+ */
+/**
+ * @var \Crimson\Brand\Block\Product\View\Brand $block
+ */
+
+$_product = $block->getProduct();
+$brandInfo = $block->getDisplayBrandInfo();
+?>
+<?php if ($brandInfo): ?>
+    <?php
+        $brandName = $brandInfo->getName();
+        $brandUrl = $brandInfo->getUrlKey();
+        $brandImageLarge = $brandInfo->getLargeImage();
+        $description = $brandInfo->getDescription();
+    ?>
+	<?php if ($brandImageLarge): ?>
+        <div class="brand-image">
+            <a href="<?= $block->getUrl($brandUrl); ?>" title="View all <?php echo $brandName; ?> items"><img src="<?php echo $block->getBrandImageUrl().$brandImageLarge; ?>" title="<?php echo $brandName; ?>"/></a>
+        </div>
+	<?php endif; ?>
+    <div class="brand-content">
+        <h3><?= __($brandName) ?></h3>
+        <p><?= __($description) ?></p>
+    </div>
+<?php endif; ?>

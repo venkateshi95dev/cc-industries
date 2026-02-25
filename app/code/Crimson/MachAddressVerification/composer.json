@@ -1,0 +1,33 @@
+{
+  "name": "crimson/machaddressverification",
+  "description": "",
+  "require": {
+    "php": "~7.2.0",
+    "crimson/machbase": "2.2.4",
+    "crimson/machtax": "*",
+    "iwd/addressvalidation": "2.1.6",
+    "magento/magento-composer-installer": "*"
+  },
+  "suggest": {
+  },
+  "type": "magento2-module",
+  "version": "2.3.0",
+  "license": [
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Crimson\\MachAddressVerification\\": ""
+    }
+  },
+  "extra": {
+    "map": [
+      [
+        "*",
+        "Crimson/MachAddressVerification"
+      ]
+    ]
+  }
+}

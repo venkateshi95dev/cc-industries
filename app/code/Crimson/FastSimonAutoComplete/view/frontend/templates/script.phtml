@@ -1,0 +1,27 @@
+<?php 
+/** @var \Crimson\FastSimonAutoComplete\Block\Script $block */ 
+?>
+
+<?php if ($block->isEnabled() && $block->getUUID()) : ?>
+    <script>
+    require(['jquery'], function ($) {
+        $(function () {
+            const fsScriptId = 'fast-simon-autocomplete-init';
+            if (document.getElementById(fsScriptId)) return;
+
+            const script = document.createElement('script');
+            script.id = fsScriptId;
+            script.type = 'text/javascript';
+            script.defer = true;
+
+            script.src =
+                'https://static-autocomplete.fastsimon.com/fast-simon-autocomplete-init.iife.js'
+                + '?mode=magento'
+                + '&UUID=<?= $block->escapeHtml($block->getUUID()) ?>'
+                + '&store=<?= $block->escapeHtml($block->getStoreId()) ?>';
+
+            document.head.appendChild(script);
+        });
+    });
+    </script>
+<?php endif; ?>

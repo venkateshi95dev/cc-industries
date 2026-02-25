@@ -1,0 +1,60 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+
+use Magento\Framework\App\DeploymentConfig\Reader;
+use Magento\Framework\App\ObjectManager;
+use Magento\Store\Model\StoreManagerInterface;
+
+?>
+<?php
+$objectManager = ObjectManager::getInstance();
+$storeManager = $objectManager->get(StoreManagerInterface::class);
+$configReader = $objectManager->get(Reader::class);
+$config = $configReader->load();
+$adminSuffix = $config['backend']['frontName'];
+$adminBaseUrl = $storeManager->getStore()->getBaseUrl() . $adminSuffix . "/";
+?>
+<script>
+    require(["jquery"], function ($) {
+        $("#messageQueueGrid_massaction-mass-select option").each(function (i) {
+            if ($(this).val() == 'selectAll' || $(this).val() == 'unselectAll') {
+                $(this).remove();
+            }
+        });
+
+        $("#entity_list-select").change(function () {
+            $(location).attr(
+                'href',
+                window.location.href.split('?')[0] + "?entity=" + $("#entity_list-select option:selected").val()
+            );
+        });
+
+        require(["jquery"], function ($) {
+            var selectAction = $("#messageQueueGrid_massaction-select").val();
+            var selectAction = 'sync';
+            $("label.data-grid-checkbox-cell-inner").each(function (index)
+            {
+                var forvalue = $(this).attr('for');
+                if (forvalue != '')
+                {
+                    var list = forvalue.split("_");
+                    var messageStatusClass = 'status_' + $("#" + forvalue).val();
+
+                    var messageStatus = $("." + messageStatusClass).html();
+                    if (messageStatus != 'Error' && messageStatus != 'Pending')
+                    {
+                        $(this).removeAttr('disabled');
+                        $("#" + forvalue)[0].disabled = true;
+                        $(this).click(function () {
+                            return false;
+                        });
+                    }
+                }
+            });
+        });
+    });
+</script>

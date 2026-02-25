@@ -1,0 +1,59 @@
+<?php
+/** @var \Magento\Framework\Escaper $escaper */
+use Crimson\MachAddressVerification\Model\Config;
+
+$internationalAddress = $this->getValidationResponse()->getInternationalAddress();
+$mode = $this->getValidationResponse()->getMode();
+$candidates = $this->getValidationResponse()->getSuggestedAddresses();
+$origin = $this->getValidationResponse()->getOriginalAddress();
+$error = $this->getValidationResponse()->getError();
+$valid = $this->getValidationResponse()->getIsValid();
+$isOpen1InValid = $this->getValidationResponse()->getMissingPart();
+$i = 0;
+$preventCheckout = $internationalAddress && empty($candidates) && !$valid;
+?>
+
+<p><?php echo __($this->getHelper()->getContentMessage()) ?></p>
+<?php if (!$preventCheckout && (!empty($candidates) || $error || !$valid)) : ?>
+    <?php if ($this->getHelper()->getAllowNotValidAddress() && !$internationalAddress && !$isOpen1InValid) : ?>
+        <p class="suggestion"><?php echo __($this->getHelper()->getContentOriginAddress()) ?>:</p>
+        <ul>
+            <li>
+                <input type="radio" id="origin_address" name='candidate' value="origin" title=""/>
+                <label for="origin_address"><?php echo $origin->toString(); ?></label>
+                <div style="clear:both"></div>
+            </li>
+        </ul>
+    <?php endif; ?>
+
+    <?php if (!empty($candidates)) : ?>
+        <p class="suggestion"><?php echo __($this->getHelper()->getContentSuggestedAddress())?>:</p>
+        <ul>
+            <?php foreach ($candidates as $candidate) : ?>
+                <li>
+                    <?php
+                    /**
+                     * Keeping previous Mach logic, so when mode is not Mach we avoid Mach's logic for displaying candidates
+                     */
+                    ?>
+                    <?php if (!$isOpen1InValid && $mode == Config::MACH_ADDRESS_VALIDATION_CODE) : ?>
+                        <input type="radio" id="candidate_<?php echo $i ;?>" name='candidate' value="<?php echo $i ;?>" title=""/>
+                        <label for="candidate_<?php echo $i ;?>"><?php echo $candidate->toString(); ?></label>
+                        <div style="clear:both"></div>
+                    <?php elseif ($mode == Config::MACH_ADDRESS_VALIDATION_CODE): ?>
+                        <label><?php echo $candidate->toString(); ?></label>
+                        <?php if ($candidate->getOpen1Message()) : ?>
+                            <label class="open1-error"><?= $escaper->escapeHtml(__('Error: ') . $candidate->getOpen1Message()); ?></label>
+                        <?php endif; ?>
+                        <div style="clear:both"></div>
+                    <?php else: ?>
+                        <input type="radio" id="candidate_<?php echo $i ;?>" name='candidate' value="<?php echo $i ;?>" title=""/>
+                        <label for="candidate_<?php echo $i ;?>"><?php echo $candidate->toString(); ?></label>
+                        <div style="clear:both"></div>
+                    <?php endif; ?>
+                </li>
+                <?php $i++;?>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+<?php endif; ?>

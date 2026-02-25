@@ -1,0 +1,17 @@
+{
+    "sales_order": {
+        "column": {
+            "mach_hsc": true
+        }
+    },
+    "quote_address": {
+        "column": {
+            "mach_hsc": true
+        }
+    },
+    "quote_item": {
+        "column": {
+            "ships_from_manufacturer": true
+        }
+    }
+}

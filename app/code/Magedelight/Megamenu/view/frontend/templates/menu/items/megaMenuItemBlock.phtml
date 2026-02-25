@@ -1,0 +1,82 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @noinspection PhpComposerExtensionStubsInspection */
+/** @noinspection PhpUnhandledExceptionInspection */
+/** @var \Magedelight\Megamenu\Model\MenuItems|\Magedelight\Megamenu\Api\Data\MenuItemsInterface $item */
+/** @var \Magedelight\Megamenu\Block\Topmenu $menuBlock */
+/** @var \Magedelight\Megamenu\Model\MegamenuManagement $menuManagement */
+$menuBlock = $block->getData('menu_block');
+$item = $block->getData('menu_item');
+$menuManagement = $block->getData('menu_management');
+$mediaUrl = $menuManagement->getMediaUrl();
+$liClass = 'menu-dropdown-icon dropdown category-item nav-'
+.$item->getItemId().' '. $menuBlock->getActiveClass($item).' '.$item->getItemClass();
+$megaMenuLink = $item->getItemLink() ? : '#';
+$megaMenuName = $menuManagement->generateMenuItemName($item);
+$open_in_newtab_text = '';
+$primaryMenu = $block->getData("primary_menu");
+
+if ((int) $item->getOpenInNewTab()) {
+    $open_in_newtab_text = 'target="_blank"';
+}
+$subMenuHover = $primaryMenu['sub_menu_hover'];
+
+?>
+<li class="<?= /* @noEscape */ $liClass ?>">
+    <?php if (!empty($item->getMenuIcon()) &&
+        ($primaryMenu->getMenuDesignType() == "horizontal" ||
+            $primaryMenu->getMenuDesignType() == "horizontal-vertical")): ?>
+        <img alt="<?= /* @noEscape */ __($megaMenuName) ?>"
+             src="<?= $escaper->escapeUrl($mediaUrl) .'menu_icon/'.
+                $escaper->escapeHtml($item->getMenuIcon()); ?>" width="70" height="70" />
+    <?php endif; ?>
+    <a href="<?= /* @noEscape */ $megaMenuLink ?>" <?= $escaper->escapeHtml($open_in_newtab_text) ?>>
+        <span class="megaitemicons"><?= /* @noEscape */ $item->getItemFontIcon() ?></span>
+        <?= /* @noEscape */ __($megaMenuName) ?>
+    </a>
+    <?php if (!empty($item->getItemColumns())): ?>
+        <?php $menuItems = json_decode($item->getItemColumns()); ?>
+            <ul class="animated <?=
+            /* @noEscape */ $item->getAnimationOption()
+            ?> column<?= /* @noEscape */ count($menuItems) ?> <?=/* @noEscape */$subMenuHover?>">
+                <?php $menuItemCount = count($menuItems); ?>
+                <?php for ($i = 0; $i < $menuItemCount; $i++) { ?>
+                    <?php if (isset($menuItems[$i]->item_rows)) { ?>
+                        <div class="row-item-list">
+                            <ul class="row-items">
+                            <?php
+                            $rowItems = $menuItems[$i]->item_rows;
+                            $rowItemCount = count($rowItems);
+                            for ($j = 0; $j < $rowItemCount; $j++) { ?>
+                                <?php if ($rowItems[$j]->type == 'menu'): ?>
+                                    <?= /* @noEscape */ $menuBlock->getChildColumnForMenuType($rowItems, $j) ?>
+                                <?php endif; ?>
+                                <?php if ($rowItems[$j]->type == 'block'): ?>
+                                    <?= /* @noEscape */ $menuBlock->getChildColumnForMenuTypeBlock($rowItems, $j) ?>
+                                <?php endif; ?>
+                                <?php if ($rowItems[$j]->type == 'category'): ?>
+                                    <?= /* @noEscape */ $menuBlock->getChildColumnForMenuTypeCategory($rowItems, $j) ?>
+                                <?php endif; ?>
+                            <?php } ?>
+                            </ul>
+                        </div>
+                    <?php } else { ?>
+                        <?php if ($menuItems[$i]->type == 'menu'): ?>
+                            <?= /* @noEscape */ $menuBlock->getChildColumnForMenuType($menuItems, $i) ?>
+                    <?php endif; ?>
+                        <?php if ($menuItems[$i]->type == 'block'): ?>
+                            <?= /* @noEscape */ $menuBlock->getChildColumnForMenuTypeBlock($menuItems, $i) ?>
+                    <?php endif; ?>
+                        <?php if ($menuItems[$i]->type == 'category'): ?>
+                            <?= /* @noEscape */ $menuBlock->getChildColumnForMenuTypeCategory($menuItems, $i) ?>
+                    <?php endif; ?>
+                    <?php } ?>
+                <?php } ?>
+            </ul>
+    <?php endif; ?>
+</li>

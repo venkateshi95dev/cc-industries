@@ -1,0 +1,149 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\SyncAssets\Upload\Tab\Orders;
+
+/**
+ * @var Orders $block
+ */
+$syncData = $block->getUploadOrdersSyncUpdate();
+?>
+
+<div class="upload-orders" id="upload_orders_container" data-bind="scope: 'upload_orders_container'">
+    <div class="section-content">
+
+        <div class="messages breadcrumb-messages orders-upload-notice">
+            <div class="message">
+                <span>
+                    <?= /* @noEscape */ __(
+                        'Please wait, currently customers or products uploading is in progress.'
+                    ) ?>
+                </span>
+            </div>
+        </div>
+
+        <div id="orders-step-1" class="steps">
+            <div style="display: none"
+                 class="step-messages">
+                <?= /* @noEscape */ __(
+                    'Please check how many orders are available to upload @ EBizCharge Gateway'
+                )?>
+            </div>
+            <h3 id="orders_progress" class="messages result_table">
+                <?= /* @noEscape */ __('Uploaded Orders :')?> <span id="upload_orders">
+                    <?= /* @noEscape */ $block->getTotalRemoteUplaoded();?></span>/
+                <span id="total_orders"><?= /* @noEscape */ $block->getOrdersAtEbizcharge();?></span>
+            </h3>
+            <h3 id="order_progress_bar_breadcrumbs" class="progress-bar-breadcrumbs checking-message messages"></h3>
+
+            <div id="order_results_table">
+                <table class="table admin__table-primary table-responsive table-bordered">
+                    <tbody>
+                    <tr>
+                        <td><?= /* @noEscape */ __('Last uploaded :')?></td>
+                        <td>
+                            <span id="last_uploaded_date_orders">
+                                <?= /* @noEscape */ $block->getlastUploadedOrdersDate(); ?>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?= /* @noEscape */ __('Last uploaded orders :')?></td>
+                        <td>
+                            <span id="last_upload_orders"><?= /* @noEscape */ $block->getLastUploadOrders(); ?></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><?= /* @noEscape */ __('New orders available to upload :')?></td>
+                        <td><span id="to_upload_orders">--</span></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="order_upload_progress_bar" class="progress-bar">
+                <div class="progress-bar-label" id="progress_bar_label_orders">0%</div>
+            </div>
+
+            <button id="check_orders_btn" class="action-primary" type="button"
+                    title="Check Orders @ EBizCharge Gateway"
+                    data-step="#orders-step-1"> <?= /* @noEscape */ __('Refresh Orders')?>
+            </button>
+
+            <button id="upload_orders_btn" class="action-primary" type="button"
+                    title="Upload Orders from EBizCharge Gateway"
+                    data-step="#orders-step-2" disabled> <?= /* @noEscape */ __('Upload Orders')?>
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<?php /** Adding Magento UI JS Core App */ ?>
+<script type="text/x-magento-init">
+  {
+    "*": {
+        "Magento_Ui/js/core/app": {
+           "components": {
+                "upload_orders_container": {
+                    "component" : "Ebizcharge_Ebizcharge/js/uploads/component/upload-resources",
+                    "upload"  : {
+                           "check_ajax_url"    : "<?= $block->escapeUrl($block->getOrdersCheckAtEbizchargeUrl()) ?>",
+                           "upload_ajax_url" : "<?= $block->escapeUrl($block->getOrdersUploadsFromEbizchargeUrl()) ?>",
+                           "progress_bar_ajax_url" : "<?= $block->escapeUrl($block->getProgressBarUrl()) ?>",
+                           "resource_view_url" : "<?= $block->escapeUrl($block->getViewUploadOrdersUrl()) ?>",
+                           "uploading_status" : "<?= /* @noEscape */ $block->getlastUploadedOrdersStatus() ?>",
+                           "progress_bar"      : "order_upload_progress_bar",
+                           "check_resource_btn" : "check_orders_btn",
+                           "upload_resource_btn" : "upload_orders_btn",
+                           "view_resource_btn" : "view_orders_btn",
+                           "breadcrumb_messages": "breadcrumb-messages",
+                           "resource_status_container" : "order_results_table",
+                           "progress_bar_breadcrumbs" : "order_progress_bar_breadcrumbs",
+                           "resource_integration_progress" : "orders_progress",
+                           "current_progress_value" : "current_progress_value",
+                           "upload_resources" : "upload_orders",
+                           "progress_bar_label" : "progress_bar_label_orders",
+                           "total_resources" : "total_orders",
+                           "progress_request_type" : "uploaded_order_progress",
+                           "upload_type" : "upload_orders",
+                           "results_table" : "order_results_table",
+                           "id_upload_resources" : "upload_orders",
+                           "id_total_resource" : "total_orders",
+                           "http_request_type": "GET",
+                           "request_type" : "orders",
+                           "sync_title" : "sync_title_upload",
+                           "last_uploaded_date_resource":"last_uploaded_date_orders",
+                           "last_uplaoded_resource":"last_upload_orders",
+                           "to_uplaod_resource":"to_upload_orders"
+
+                         }
+                    }
+                }
+            }
+        }
+  }
+</script>

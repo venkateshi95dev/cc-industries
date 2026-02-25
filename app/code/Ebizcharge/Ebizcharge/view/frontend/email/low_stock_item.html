@@ -1,0 +1,58 @@
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<!--@subject {{trans "Items Low in Stock Notification"}} @-->
+
+<head>
+    <title>Items Low in Stock Notification</title>
+</head>
+
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr>
+        <td>
+            <div class="greeting"><b>Dear {{var customerName}},</b></div>
+            <br/>
+            <div>
+                The following item(s) you are subscribed to is currently out of stock and cannot
+                be ordered. Once the item(s) is back in stock,
+                we will provide an update and resume your order.
+                <br/>
+                <br/>
+                <div class="greeting"><b>Item ID:</b> {{var itemId}} </div>
+                <div class="greeting"><b>Item Name:</b> {{var itemName}} </div>
+                <div class="greeting"><b>Item Sku:</b> {{var itemSku}} </div>
+                <div class="greeting"><b>Ordered Qty:</b> {{var orderedQty}} </div>
+                <div class="greeting"><b>Customer Email:</b> {{var customerEmail}} </div>
+                <br/>
+                Thank you.
+                <br/><br/>
+
+            </div>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}
+
+

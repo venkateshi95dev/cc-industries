@@ -1,0 +1,91 @@
+<?php
+/** @var \Crimson\StoreHoursCustomizations\Block\System\Config\Form\Field\HoursAdvancedCustom $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$htmlId = $block->getHtmlId() ? $block->getHtmlId() : '_' . uniqid();
+
+$element = $block->getElement();
+$elementDisabled = (bool)$element->getData('disabled');
+
+$firstDayOfWeek = $block->getFirstDayOfWeek();
+$daysOfWeek = [
+    ['value' => 0, 'label' => __('Sunday')],
+    ['value' => 1, 'label' => __('Monday')],
+    ['value' => 2, 'label' => __('Tuesday')],
+    ['value' => 3, 'label' => __('Wednesday')],
+    ['value' => 4, 'label' => __('Thursday')],
+    ['value' => 5, 'label' => __('Friday')],
+    ['value' => 6, 'label' => __('Saturday')],
+];
+while ($daysOfWeek[0]['value'] != $firstDayOfWeek) {
+    $dayOfWeek = array_shift($daysOfWeek);
+    $daysOfWeek[] = $dayOfWeek;
+}
+
+$value = $element->getValue();
+?>
+
+<div class="design_theme_ua_regexp" id="grid<?= $escaper->escapeHtmlAttr($htmlId) ?>">
+    <div class="admin__control-table-wrapper">
+        <table class="admin__control-table" id="<?= $escaper->escapeHtmlAttr($block->getElement()->getId()) ?>">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th><?= $escaper->escapeHtml(__('Open Time')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Close Time')) ?></th>
+                    <th><?= $escaper->escapeHtml(__('Is Closed')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($daysOfWeek as $dayOfWeek): ?>
+                    <?php
+                    if (!isset($value[$dayOfWeek['value']])) {
+                        $openTime = '';
+                        $closeTime = '';
+                        $isClosed = true;
+                    } else {
+                        $openTime = $value[$dayOfWeek['value']]['open_time'] ?? '';
+                        $closeTime = $value[$dayOfWeek['value']]['close_time'] ?? '';
+                        $isClosed = ($value[$dayOfWeek['value']]['is_closed'] ?? 1) == 1;
+                    }
+                    ?>
+                    <tr>
+                        <td><?= $escaper->escapeHtml($dayOfWeek['label']) ?></td>
+                        <td>
+                            <input
+                                type="text"
+                                class="input-text hours-advanced-timepicker _has-datepicker open-time-input"
+                                data-validate='{"required": true, "validate-time": true, "validate-open-time-before-close-time": true}'
+                                name="<?= $escaper->escapeHtmlAttr($element->getName() . '[' . $dayOfWeek['value'] . '][open_time]') ?>"
+                                value="<?= $escaper->escapeHtmlAttr($openTime) ?>"
+                                <?= $elementDisabled ? 'disabled="disabled"' : '' ?> />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                class="input-text hours-advanced-timepicker _has-datepicker close-time-input"
+                                data-validate='{"required": true, "validate-time": true, "validate-close-time-before-open-time": true}'
+                                name="<?= $escaper->escapeHtmlAttr($element->getName() . '[' . $dayOfWeek['value'] . '][close_time]') ?>"
+                                value="<?= $escaper->escapeHtmlAttr($closeTime) ?>"
+                                <?= $elementDisabled ? 'disabled="disabled"' : '' ?> />
+                        </td>
+                        <td>
+                            <input
+                                type="hidden"
+                                name="<?= $escaper->escapeHtmlAttr($element->getName() . '[' . $dayOfWeek['value'] . '][is_closed]') ?>"
+                                value="0" />
+                            <input
+                                type="checkbox"
+                                class="input-checkbox is-closed-input"
+                                name="<?= $escaper->escapeHtmlAttr($element->getName() . '[' . $dayOfWeek['value'] . '][is_closed]') ?>"
+                                value="1"
+                                <?= $isClosed ? 'checked="checked"' : '' ?>
+                                <?= $elementDisabled ? 'disabled="disabled"' : '' ?> />
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
+    </div>
+</div>

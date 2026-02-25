@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Model\ProductRepository">
+        <plugin name="ProductRepositoryRestSkuFix" type="\I95DevConnect\MessageQueue\Plugin\Product\RestSkuFix" />
+    </type>
+    <type name="Magento\CatalogInventory\Model\StockRegistry">
+        <plugin name="ProductRepositoryRestSkuFix" type="I95DevConnect\MessageQueue\Plugin\Product\CatalogInventory\RestSkuFix" />
+    </type>
+    <type name="Magento\CatalogRule\Model\ResourceModel\Rule">
+        <plugin name="SkipRuleForI95Dev" type="\I95DevConnect\MessageQueue\Plugin\RulePlugin" />
+    </type>
+</config>

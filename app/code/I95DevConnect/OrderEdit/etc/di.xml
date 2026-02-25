@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_OrderEdit
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
+        <plugin name="item-test" type="I95DevConnect\OrderEdit\Block\Adminhtml\Order\View\Info" sortOrder="1"/>
+    </type>
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <item name="createEditOrderList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">editOrder</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <item name="editOrder" xsi:type="array">
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\OrderEdit\Model\DataPersistence\OrderEdit</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

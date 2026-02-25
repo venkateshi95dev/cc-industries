@@ -1,0 +1,37 @@
+{
+    "name": "crimson/shipping",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "magento/module-shipping": "*",
+        "magento/magento-composer-installer": "*"
+    },
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "dgrau@crimsonagility.com",
+            "name": "Dario Grau"
+        }
+    ],
+    "version": "1.0.0",
+    "license": [
+
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\Shipping\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/Shipping"
+            ]
+        ]
+    }
+}

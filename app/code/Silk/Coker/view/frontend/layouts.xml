@@ -1,0 +1,23 @@
+<page_layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/PageLayout/etc/layouts.xsd">
+<layout id="custom_cms_page">
+    <label translate="true">Custom CMS Page</label>
+</layout>
+<layout id="wooden_wheels_cms">
+    <label translate="true">Wooden Wheels</label>
+</layout>
+<layout id="wide_oval_cms">
+    <label translate="true">Wide Oval Radial</label>
+</layout>
+<layout id="drag_race_tires_cms">
+    <label translate="true">Drag Race Tires</label>
+</layout>
+<layout id="archived_rebates_cms">
+    <label translate="true">Archived Rebates</label>
+</layout>
+    <layout id="tire_registration_cms">
+        <label translate="true">Tire Registration</label>
+    </layout>
+    <layout id="hdc_landing_cms">
+        <label translate="true">HDC Landing</label>
+    </layout>
+</page_layouts>

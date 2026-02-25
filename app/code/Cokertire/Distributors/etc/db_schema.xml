@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="distributors" resource="default" engine="innodb" comment="Distributors Table">
+    <column xsi:type="int" name="distributorsid" padding="10" unsigned="true" nullable="false" identity="true" comment="Distributors Id"/>
+    <column xsi:type="varchar" name="company" nullable="true" length="255" comment="Company"/>
+    <column xsi:type="varchar" name="contactname" nullable="true" length="255" comment="Contact Name"/>
+    <column xsi:type="varchar" name="country" nullable="true" length="255" comment="Country"/>
+    <column xsi:type="text" name="address1" nullable="true" comment="Address1"/>
+    <column xsi:type="varchar" name="zip1" nullable="true" length="255" comment="Zip1"/>
+    <column xsi:type="text" name="address2" nullable="true" comment="Address2"/>
+    <column xsi:type="varchar" name="zip2" nullable="true" length="255" comment="Zip2"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="true" identity="false" comment="Status"/>
+    <column xsi:type="varchar" name="phone1" nullable="true" length="255" comment="Phone1"/>
+    <column xsi:type="varchar" name="phone2" nullable="true" length="255" comment="Phone2"/>
+    <column xsi:type="varchar" name="fax" nullable="true" length="255" comment="Fax"/>
+    <column xsi:type="varchar" name="languages" nullable="true" length="255" comment="Languages"/>
+    <column xsi:type="varchar" name="website" nullable="true" length="255" comment="Website"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="distributorsid"/>
+    </constraint>
+  </table>
+  <table name="distributors_request" resource="default" engine="innodb" comment="Distributors Request Table">
+    <column xsi:type="int" name="id" padding="11" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="varchar" name="name" nullable="true" length="255" comment="Name"/>
+    <column xsi:type="varchar" name="email" nullable="true" length="255" comment="Email"/>
+    <column xsi:type="varchar" name="telephone" nullable="true" length="255" comment="Telephone"/>
+    <column xsi:type="varchar" name="country" nullable="true" length="255" comment="Country"/>
+    <column xsi:type="varchar" name="business" nullable="true" length="255" comment="Business"/>
+    <column xsi:type="text" name="comments" nullable="true" comment="Comments"/>
+    <column xsi:type="text" name="unique_id" nullable="true" comment="Unique Id"/>
+    <column xsi:type="varchar" name="date_sent" nullable="true" length="255" comment="date sent"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

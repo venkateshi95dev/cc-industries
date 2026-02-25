@@ -1,0 +1,202 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+$menuItemId = $block->getData('menu_item_id');
+$category_checkbox = $block->getData('category_checkBox');
+$category_vertical_menu_checkbox = $block->getData('category_vertical_menu_checkbox');
+$category_vertical_bg_color = $block->getData('category_vertical_bg_color');
+$currentItem = $block->getData('current_item');
+$currentMenuDesignType = $block->getData('current_menu_design_type');
+$product_display_checkbox = $block->getData('product_display_checkbox');
+$open_in_new_tab_checkbox = $block->getData('open_in_new_tab_checkbox');
+$vertical_bg_color = $category_vertical_menu_checkbox ? '' : 'hidden';
+?>
+<div class="menu-column-block-wrapper" style="margin:10px 0;">
+    <div class="col-m-4 category_checkbox_wrapper menu-item-option">
+        <input class="admin__control-checkbox checkbox category_checkbox"
+        id="menu_data_<?= /* @noEscape */ $menuItemId ?>_subcat" type="checkbox"
+        name="menu_data[<?= /* @noEscape */ $menuItemId ?>][subcat]"
+        <?= /* @noEscape */ $category_checkbox ?>>
+        <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_subcat"
+        class="admin__field-label" style="line-height:16px;">
+            <?= $escaper->escapeHtml(__('Display all subcategories')) ?>
+        </label>
+    </div>
+    <?php if ($currentMenuDesignType == 'horizontal'): ?>
+        <div class="col-m-4 category_checkbox_wrapper menu-item-option">
+            <input id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalsubcat"
+            class="admin__control-checkbox checkbox vertical_category_checkbox"
+            type="checkbox" name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalsubcat]"
+            <?= /* @noEscape */ $category_vertical_menu_checkbox ?>>
+            <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalsubcat"
+                class="admin__field-label" style="line-height:16px;">
+                <?= $escaper->escapeHtml(__('Display Vertical Menu')) ?>
+            </label>
+        </div>
+        <div class="col-m-4 vertical-category-color_wrapper menu-item-option <?= /* @noEscape */ $vertical_bg_color ?>">
+            <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatcolor"
+                class="admin__field-label" style="line-height:16px;">
+                <?= $escaper->escapeHtml(__('Vertical Menu Background Color')) ?>
+            </label>
+            <input id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatcolor"
+            class="jscolor admin__control-text vertical-category-color" type="text"
+            name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatcolor]"
+            value="<?= /* @noEscape */ $category_vertical_bg_color ?>">
+        </div>
+    <?php endif; ?>
+    <?php if ($currentMenuDesignType == 'horizontal' || $currentMenuDesignType == 'horizontal-vertical'): ?>
+        <div class="col-m-4 category_checkbox_wrapper menu-item-option">
+            <input id="menu_data_<?= /* @noEscape */ $menuItemId ?>_product_display"
+            class="admin__control-checkbox checkbox product_display_checkbox" type="checkbox"
+            name="menu_data[<?= /* @noEscape */ $menuItemId ?>][product_display]"
+            <?= /* @noEscape */ $product_display_checkbox ?>>
+            <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_product_display"
+            class="admin__field-label" style="line-height:16px;">
+            <?= $escaper->escapeHtml(__('Display Product Items')) ?></label>
+        </div>
+    <?php endif; ?>
+    <div class="col-m-4 open_in_new_tab_checkbox_wrapper menu-item-option">
+        <input id="menu_data_<?= /* @noEscape */ $menuItemId ?>_open_in_new_tab"
+        class="admin__control-checkbox checkbox open_in_new_tab_checkbox"
+        type="checkbox" name="menu_data[<?= /* @noEscape */ $menuItemId ?>][open_in_new_tab]"
+        <?= /* @noEscape */ $open_in_new_tab_checkbox ?>>
+        <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_open_in_new_tab"
+        class="admin__field-label" style="line-height:16px;"><?= $escaper->escapeHtml(__('Open In New Tab')) ?></label>
+    </div>
+</div>
+<div class="cf"></div>
+<?php $hidden = ""; ?>
+<?php if (!$category_checkbox && !$product_display_checkbox): ?>
+    <?php $hidden = "hidden"; ?>
+<?php endif; ?>
+    <div class="menu-column-block-wrapper child-category-settings <?= /* @noEscape */ $hidden ?>"
+    style="margin:10px 0;">
+        <div class="col-m-3 category_checkbox_wrapper category_exclude">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatexclude"
+                class="admin__field-label" style="line-height:16px;">
+                <?= $escaper->escapeHtml(__('Exclude child category')) ?></label>
+                <input id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatexclude"
+                class="admin__control-text vertical_category_exclude" type="text"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatexclude]"
+                value="<?= /* @noEscape */ $currentItem->getData('vertical_cat_exclude') ?>">
+                <p><?= $escaper->escapeHtml(__('Enter comma seperated category ids eg. 25,26,27')); ?></p>
+            </div>
+        </div>
+        <div class="col-m-3 category_checkbox_wrapper category_sort_by">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortby"
+                class="admin__field-label" style="line-height:16px;">
+                    <?= $escaper->escapeHtml(__('Category Sort By')) ?>
+                </label>
+                <select id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortby"
+                class="admin__control-select vertical_category_sortby"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatsortby]">
+                    <option
+                    value="position" <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortby') == 'position'
+                    ? "selected" : "" ?>>Position</option>
+                    <option value="name" <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortby') == 'name'
+                    ? "selected" : "" ?>>Name</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-m-3 category_checkbox_wrapper category_sort_order">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortorder"
+                class="admin__field-label" style="line-height:16px;">
+                    <?= $escaper->escapeHtml(__('Category Sort Order')) ?>
+                </label>
+                <select id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortorder"
+                class="admin__control-select vertical_category_sortorder"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatsortorder]">
+                    <option value="asc"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortorder') == 'asc'
+                    ? "selected" : "" ?>>ASC</option>
+                    <option value="desc"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortorder') == 'desc'
+                    ? "selected" : "" ?>>DESC</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-m-3 category_checkbox_wrapper category_depth">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatlevel"
+                    class="admin__field-label" style="line-height:16px;">
+                    <?= $escaper->escapeHtml(__('Child Category Depth')) ?>
+                </label>
+                <select id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatlevel"
+                class="admin__control-select vertical_category_level"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatlevel]">
+                    <option value="2"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_level') == '2'
+                    ? "selected" : "" ?>>2</option>
+                    <option value="3"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_level') == '3'
+                    ? "selected" : "" ?>>3</option>
+                    <option value="4"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_level') == '4'
+                    ? "selected" : "" ?>>4</option>
+                    <option value="5"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_level') == '5'
+                    ? "selected" : "" ?>>5</option>
+                </select>
+            </div>
+        </div>
+    </div>
+<?php if ($product_display_checkbox): ?>
+    <div class="menu-column-block-wrapper child-category-settings <?= /* @noEscape */ $hidden ?>"
+    style="margin:10px 0;">
+        <div class="col-m-3 category_checkbox_wrapper category_exclude">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatexclude"
+                class="admin__field-label" style="line-height:16px;">
+                <?= $escaper->escapeHtml(__('Exclude Product Items')) ?></label>
+                <input id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatexclude"
+                class="admin__control-text vertical_category_exclude" type="text"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatexclude]"
+                value="<?= /* @noEscape */ $currentItem->getData('vertical_cat_exclude') ?>">
+                <p><?= $escaper->escapeHtml(__('Enter comma seperated product ids eg. 25,26,27')); ?></p>
+            </div>
+        </div>
+        <div class="col-m-3 category_checkbox_wrapper category_sort_by">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortby"
+                    class="admin__field-label" style="line-height:16px;">
+                    <?= $escaper->escapeHtml(__('Product Sort By')) ?>
+                </label>
+                <select id="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortby"
+                class="admin__control-select vertical_category_sortby"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatsortby]">
+                    <option value="position"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortby') == 'position'
+                    ? "selected" : "" ?>>Position</option>
+                    <option value="name"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortby') == 'name'
+                    ? "selected" : "" ?>>Name</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-m-3 category_checkbox_wrapper category_sort_order">
+            <div class="verical_category_child">
+                <label for="menu_data_<?= /* @noEscape */ $menuItemId ?>_verticalcatsortorder"
+                class="admin__field-label" style="line-height:16px;">
+                    <?= $escaper->escapeHtml(__('Product Sort Order')); ?>
+                </label>
+                <select id="menu_data_<?= /* @noEscape */ $menuItemId
+                ?>_verticalcatsortorder" class="admin__control-select vertical_category_sortorder"
+                name="menu_data[<?= /* @noEscape */ $menuItemId ?>][verticalcatsortorder]">
+                    <option value="asc"
+                    <?= /* @noEscape */ $currentItem->getData('vertical_cat_sortorder') == 'asc'
+                    ? "selected" : "" ?>>ASC</option>
+                    <option value="desc" <?=
+                                            $currentItem->getData('vertical_cat_sortorder') == 'desc' ? "selected" : ""
+                    ?>>DESC</option>
+                </select>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

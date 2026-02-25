@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+<event name="controller_front_send_response_before">
+	<observer name="add_custom_code" instance="Silk\Coker\Observer\AddCodeObserver" />
+	<observer name="get_coupon_code" instance="Silk\Coker\Observer\GetCouponObserver" />
+</event>
+<event name="checkout_onepage_controller_success_action">
+	<observer name="order_add_backorder_status" instance="Silk\Coker\Observer\OrderSubmitAfterObserver" />
+</event>
+<event name="checkout_cart_add_product_complete">
+	<observer name="add_coupon_code" instance="Silk\Coker\Observer\AddCouponAfterObserver" />
+</event>
+<!-- <event name="payment_method_is_active">
+       <observer name="custom_payment" instance="Silk\Coker\Observer\SetPaymentMethodAvailable" />
+   </event> -->
+
+   
+   <event name="order_cancel_after">
+   	<observer name="send_email_to_other" instance="Silk\Coker\Observer\OrderSendEmail" />
+   </event>
+</config>

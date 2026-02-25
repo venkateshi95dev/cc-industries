@@ -1,0 +1,48 @@
+<?php $items = $block->getItems(); ?>
+<?php if(count($items)): ?>
+<?php foreach($items as $k =>  $value): ?>
+<h3>Customer Info</h3>
+<h3>Name: <?php echo $value->getCustomerName(); ?></h3>
+<h3>Email: <?php echo $value->getEmail(); ?></h3>
+<?php if($value->getStreet()): ?>
+<p>Country: <?php echo $value->getCountryCode(); ?></p>
+<p>Address: <?php echo $value->getStreet(); ?></p>
+<p>Telephone: <?php echo $value->getTelephone(); ?></p>
+<?php endif; ?>
+<table class="email-items" style="margin-bottom: 50px;">
+    <thead>
+        <tr>
+            <th class="item-info">
+                <?= /* @escapeNotVerified */  __('product'); ?>
+            </th>
+            <th class="item-sku">
+                <?= /* @escapeNotVerified */  __('sku'); ?>
+            </th>
+            <th class="item-qty">
+                <?= /* @escapeNotVerified */  __('Qty'); ?>
+            </th>
+            <th class="item-price">
+                <?= /* @escapeNotVerified */  __('price'); ?>
+            </th>
+            <th class="item-total">
+                <?= /* @escapeNotVerified */  __('total'); ?>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($value->getProds() as $item): ?>
+        <tr>
+            <td><?php echo $item->getName(); ?></td>
+            <td><?php echo $item->getSku(); ?></td>
+            <td><?php echo $item->getQty(); ?></td>
+            <td><?php echo $item->getPrice(); ?></td>
+            <td><?php echo $item->getTotal(); ?></td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<p></p>
+<p></p>
+<?php endforeach; ?>
+<?php endif; ?>
+

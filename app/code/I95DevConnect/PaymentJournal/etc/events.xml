@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2020 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_PaymentJournal
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">    
+   <!-- <event name="erpconnect_messagequeuetomagento_aftersave_invoice">
+        <observer name="invoice_pay_after" instance="I95DevConnect\PaymentJournal\Observer\MqInvoiceSaveAfter" />
+    </event>
+    <event name="erpconnect_custominvoice_aftersave">
+        <observer name="custom_invoice_save_after" instance="I95DevConnect\PaymentJournal\Observer\MqInvoiceSaveAfter" />
+    </event>-->
+    <event name="payment_journal_save_after">
+        <observer name="erp_payment_journal_save_after" instance="I95DevConnect\MessageQueue\Observer\OutboundObserver\MagentoMessageQueueObserver" />
+    </event>
+</config>
+ 

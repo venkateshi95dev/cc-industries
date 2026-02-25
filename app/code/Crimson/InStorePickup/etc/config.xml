@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <sales_email>
+            <order>
+                <location_notification_enabled>0</location_notification_enabled>
+            </order>
+        </sales_email>
+        <carriers>
+            <instore>
+                <match_all_items_enabled>0</match_all_items_enabled>
+                <not_all_match_error_msg><![CDATA[We were unable to find nearby locations for provided search query.]]></not_all_match_error_msg>
+            </instore>
+        </carriers>
+    </default>
+</config>

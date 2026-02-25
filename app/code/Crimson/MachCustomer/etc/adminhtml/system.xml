@@ -1,0 +1,29 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mach">
+            <group id="customer" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Mach Customer</label>
+                <field id="cron_enabled" type="select" translate="label" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Cron Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_update_schedule" type="text" translate="label comment" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Update from Mach Cron Settings</label>
+                    <comment><![CDATA[Update Customers Cron Schedule]]></comment>
+                </field>
+                <field id="number_customers_update" type="text" translate="label comment" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Number of Customers to Update</label>
+                    <comment><![CDATA[Number of Customers to Update from Mach in Every Run. Default 10.]]></comment>
+                </field>
+                <field id="customer_export_schedule" type="text" translate="label comment" sortOrder="9" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Customer Export To Mach Cron Settings</label>
+                    <comment><![CDATA[Export Customers Cron Schedule]]></comment>
+                </field>
+                <field id="number_customers_export" type="text" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Number of Customers to Export</label>
+                    <comment><![CDATA[Number of Customers to Export to Mach in Every Run. Default 10.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

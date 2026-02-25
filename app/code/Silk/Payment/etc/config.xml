@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <silk_payment>
+              <title>payeezy</title>
+              <model>Silk\Payment\Model\Payeezy</model>
+              <payment_action>authorize_capture</payment_action>
+              <active>1</active>
+              <cctypes>AE,VI,MC,DI</cctypes>
+              <group>silk_payment</group>
+              <hostname>cert.api.firstdata.com</hostname>
+              <apiurl>https://cert.api.firstdata.com/paymentjs/v2/merchant/authorize-session</apiurl>
+              <credentials>
+                  <apikey>raxhI7YY4W9AdO52wGzpxHAL18GBRhcA</apikey>
+                  <apisecret>rMfxQiXsxkE2zVy1</apisecret>
+              </credentials>
+              <gateway_config>
+                  <gateway>PAYEEZY</gateway>
+                  <apikey>raxhI7YY4W9AdO52wGzpxHAL18GBRhcA</apikey>
+                  <apisecret>3d20674cc65f70be282c49975509844ef5d901a73631b665a3fdb17626303963</apisecret>
+                  <token>fdoa-1f86f1c79bcb38dc1651e53eb54a7fa79da12c02cb6e38f7</token>
+                  <transarmortoken>NOIW</transarmortoken>
+                  <zeroDollarAuth>0</zeroDollarAuth>
+              </gateway_config>
+            </silk_payment>
+        </payment>
+    </default>
+</config>

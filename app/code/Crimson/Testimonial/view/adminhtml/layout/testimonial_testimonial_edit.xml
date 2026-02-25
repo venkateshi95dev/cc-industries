@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.actions">
+            <block class="Crimson\Testimonial\Block\Adminhtml\Menu" name="crimson_testimonial_menu"/>
+        </referenceContainer>
+         <referenceContainer name="content">
+            <block class="Crimson\Testimonial\Block\Adminhtml\Testimonial\Edit" name="testimonial_testimonial_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Crimson\Testimonial\Block\Adminhtml\Testimonial\Edit\Tabs" name="testimonial_testimonial_edit_tabs"/>
+        </referenceContainer>
+    </body>
+</page>

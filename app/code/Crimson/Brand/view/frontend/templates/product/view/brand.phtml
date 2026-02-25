@@ -1,0 +1,32 @@
+<?php
+/**
+ * @namespace   Crimson
+ * @module      Brand
+ * @author      Dario Grau
+ * @email       dgrau@crimsonagility.com
+ * @date        01/18/2019
+ */
+/**
+ * @var \Crimson\Brand\Block\Product\View\Brand $block
+ */
+$_product = $block->getProduct();
+$brandId = $_product->getData('brands');
+?>
+<?php if ($brandId): ?>
+    <?php
+        $brand = $block->getBrand($brandId);
+        $brandName = $brand->getName();
+        $brandUrl = $brand->getUrlKey();
+        $brandImageLarge = $brand->getLargeImage();
+    ?>
+    <?php if ($brandUrl != null && $brandImageLarge != null): ?>
+        <div class="product-description brand-image">
+            <a href="<?= $block->getUrl($brandUrl); ?>" title="View all <?php echo $brandName; ?> items"><img src="<?php echo $block->getBrandImageUrl().$brandImageLarge; ?>" title="<?php echo $brandName; ?>"/></a>
+        </div>
+    <?php endif; ?>
+    <?php if ($brandUrl == null && $brandImageLarge != null): ?>
+        <div class="product-description brand-image">
+            <a href="/catalogsearch/result/?order=relevance&dir=desc&cat=All+Categories&q=<?php echo $brandName; ?>" title="View all <?php echo $brandName; ?> items"><img src="<?php echo $block->getBrandImageUrl().$brandImageLarge; ?>" title="<?php echo $brandName; ?>"/></a>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

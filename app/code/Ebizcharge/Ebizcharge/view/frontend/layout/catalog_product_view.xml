@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="head.additional">
+            <block
+                ifconfig="payment/ebizcharge_ebizcharge/active"
+                class="Magento\Framework\View\Element\Template"
+                name="ebizcharge.ebizcharge.product.view.css"
+                template="Ebizcharge_Ebizcharge::html/accounts/accounts.phtml"
+            />
+        </referenceContainer>
+        <referenceBlock name="page.main.title">
+            <arguments>
+                <argument name="translate" xsi:type="boolean">false</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="product.info.form.content">
+            <container name="subscription.container" as="subscription_container" htmlTag="div"
+                       before="-">
+                <block class="Ebizcharge\Ebizcharge\Block\Subscriptions\Product\SubscriptionProductForm"
+                       name="ebizcharge.recurring.product.simple.form"
+                       as="ebizcharge_recurring_product_simple_form"
+                       ifconfig="payment/ebizcharge_ebizcharge/active"
+                       template="Ebizcharge_Ebizcharge::product/view/subscriptions/product_subscription_form.phtml"
+                       before="-"/>
+            </container>
+        </referenceContainer>
+        <referenceContainer name="product.info.form.options">
+            <container name="subscription.product.container" as="subscription.product_container" htmlTag="div"
+                       before="-">
+                <block class="Ebizcharge\Ebizcharge\Block\Subscriptions\Product\SubscriptionProductForm"
+                       name="ebizcharge.recurring.product.configurable.form"
+                       as="ebizcharge_recurring_product_configurable_form"
+                       ifconfig="payment/ebizcharge_ebizcharge/active"
+                       template="Ebizcharge_Ebizcharge::product/view/subscriptions/product_subscription_form.phtml"
+                       before="-"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

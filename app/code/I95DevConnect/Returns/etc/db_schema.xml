@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="i95dev_magento_rma" resource="default" engine="innodb" comment="i95dev_magento_rma">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="bigint" name="return_id" padding="20" unsigned="true" nullable="false" identity="false" comment="Return ID"/>
+    <column xsi:type="text" name="target_return_id" nullable="false" comment="Target Return Id"/>
+    <column xsi:type="text" name="target_receive_id" nullable="false" comment="Target Receive Id"/>
+    <column xsi:type="text" name="target_order_id" nullable="false" comment="Target Return Id"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Update DateTime"/>
+    <column xsi:type="varchar" name="origin" nullable="false" length="255" comment="origin"/>
+    <column xsi:type="varchar" name="update_by" nullable="false" length="255" comment="update_by"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="I95DEV_MAGENTO_RMA_RETURN_ID">
+      <column name="return_id"/>
+    </constraint>
+  </table>
+  <table name="i95dev_magentorma_creditmemoids" resource="default" engine="innodb" comment="i95dev_magentorma_creditmemoids">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Creation Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Update DateTime"/>
+    <column xsi:type="bigint" name="return_id" padding="20" unsigned="true" nullable="false" identity="false" comment="Return ID"/>
+    <column xsi:type="text" name="creditmemo_id" nullable="false" comment="Creditmemo Id"/>
+    <column xsi:type="text" name="magento_creditmemo_id" nullable="false" comment="Magento Creditmemo Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="FK_F2D4DEF19BF82B912A412918D1EB453D" table="i95dev_magentorma_creditmemoids" column="return_id" referenceTable="i95dev_magento_rma" referenceColumn="return_id" onDelete="CASCADE"/>
+  </table>
+</schema>

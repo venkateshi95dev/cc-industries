@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<I95DevConnect_MessageQueue xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:I95DevConnect_MessageQueue:etc/settings.xsd" >
+    <subscriptiondetails>
+        <customerId>a8040e25-50f3-4d4f-948e-558c4cceb7e7</customerId>
+        <subscriptionKey>86dd4685eb72184bd9f0cc0cdf113c19</subscriptionKey>
+    </subscriptiondetails>
+    <generalsetting>
+        <taxoverride>1</taxoverride>
+        <realtimeinventorycheck>1</realtimeinventorycheck>
+        <productstatus>2</productstatus>
+    </generalsetting>
+    <logs>
+        <maxdays>30</maxdays>
+    </logs>
+    <mq_dataclean>
+        <cleardataperiod>30</cleardataperiod>
+    </mq_dataclean>
+    <SupportedProductTypes>
+        <Order>simple</Order>
+        <Product>simple</Product>
+    </SupportedProductTypes>
+</I95DevConnect_MessageQueue>

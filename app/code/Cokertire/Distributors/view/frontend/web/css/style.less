@@ -1,0 +1,240 @@
+//
+//  LESS CONFIG VARIABLES
+//  -------------------------------
+
+@aw_link__color: #497DCE;
+
+@aw_column-padding: 15px;
+@aw_category-block_margin-bottom: 50px;
+
+// FAQ colors
+@aw_text__color: #333; //black
+@aw_first__color: #8bc53f; //green
+
+//
+// GENERAL
+// ________________________________
+
+.aw_bold {
+    font-weight: bold;
+}
+
+.aw-no-display {
+    display: none;
+}
+
+//
+//  GRID
+//  -------------------------------
+
+.aw-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 6rem;
+    padding: 0;
+    text-align: center;
+    .aw-column {
+        display: inline-block;
+        flex-direction: column;
+        width: 100%;
+        padding: 0 @aw_column-padding;
+        float: left;
+        text-align: left;
+        margin: 0 auto;
+    }
+    &.columns-to-center {
+        justify-content: center;
+    }
+}
+
+.aw-page-container {
+    margin-top: 6rem;
+    text-align: justify;
+}
+
+// AW Columns
+.aw-columns-1 {
+    .aw-column {
+        width: 50%;
+        float: none !important;
+    }
+}
+
+.aw-columns-2 {
+    .aw-column {
+        width: 45%;
+        margin: 0;
+    }
+}
+
+.aw-columns-3 {
+    .aw-column {
+        width: 25%;
+        margin: 0 2%;
+    }
+}
+
+//
+//  ELEMENTS
+//  -------------------------------
+
+.article-list {
+    display: inline-block;
+    margin-bottom: @aw_category-block_margin-bottom;
+    text-align: left;
+
+    .category-name {
+        .category-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            position: absolute;
+        }
+
+        a {
+            line-height: 2.5rem;
+            padding-left: 4rem;
+            color: @aw_text__color;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 2rem;
+        margin-bottom: 0;
+        li {
+            margin-bottom: 1.625rem;
+            line-height: 2rem;
+
+            a {
+                color: @aw_text__color;
+            }
+
+            a:hover {
+                color: @aw_link__color;
+            }
+        }
+
+        li.image-item {
+            padding-left: 4rem;
+            background-repeat: no-repeat !important;
+            background-size: 2rem !important;
+        }
+    }
+
+    ul.aw-list-style {
+        li:before {
+            display: inline-block;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 100%;
+            background: @aw_first__color;
+            margin-right: 2.5rem;
+            content: '';
+        }
+    }
+
+    .more-articles-link {
+        padding-left: 4rem;
+        color: @aw_link__color;
+    }
+}
+
+// HELPFULNESS
+#aw-faq__helpfulness {
+    margin-top: 4rem;
+}
+
+#aw__helpfulness-voting {
+    padding: 0 1rem;
+
+    a {
+        text-decoration: underline;
+    }
+
+    a:hover {
+        cursor: pointer;
+    }
+}
+
+// TITLE
+body[class*="faq"] {
+    .page-title-wrapper {
+        display: none;
+    }
+}
+
+// SEARCH
+.aw-faq-search {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    form {
+        width: 50%;
+        display: inline-block;
+        
+        #aw-faq-search-field {
+            width: 80%;
+            float: left;
+        }
+
+        button[type="submit"] {
+            margin-left: 1%;
+        }
+    }
+}
+
+.search-results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    .results-list {
+        text-align: left;
+        width: 50%;
+
+        h3 {
+            font-weight: normal;
+            color: #888;
+        }
+
+        &.article-list ul li {
+            padding-left: 0;
+        }
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .aw-columns-1,
+    .aw-columns-2,
+    .aw-columns-3 {
+        .aw-column {
+            width: 100%;
+        }
+    }
+
+    // SEARCH
+    .aw-faq-search {
+        form {
+            display: inline-block;
+            width: 80%;
+        }
+    }
+}
+
+@media screen and (max-width: 560px) {
+    // SEARCH
+    .aw-faq-search {
+        form {
+            #aw-faq-search-field {
+                clear: both;
+            }
+
+            button[type="submit"] {
+                margin-left: 0;
+                margin-top: 2%;
+            }
+        }
+    }
+}

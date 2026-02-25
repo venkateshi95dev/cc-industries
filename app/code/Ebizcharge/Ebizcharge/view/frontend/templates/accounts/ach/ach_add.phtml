@@ -1,0 +1,415 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\AddACH as addAchAccount;
+use Ebizcharge\Ebizcharge\ViewModel\AchCard;
+use Ebizcharge\Ebizcharge\ViewModel\CustomerAccount;
+use Magento\Customer\Block\Widget\Company;
+use Magento\Customer\Block\Widget\Fax;
+use Magento\Customer\Block\Widget\Telephone;
+use Magento\Framework\Escaper;
+
+/**
+ * @var addAchAccount $block
+ * @var AchCard $addAchViewModel
+ * @var Escaper $escaper
+ */
+
+$UserCvvRequired = 1;
+$storeId = $block->getStoreId();
+$paymentFormType = $block->getPaymentFormType($storeId);
+$paymentWebFormUrl = $block->getPaymentWebFormUrl($storeId);
+
+/** @var $billingAddress */
+$billingAddress = $block->getCustomerBillingAddress();
+
+$_company = $block->getLayout()->createBlock(Company::class);
+$_telephone = $block->getLayout()->createBlock(Telephone::class);
+$_fax = $block->getLayout()->createBlock(Fax::class);
+
+/** @var $phone */
+$phone = $billingAddress ? $billingAddress->getTelephone() : '';
+/** @var $company */
+$company = $billingAddress ? $billingAddress->getCompany() : '';
+/** @var $defaultCountry */
+$defaultCountry = $billingAddress ? $billingAddress->getCountryId() : '';
+/** @var $fax */
+$fax = $billingAddress ? $billingAddress->getFax() : '';
+/** @var $city */
+$city = $billingAddress ? $billingAddress->getCity() : '';
+/** @var $region */
+$region = $billingAddress ? $billingAddress->getRegion() : '';
+/** @var $regionId */
+$regionId = $billingAddress ? $billingAddress->getRegionId() : '';
+/** @var  $postCode */
+$postCode = $billingAddress ? $billingAddress->getPostcode() : '';
+/** @var  $street */
+$street = $billingAddress ? $billingAddress->getStreet() : '';
+$selectedRegionId = $block->getRegionId() ? $block->getRegionId() : $regionId;
+
+/** @var CustomerAccount $ebizAccountViewModel */
+$ebizAccountViewModel = $block->getData('ebizAccountViewModel');
+
+// Get Magento Customer module Address Helper
+$addressHelper = $ebizAccountViewModel->getCustomerAddressHelper();
+// Get Magento Directory module Helper
+$dirHelper = $ebizAccountViewModel->getDirectoryHelper();
+?>
+<?php
+if ($paymentFormType !== "2") {
+    ?>
+
+    <form class="form-address-edit"
+          action="<?= $escaper->escapeUrl($block->getSaveUrl()) ?>"
+          method="post"
+          id="form-validate"
+          enctype="multipart/form-data"
+          data-hasrequired="<?= /* @noEscape */
+          __('* Required Fields'); ?>"
+          onsubmit='(function ($){
+          $("#form-validate").valid() &&  $("body").trigger("processStart");
+      })(jQuery)'
+    >
+        <fieldset class="fieldset items">
+            <legend class="legend"><span><?= /* @noEscape */
+                    __('Payment Information') ?></span></legend>
+            <br>
+            <div class="field required">
+                <input type="hidden" id="form_for" name="form_for" value="ach"/>
+                <label class="label" for="ach_holder">
+                    <span><?= /* @noEscape */
+                        __('Account Holder'); ?></span>
+                </label>
+                <input type="text" class="input-text" title="<?= /* @noEscape */
+                __('Credit Card'); ?>"
+                       name="ach_holder"
+                       id="ach_holder"
+                       data-input="ach_holder"
+                       value="<?= $escaper->escapeHtmlAttr($block->getAchHolderName()) ?>"
+                       autocomplete="off"
+                       data-validate="{'required-entry':true}"/>
+            </div>
+            <div class="field required">
+                <label for="cc_type" class="label">
+                    <span><?= /* @noEscape */
+                        __('Account Type') ?></span>
+                </label>
+                <select id="cc_type"
+                        data-mage-init='{
+                    "creditCardType":{"creditCardTypeContainer":"#cc_type_ss_div"}
+                }' name="ach_type" data-validate="{'required-entry':true}" class="select">
+                    <option value=""><?= /* @noEscape */
+                        __('--Please Select--') ?></option>
+                    <option <?= /* @noEscape */
+                    $block->getAchType() === "checking" ? "selected" : ""; ?>
+                            value="checking"><?= /* @noEscape */
+                        __('Checking') ?></option>
+                    <option <?= /* @noEscape */
+                    $block->getAchType() === "savings" ? "selected" : ""; ?>
+                            value="savings"><?= /* @noEscape */
+                        __('Savings') ?></option>
+                </select>
+            </div>
+            <div class="field required">
+                <label for="ach_number" class="label">
+                    <span><?= /* @noEscape */
+                        __('Account Number') ?></span>
+                </label>
+                <input type="number" id="ach_number"
+                       name="ach_number"
+                       title="<?= /* @noEscape */
+                       __('Credit Card Number') ?>"
+                       class="input-text"
+                       value="<?= $escaper->escapeHtmlAttr($block->getAchNumber()) ?>"
+                       minlength="9" maxlength="14" data-validate="{'required-entry':true}"/>
+            </div>
+            <div class="field required">
+                <label for="cc_exp_month" class="label">
+                    <span><?= /* @noEscape */
+                        __('Routing Number') ?></span>
+                </label>
+                <div><input type="number"
+                            id="ach_route"
+                            name="ach_route"
+                            value="<?= $escaper->escapeHtmlAttr($block->getAchRouteNumber()) ?>"
+                            title="<?= /* @noEscape */
+                            __('Routing No') ?>"
+                            class="input-text"
+                            minlength="9" maxlength="9"
+                            pattern="[0-9]*" data-validate="{'required-entry':true}"/>
+                </div>
+
+                <div class="field margin-top-card">
+                    <input type="checkbox"
+                           id="default"
+                           name="default"
+                           value="1"
+                        <?= /* @noEscape */
+                        (int)$block->getIsDefault() === 1 ? "checked" : ''; ?>
+                           class="checkbox">
+                    <label class="label" for="default">
+                    <span class="font-default">
+                        <?= /* @noEscape */
+                        __('Make this my default bank account.') ?>
+                    </span>
+                    </label>
+                </div>
+                <br/><br/>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <a href="<?= $escaper->escapeUrl($block->getUrl('ebizcharge/ach/listaction')) ?>">
+                            <button type="button"
+                                    class="custom-cancel-button"
+                                    title="<?= /* @noEscape */
+                                    __('Cancel'); ?>">
+                                <span><?= /* @noEscape */
+                                    __('Cancel'); ?></span>
+                            </button>
+                        </a>
+                        <button type="submit"
+                                class="action primary"
+                                title="<?= /* @noEscape */
+                                __('Save Account'); ?>">
+                            <span><?= /* @noEscape */
+                                __('Save Account'); ?></span>
+                        </button>
+                    </div>
+                </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+            <legend class="legend"><span><?= /* @noEscape */
+                    __('Billing Information'); ?></span></legend>
+            <br>
+            <?= $block->getBlockHtml('formkey'); ?>
+            <?= $block->getNameBlockHtml(); ?>
+            <div class="field">
+                <label class="label" for="company"><span><?= /* @noEscape */
+                        __('Company'); ?></span></label>
+                <input type="text"
+                       name="company"
+                       id="company"
+                       title="<?= /* @noEscape */
+                       __('Company'); ?>"
+                       value="<?= $escaper->escapeHtmlAttr($company); ?>"
+                       class="input-text <?= /* @noEscape */
+                       $addressHelper->getAttributeValidationClass('company'); ?>"/>
+            </div>
+            <div class="field required">
+                <label class="label" for="telephone">
+                    <span><?= /* @noEscape */
+                        __('Phone Number'); ?></span>
+                </label>
+                <input type="text"
+                       name="telephone"
+                       value="<?= $escaper->escapeHtml($phone); ?>"
+                       title="<?= /* @noEscape */
+                       __('Phone Number'); ?>"
+                       class="input-text <?= /* @noEscape */
+                       $addressHelper->getAttributeValidationClass('telephone'); ?>"
+                       id="telephone"/>
+            </div>
+            <div class="field">
+                <label class="label" for="fax"><span><?= /* @noEscape */
+                        __('Fax'); ?></span></label>
+                <input type="text"
+                       name="fax"
+                       id="fax"
+                       title="<?= /* @noEscape */
+                       __('Fax'); ?>"
+                       value="<?= $escaper->escapeHtmlAttr($fax); ?>"
+                       class="input-text <?= /* @noEscape */
+                       $addressHelper->getAttributeValidationClass('fax'); ?>"/>
+            </div>
+
+            <legend class="legend"><span><?= /* @noEscape */
+                    __('Billing Address'); ?></span></legend>
+            <br>
+            <?php $_streetValidationClass = $addressHelper->getAttributeValidationClass('street'); ?>
+            <div class="field required">
+                <label for="street_1" class="label"><span><?= /* @noEscape */
+                        __('Street Address'); ?></span></label>
+                <input type="text"
+                       name="street[]"
+                       value="<?= isset($street[0]) ? $escaper->escapeHtml($street[0]) : ''; ?>"
+                       title="<?= /* @noEscape */
+                       __('Street Address'); ?>"
+                       id="street_1"
+                       class="input-text <?= /* @noEscape */
+                       $_streetValidationClass; ?>"/>
+                <div class="nested">
+
+                    <?php $_streetValidationClass = trim(str_replace(
+                        'required-entry',
+                        '',
+                        $_streetValidationClass
+                    )); ?>
+
+                    <?php for ($_i = 1, $_n = $addressHelper->getStreetLines(); $_i < $_n; $_i++): ?>
+                        <div class="field additional">
+                            <label class="label" for="street_<?= /* @noEscape */
+                            $_i + 1 ?>">
+                                <span><?= /* @noEscape */
+                                    __('Street Address %1', $_i + 1); ?></span>
+                            </label>
+                            <input type="text" name="street[]"
+                                   value="<?= $escaper->escapeHtml($block->getStreetLine($_i + 1)); ?>"
+                                   title="<?= /* @noEscape */
+                                   __('Street Address %1', $_i + 1); ?>"
+                                   id="street_<?= /* @noEscape */
+                                   $_i + 1; ?>"
+                                   class="input-text <?= /* @noEscape */
+                                   $_streetValidationClass; ?>"/>
+                        </div>
+                    <?php endfor; ?>
+
+                </div>
+            </div>
+
+            <?php if ($addressHelper->isVatAttributeVisible()): ?>
+                <div class="field taxvat">
+                    <label class="label" for="vat_id"><span><?= /* @noEscape */
+                            __('VAT Number'); ?></span></label>
+                    <input type="text"
+                           name="vat_id"
+                           value="<?= $escaper->escapeHtml($block->getAddress()->getVatId()); ?>"
+                           title="<?= /* @noEscape */
+                           __('VAT Number'); ?>"
+                           class="input-text <?= /* @noEscape */
+                           $addressHelper
+                               ->getAttributeValidationClass('vat_id'); ?>"
+                           id="vat_id"/>
+                </div>
+            <?php endif; ?>
+
+            <div class="field required">
+                <label class="label" for="country"><span><?= /* @noEscape */
+                        __('Country'); ?></span></label>
+                <?= $block->getCountryHtmlSelect($block->getCustomerBillingAddress()->getCountryId()); ?>
+            </div>
+            <div class="field required">
+                <label class="label" for="city"><span><?= /* @noEscape */
+                        __('City'); ?></span></label>
+                <input type="text"
+                       name="city"
+                       value="<?= $escaper->escapeHtmlAttr($city); ?>"
+                       title="<?= /* @noEscape */
+                       __('City'); ?>"
+                       class="input-text <?= /* @noEscape */
+                       $addressHelper->getAttributeValidationClass('city'); ?>"
+                       id="city"/>
+            </div>
+            <div class="field required">
+                <label class="label" for="region_id">
+                    <span><?= /* @noEscape */
+                        __('State/Province'); ?></span>
+                </label>
+                <select id="region_id"
+                        name="region_id"
+                        title="<?= /* @noEscape */
+                        __('State/Province'); ?>"
+                        class="validate-select"
+                    <?= /* @noEscape */
+                    !$block->displayAllRegion() ? ' disabled="disabled"' : ''; ?>>
+                    <option <?= /* @noEscape */
+                    $selectedRegionId === $regionId ? "selected" : ""; ?>
+                            value=<?= $escaper->escapeHtmlAttr($regionId) ?>>
+                        <?= /* @noEscape */
+                        __('Please select a region, state or province.'); ?>
+                    </option>
+                </select>
+                <input type="text"
+                       id="region"
+                       name="region"
+                       value="<?= $escaper->escapeHtmlAttr($region) ?>"
+                       title="<?= /* @noEscape */
+                       __('State/Province'); ?>"
+                       class="input-text
+                   <?= /* @noEscape */
+                       $addressHelper->getAttributeValidationClass('region'); ?>"
+                    <?= /* @noEscape */
+                    !$block->displayAllRegion() ? ' disabled="disabled"' : ''; ?> />
+            </div>
+            <div class="field required">
+                <label class="label" for="zip"><span><?= /* @noEscape */
+                        __('Zip/Postal Code'); ?></span></label>
+                <input type="text"
+                       name="postcode"
+                       value="<?= $escaper->escapeHtmlAttr($postCode); ?>"
+                       title="<?= /* @noEscape */
+                       __('Zip/Postal Code'); ?>"
+                       id="zip"
+                       class="input-text validate-zip-international <?= /* @noEscape */
+                       $addressHelper->getAttributeValidationClass('postcode'); ?>">
+            </div>
+        </fieldset>
+    </form>
+
+    <script type="text/x-magento-init">
+        {
+            "#form-validate": {
+                "validation": {}
+            },
+            "#country": {
+                "regionUpdater": {
+                    "optionalRegionAllowed": "<?= /* @noEscape */
+        $block->displayAllRegion() ? 'true' : 'false'; ?>",
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */
+        $dirHelper->getRegionJson(); ?>,
+                "defaultRegion": "<?= /* @noEscape */
+        $block->getRegionId(); ?>",
+                "countriesWithOptionalZip": <?= /* @noEscape */
+        $dirHelper->getCountriesWithOptionalZip(true) ?>
+        }
+    }
+}
+    </script>
+<?php } else {{
+
+    $paymentMethodWebFormUrl = $block->prepareWebHostedPaymentMethodFormUrl();
+
+    ?>
+    <div class="row payment-row" id="payment-method-form-type">
+        <iframe style="width:auto;height:auto;min-height:540px;min-width:720px; border:1px solid #ececec;"
+                id="ebizcharge-payment-webform"
+                src="<?= $paymentMethodWebFormUrl; ?>" target="_parent" width="720" height="540">
+
+        </iframe>
+        <script>
+            document.getElementById('payment-method-form-type').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // Perform form validation or processing
+
+                // Communicate with parent window to initiate navigation
+                parent.postMessage('navigate', '*'); // '*' allows any origin, use a specific origin for better security
+            });
+
+        </script>
+    </div>
+
+<?php }   } ?>

@@ -1,0 +1,236 @@
+<?php
+/**
+ * Century Business Solutions.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ *
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ *
+ * @email       <support@centurybizsolutions.com>
+ */
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\System\Config\ValidateMerchantButton;
+
+/**
+ * @var ValidateMerchantButton $block
+ */
+$gatewayApiAjaxUrl = $block->escapeUrl($block->getAjaxUrl());
+?>
+
+<script>
+    require(
+        [
+            'jquery',
+            'prototype',
+            'mage/mage'
+        ], function ($, pro, mage) {
+
+            /**
+             *
+             * @type {{gatewayApiUrl: string, gatewayApiKey: string, gatewayApiId: string,
+             * validateMerchantApiDiv: string, _init: MerchantValidator._init, gatewayApiPin: string,
+             * configMsgPanel: string, getById: (function(string=, string=): string), validateMerchantApiBtn: string,
+             * getId: (function(*): Element), mageConfigForm: string, validateApiCredentials:
+             * MerchantValidator.validateApiCredentials}}
+             */
+            const MerchantValidator = {
+                mageConfigForm: "config-edit-form",
+                validateMerchantApiBtn: "validatemerchantapi",
+                validateMerchantApiDiv: "validate-merchant-api-div",
+                gatewayApiUrl: "<?php echo $gatewayApiAjaxUrl; ?>",
+                ebizActive: "active",
+                multiStoreInherit: "_payments_inherit",
+                storeInherit: "_inherit",
+                gatewayApiKey: "sourcekey",
+                gatewayApiId: "sourceid",
+                gatewayApiPin: "sourcepin",
+                configMsgPanel: "config-msg-panel",
+                errorMsg: "Invalid API Keys. Please verify that the Security Id, User Id, and Password are correct.",
+                successMsg: "API Keys validated successfully.",
+                formSuccessBtn : "#save",
+                mainPageActions :".page-actions-buttons",
+
+                /**
+                 * Init Function
+                 *
+                 * @param $
+                 * @param pro
+                 * @private
+                 */
+                _init: function ($, pro) {
+                    this.mageConfigForm = $(this.getId(MerchantValidator.mageConfigForm));
+                    this.validateMerchantApiBtn = $(this.getId(MerchantValidator.validateMerchantApiBtn));
+                    this.validateMerchantApiDiv = $(this.getId(MerchantValidator.validateMerchantApiDiv));
+                    this.gatewayApiUrl = MerchantValidator.gatewayApiUrl;
+                    this.ebizActive = $(this.getById(this.ebizActive));
+                    this.gatewayApiKey = $(this.getById(this.gatewayApiKey));
+                    this.gatewayApiId = $(this.getById(this.gatewayApiId));
+                    this.gatewayApiPin = $(this.getById(this.gatewayApiPin));
+                    this.configMsgPanel = $(this.getById(this.configMsgPanel));
+                    this.formSuccessBtn = $(this.mainPageActions).find(this.formSuccessBtn);
+
+                    /**
+                     * Validate Api Credentials
+                     */
+                    this.validateApiCredentials($, pro);
+
+                },
+                /**
+                 * Validate Api Credentials
+                 *
+                 * @param $
+                 * @param pro
+                 * @param mage
+                 */
+                validateApiCredentials: function ($, pro, mage) {
+                    /** Validate Merchant **/
+                    MerchantValidator.validateMerchantApiBtn.click(function (evt) {
+                        let isValid = true;
+                        /** fetching the params of the current credentials */
+                        let reqParams = {
+                            is_active: MerchantValidator.ebizActive.val(),
+                            merchant_key: MerchantValidator.gatewayApiKey.val(),
+                            merchant_id: MerchantValidator.gatewayApiId.val(),
+                            merchant_pin: MerchantValidator.gatewayApiPin.val()
+                        };
+                   // console.log(reqParams, MerchantValidator.ebizActive);
+                        /**
+                         * Validate
+                         */
+                        if (reqParams.merchant_key.length === 0 ||
+                            reqParams.merchant_id.length === 0 ||
+                            reqParams.merchant_pin.length === 0) {
+                            isValid = false;
+                        }
+                        if (!isValid) {
+                            alert("Please provide valid input, and try again.");
+                            return false;
+                        }
+                        /** Ajax Request **/
+                        new Ajax.Request(MerchantValidator.gatewayApiUrl, {
+                            parameters: reqParams,
+                            loaderArea: false,
+                            asynchronous: true,
+                            /**
+                             * On Create
+                             */
+                            onCreate: function () {
+                                MerchantValidator.validateMerchantApiDiv.find('.validated-api-keys').hide();
+                                MerchantValidator.validateMerchantApiDiv.find('.processing-api-keys').show();
+                                MerchantValidator.validateMerchantApiDiv.find('.un-validated-api-keys').hide();
+                                MerchantValidator.configMsgPanel.text('checking...');
+                                $('body').loader('show');
+                            },
+                            /**
+                             * On Success
+                             * @param response
+                             */
+                            onSuccess: function (response) {
+                                MerchantValidator.validateMerchantApiDiv.find('.processing-api-keys').hide();
+                                let resultText = '';
+                                if (response.status > 200) {
+                                    resultText = response.statusText;
+                                    MerchantValidator.configMsgPanel.text(resultText);
+                                }
+                                let validationJSONResponse = response.responseJSON;
+                                if (validationJSONResponse && validationJSONResponse.valid === true) {
+                                    MerchantValidator.validateMerchantApiDiv.find('.validated-api-keys').show();
+                                    MerchantValidator.validateMerchantApiDiv.find('.processing-api-keys').hide();
+                                    MerchantValidator.validateMerchantApiDiv.find('.un-validated-api-keys').hide();
+                                    resultText = MerchantValidator.successMsg;
+                                    $(".page-actions-buttons").find("#save").trigger("click");
+                                } else {
+                                    MerchantValidator.validateMerchantApiDiv.find('.validated-api-keys').hide();
+                                    MerchantValidator.validateMerchantApiDiv.find('.processing-api-keys').hide();
+                                    MerchantValidator.validateMerchantApiDiv.find('.un-validated-api-keys').show();
+                                    resultText = MerchantValidator.errorMsg;
+                                }
+                                MerchantValidator.configMsgPanel.text(resultText);
+                                $('body').loader('hide');
+                            },
+                            /**
+                             * On Failure
+                             * @param httpError
+                             */
+                            onFailure: function (httpError) {
+                                let error = "Internal Server Error";
+                                MerchantValidator.validateMerchantDiv.find('.validated-api-keys').hide();
+                                MerchantValidator.validateMerchantDiv.find('.processing-api-keys').hide();
+                                MerchantValidator.validateMerchantDiv.find('.un-validated-api-keys').show();
+                                MerchantValidator.validateMsgSpan.text(MerchantValidator.errorMsg);
+                            }
+                        });
+
+                    });
+
+                },
+                /**
+                 * Get Id
+                 *
+                 * @param elemId
+                 * @returns {Element}
+                 */
+                getId: function (elemId = "") {
+                    elemId = elemId.replace(MerchantValidator.storeInherit, "");
+                    elemId = elemId.replace(MerchantValidator.multiStoreInherit, "");
+                    return document.getElementById(elemId);
+                },
+                /**
+                 * Get Element By ID
+                 *
+                 * @param elmId
+                 * @param elemType
+                 * @returns {Element}
+                 */
+                getById: function (elmId = "", elemType = "input") {
+                    let mageFormInputFields = MerchantValidator.mageConfigForm.find(elemType);
+                    let elementId = elmId;
+                    $.each(mageFormInputFields, function (id, Obj) {
+                        let objId = Obj.id;
+                        if (Obj.id.includes(elmId)) {
+                            elementId = objId;
+                        }
+                    });
+                    return this.getId(elementId);
+                }
+            }
+
+            /**
+             * initiate API Keys Validator Plugin
+             */
+            return MerchantValidator._init($, pro);
+        });
+
+
+</script>
+
+<?php echo /** @noEscape */
+$block->getButtonHtml(); ?>
+
+<span class="merchant-api-message_panel" id="validate-merchant-api-div">
+    <img class="processing-api-keys" hidden="hidden" alt="Validating API Credentials" style="margin:0 5px"
+         src="<?php echo // @noEscape
+         $block->getViewFileUrl('images/process_spinner.gif'); ?>"/>
+    <img class="validated-api-keys" hidden="hidden" alt="Validated API Credentials" style="margin:-3px 5px"
+         src="<?php echo // @noEscape
+         $block->getViewFileUrl('images/rule_component_apply.gif'); ?>"/>
+     <img class="un-validated-api-keys" hidden="hidden" alt="Un Validated API Credentials" style="margin:-3px 5px"
+          src="<?php echo // @noEscape
+          $block->getViewFileUrl(
+              'Ebizcharge_Ebizcharge::images/rule_un_validated.gif'
+          ); ?>"/>
+    <span id="config-msg-panel" class="note"></span>
+</span>

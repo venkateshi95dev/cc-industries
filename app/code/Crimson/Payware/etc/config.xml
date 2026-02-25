@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<payment>
+			<payware>
+				<model>Crimson\Payware\Model\Payware</model>
+                <active>0</active>
+                <cctypes>AE,VI,MC,DI</cctypes>
+                <debug>0</debug>
+                <card_validation_message><![CDATA[*Note: If you are a new customer or placing your order for the first time with Zip Corvette through our website and your "Shipping Address" is different then your "Billing Address", you may be contacted by a Zip representative to review your order. This is an effort to reduce fraudulent credit card transactions. <br>Thanks.]]></card_validation_message>
+                <order_status>processing</order_status>
+                <payment_action>authorize</payment_action>
+                <title>Credit Card (Verifone PAYware)</title>
+                <allowspecific>0</allowspecific>
+                <currency>USD</currency>
+                <test>0</test>
+                <cgi_url>https://ipcharge.com/MC/</cgi_url>
+                <test_cgi_url>https://cert1.ipcharge.net/ipchapi/rh.aspx</test_cgi_url>
+			</payware>
+		</payment>
+	</default>
+</config>

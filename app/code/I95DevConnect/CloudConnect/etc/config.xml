@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_CloudConnect
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <i95dev_adapter_configurations>
+            <enabled_disabled>
+                <enabled>0</enabled>
+                <crmerp>0</crmerp>
+                <logs_enabled>0</logs_enabled>
+            </enabled_disabled>
+        </i95dev_adapter_configurations>
+    </default>
+</config>

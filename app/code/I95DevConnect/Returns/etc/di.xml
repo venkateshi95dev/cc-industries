@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * i95Dev.com
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://store.i95dev.com/LICENSE-M1.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sub@i95dev.com so we can send you a copy immediately.
+ *
+ * @category    I95DevConnect
+ * @package     I95DevConnect_Returns
+ * @Description Dependency Injection file for API methods
+ * @author      i95Dev
+ * @copyright   Copyright (c) 2021 i95Dev
+ * @license     http://store.i95dev.com/LICENSE-M1.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="I95DevConnect\I95DevServer\Model\I95DevServerRepository">
+        <arguments>
+            <argument name="apiServiceMethodRoutes" xsi:type="array">
+                <item name="createReturnList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">returns</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">reverse</item>
+                </item>
+                <item name="getReturnInfo" xsi:type="array">
+                    <!-- Entity Code -->
+                    <item name="entityCode" xsi:type="string">returns</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="sendInfo" xsi:type="string">1</item>
+                </item>
+                <item name="setReturnResponse" xsi:type="array">
+                    <!-- Entity Code -->
+                    <item name="entityCode" xsi:type="string">returns</item>
+                    <!-- Method Type -->
+                    <item name="methodType" xsi:type="string">forward</item>
+                    <item name="setResponse" xsi:type="string">1</item>
+                </item>
+                <item name="createCreditmemoList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">creditmemo</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                </item>
+                <item name="createReturnReceiveList" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">returnreceive</item>
+                    <item name="methodType" xsi:type="string">reverse</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="\I95DevConnect\MessageQueue\Observer\OutboundObserver\BaseObserver">
+        <arguments>
+            <argument name="observerRouting" xsi:type="array">
+                <item name="magentorma_aftersave" xsi:type="array">
+                    <item name="entityCode" xsi:type="string">returns</item>
+                    <item name="sourceKeyMethod" xsi:type="string">getId</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="I95DevConnect\MessageQueue\Helper\DataPersistence">
+        <arguments>
+            <argument name="entityList" xsi:type="array">
+                <item name="returns" xsi:type="array">
+                    <item name="targetKey" xsi:type="string">targetReturnId</item>
+                    <item name="referenceKey" xsi:type="string">targetOrderId</item>
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object">
+                            \I95DevConnect\Returns\Model\DataPersistence\ReturnActions
+                        </item>
+                    </item>
+                </item>
+                <item name="returnreceive" xsi:type="array">
+                    <item name="targetKey" xsi:type="string">targetReturnId</item>
+                    <item name="referenceKey" xsi:type="string">targetOrderId</item>
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >
+                            \I95DevConnect\Returns\Model\DataPersistence\ReturnActions
+                        </item>
+                    </item>
+                </item>
+                <item name="creditmemo" xsi:type="array">
+                    <item name="syncdetails" xsi:type="array">
+                        <item name="classObject" xsi:type="object" >\I95DevConnect\Returns\Model\DataPersistence\Creditmemo</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Rma\Model\Rma">
+        <plugin name="rma_save_after" type="I95DevConnect\Returns\Plugin\ForwardSync\RmaInfo" sortOrder="10"
+                disabled="false"/>
+    </type>
+    <preference for="Magento\Rma\Block\Adminhtml\Rma\Grid" type="I95DevConnect\Returns\Block\Adminhtml\Rma\Grid" />
+    <preference for="Magento\Rma\Block\Adminhtml\Order\View\Tab\Rma" type="I95DevConnect\Returns\Block\Adminhtml\Order\View\Tab\Rma" />
+    <preference for="Magento\Rma\Block\Adminhtml\Customer\Edit\Tab\Rma" type="I95DevConnect\Returns\Block\Adminhtml\Customer\Edit\Tab\Rma" />
+</config>
+

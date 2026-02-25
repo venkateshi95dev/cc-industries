@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <customer>
+            <address>
+                <show_address_fields>0</show_address_fields>
+            </address>
+            <crimson_pobox>
+                <enabled>1</enabled>
+                <shipping_po_box>0</shipping_po_box>
+                <enabled_for_customer_account_address_creation>0</enabled_for_customer_account_address_creation>
+                <enabled_for_ship_methods>0</enabled_for_ship_methods>
+                <ship_methods>tablerate_surepost</ship_methods>
+            </crimson_pobox>
+        </customer>
+    </default>
+</config>

@@ -1,0 +1,14 @@
+"EBizCharge Payment Gateway","EBizCharge Payment Gateway"
+"Attention","Bulk Action"
+From,From
+To,To
+from,From
+to,To
+"You haven't selected any items!","Please check at least one record!"
+"An item needs to be selected. Select and try again.", "Please check at least one record!"
+"Search by keyword","Search records by keyword"
+"Keyword","Keyword"
+"Use system value","Restore original default value"
+"Select Date","Select Date"
+"Are you sure you want to send email?", "Are you sure you want to Notify the customer?"
+"Incorrect credit card expiration date.","Select a valid expiration date."

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="I95DevConnect_MessageQueue::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="header">
+            <block class="Magento\Framework\View\Element\Template" name="i95dev_header" template="I95DevConnect_MessageQueue::header.phtml" />
+        </referenceContainer>
+    </body>
+</page>

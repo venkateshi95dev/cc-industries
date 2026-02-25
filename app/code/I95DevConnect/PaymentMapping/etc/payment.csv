@@ -1,0 +1,7 @@
+1,creditlimits,CREDLMT,1,1
+2,cashondelivery,CASH,1,1
+3,checkmo,CHECK,1,1
+4,authorizenet,CREDITCARD,1,1
+5,authorizenet_directpost,CREDITCARD,1,0
+6,free,FREE,1,1
+7,authnetcim,CREDITCARD,1,0

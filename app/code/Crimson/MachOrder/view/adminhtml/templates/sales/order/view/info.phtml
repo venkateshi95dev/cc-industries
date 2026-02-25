@@ -1,0 +1,20 @@
+<?php
+/** @var \Crimson\MachOrder\Block\Adminhtml\Sales\Order\Info $block */
+/** @var \Magento\Sales\Api\Data\OrderInterface $_order */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$_order = $block->getOrder();
+$orderExportedAt = $_order->getExtensionAttributes()->getMachSubmittedAt() ? $block->formatDate(
+    $block->getOrderAdminDate($_order->getExtensionAttributes()->getMachSubmittedAt()),
+    \IntlDateFormatter::MEDIUM,
+    true
+) : null;
+?>
+<tr>
+    <th><?= $escaper->escapeHtml(__('MACH Order Number')) ?></th>
+    <td><?= ($_order->getExtensionAttributes()->getMachOrderNumber() ?: __('N/A')); ?></td>
+</tr>
+<tr>
+    <th><?= $escaper->escapeHtml(__('Exported to MACH Date')) ?></th>
+    <td><?= $orderExportedAt ?: __('N/A'); ?></td>
+</tr>

@@ -1,0 +1,196 @@
+General,General
+i95dev_gen_001,i95DevConnector module is not enabled
+i95dev_gen_003,"Something Went Wrong,Please check logs"
+i95dev_gen_004,SAP Sync
+i95dev_gen_005,SAP Status
+i95dev_gen_006,Please check SAP Connection
+i95dev_gen_007,I95DevConnect
+i95dev_gen_008,Origin
+i95dev_gen_009,Please check SAP Connection
+i95dev_gen_010,"Something Went Wrong , Try Again"
+i95dev_gen_011,I95Dev Magento to SAP Error Report
+i95dev_gen_012,Manual Sync
+i95dev_gen_013,i95Dev Sync Failed Records Report From Magento to SAP
+Customer,Customer
+ERP Customer ID,SAP Customer ID
+i95dev_cust_001,SAP Customer ID
+i95dev_cust_002,SAP Customer Information
+i95dev_cust_003,SAP Customer ID is Required
+i95dev_cust_004,Email ID is Required
+i95dev_cust_005,First Name is Required
+i95dev_cust_006,Last Name is Required
+i95dev_cust_007,Invalid customer data received
+i95dev_cust_008,Invalid email address
+i95dev_cust_009,Email already exist.
+i95dev_cust_010,Error occur during customer creation
+i95dev_cust_011,Customer record is synced successfully.
+i95dev_cust_012,Customer Not Found
+Address,Address
+i95dev_addr_001,SAP Address ID is Required
+i95dev_addr_002,First Name is Required
+i95dev_addr_003,Last Name is Required
+i95dev_addr_004,Country ID is Required
+i95dev_addr_005,Region ID is Required
+i95dev_addr_006,City is Required
+i95dev_addr_007,Street is Required
+i95dev_addr_008,Postal Code is Required
+i95dev_addr_009,Telephone is Required
+i95dev_addr_010,Invalid Address data received
+i95dev_addr_011,Invalid Country Id
+i95dev_addr_012,Invalid State
+i95dev_addr_013,SAP Address ID
+i95dev_addr_014,Not a valid Region ID for the provided Country ID
+i95dev_addr_015,Address is empty
+i95dev_addr_016,Billing Address with the provided SAP address id is not found
+i95dev_addr_017,Address Record Successfully Synced
+i95dev_addr_018,Error occur during address creation
+i95dev_addr_019,Customer does not exist in Magento
+i95dev_addr_020,Address is not Exists
+Order,Order
+i95dev_order_001,SAP Customer ID is Required
+i95dev_order_002,Billing Address ID is Required
+i95dev_order_003,Shipping Address ID is Required
+i95dev_order_004,Shipping Method is Required
+i95dev_order_005,PO Number is Required
+i95dev_order_006,Payment method is not supported
+i95dev_order_007,Payment Method is Required Field
+i95dev_order_008,SKU missing at one of the order item
+i95dev_order_009,Qty missing at one of the order item
+i95dev_order_010,Order Items Required
+i95dev_order_011,Invalid Order data received
+i95dev_order_012,Credit Card Number is Required
+i95dev_order_013,Expiry Month is Required
+i95dev_order_014,Expiry Year is Required
+i95dev_order_015,Order already Exist
+i95dev_order_016,SAP Order ID
+i95dev_order_017,SAP Order Status
+i95dev_order_018,Order Item SKU not exist
+i95dev_order_019,Customer billing address does't exist
+i95dev_order_020,Customer shipping address does't exist
+i95dev_order_021,Shipping Method is not enabled
+i95dev_order_022,Payment Method is not enabled
+i95dev_order_023,Order not created as customer ID does't exist
+i95dev_order_024,This order has been created from ERP
+i95dev_order_025,SAP Order Information
+i95dev_order_026,Order submitted offline. Please click to Sync with SAP
+i95dev_order_027,Order item is Out of stock or Disable
+Invoice,Invoice
+invoice_already_exists,invoice already exists
+i95dev_inv_001,SAP Order ID is Required
+i95dev_inv_002,Invalid Invoice Data Received
+i95dev_inv_003,SAP Invoice ID
+order_not_exist,Order Not exist
+Shipment,Shipment
+Target Customer ID,SAP Customer ID
+Target Customer ID:,SAP Customer ID:
+Target Address ID,SAP Address ID
+Target ID,SAP ID
+Target Information,SAP Information
+Target Invoice ID,SAP Invoice ID
+Target Order ID,SAP Order ID
+Target Order Status,SAP Order Status
+Target Shipment ID,SAP Shipment ID
+Target Status,SAP Status
+Target Status:,SAP Status:
+i95dev_ship_001,SAP Order ID is Required
+i95dev_ship_002,Invalid Shipment Data Received
+i95dev_ship_003,SAP Shipment ID
+i95dev_ship_004,Order Not exist
+Customer Group,Customer Group
+ERP,SAP
+i95dev_custgrp_001,Customer Group ID is Required
+i95dev_custgrp_002,Invalid Customer Data Recieved
+i95dev_custgrp_003,SAP Customer Group ID
+i95dev_custgrp_004,Price Level Not Exits
+Product,Product
+i95dev_prod_001,Name is Required
+i95dev_prod_002,Description is Required
+i95dev_prod_003,Short Description is Required
+i95dev_prod_004,Weight is Required
+i95dev_prod_005,SKU is Required
+i95dev_prod_006,Invalid Product data received
+i95dev_prod_007,product type not exists
+i95dev_prod_008,product attribute set not exists
+i95dev_prod_009,product attribute set not valid
+i95dev_prod_010,Click here to offline product sync
+i95dev_prod_011,SAP Product ID
+i95dev_prod_012,SAP Customer Group ID is Required
+i95dev_prod_014,Price is Required
+i95dev_prod_015,Invalid Tier Price Data Recieved
+i95dev_prod_016,Product Not Exist
+i95dev_prod_017,Price Level
+i95dev_prod_020,Quantity is required
+i95dev_quote_all_shippingMethod_active,None of the shipping methods activated
+i95dev_mq_001,Message Queue
+i95dev_mq_002,Message Queue Report
+i95dev_mq_003,Message ID
+i95dev_quote_orderid,Target Order Id should not Empty
+i95dev_quote_payment_empty,Payment entity is required
+i95dev_quote_order_already_sync,Order Already Sync
+i95dev_quote_shipping_firstname," ""Shipping Address First Name should not Empty"""
+i95dev_quote_shipping_lastname," ""Shipping Address Last Name should not Empty"""
+i95dev_quote_shipping_street,Shipping Address Street should not Empty
+i95dev_quote_shipping_city,Shipping Address City should not Empty
+i95dev_quote_shipping_telephone,Shipping Address Phone No should not Empty
+i95dev_quote_shipping_postcode,Shipping Address Postal should not Empty
+i95dev_quote_shipping_region_valid,Shipping Address Invalid Region Code
+i95dev_quote_shipping_regionid,Shipping region code should not empty
+i95dev_quote_shipping_countryid,Shipping Address Country Code should not Empty
+i95dev_quote_items_count," ""Order Items count is 0"""
+i95dev_quote_items_count," ""Order Items count is 0"""
+i95dev_quote_shippingMethod,Shipping Method should not Empty
+i95dev_quote_paymentMethod,Payment Method should not Empty
+i95dev_quote_product_outofstock,Product is OutofStock
+i95dev_quote_product_valid,Sku Not Exists
+i95dev_quote_billing_address_count,Billing Address is Not Found
+i95dev_quote_customer_count,Customer is Not Found
+i95dev_quote_invalid_shippingMethod,Shipping Address is not valid for the shipping method
+i95dev_quote_paymentMethod_valid,PaymentMethod is invalid
+i95dev_quote_shippingMethod_valid,ShippingMethod is invalid
+i95dev_invoice_targetOrderId,Target Order Id should not Empty
+i95dev_invoice_validorderid,Target Order Id is Not Found
+i95dev_invoice_alreadysync,Invoice Already Sync
+i95dev_invoice_empty,Invoice Items count is 0
+i95dev_invoice_fullyinvoiced,Order Fully Invoiced
+i95dev_invoice_validdata,Invoice Data is in valid
+i95dev_inovice_valid_item," ""Item not existing Current  Order"""
+i95dev_shipment_order,Target Order Id should not Empty
+i95dev_shipment_orderstatus,Target Order Status should not Empty
+i95dev_unsupported_product %1,Un supported product type in order:: %1
+inventory_sync_error,Some unknown error occurs while syncing inventory
+i95dev_shipment_data,Shipment Data should not Empty
+i95dev_shipment_data_invalid,Shipment Data is Invalid
+i95dev_shipment_order_valid,Shipment Data is Invalid
+i95dev_shipment_order_invalid,Order is Not Exists
+i95dev_shipment_order,Target Order Id should not Empty
+i95dev_shipment_order_shipmentid,Target Shipment Id should not Empty
+i95dev_shipment_data_item_invalid,Shipment Items Data is Invalid
+Price Level '%1' does not exist,Price Group '%1' does not exist
+%1 price level not exists,%1 price group not exists
+i95dev_order_028,The order items not exists
+i95dev_order_029,Item type mismatch in Magento and SAP
+i95dev_order_030,Customer not exists in Magento with the provided target id
+i95dev_order_031,Order already Synced
+i95dev_order_032,Sku is mandatory in order items
+i95dev_order_not_exists,Target order does not exists
+i95dev_shipment_alreadysync,Shipment is already synced
+i95dev_empty_targetOrderId,Target Order Id is required
+i95dev_empty_targetInvoiceId,Target Invoice Id is required
+i95dev_invoice_itemNotExist,Invoice items are required
+i95dev_shipment_itemNotExist,Shipment items are required
+invoice_already_sync,Invoice is already synced
+i95dev_empty_invoiceOrderItemId,Invoice Order Item Id is required
+i95dev_empty_qtyToInvoice,Invoice quantity to invoice is required 
+i95dev_invoice_invalid_item,Item given for invoice does not exists anymore
+invoice_not_synced,Some unknown error came while syncing invoice
+shipment_not_synced,Some unknown error came while syncing shipment
+i95dev_empty_lastUpdated,Last Updated Date is required
+i95dev_empty_createdDate,Created Date is required
+i95dev_empty_customerGroup,Customer group missing
+target_id_required,Target Id is mandatory
+i95dev_empty_invoiceItem, Invoice item
+validation_error,Some unknown data validation error came
+track_number_unkown_error,Some unknown error came while updating tracking number
+i95dev_customergroup_notfound %1,Customer Group Not Found :: %1
+i95dev_invalid_invoice_item %1,Invalid Invoice Item %1
+i95dev_shipment_invalid_item %1,Invalid Shipment Item %1

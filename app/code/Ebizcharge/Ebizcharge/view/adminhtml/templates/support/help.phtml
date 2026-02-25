@@ -1,0 +1,133 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+/** @var \Magento\Backend\Block\Template $block */
+?>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /** @noEscape */__('Knowledge Base') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item">
+            <div class="admin__page-section-item-title">
+                <span class="">
+                    <?= /* phpcs:ignore */ /** @noEscape */ __('Visit our Knowledge Base to access how-to articles, release notes, and more, for the EBizCharge for Magento integration and the EBizCharge Cloud, Portal, and Mobile products.') ?>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary">
+                    <tr>
+                        <th>
+                            <div>
+                                <a target="_blank"
+                                   href="<?= $block->escapeUrl(
+                                       'https://help.ebizcharge.com/ecommerce-integrations/magento/'
+                                   ) ?>">
+                                    <?= /** @noEscape */ __('EBizCharge for Magento Knowledge Base') ?>
+                                </a>
+                                <p>Code: MAG975!</p>
+                            </div>
+                            <span>&nbsp;</span>
+                            <div>
+                                <a target="_blank"
+                                   href="<?= $block->escapeUrl('https://help.ebizcharge.com/ebizcharge/') ?>">
+                                    <?= /** @noEscape */ __('EBizCharge Knowledge Base') ?>
+                                </a>
+                                <p>Code: EBIZ975!</p>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /** @noEscape */ __('Contact EBizCharge Support') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item ">
+            <div class="admin__page-section-item-title">
+                <span class="">
+                    <?= /** @noEscape */ __('Contact our in-house Support team available 24/7.') ?>
+                </span>
+            </div>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary">
+                    <tr>
+                        <th>
+                            <div>
+                                <a target="_blank"
+                                   href="<?= $block->escapeUrl('tel:888-500-7798') ?>">
+                                    <?= $block->escapeHtml('888-500-7798 ') ?>
+                                </a>
+                                <span>x1</span>
+                            </div>
+                            <div>
+                                <a href="<?= $block->escapeUrl('mailto:support@ebizcharge.com') ?>">
+                                    <?= $block->escapeHtml('support@ebizcharge.com') ?>
+                                </a>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?= /** @noEscape */ __('Give EBizCharge Feedback') ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item ">
+            <div class="admin__page-section-item-title">
+                <span class="">
+                    <?= /** @noEscape */ __('Provide feedback to help us improve EBizCharge for Magento.') ?>
+                </span>
+            </div>
+
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary">
+                    <tr>
+                        <th>
+                            <?= /** @noEscape */__('You can provide your feedback ') ?>
+                            <a target="_blank"
+                               href="<?= $block->escapeUrl(
+                                   'https://ebizcharge.sjc1.qualtrics.com/jfe/form/SV_0V6LFDX5HzAGxEy'
+                               ) ?>">
+                                <?= $block->escapeHtml('here') ?>
+                            </a>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

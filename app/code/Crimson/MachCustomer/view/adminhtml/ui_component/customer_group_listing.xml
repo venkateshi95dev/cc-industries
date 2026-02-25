@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="customer_group_columns">
+        <column name="customer_group_id" sortOrder="10" />
+        <column name="customer_group_code" sortOrder="20" />
+        <column name="tax_class_id" sortOrder="30" />
+        <column name="customer_price_level" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Customer Price Level</label>
+            </settings>
+        </column>
+        <column name="mach_tax_exempt" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Mach Tax Exempt</label>
+            </settings>
+        </column>
+        <column name="mach_tax_non_exempt" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Mach Tax Non Exempt</label>
+            </settings>
+        </column>
+        <actionsColumn name="actions" sortOrder="70" />
+    </columns>
+</listing>

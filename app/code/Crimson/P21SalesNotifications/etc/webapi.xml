@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/orders/:magentoOrderEntityId/p21-failed-export-notification" method="POST">
+        <service class="Crimson\P21SalesNotifications\Api\SendFailedOrderExportNotificationEmailInterface" method="send"/>
+        <resources>
+            <resource ref="Crimson_P21SalesNotifications::send_order_failed_export_notification" />
+        </resources>
+    </route>
+</routes>

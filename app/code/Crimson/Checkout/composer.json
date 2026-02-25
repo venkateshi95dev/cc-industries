@@ -1,0 +1,37 @@
+{
+    "name": "crimson/checkout",
+    "description": "",
+    "require": {
+        "php": "~7.3.0|~7.4.0",
+        "magento/module-checkout": "null",
+        "magento/module-quote": "null",
+        "magento/module-paypal": "*",
+        "iwd/addressvalidation": "*",
+        "crimson/machaddressverification": "*",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+
+    },
+    "type": "magento2-module",
+    "version": "2.3.0",
+    "license": [
+
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\Checkout\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/Checkout"
+            ]
+        ]
+    }
+}

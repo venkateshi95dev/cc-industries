@@ -1,0 +1,12 @@
+edit_order_001,Edit Order Extension Is Not Enable
+edit_order_002,targetId field is Mandatory
+edit_order_003,targetOrderEditStatus field is Mandatory
+edit_order_004,Source Order Id not found or Order is in cancel state
+edit_order_005,Order has one or more Invoices editing cannot be done
+edit_order_006,Order has one or more Shipments editing cannot be done
+edit_order_007,Order cannot be edited as it is in processing state in ERP
+edit_order_008,New order not created.
+order_update_001,Cannot update Shipping address.
+order_update_002,Cannot update Billing address.
+edit_order_runtime_issue,Some issue occur. Please contact admin.
+edit_order_success,Record Successfully Synced.

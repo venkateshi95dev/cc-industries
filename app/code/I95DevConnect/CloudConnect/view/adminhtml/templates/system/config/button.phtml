@@ -1,0 +1,40 @@
+<?= /* @noEscape */ $block->getButtonHtml(); ?>
+
+<script>
+    require([
+        'jquery',
+        'prototype',
+    ], function (jQuery) {
+        function updateShippingMapping() {
+            if (jQuery("#sync_shipmethod_msg").length > 0) {
+                jQuery("#sync_shipmethod_msg").remove();
+            }
+
+            params = {};
+
+            new Ajax.Request('<?= /* @noEscape */ __($block->getButtonUrl()); ?>', {
+                loaderArea: true,
+                asynchronous: true,
+                parameters: params,
+                onComplete: function (transport) {
+                    var response = JSON.parse(transport.responseText);
+
+                    if (response.output) {
+                        jQuery("#sync_shipmethod").after(
+                            "</br><span id='sync_shipmethod_msg' style='color:green;'>" +
+                            " Shipping Method successfully updated</span>"
+                        );
+                    } else {
+                        jQuery("#sync_shipmethod").after(
+                            "</br><span id='sync_shipmethod_msg' style='color:red;'>"+response.message+"</span>"
+                        );
+                    }
+                }
+            });
+        }
+
+        jQuery('#sync_shipmethod').click(function () {
+            updateShippingMapping();
+        });
+    });
+</script>

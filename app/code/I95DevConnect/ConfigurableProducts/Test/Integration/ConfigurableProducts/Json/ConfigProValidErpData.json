@@ -1,0 +1,15 @@
+{
+    "RequestData": [
+        {
+            "TargetId": "shirt",
+            "Reference": "shirt",
+            "InputData": "X5LR/ocHwyRZRQNZlFpIP8ulxdU9gTNGOZfsQHc2T95cWNUIvP5ixNEMVoQ63P5cBMR5zMuu9wEM6+xv2+l1L8J1dOKXQGSFzwp8na650jd8xtdnenkdukKaDq9QD8qsprJ8gVSsY2ulX0tIpClSo0xeoxEMflV/wFJ+MvQCShqGExqwix097yw2gGfkVm+AP7AU3lyxcgvNeyC2mjXu3owkK7O2P7LNLTlHGYgeh7V8OBXcyfjqw7le9lGxcypIa6fDHlgFTStbMCGQIMV19u8Bmu+qwaK557t9wbbFBqxytXU1/TiZZO22DSZFpHh+z2sjTjxfoV+nGVVLqqyK4+JAGX1wfodUgQn5XrE5BSuyKuXhzZHQw91norBcrOJFsjDhMfztt49ia6o+Ga9nQnQpb+ba2tZZcNr8CBFYmdXaLbQszvPIGHIuS/j5VMR4WrKda8ojqM8IZkp8oVWa3QA4qYKD5ZCs7/gv90p+6FWwDXOKocQ85zBF29cgVG7/Czeo9O+KfrGtKstTNXN6Lg== ",
+            "MessageId": 292,
+            "SourceId": null,
+            "Message": null,
+            "Result": true,
+            "StatusId": 0,
+            "LastSyncTime": null
+        }
+    ]
+}

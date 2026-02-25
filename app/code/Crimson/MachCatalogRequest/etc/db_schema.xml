@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="mach_catalog_requests" resource="default" engine="innodb" comment="Holds catalog requests to send to mach.">
+        <column xsi:type="int" name="request_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Request ID"/>
+        <column xsi:type="varchar" length="255" name="name" nullable="false" comment="Name"/>
+        <column xsi:type="varchar" length="255" name="email" nullable="false" comment="Email"/>
+        <column xsi:type="text" name="street_1" nullable="false" comment="Street 1"/>
+        <column xsi:type="text" name="street_2" nullable="false" comment="Street 2"/>
+        <column xsi:type="varchar" length="255" name="city" nullable="false" comment="City"/>
+        <column xsi:type="varchar" length="255" name="state" nullable="false" comment="State"/>
+        <column xsi:type="varchar" length="10" name="zip" nullable="false" comment="Zip"/>
+        <column xsi:type="varchar" length="3" name="country" nullable="false" comment="Country"/>
+        <column xsi:type="boolean" name="request_more" nullable="false" default="0" comment="Request More"/>
+        <column xsi:type="varchar" length="100" name="requested_items" nullable="false" comment="Requested Items"/>
+        <column xsi:type="boolean" name="processed" nullable="false" default="0" comment="Processed Row"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="timestamp" name="modified_at" on_update="true" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Modified At"/>
+        <constraint referenceId="PRIMARY" xsi:type="primary">
+            <column name="request_id"/>
+        </constraint>
+    </table>
+</schema>

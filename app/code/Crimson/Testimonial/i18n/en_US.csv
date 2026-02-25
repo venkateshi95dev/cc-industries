@@ -1,0 +1,182 @@
+"Manage Testimonial","Manage Testimonial"
+"Add New Testimonial","Add New Testimonial"
+"Save Testimonial","Save Testimonial"
+"Save and Continue Edit","Save and Continue Edit"
+"Delete Testimonial","Delete Testimonial"
+"Edit Testimonial '%1'","Edit Testimonial '%1'"
+"New Testimonial","New Testimonial"
+"Testimonial Information","Testimonial Information"
+Nickname,Nickname
+Image,Image
+Email,Email
+"Company Name","Company Name"
+"Company Website","Company Website"
+Job,Job
+Address,Address
+LinkedIn,LinkedIn
+Facebook,Facebook
+Twitter,Twitter
+Youtube,Youtube
+Vimeo,Vimeo
+"Google Plus","Google Plus"
+Title,Title
+Testimonial,Testimonial
+Rating,Rating
+"Store View","Store View"
+Position,Position
+Status,Status
+"Testimonial Status","Testimonial Status"
+"General Information","General Information"
+"Author Information","Author Information"
+"Create New Testimonial","Create New Testimonial"
+"The testimonial has been deleted.","The testimonial has been deleted."
+"We can't find a testimonial to delete.","We can't find a testimonial to delete."
+"This testimonial no longer exists.","This testimonial no longer exists."
+"Edit Testimonial","Edit Testimonial"
+"Edit testimonial","Edit testimonial"
+Testimonials,Testimonials
+Crimson_Testimonial,Crimson_Testimonial
+"Manage Testimonials","Manage Testimonials"
+"A total of %1 record(s) have been deleted.","A total of %1 record(s) have been deleted."
+"A total of %1 record(s) have been disabled.","A total of %1 record(s) have been disabled."
+"A total of %1 record(s) have been enabled.","A total of %1 record(s) have been enabled."
+"You saved this Testimonial.","You saved this Testimonial."
+"Something went wrong while saving the testimonial.","Something went wrong while saving the testimonial."
+"Please check reCaptcha and try again.","Please check reCaptcha and try again."
+"Thank for your testimonial.","Thank for your testimonial."
+"Something went wrong while saving your testimonial.","Something went wrong while saving your testimonial."
+"Customer Testimonials","Customer Testimonials"
+Full,Full
+Long,Long
+Medium,Medium
+Short,Short
+"Button Link","Button Link"
+"Show on current page","Show on current page"
+Male,Male
+Female,Female
+"Custom Height","Custom Height"
+"Auto Equal Height","Auto Equal Height"
+"Auto Height","Auto Height"
+List,List
+Grid,Grid
+"Grid 1","Grid 1"
+"Grid 2","Grid 2"
+"Style 1","Style 1"
+"Style 2","Style 2"
+"Style 3","Style 3"
+"Style 4","Style 4"
+"Slide 1","Slide 1"
+"Slide 2","Slide 2"
+"Top Meta","Top Meta"
+"Bottom Meta","Bottom Meta"
+"Image And Meta On Top","Image And Meta On Top"
+"Image And Meta On Bottom","Image And Meta On Bottom"
+"Top Image","Top Image"
+"Bottom Image","Bottom Image"
+Grid1,Grid1
+Grid2,Grid2
+"Center Image And Meta On Top","Center Image And Meta On Top"
+"Center Image And Meta On Bottom","Center Image And Meta On Bottom"
+Random,Random
+Slide,Slide
+100%,100%
+75%,75%
+50%,50%
+25%,25%
+"Make sure that category content does not reference the block itself.","Make sure that category content does not reference the block itself."
+Enabled,Enabled
+Disabled,Disabled
+"Avatar Preview","Avatar Preview"
+"All Store Views","All Store Views"
+"Image Preview","Image Preview"
+Edit,Edit
+"Submit Your Testimonial","Submit Your Testimonial"
+"Upload Avatar","Upload Avatar"
+Company,Company
+Website,Website
+"Let us know your thoughts","Let us know your thoughts"
+"What’s on your mind?","What’s on your mind?"
+Submit,Submit
+Reset,Reset
+"Read More","Read More"
+"Submit your testimonial","Submit your testimonial"
+Name,Name
+"Avatar Image","Avatar Image"
+Linkedin,Linkedin
+"No testimonials found.","No testimonials found."
+"Venus - <a href=""http://venustheme.com"" title=""Venustheme.com - Premium Magento Template Club"">Venustheme.com</a>","Venus - <a href=""http://venustheme.com"" title=""Venustheme.com - Premium Magento Template Club"">Venustheme.com</a>"
+"General Settings","General Settings"
+Enable,Enable
+"Date Format","Date Format"
+"Full: Tuesday, April 12, 1952 AD or 3:30:42pm PST<br/>LONG: January 12, 1952 or 3:30:32pm<br/>MEDIUM: Jan 12, 1952<br/>SHORT: 12/13/52 or 3:30pm","Full: Tuesday, April 12, 1952 AD or 3:30:42pm PST<br/>LONG: January 12, 1952 or 3:30:32pm<br/>MEDIUM: Jan 12, 1952<br/>SHORT: 12/13/52 or 3:30pm"
+"reCaptcha Settings","reCaptcha Settings"
+"reCaptcha Site Key","reCaptcha Site Key"
+"reCaptcha Secrect Key","reCaptcha Secrect Key"
+"Ves Testimonial Widget","Ves Testimonial Widget"
+"General Seting","General Seting"
+"Widget Title","Widget Title"
+"Widget Classes","Widget Classes"
+"Our Classes: <br/>1. Testimonial Content: <b>content-no-radius</b>, <b>content-small-radius</b>, <b>content-medium-radius</b>, <b>content-large-radius</b><br/>2. Image: <b>image-small-radius</b>, <b>image-medium-radius</b>, <b>image-large-radius</b><br/>3. Image Size: <b>no-image</b>, <b>small-image</b>, <b>medium-image</b>, <b>large-image</b>, <b>xlarge-image</b><br/>4. Image Scale: <b>tmls-grayscale</b>","Our Classes: <br/>1. Testimonial Content: <b>content-no-radius</b>, <b>content-small-radius</b>, <b>content-medium-radius</b>, <b>content-large-radius</b><br/>2. Image: <b>image-small-radius</b>, <b>image-medium-radius</b>, <b>image-large-radius</b><br/>3. Image Size: <b>no-image</b>, <b>small-image</b>, <b>medium-image</b>, <b>large-image</b>, <b>xlarge-image</b><br/>4. Image Scale: <b>tmls-grayscale</b>"
+Pretext,Pretext
+"Number Item","Number Item"
+"Order By","Order By"
+"Custom Template","Custom Template"
+"Input custom module template file path. For example: <b>Crimson_Testimonial::widget/style1.phtml</b>. Empty for default","Input custom module template file path. For example: <b>Crimson_Testimonial::widget/style1.phtml</b>. Empty for default"
+Layout,Layout
+"Grid Column","Grid Column"
+"Grid Pagination","Grid Pagination"
+"Number Item Per Page","Number Item Per Page"
+"Testimonial Content Color","Testimonial Content Color"
+"Input color name or color code. Example: #CC0000, white,...","Input color name or color code. Example: #CC0000, white,..."
+"Testimonial Content Background Color","Testimonial Content Background Color"
+"Testimonial Content Border Color","Testimonial Content Border Color"
+"Show Nickname","Show Nickname"
+"Nickname Color","Nickname Color"
+"Show Address","Show Address"
+"Show Email","Show Email"
+"Show Company","Show Company"
+"Show Job","Show Job"
+"Show Title","Show Title"
+"Title Color","Title Color"
+"Show Image","Show Image"
+"Image Width","Image Width"
+"Image Height","Image Height"
+"Show Rating","Show Rating"
+"Show Social Networks","Show Social Networks"
+"Show Date","Show Date"
+"Show Readmore Link","Show Readmore Link"
+"Max chars in content","Max chars in content"
+"Put number to limit characters shown on each content. If the number of character are longer than you did input, it's automatically cut and added "" Read More"" at the end. If you want to show entire content, leave it blank","Put number to limit characters shown on each content. If the number of character are longer than you did input, it's automatically cut and added "" Read More"" at the end. If you want to show entire content, leave it blank"
+"OWL Carousel Settings","OWL Carousel Settings"
+"Number of Item per Column","Number of Item per Column"
+"Multiple Row","Multiple Row"
+"Number Columns On Page (Large display)","Number Columns On Page (Large display)"
+"Show number items when screen size 1200px and up","Show number items when screen size 1200px and up"
+"Number Columns On Page","Number Columns On Page"
+"Show number items when screen size between 1199px and 980px","Show number items when screen size between 1199px and 980px"
+"Number Columns On Page (Portrait tablets)","Number Columns On Page (Portrait tablets)"
+"Show number items when screen size between 979px and 769px","Show number items when screen size between 979px and 769px"
+"Number Columns On Page (Phones to tablets)","Number Columns On Page (Phones to tablets)"
+"Show number items when screen size between 768px and 641px","Show number items when screen size between 768px and 641px"
+"Number Columns On Page (Phones to Small tablets)","Number Columns On Page (Phones to Small tablets)"
+"Show number items when screen size between 640px and 480px","Show number items when screen size between 640px and 480px"
+"Number Columns On Page (Phones)","Number Columns On Page (Phones)"
+"Show number items when screen size bellow 480px","Show number items when screen size bellow 480px"
+Autoplay,Autoplay
+"Autoplay Timeout","Autoplay Timeout"
+"Show dots navigations","Show dots navigations"
+"Show next/prev buttons.","Show next/prev buttons."
+"Navigation Next Button Text","Navigation Next Button Text"
+"Navigation Previous Button Text","Navigation Previous Button Text"
+"RTL Layout","RTL Layout"
+Loop,Loop
+"Infinity loop. Duplicate last and first items to get loop illusion.","Infinity loop. Duplicate last and first items to get loop illusion."
+"Testimonial Form","Testimonial Form"
+"Display Type","Display Type"
+"Button Text","Button Text"
+Delete,Delete
+"Delete items","Delete items"
+"Are you sure you wan't to delete selected items?","Are you sure you wan't to delete selected items?"
+Disable,Disable
+ID,ID
+Avatar,Avatar

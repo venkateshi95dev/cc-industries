@@ -1,0 +1,21 @@
+{
+    "name": "i95dev-connect/category",
+    "description": "N/A",
+    "require": {
+        "php": "~7.3.0||~7.4.0||~8.1.0",
+        "magento/framework": "^102.0||^103.0"
+    },
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "I95DevConnect\\Category\\": ""
+        }
+    }
+}

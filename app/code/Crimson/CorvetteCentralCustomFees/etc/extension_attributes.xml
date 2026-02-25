@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="base_custom_fee_core_charge" type="float"/>
+        <attribute code="custom_fee_core_charge" type="float"/>
+        <attribute code="base_custom_fee_crate_charge" type="float"/>
+        <attribute code="custom_fee_crate_charge" type="float"/>
+        <attribute code="base_custom_fee_freight_charge" type="float"/>
+        <attribute code="custom_fee_freight_charge" type="float"/>
+        <attribute code="base_custom_fee_dropship_charge" type="float"/>
+        <attribute code="custom_fee_dropship_charge" type="float"/>
+        <attribute code="base_custom_fee_truck_frt_set_price" type="float"/>
+        <attribute code="custom_fee_truck_frt_set_price" type="float"/>
+        <attribute code="is_canadian_freight" type="int"/>
+        <attribute code="is_truck_frt_0070" type="int"/>
+        <attribute code="canada_taxes" type="Crimson\CorvetteCentralCustomFees\Api\Data\CanadaTaxItemInterface[]" />
+        <attribute code="base_canada_taxes" type="Crimson\CorvetteCentralCustomFees\Api\Data\CanadaTaxItemInterface[]" />
+    </extension_attributes>
+</config>

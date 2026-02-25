@@ -1,0 +1,60 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/**
+ * Top menu for store
+ *
+ * @var \Magento\Theme\Block\Html\Topmenu $block
+ */
+$allCategoryMenus = $block->getAllCategoryMenuItems();
+if ($block->isAllCategoryMenuCreated()) {
+    foreach ($allCategoryMenus as $key => $allCategoryMenu) {
+        $menuId = $allCategoryMenu->getMenuId();
+        $columnsLimit = $block->getColumnsLimit() ?: 0;
+        $_leftMenuHtml = $block->getAllCategoryMenuHtml($menuId, 'level-top', 'submenu', $columnsLimit);
+        $_rightMenuHtml = $block->getAllCategoryRightMenuHtml($menuId, 'level-top', 'submenu', $columnsLimit);
+        $verticalMenuClass = $block->getAllCategoryNavigationClass($menuId);
+        $isAllCategoryMegamenu = $block->isAllCategoryMegamenu($menuId);
+        $displayPosition = $block->getDisplayPosition($menuId);
+        $displayOverlay = $block->getDisplayOverlay($menuId);
+        ?>
+        <div class="vertical-menu-inner <?=
+                                        /* @noEscape */ $displayPosition
+        ?> vertical-menu-inner-<?= /* @noEscape */ $menuId ?>">
+            <div class="vertical-menu-title">
+                <?= /* @noEscape */ $block->getAllCategoryMenuTitle($menuId) ?>
+            </div>
+            <div class="<?= /* @noEscape */ $verticalMenuClass ?> navigation ">
+                <div class="vertical-menu-content">
+                    <div class="vertical-menu-category">
+                        <ul class="vertical-main-menu md-top-menu-items">
+                            <?= /* @noEscape */ $_leftMenuHtml; ?>
+                        </ul>
+                    </div>
+                    <?php if ($isAllCategoryMegamenu) { ?>
+                        <section class="vertical-menu-right">
+                            <div class="category-menu">
+                                <?= /* @noEscape */ $_rightMenuHtml ?>
+                            </div>
+                        </section>
+                    <?php } ?>
+                </div>
+            </div>
+        </div>
+        <script type="text/x-magento-init">
+            {
+        ".vertical-menu-inner-<?= /* @noEscape */ $menuId ?>": {
+            "Magedelight_Megamenu/js/megamenu/verticalmenu": {
+                "show_vertical_menu_on": "<?= $escaper->escapeJs($block->getShowVerticalMenuOn($menuId)) ?>",
+                "no_of_subcat_to_show": "<?= $escaper->escapeJs($block->getNoOfSubCategoryToShow($menuId)) ?>",
+                "display_overlay": "<?= $escaper->escapeJs($block->getDisplayOverlay($menuId)) ?>"
+            }
+        }
+    }
+    </script>
+    <?php }  ?>
+<?php } ?>

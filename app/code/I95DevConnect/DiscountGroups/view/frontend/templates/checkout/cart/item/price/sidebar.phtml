@@ -1,0 +1,20 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+
+// phpcs:ignoreFile
+
+/** @var $block Renderer */
+
+use Magento\Checkout\Block\Item\Price\Renderer;
+
+?>
+<?php $_item = $block->getItem() ?>
+<div class="price-container">
+    <span class="price-label"><?= /* @escapeNotVerified */ __('Price') ?></span>
+    <span class="price-wrapper"><?= /* @escapeNotVerified */ $this->helper('Magento\Checkout\Helper\Data')->formatPrice($_item->getCalculationPrice()) ?></span>
+</div>

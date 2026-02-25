@@ -1,0 +1,55 @@
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ErrorData
+ */
+-->
+<!--@subject i95Dev Notification System | List of records of respective Entity has failed in creation from ERP to Magento @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var customer_name" : "Customer Name",
+"var message" : "Message"
+}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+{{template config_path="design/email/header_template"}}
+<table style="border-spacing: 0; border-collapse: collapse; padding: 0; border: 0; width: 100%">
+    <tr>
+        <td style="padding:20px 0 20px 0; vertical-align:top;">
+            <table style="width:650px; padding:10px; background:#FFFFFF; border:1px solid #E0E0E0;  border-collapse: collapse; border-spacing: 0;">
+                <tr>
+                    <td style="vertical-align:top;">
+                        <h1 style="font-size:18px;font-weight:normal;line-height:22px;margin:0 0 11px 0;">Hi {{var customer_name}},</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table style="border-spacing: 0; border-collapse: collapse; padding: 0; border: 0; width: 650px">
+                            <tbody>
+                                <tr>
+                                    <td colspan="2" style="vertical-align:top; font-size:12px; padding:7px 9px 9px 9px; border:1px solid #EAEAEA;">
+                                        {{var message}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+            <td style="background:#EAEAEA;">
+            <div style="text-align:center">
+                <p style="font-size:12px;margin:0;">
+                    <strong>{{trans "Thank you"}}</strong>
+                </p>
+            </div>
+           </td>
+    </tr>
+</table>
+</td>
+</tr>
+</table>
+{{template config_path="design/email/footer_template"}}

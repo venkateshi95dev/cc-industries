@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Crimson_ZipCokerWvConsolidation">
+        <sequence>
+            <module name="Silk_Coker"/>
+            <module name="Crimson_CorvetteCentral"/>
+            <module name="Magento_Tax"/>
+            <module name="Avalara_AvaTax"/>
+            <module name="Crimson_MachTax"/>
+        </sequence>
+    </module>
+</config>

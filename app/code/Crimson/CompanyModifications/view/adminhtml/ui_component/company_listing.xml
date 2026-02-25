@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="company_columns">
+        <column name="website_id" class="\Crimson\CompanyModifications\Ui\Component\Listing\Column\Website" sortOrder="50">
+        <settings>
+                <options class="Magento\Config\Model\Config\Source\Website"/>
+                <filter>select</filter>
+                <dataType>select</dataType>
+                <label translate="true">Website</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

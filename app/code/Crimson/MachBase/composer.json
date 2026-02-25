@@ -1,0 +1,31 @@
+{
+    "name": "crimson/machbase",
+    "description": "",
+    "require": {
+        "php": "~7.4.0",
+        "magento/magento-composer-installer": "*"
+    },
+    "suggest": {
+    },
+    "type": "magento2-module",
+    "version": "2.2.4",
+    "license": [
+
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Crimson\\MachBase\\": ""
+        }
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/MachBase"
+            ]
+        ]
+    }
+}

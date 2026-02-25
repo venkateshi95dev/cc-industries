@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\InventoryApi\Api\Data\SourceInterface">
+        <attribute code="website_id" type="int"/>
+        <attribute code="allowed_sku" type="string"/>
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Quote\Api\Data\AddressInterface">
+        <attribute code="source_code" type="string" />
+        <attribute code="source_email" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="source_code" type="string" />
+        <attribute code="source_email" type="string" />
+    </extension_attributes>
+
+    <extension_attributes for="Magento\InventoryInStorePickupApi\Api\Data\SearchResultInterface">
+        <attribute code="products_info" type="Magento\InventoryInStorePickupApi\Api\Data\SearchRequest\ProductInfoInterface[]"/>
+    </extension_attributes>
+</config>

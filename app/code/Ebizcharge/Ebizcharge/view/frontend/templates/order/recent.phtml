@@ -1,0 +1,123 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+use Ebizcharge\Ebizcharge\Block\Order\Recent;
+use Ebizcharge\Ebizcharge\ViewModel\CustomerAccount;
+use Magento\Framework\Escaper;
+
+/**
+ * @var Recent $block
+ * @var Escaper $escaper
+ */
+
+$_orders = $block->getOrders();
+$count = count($_orders);
+
+/** @var CustomerAccount $ebizAccountViewModel */
+$ebizAccountViewModel = $block->getData('ebizAccountViewModel');
+
+// Get Magento Sales module ReOrder Helper
+$salesReorderHelper = $ebizAccountViewModel->getSalesReorderHelper();
+// Get Magento Sales module PostHelper
+$salesPostHelper = $ebizAccountViewModel->getSalesPostHelper();
+?>
+<div class="block block-dashboard-orders">
+    <div class="block-title order">
+        <strong><?= /* @noEscape */ __('Recent Orders') ?></strong>
+        <?php if ($count > 0): ?>
+            <a class="action view"
+               href="<?= $escaper->escapeUrl($block->getUrl('sales/order/history')) ?>">
+                <span><?= /* @noEscape */ __('View All') ?></span>
+            </a>
+        <?php endif; ?>
+    </div>
+    <div class="block-content">
+        <?= $block->getChildHtml() ?>
+        <?php if ($count > 0): ?>
+            <div class="table-wrapper orders-recent">
+                <table class="data table table-order-items recent" id="my-orders-table">
+                    <caption class="table-caption"><?= /* @noEscape */ __('Recent Orders') ?></caption>
+                    <thead>
+                    <tr>
+                        <th scope="col" class="col id"><?= /* @noEscape */ __('Order #') ?></th>
+                        <th scope="col" class="col date"><?= /* @noEscape */ __('Date') ?></th>
+                        <th scope="col" class="col shipping"><?= /* @noEscape */ __('Ship To') ?></th>
+                        <th scope="col" class="col total"><?= /* @noEscape */ __('Order Total') ?></th>
+                        <th scope="col" class="col status"><?= /* @noEscape */ __('Subscribed') ?></th>
+                        <th scope="col" class="col status"><?= /* @noEscape */ __('Status') ?></th>
+                        <th scope="col" class="col actions"><?= /* @noEscape */ __('Action') ?></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($_orders as $_order): ?>
+                        <tr>
+                            <td data-th="<?= /* @noEscape */ __('Order #') ?>"
+                                class="col id"><?= $escaper->escapeHtml($_order->getRealOrderId()) ?></td>
+                            <td data-th="<?= /* @noEscape */ __('Date') ?>"
+                                class="col date">
+                                <?= $escaper->escapeHtml($block->formatDate($_order->getCreatedAt())) ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Ship To') ?>"
+                                class="col shipping">
+                                <?= $_order->getShippingAddress() ?
+                                    $escaper->escapeHtml($_order->getShippingAddress()->getName()) : "&nbsp;" ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Order Total') ?>"
+                                class="col total">
+                                <?= /* @noEscape */ $_order->formatPrice($_order->getGrandTotal()) ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Subscribed') ?>"
+                                class="col subscribed">
+                                <?= $escaper->escapeHtml($block->isSubscribed($_order)) ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Status') ?>"
+                                class="col status">
+                                <?= $escaper->escapeHtml($_order->getStatusLabel()) ?>
+                            </td>
+                            <td data-th="<?= /* @noEscape */ __('Actions') ?>"
+                                class="col actions">
+                                <a href="<?= $escaper->escapeUrl($block->getViewUrl($_order)) ?>"
+                                   class="action view">
+                                    <span><?= /* @noEscape */ __('View Order') ?></span>
+                                </a>
+                                <?php if ($salesReorderHelper->canReorder($_order->getEntityId())): ?>
+                                    <a href="#"
+                                       data-post="<?= /* @noEscape */
+                                        $salesPostHelper->getPostData($block->getReorderUrl($_order)) ?>"
+                                       class="action order">
+                                        <span><?= /* @noEscape */ __('Reorder') ?></span>
+                                    </a>
+                                <?php endif ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php else: ?>
+            <div class="message info empty">
+                <span><?= /* @noEscape */ __('You have placed no orders.') ?></span>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

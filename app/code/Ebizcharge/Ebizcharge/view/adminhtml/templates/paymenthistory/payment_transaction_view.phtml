@@ -1,0 +1,126 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+use Ebizcharge\Ebizcharge\Block\Adminhtml\PaymentHistory\PaymentTransactionView;
+
+/**
+ * @var $block PaymentTransactionView;
+ */
+
+/** @var  $transactionData */
+$transactionData = $block->getTransactionData();
+?>
+<div class="payment-response-div">
+    <h2><b>Payment Ref # :</b> <?= $block->escapeHtml($transactionData->getData('payment_ref_number')) ?> </h2>
+    <hr/>
+    <br/>
+
+    <ul class="main-container">
+        <?php
+        $transactionsInfo = $transactionData->getData();
+        /** @var $paymentJsonResp */
+        $paymentJsonResp = [];
+
+        if (count($transactionsInfo) > 0) {
+            foreach ($transactionsInfo as $key => $data) {
+                // phpcs:disable
+                if (!in_array($key, $block->_paymentDataToShow)) {
+                    continue;
+                }
+
+                if (in_array($key, $block->_paymentJsonObjects)) {
+                    $paymentJsonResp[$key] = json_decode($data);
+                    continue;
+                }
+                $pkey = str_replace('_', ' ', $key);
+        ?>
+                <li class="payment-list-item">
+                    <div class="left-list-item">
+                        <?= /** @noEscape */ isset($block->_paymentLabelsToChange[$key]) ?
+                            __(ucwords($block->_paymentLabelsToChange[$key])) . ' : ' : __(ucwords($pkey)) . ' : '; ?>
+                        <?php // phpcs:enable ?>
+                    </div>
+                    <span class="right-list-item">
+                        <b>
+                        <?php
+                        $paymentData = $data;
+                        if ($key == $block::PAYMENT_TRANSACTION_PAYMENT_CARD_INFO) {
+                            $paymentData = $block->preparePaymentCardData($paymentData, $transactionData->getData());
+                        } elseif ($key == $block::PAYMENT_TRANSACTION_PAYMENT_STATUS) {
+                            $paymentData = $block->preparePaymentStatus($paymentData);
+                        }
+                        ?>
+                        <?= /** @noEscape */ __($paymentData); ?></b>
+                    </span>
+                </li>
+                <?php
+            }
+
+
+            foreach ($paymentJsonResp as $respKey => $respData) {
+                $respKey = str_replace('_', ' ', $respKey); ?>
+                <li class="payment-list-item">
+
+                    <div class="left-list-item-heading">
+                        <?= $block->escapeHtml(ucwords($respKey)) ?>:
+                    </div>
+                    <div class="sub-list-item-container">
+                        <ul class="main-list-item">
+                            <?php
+                            foreach ($respData as $objKey => $objResp) {
+                                if (!is_object($objResp)) {
+                                    $objResp = $objResp !== "" ? $objResp : "*"; ?>
+                                    <li class="left-sub-list-item">
+                                        <div class="obj-resp-left"><?= $block->escapeHtml($objKey) ?></div>
+                                        <div class="obj-resp-right"><b><?= $block->escapeHtml($objResp) ?></b></div>
+                                    </li>
+                                    <?php
+                                } else {
+                                    foreach ($objResp as $k => $v) {
+                                        ?>
+                                        <li class="left-sub-list-item">
+                                            <div class="obj-resp-left"><?= $block->escapeHtml($k) ?></div>
+                                            <div class="obj-resp-right"><b><?= $block->escapeHtml($v) ?></b></div>
+                                        </li>
+                                        <?php
+                                    }
+                                }
+                            } ?>
+                        </ul>
+                    </div>
+                </li>
+                <?php
+            }
+        }
+        ?>
+
+    </ul>
+
+</div>
+<div class="back-to-grid-button">
+    <button onclick="window.history.back(); return false;">
+        <?= /** @noEscape */ __("Back to Transactions"); ?>
+    </button>
+</div>

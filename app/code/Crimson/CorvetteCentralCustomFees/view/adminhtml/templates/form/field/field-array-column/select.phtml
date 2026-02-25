@@ -1,0 +1,41 @@
+<?php
+/** @var \Crimson\CustomHandlingFee\Block\Adminhtml\Form\Field\FieldArrayColumn\Select $block */
+
+$selectAttributes = [
+    'class' => 'select'
+];
+if (!empty($block->getInputId())) {
+    $selectAttributes['id'] = $block->getInputId();
+}
+if (!empty($block->getInputName())) {
+    $selectAttributes['name'] = $block->getInputName();
+}
+
+$columnData = $block->getColumn();
+if (!empty($columnData)) {
+    if (!empty($columnData['class'])) {
+        $selectAttributes['class'] .= ' ' . $columnData['class'];
+    }
+
+    if (!empty($columnData['style'])) {
+        $selectAttributes['style'] .= $columnData['style'];
+    }
+}
+
+$selectAttributes = array_map(
+    fn($name, $value) => $name . '="' . $block->renderEscapedHtmlAttr($value) . '"',
+    array_keys($selectAttributes),
+    array_values($selectAttributes)
+);
+$selectAttributes = implode(' ', $selectAttributes);
+
+$value = $block->getValue();
+?>
+
+<select <?= $selectAttributes ?>>
+    <?php foreach ($block->getOptions() as $option): ?>
+        <option value="<?= $escaper->escapeHtmlAttr($option['value']) ?>" <?= $option['value'] == $value ? 'selected' : '' ?>>
+            <?= $escaper->escapeHtml($option['label'] ?? $option['value']) ?>
+        </option>
+    <?php endforeach ?>
+</select>

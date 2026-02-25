@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <showpagesconfig>
+            <general>
+                <page_title>Coker Shows and Events</page_title>
+            </general>
+        </showpagesconfig>
+        <finderattribute>
+            <checkout>
+                <shipping_address_notice>We do not ship to Post Office boxes</shipping_address_notice>
+            </checkout>
+            <usual>
+                <search_no_results_block>search-no-results</search_no_results_block>
+            </usual>
+            <finder>
+                <finder_no_results_block>finder-no-results</finder_no_results_block>
+            </finder>
+        </finderattribute>
+        <product_modal>
+            <product>
+                <etp>[{"etp_eligible":"ETP1","sku":"5561","cost":"10"},{"etp_eligible":"ETP2","sku":"5564","cost":"20"},{"etp_eligible":"ETP3","sku":"5567","cost":"25"}]</etp>
+                <ewp>[{"ewp":"EWP","sku":"5570","cost":"25"}]</ewp>
+                <ewp_allowed_attribute_set_name>Wheels,Wire Wheels,Grouped_Wheels</ewp_allowed_attribute_set_name>
+            </product>
+        </product_modal>
+    </default>
+</config>

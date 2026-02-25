@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="i95dev_payment_journal" resource="default" engine="innodb" comment="i95dev payment journal">
+    <column xsi:type="bigint" name="id" padding="20" unsigned="false" nullable="false" identity="true" comment="ID"/>
+    <column xsi:type="varchar" name="target_invoice_id" nullable="true" length="35" comment="Target Invoice Id"/>
+    <column xsi:type="int" name="source_invoice_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Source Invoice Id"/>
+    <column xsi:type="int" name="source_order_id" padding="11" unsigned="false" nullable="false" identity="false" comment="Source Order Id"/>
+    <column xsi:type="decimal" name="invoice_amount" scale="4" precision="12" unsigned="false" nullable="false" default="0"  comment="Target Invoice Amount"/>
+    <column xsi:type="datetime" name="created_dt" on_update="false" nullable="false" comment="Created Date"/>
+    <column xsi:type="datetime" name="updated_dt" on_update="false" nullable="false" comment="Updated Date"/>
+    <column xsi:type="varchar" name="receipt_id" nullable="true" length="35" comment="Receipt Id"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <group id="osco" translate="label" type="text" sortOrder="205" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>OSCO Shipping Integration</label>
+                <field id="active" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label comment" sortOrder="3" type="text" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Title</label>
+                    <comment>Shipping Title Text</comment>
+                </field>
+                <field id="url" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>WSDL URL</label>
+                    <validate>validate-url</validate>
+                </field>
+                <field id="username" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>OSCO USERNAME</label>
+                </field>
+                <field id="password" translate="label" type="obscure" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>OSCO Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="order_id" translate="label comment" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>OSCO Order Id</label>
+                    <comment>Order/shipment identification</comment>
+                </field>
+                <field id="description" translate="label comment" sortOrder="8" type="textarea" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Description Message</label>
+                    <comment>Shipping Description Message</comment>
+                </field>
+                <field id="best_way_enabled" translate="label" type="select" sortOrder="18" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Best Way Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="ups_allowed_methods" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>UPS US Allowed Methods</label>
+                    <source_model>Crimson\CorvetteCentralOSCO\Model\Config\Source\OriginShipmentCustom</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="ups_ca_allowed_methods" translate="label comment" type="multiselect" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>UPS Canada Allowed Methods</label>
+                    <source_model>Crimson\CorvetteCentralOSCO\Model\Config\Source\OriginShipmentCustom</source_model>
+                    <comment>Canada shipping addresses will use the methods selected here.</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="ups_foreign_allowed_methods" translate="label comment" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>UPS Foreign Allowed Methods</label>
+                    <source_model>Crimson\CorvetteCentralOSCO\Model\Config\Source\OriginShipmentCustom</source_model>
+                    <comment>Shipping addresses not US/CA will use the methods selected here. Only one rate(the cheapest) will be displayed.</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="usps_allowed_methods" translate="label" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>USPS Allowed Methods</label>
+                    <source_model>Magento\Usps\Model\Source\Method</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="allow_if_no_air_shipment" translate="label" type="select" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Allow If No Air Shipment</label>
+                    <source_model>Crimson\CorvetteCentralOSCO\Model\Config\Source\NoAirShipmentOkOptions</source_model>
+                    <comment>This is the shipping method displayed when at least 1 item in the quote is not air shipment.</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="eta_specificcountry" translate="label comment" type="multiselect" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display ETA for Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <comment>Display ETA for the selected countries here.</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="eta_add_days" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>ETA Add-On Days Number</label>
+                    <comment>Number of days to be added to the ETA returned by OSCO.</comment>
+                    <validate>validate-number integer validate-zero-or-greater</validate>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="atypical_us_regions" translate="label" type="multiselect" sortOrder="63" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>US Atypical Regions</label>
+                    <source_model>Crimson\CorvetteCentralShipping\Model\Config\Source\USAtypicalRegions</source_model>
+                    <comment>These are US regions considered foreign regions.</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="65" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="log_enabled" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Log Request and Response</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Log request and response</comment>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

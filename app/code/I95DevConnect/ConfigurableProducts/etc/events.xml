@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_ConfigurableProducts
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!--@author Divya Koona. Event changed from erpconnect_forward_orderinfo to erpconnect_forward_orderproductinfo-->
+    <event name="erpconnect_forward_orderproductinfo">
+        <observer name="erpconnect_forward_order_orderinfo"
+                  instance="\I95DevConnect\ConfigurableProducts\Observer\Forward\OrderItemObserver"/>
+    </event>
+    <event name="erpconnect_messagequeuetomagento_beforesave_quoteitem">
+        <observer name="i95dev_sales_order_item_save_before"
+                  instance="I95DevConnect\ConfigurableProducts\Observer\Reverse\OrderItemObserver"/>
+    </event>
+    <event name="erpconnect_messagequeuetomagento_validatequoteitem">
+        <observer name="i95dev_sales_order_item_validateConfig"
+                  instance="I95DevConnect\ConfigurableProducts\Observer\Reverse\ValidateOrderItemObserver"/>
+    </event>
+    <!-- @author Added event so add associated product for config while syncing simple product -->
+    <event name="erpconnect_messagequeuetomagento_aftersave_product">
+        <observer name="erpconnect_mq_aftersave_product"
+                  instance="\I95DevConnect\ConfigurableProducts\Observer\Reverse\AssociateConfigProduct"/>
+    </event>
+    <event name="erpconnect_messagequeuetomagento_beforesave_product">
+        <observer name="i95dev_assign_variantid_to_product" instance="I95DevConnect\ConfigurableProducts\Observer\Reverse\AssignVariantIdToProduct" />
+    </event>
+
+</config>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp:etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="style-src">
+            <values>
+                <value id="bootstrapCdn" type="host">*.bootstrapcdn.com</value>
+                <value id="static-autocomplete.fastsimon" type="host">static-autocomplete.fastsimon.com</value>
+                <value id="ping.fastsimon" type="host">ping.fastsimon.com</value>
+                <value id="settings.fastsimon" type="host">settings.fastsimon.com</value>
+                <value id="static-grid.fastsimon" type="host">static-grid.fastsimon.com</value>
+                <value id="typekit" type="host">*.typekit.net</value>
+                <value id="googleapis.com" type="host">fonts.googleapis.com</value>
+                <value id="cdn.cookiehub.eu" type="host">cdn.cookiehub.eu</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <value id="clarity" type="host">*.clarity.ms</value>
+                <value id="livechatinc" type="host">api.livechatinc.com</value>
+                <value id="bat.bing" type="host">bat.bing.com</value>
+                <value id="api.fastsimon" type="host">api.fastsimon.com</value>
+                <value id="suggest.instantsearchplus.com" type="host">suggest.instantsearchplus.com</value>
+                <value id="suggest.fastsimon.com" type="host">suggest.fastsimon.com</value>
+                <value id="static-autocomplete.fastsimon" type="host">static-autocomplete.fastsimon.com</value>
+                <value id="static-grid.fastsimon" type="host">static-grid.fastsimon.com</value>
+                <value id="ping.fastsimon" type="host">ping.fastsimon.com</value>
+                <value id="settings.fastsimon" type="host">settings.fastsimon.com</value>
+                <value id="doubleclick" type="host">stats.g.doubleclick.net</value>
+                <value id="nr-data.net" type="host">bam.nr-data.net</value>
+                <value id="tctm.co" type="host">199001.tctm.co</value>
+                <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="hotjar.com" type="host">*.hotjar.com</value>
+                <value id="hotjar.io" type="host">*.hotjar.io</value>
+                <value id="wss.hotjar.com" type="host">wss://ws.hotjar.com</value>
+                <value id="google-analytics.com" type="host">www.google-analytics.com</value>
+                <value id="googleads.g.doubleclick.net" type="host">googleads.g.doubleclick.net</value>
+                <value id="cdn.cookiehub.eu" type="host">cdn.cookiehub.eu</value>
+                <value id="c.ba.contentsquare.net" type="host">c.ba.contentsquare.net</value>
+            </values>
+        </policy>
+        <policy id="script-src">
+            <values>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="livechatinc" type="host">*.livechatinc.com</value>
+                <value id="acp-magento" type="host">acp-magento.appspot.com</value>
+                <value id="bat.bing" type="host">bat.bing.com</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
+                <value id="newrelic.com" type="host">*.newrelic.com</value>
+                <value id="tctm.co" type="host">199001.tctm.co</value>
+                <value id="facebook.net" type="host">*.facebook.net</value>
+                <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="cokertirecompany.com" type="host">*.cokertirecompany.com</value>
+                <value id="hotjar.com" type="host">*.hotjar.com</value>
+                <value id="e.zip-corvette.com" type="host">e.zip-corvette.com</value>
+                <value id="googletagmanager.com" type="host">www.googletagmanager.com</value>
+                <value id="google-analytics.com" type="host">www.google-analytics.com</value>
+                <value id="googletagservices.com" type="host">www.googletagservices.com</value>
+                <value id="doubleclick.net" type="host">www.doubleclick.net</value>
+                <value id="cdn.cookiehub.eu" type="host">cdn.cookiehub.eu</value>
+                <value id="cdn.brcdn.com" type="host">cdn.brcdn.com</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <value id="fontawesome" type="host">*.fontawesome.com</value>
+                <value id="bootstrapCdn" type="host">*.bootstrapcdn.com</value>
+                <value id="typekit" type="host">*.typekit.net</value>
+                <value id="hotjar.com" type="host">*.hotjar.com</value>
+                <value id="gstatic.com" type="host">fonts.gstatic.com</value>
+                <value id="googleapis.com" type="host">fonts.googleapis.com</value>
+                <value id="cdn.cookiehub.eu" type="host">cdn.cookiehub.eu</value>
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="amazonaws.com" type="host">*.amazonaws.com</value>
+                <value id="bat.bing" type="host">bat.bing.com</value>
+                <value id="ywxi" type="host">cdn.ywxi.net</value>
+                <value id="blob" type="host">blob</value>
+                <value id="data" type="host">'self' data:</value>
+                <value id="instantsearchplus" type="host">*.instantsearchplus.com</value>
+                <value id="bbb" type="host">*.bbb.org</value>
+                <value id="cdn.livechat" type="host">cdn.livechat-files.com</value>
+                <value id="facebook.com" type="host">*.facebook.com</value>
+                <value id="hotjar.com" type="host">*.hotjar.com</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
+                <value id="bing" type="host">*.bing.com</value>
+                <value id="google.com.ar" type="host">*.google.com.ar</value>
+                <value id="google-analytics.com" type="host">www.google-analytics.com</value>
+                <value id="googleadservices.com" type="host">www.googleadservices.com</value>
+                <value id="doubleclick.net" type="host">www.doubleclick.net</value>
+                <value id="cdn.cookiehub.eu" type="host">cdn.cookiehub.eu</value>
+                <value id="p.brsrvr.com" type="host">p.brsrvr.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="doubleclick" type="host">googleads.g.doubleclick.net</value>
+                <value id="livechatinc" type="host">secure.livechatinc.com</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

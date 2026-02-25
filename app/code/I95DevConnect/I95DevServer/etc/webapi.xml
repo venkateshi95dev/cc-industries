@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_I95DevServer
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">   
+    <route url="/V1/MessageQueueService/" method="POST">
+        <service class="I95DevConnect\I95DevServer\Api\I95DevServerRepositoryInterface" method="serviceMethod"/>
+        <resources>
+            <resource ref="I95DevConnect_I95DevServer::apimethods" />
+        </resources>
+    </route>
+    <route url="/V1/ReverseSyncService/" method="POST">
+        <service class="I95DevConnect\I95DevServer\Api\I95DevServerRepositoryInterface" method="syncMQtoMagento"/>
+        <resources>
+            <resource ref="I95DevConnect_I95DevServer::apimethods" />
+        </resources>
+    </route>
+</routes>

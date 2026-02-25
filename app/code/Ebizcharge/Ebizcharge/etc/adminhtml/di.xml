@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Ui\Component\Control\Button"
+                type="Ebizcharge\Ebizcharge\Override\Component\Control\Button"/>
+    <preference for="Magento\Backend\Block\Page\Copyright" type="Ebizcharge\Ebizcharge\Block\Adminhtml\Page\Copyright" />
+
+    <type name="Magento\Sales\Block\Adminhtml\Order\Create\Items\Grid">
+        <plugin name="admin_subscribe_order_button" type="Ebizcharge\Ebizcharge\Plugin\SubscribeOrderButton" sortOrder="10"/>
+    </type>
+
+    <type name="Magento\Quote\Model\Quote\Item\Updater">
+        <plugin name="admin_order_item_subscribe" disabled="false"  type="Ebizcharge\Ebizcharge\Plugin\SubscribeOptions" sortOrder="1"/>
+    </type>
+
+    <!-- To show "Ineligible" for surcharge total on "Order Create" -->
+    <preference for="Magento\Sales\Block\Adminhtml\Order\Create\Totals\DefaultTotals"
+                type="Ebizcharge\Ebizcharge\Override\Block\Adminhtml\Order\Create\Totals\DefaultTotals"/>
+
+    <!-- To show "Ineligible" for surcharge total on Order view, Invoice add/edit/view etc -->
+    <type name="Magento\Sales\Block\Adminhtml\Totals">
+        <plugin name="show_ineligible_surcharge_amount"
+                type="Ebizcharge\Ebizcharge\Plugin\Sales\IneligibleSurcharge"
+                sortOrder="1"
+                disabled="false"/>
+    </type>
+
+    <!-- Add Unit of Measures -->
+    <type name="Magento\Directory\Model\Config\Source\WeightUnit">
+        <plugin name="add_unit_of_measures"
+                type="Ebizcharge\Ebizcharge\Plugin\Directory\UnitOfMeasure"
+                sortOrder="1"
+                disabled="false"/>
+    </type>
+
+<!--    <preference for="Magento\Sales\Plugin\Model\ResourceModel\Order\OrderGridCollectionFilter"-->
+<!--                type="Ebizcharge\Ebizcharge\Override\Plugin\Model\ResourceModel\Order\OrderGridCollectionFilter"/>-->
+</config>

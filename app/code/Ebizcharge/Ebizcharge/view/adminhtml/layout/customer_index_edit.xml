@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Ebizcharge_Ebizcharge::js/customer_payment_methods.js"/>
+    </head>
+    <body>
+        <referenceBlock name="customer_form">
+            <block
+                    class="Ebizcharge\Ebizcharge\Block\Adminhtml\CustomerEdit\Tab\PaymentMethods" name="customer_cards">
+                <arguments>
+                    <argument name="tab_label" xsi:type="string" translate="true">Credit Cards</argument>
+                    <argument name="tab_path" xsi:type="const">
+                        Ebizcharge\Ebizcharge\Block\Adminhtml\CustomerEdit\Tab\PaymentMethods::CARDS_TAB_PATH
+                    </argument>
+                    <argument name="sort_order" xsi:type="number">100</argument>
+                </arguments>
+            </block>
+            <block
+                    ifconfig="payment/ebizcharge_ebizcharge/enableAch"
+                    class="Ebizcharge\Ebizcharge\Block\Adminhtml\CustomerEdit\Tab\PaymentMethods" name="bank_accounts">
+                <arguments>
+                    <argument name="tab_label" xsi:type="string" translate="true">Bank Accounts</argument>
+                    <argument name="tab_path" xsi:type="const">
+                        Ebizcharge\Ebizcharge\Block\Adminhtml\CustomerEdit\Tab\PaymentMethods::BANK_ACCOUNTS_TAB_PATH
+                    </argument>
+                    <argument name="sort_order" xsi:type="number">110</argument>
+                </arguments>
+            </block>
+
+        </referenceBlock>
+
+        <referenceBlock name="personal_info">
+            <action method="setTemplate" >
+                <argument xsi:type="string" name="template">
+                    Ebizcharge_Ebizcharge::customer/account/tab/personal_info.phtml
+                </argument>
+            </action>
+        </referenceBlock>
+
+    </body>
+</page>

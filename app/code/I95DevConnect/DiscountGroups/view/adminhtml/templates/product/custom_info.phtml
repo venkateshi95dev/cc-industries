@@ -1,0 +1,29 @@
+<?php
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_DiscountGroups
+ */
+
+?>
+    <div class="fieldset-wrapper customer-information">
+        <table class="admin__table-secondary">
+            <tbody>
+                <tr>
+                    <th><b><?= /* @noEscape */  __('Item Discount Group:') ?><b/></th>
+                    <?php
+                    $idg = $block->getCustomProductAttribute();
+                    if ($idg == '') {
+                        ?>
+                        <td><?= /* @noEscape */  __('Not Available'); ?></td> 
+                        <?php
+                    } else {
+                        ?>
+                        <td><?= /* @noEscape */  $idg; ?></td> 
+                    <?php
+                    }
+                    ?>
+                </tr>
+            </tbody>
+        </table>
+    </div>

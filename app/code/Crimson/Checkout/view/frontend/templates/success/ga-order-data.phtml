@@ -1,0 +1,7 @@
+<?php
+/** @var \Crimson\Checkout\Block\Success\GAOrderData $block */
+
+$order = $block->getOrder();
+?>
+
+<meta name="order_customer_email" content="<?= $escaper->escapeHtmlAttr($order->getCustomerEmail()) ?>" />

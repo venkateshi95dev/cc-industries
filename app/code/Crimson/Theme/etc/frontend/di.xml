@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Crimson\Theme\Block\Html\Header\AccountCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/account-critical.css</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Crimson\Theme\Block\Html\Header\AccountForgotPasswordCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/account-forgot-password-critical.css</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Crimson\Theme\Block\Html\Header\AccountLoginCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/account-login-critical.css</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Crimson\Theme\Block\Html\Header\AccountCreateCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/account-create-critical.css</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Crimson\Theme\Block\Html\Header\CartCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/cart-critical.css</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Crimson\Theme\Block\Html\Header\CategoryCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/category-critical.css</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Crimson\Theme\Block\Html\Header\CheckoutCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/checkout-critical.css</argument>
+        </arguments>
+    </virtualType>
+    
+    <virtualType name="Crimson\Theme\Block\Html\Header\HomeCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/home-critical.css</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Crimson\Theme\Block\Html\Header\ProductCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/product-critical.css</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Crimson\Theme\Block\Html\Header\ProductConfigurableCriticalCss" type="Magento\Theme\Block\Html\Header\CriticalCss">
+        <arguments>
+            <argument name="filePath" xsi:type="string">css/product-configurable-critical.css</argument>
+        </arguments>
+    </virtualType>
+</config>

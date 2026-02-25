@@ -1,0 +1,10 @@
+{
+    "newsletter_subscriber": {
+        "column": {
+            "region": true,
+            "first_name": true,
+            "last_name": true,
+            "model_years": true
+        }
+    }
+}

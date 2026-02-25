@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Sales:etc/sales.xsd">
+    <section name="quote">
+        <group name="totals">
+            <item name="custom_fee_core_charge" instance="Crimson\CorvetteCentralCustomFees\Model\Total\CoreCharge" sort_order="550"/>
+            <item name="custom_fee_crate_charge" instance="Crimson\CorvetteCentralCustomFees\Model\Total\CrateCharge" sort_order="650"/>
+            <item name="custom_fee_freight_charge" instance="Crimson\CorvetteCentralCustomFees\Model\Total\FreightCharge" sort_order="750"/>
+            <item name="custom_fee_dropship_charge" instance="Crimson\CorvetteCentralCustomFees\Model\Total\DropshipCharge" sort_order="850"/>
+            <item name="custom_fee_truck_frt_set_price" instance="Crimson\CorvetteCentralCustomFees\Model\Total\TruckFreightSetPrice" sort_order="900"/>
+            <item name="is_canadian_freight" instance="Crimson\CorvetteCentralCustomFees\Model\Total\IsCanadianFreight" sort_order="950"/>
+            <item name="canada_taxes" instance="Crimson\CorvetteCentralCustomFees\Model\Total\CanadaTaxes" sort_order="975"/>
+            <item name="is_truck_frt_0070" instance="Crimson\CorvetteCentralCustomFees\Model\Total\IsTruckFreight0700" sort_order="1000"/>
+        </group>
+    </section>
+</config>

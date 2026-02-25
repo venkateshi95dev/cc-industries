@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      layout="admin-1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="editor"/>
+    <head>
+        <link src="Magedelight_Megamenu::js/jquery.nestable.js"/>
+        <link src="Magedelight_Megamenu::js/megamenu.js"/>
+        <link src="Magedelight_Megamenu::js/jscolor.js"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magedelight\Megamenu\Block\Adminhtml\Menu\Edit\MenuItems"
+                   name="megamenu_menu_items_block"
+                   template="Magedelight_Megamenu::menu/menuitems.phtml">
+                <block class="Magedelight\Megamenu\Block\Adminhtml\Menu\Edit\CategoryList"
+                       name="catalogprint.categories"
+                       template="Magedelight_Megamenu::menu/categories.phtml" />
+            </block>
+        </referenceContainer>
+    </body>
+</page>

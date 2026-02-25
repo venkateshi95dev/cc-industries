@@ -1,0 +1,34 @@
+{
+    "name": "crimson/payware",
+    "description": "",
+    "type": "magento2-module",
+    "license": [
+    ],
+    "authors": [
+        {
+            "email": "dgrau@crimsonagility.com",
+            "name": "Dario Grau"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "~7.4.0",
+        "magento/magento-composer-installer": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Crimson\\Payware\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    },
+    "extra": {
+        "map": [
+            [
+                "*",
+                "Crimson/Payware"
+            ]
+        ]
+    }
+}

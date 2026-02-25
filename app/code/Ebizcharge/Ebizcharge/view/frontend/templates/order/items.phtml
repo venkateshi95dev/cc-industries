@@ -1,0 +1,298 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+/** @var Items $block */
+
+use Ebizcharge\Ebizcharge\Block\Customer\Account\Recurrings;
+use Magento\Framework\App\ObjectManager;
+use Magento\GiftMessage\Helper\Message;
+use Magento\Sales\Block\Order\Items;
+
+$objectManager = ObjectManager::getInstance();
+$recurringBlock = $objectManager->get(Recurrings::class);
+$isRecurringEnabled = $recurringBlock->isSubscriptionEnabled();
+$isSurchargedEnabled = $recurringBlock->isSurchargeEnabled() ?? false;
+$items = $block->getItems();
+$recurringItems = $recurringBlock->getRecurringItems($items);
+$surchargeAmount = $block->getOrder()->getEcSurchargeAmount() ?? 0;
+
+
+?>
+<div class="table-wrapper order-items">
+    <?php /** Normal Products  */ ?>
+    <table class="data table table-order-items"
+           id="my-orders-table"
+           summary="<?= /* @noEscape */
+           __('Items Ordered') ?>">
+        <caption class="table-caption"><?= /* @noEscape */
+            __('Items Ordered') ?></caption>
+        <thead>
+        <?php if ($block->isPagerDisplayed()) { ?>
+            <tr>
+                <td colspan="5" data-block="order-items-pager-top" class="order-pager-wrapper order-pager-wrapper-top">
+                    <?= $block->getPagerHtml() ?>
+                </td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <th class="col name"><?= /* @noEscape */
+                __('Product Name') ?></th>
+            <th class="col sku"><?= /* @noEscape */
+                __('SKU') ?></th>
+            <th class="col price"><?= /* @noEscape */
+                __('Price') ?></th>
+            <th class="col qty"><?= /* @noEscape */
+                __('Qty') ?></th>
+            <th class="col subtotal"><?= /* @noEscape */
+                __('Subtotal') ?></th>
+        </tr>
+        </thead>
+
+        <?php $giftMessage = '' ?>
+        <?php foreach ($items as $item) {
+            // phpcs:ignore
+
+            $buyRequest = $item->getBuyRequest() ?? null;
+            $recurring = $buyRequest->getRecurring() ?? [];
+
+            if (isset($recurring["rec_frequency"]) && !empty($recurring["rec_frequency"])) {
+                continue;
+            }
+            if ($item->getParentItem()) {
+                continue;
+            } ?>
+            <tbody>
+            <?= $block->getItemHtml($item); ?>
+            <?php
+            // phpcs:ignore
+            if ($this->helper(Message::class)->isMessagesAllowed('order_item', $item) &&
+                $item->getGiftMessageId()) {
+                // phpcs:ignore
+                $giftMessage = $this->helper(Message::class)->getGiftMessageForEntity($item); ?>
+                <tr>
+                    <td class="col options" colspan="5">
+                        <a href="#"
+                           id="order-item-gift-message-link-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                           class="action show"
+                           aria-controls="order-item-gift-message-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                           data-item-id="<?= $block->escapeHtml((int)$item->getId()) ?>">
+                            <?= /* @noEscape */
+                            __('Gift Message') ?>
+                        </a>
+                        <?php
+                        // phpcs:ignore
+                        $giftMessage = $this->helper(Message::class)->getGiftMessageForEntity($item); ?>
+                        <div class="order-gift-message"
+                             id="order-item-gift-message-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                             role="region"
+                             aria-expanded="false"
+                             tabindex="-1">
+                            <a href="#"
+                               title="<?= /* @noEscape */
+                               __('Close') ?>"
+                               aria-controls="order-item-gift-message-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                               data-item-id="<?= $block->escapeHtml((int)$item->getId()) ?>"
+                               class="action close">
+                                <?= /* @noEscape */
+                                __('Close') ?>
+                            </a>
+                            <dl class="item-options">
+                                <dt class="item-sender">
+                                    <strong class="label"><?= /* @noEscape */
+                                        __('From') ?></strong>
+                                    <?= $block->escapeHtml($giftMessage->getSender()) ?>
+                                </dt>
+                                <dt class="item-recipient">
+                                    <strong class="label"><?= /* @noEscape */
+                                        __('To') ?></strong>
+                                    <?= $block->escapeHtml($giftMessage->getRecipient()) ?>
+                                </dt>
+                                <dd class="item-message">
+                                    <?=
+                                    // phpcs:ignore
+                                    /* @noEscape */
+                                    $this->helper(Message::class)->getEscapedGiftMessage($item) ?>
+                                </dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        <?php } ?>
+        <tfoot>
+        <?php if ($block->isPagerDisplayed()) { ?>
+            <tr>
+                <td colspan="5"
+                    data-block="order-items-pager-bottom"
+                    class="order-pager-wrapper order-pager-wrapper-bottom">
+                    <?= $block->getPagerHtml() ?>
+                </td>
+            </tr>
+        <?php } ?>
+        <?= $block->getChildHtml('order_totals') ?>
+        </tfoot>
+    </table>
+
+    <br/>
+
+    <?php /** Subscribed products  */
+
+    if ($isRecurringEnabled && count($recurringItems) > 0) {
+        ?>
+        <table style="margin-top:20px;" class="data table table-order-items"
+               id="my-orders-recurring-table"
+               summary="<?= /* @noEscape */
+               __('Recurred Items Ordered') ?>">
+            <caption class="table-caption"><?= /* @noEscape */
+                __('Recurred Items Ordered') ?></caption>
+            <thead>
+            <?php if ($block->isPagerDisplayed()) { ?>
+                <tr>
+                    <td colspan="5" data-block="order-items-pager-top"
+                        class="order-pager-wrapper order-pager-wrapper-top">
+                        <?= $block->getPagerHtml() ?>
+                    </td>
+                </tr>
+            <?php } ?>
+            <tr>
+                <th class="col name"><?= /* @noEscape */
+                    __('Product Name') ?></th>
+                <th class="col sku"><?= /* @noEscape */
+                    __('SKU') ?></th>
+                <th class="col price"><?= /* @noEscape */
+                    __('Price') ?></th>
+                <th class="col qty"><?= /* @noEscape */
+                    __('Qty') ?></th>
+                <th class="col tax"><?= /* @noEscape */
+                    __('Tax') ?></th>
+                <th class="col shipping"><?= /* @noEscape */
+                    __('Shipping') ?></th>
+                <?php
+                if ($surchargeAmount > 0) {
+                    ?>
+                    <th class="col subtotal"><?= /* @noEscape */
+                        __('Surcharge') ?></th>
+                <?php } ?>
+                <th class="col subtotal"><?= /* @noEscape */
+                    __('Total Due') ?></th>
+            </tr>
+            </thead>
+            <?php $items = $block->getItems(); ?>
+            <?php $giftMessage = '' ?>
+            <?php foreach ($items as $item) {
+                // phpcs:ignore
+                $buyRequest = $item->getBuyRequest() ?? null;
+                $recurring = $buyRequest->getRecurring() ?? [];
+                $isRecurringItem = count($recurring) > 0 && isset($recurring["rec_frequency"]) && !empty($recurring["rec_frequency"]);
+                if ($item->getParentItem() || !$isRecurringItem) {
+                    continue;
+                }
+                ?>
+                <tbody>
+                <?= $block->getItemHtml($item); ?>
+                <?php
+                // phpcs:ignore
+                if ($this->helper(Message::class)->isMessagesAllowed('order_item', $item) &&
+                    $item->getGiftMessageId()) {
+                    // phpcs:ignore
+                    $giftMessage = $this->helper(Message::class)->getGiftMessageForEntity($item); ?>
+                    <tr>
+                        <td class="col options" colspan="6">
+                            <a href="#"
+                               id="order-item-gift-message-link-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                               class="action show"
+                               aria-controls="order-item-gift-message-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                               data-item-id="<?= $block->escapeHtml((int)$item->getId()) ?>">
+                                <?= /* @noEscape */
+                                __('Gift Message') ?>
+                            </a>
+                            <?php
+                            // phpcs:ignore
+                            $giftMessage = $this->helper(Message::class)->getGiftMessageForEntity($item); ?>
+                            <div class="order-gift-message"
+                                 id="order-item-gift-message-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                                 role="region"
+                                 aria-expanded="false"
+                                 tabindex="-1">
+                                <a href="#"
+                                   title="<?= /* @noEscape */
+                                   __('Close') ?>"
+                                   aria-controls="order-item-gift-message-<?= $block->escapeHtml((int)$item->getId()) ?>"
+                                   data-item-id="<?= $block->escapeHtml((int)$item->getId()) ?>"
+                                   class="action close">
+                                    <?= /* @noEscape */
+                                    __('Close') ?>
+                                </a>
+                                <dl class="item-options">
+                                    <dt class="item-sender">
+                                        <strong class="label"><?= /* @noEscape */
+                                            __('From') ?></strong>
+                                        <?= $block->escapeHtml($giftMessage->getSender()) ?>
+                                    </dt>
+                                    <dt class="item-recipient">
+                                        <strong class="label"><?= /* @noEscape */
+                                            __('To') ?></strong>
+                                        <?= $block->escapeHtml($giftMessage->getRecipient()) ?>
+                                    </dt>
+                                    <dd class="item-message">
+                                        <?=
+                                        // phpcs:ignore
+                                        /* @noEscape */
+                                        $this->helper(Message::class)->getEscapedGiftMessage($item) ?>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            <?php } ?>
+            <tfoot>
+            <?php if ($block->isPagerDisplayed()) { ?>
+                <tr>
+                    <td colspan="6"
+                        data-block="order-items-pager-bottom"
+                        class="order-pager-wrapper order-pager-wrapper-bottom">
+                        <?= $block->getPagerHtml() ?>
+                    </td>
+                </tr>
+            <?php } ?>
+
+            </tfoot>
+        </table>
+        <?php /** subscribed products */
+
+    }
+    ?>
+
+</div>
+<?php if ($giftMessage) { ?>
+    <script type="text/x-magento-init">
+        {
+            "a.action.show, a.action.close": {
+                "giftMessage": {}
+            }
+        }
+    </script>
+<?php } ?>

@@ -1,0 +1,34 @@
+<?php
+/**
+ * @package Magedelight_Megamenu for Magento 2
+ * @author MageDelight Team
+ * @copyright Copyright (c) MageDelight (https://www.magedelight.com) owned by Krish TechnoLabs. All Rights reserved.
+ */
+
+/** @noinspection PhpUnhandledExceptionInspection */
+/**
+ * Top menu for store
+ *
+ * @var \Magedelight\Megamenu\Block\Topmenu $block
+ */
+$burgerStatus = $block->getConfigBurgerStatus();
+$columnsLimit = $block->getColumnsLimit() ?: 0;
+$_menuHtml = $block->getBurgerHtml('level-top', 'submenu', $columnsLimit);
+?>
+
+<nav class="navigation md-megamenu-burger" id="md-megamenu-burger" data-action="navigation" style="display: none;">
+    <ul data-mage-init='{"menu":{"responsive":true, "expanded":true, "position":{"my":"left top","at":"left bottom"}}}'>
+        <span class="md-menu-close-btn"><?= $escaper->escapeHtml(__('Close Btn')); ?></span>
+        <?= /* @noEscape */ $_menuHtml?>
+        <?= $block->getChildHtml() ?>
+    </ul>
+</nav>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magedelight_Megamenu/js/megamenu/burger" : {
+            "burger_status": "<?= /* @noEscape */ $burgerStatus; ?>"
+        }
+    }
+}
+</script>

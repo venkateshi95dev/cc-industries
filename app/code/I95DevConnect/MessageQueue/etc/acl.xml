@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author i95Dev Team
+ * @copyright Copyright (c) 2019 i95Dev(https://www.i95dev.com)
+ * @package I95DevConnect_MessageQueue
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="I95DevConnect_MessageQueue::Config" title="i95Dev Connector" sortOrder="60">
+                    <resource id="I95DevConnect_MessageQueue::connectorsettings" title="Connector Settings" sortOrder="10" />
+                    <resource id="I95DevConnect_MessageQueue::i95devaddons" title="Addons" sortOrder="20"/>
+                    <resource id="I95DevConnect_MessageQueue::report" title="Reports" sortOrder="60"/>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

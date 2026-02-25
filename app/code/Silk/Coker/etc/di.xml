@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+        <preference for="Amasty\Finder\Controller\Index\Search" type="Silk\Coker\Preference\Amasty\Finder\Controller\Index\Search" />
+        <preference for="Magento\Catalog\Block\Product\ListProduct" type="Silk\Coker\Block\Product\ListProduct" />
+        <preference for="Magento\Catalog\Model\Product\Url" type="Silk\Coker\Model\Product\Url" />
+        <type name="Silk\Coker\Controller\Ajax\Getpaymentinfo">
+            <arguments>
+                <argument name="logger" xsi:type="object">ApiLogger</argument>
+            </arguments>
+        </type>
+        <type name="Silk\Coker\Controller\Ajax\Index">
+            <arguments>
+                <argument name="logger" xsi:type="object">TokenLogger</argument>
+            </arguments>
+        </type>
+</config>
+
+

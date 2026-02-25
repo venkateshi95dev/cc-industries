@@ -1,0 +1,22 @@
+{
+  "item_type": "category",
+  "item_parent_id": 0,
+  "item_link": null,
+  "item_columns": null,
+  "item_font_icon": null,
+  "item_class": null,
+  "vertical_cat_level": "2",
+  "vertical_cat_sortorder": "asc",
+  "vertical_cat_sortby": "position",
+  "vertical_cat_exclude": null,
+  "animation_option": "1",
+  "category_display": 1,
+  "category_vertical_menu": null,
+  "category_vertical_menu_bg": "FFFFFF",
+  "category_columns": "[{\"type\":\"header\",\"enable\":\"1\",\"value\":\"XXX\",\"showtitle\":\"0\"},{\"type\":\"left\",\"enable\":\"1\",\"value\":\"XXX\",\"showtitle\":\"0\"},{\"type\":\"right\",\"enable\":\"0\",\"value\":\"\",\"showtitle\":\"0\"},{\"type\":\"bottom\",\"enable\":\"0\",\"value\":\"\",\"showtitle\":\"0\"}]",
+  "creation_time": "2025-02-26 20:58:37",
+  "update_time": "2025-02-26 20:58:37",
+  "product_display": null,
+  "open_in_new_tab": null,
+  "menu_icon": null
+}

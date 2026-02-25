@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\StorePickupWithLocator\Model\Carrier\Shipping">
+        <plugin name="crimson_amasty_storepickup_collect_fedex_rates_plugin" type="Crimson\AmastyStorePickupWithLocator\Plugin\StorePickupWithLocator\Model\Carrier\CollectFedexRatesPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="crimson_storelocator_bulk_update" xsi:type="object">Crimson\AmastyStorePickupWithLocator\Console\Command\BulkUpdate</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Amasty\Storelocator\Model\DataCollector\Location\CompositeCollector">
+        <arguments>
+            <argument name="dataCollectors" xsi:type="array">
+                <item name="attributes" sortOrder="10" xsi:type="object">Amasty\Storelocator\Model\DataCollector\Location\AttributeCollector</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Crimson\AmastyStorePickupWithLocator\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Crimson\AmastyStorePickupWithLocator\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">InstallerEmailLog</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Crimson\AmastyStorePickupWithLocator\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

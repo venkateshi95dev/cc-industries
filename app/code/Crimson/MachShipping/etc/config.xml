@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <mach>
+                <active>1</active>
+                <model>Crimson\MachShipping\Model\Carrier\Mach</model>
+                <name>Mach Shipping</name>
+                <title>MACH Shipping</title>
+                <carrier_in_use>ups</carrier_in_use>
+                <description>Mach shipping method</description>
+                <sort_order>0</sort_order>
+                <max_package_weight>2000</max_package_weight>
+                <fallback_shipping_method>501</fallback_shipping_method>
+                <allow_if_zero>501</allow_if_zero>
+                <allowed_methods>FE2,FES,FXG,MTF,MTF2,PM</allowed_methods>
+                <time_in_transit_message><![CDATA[Note: The time in transit displayed is for items shipping from our warehouse only, Dropship items generally take longer.]]></time_in_transit_message>
+                <non_delivery_holidays>01/01,05/28,07/04,09/03,11/22,12/25</non_delivery_holidays>
+            </mach>
+        </carriers>
+        <mach>
+            <shipping>
+                <freeshipping_code>GND</freeshipping_code>
+                <flatrate_code>GND</flatrate_code>
+            </shipping>
+        </mach>
+    </default>
+</config>

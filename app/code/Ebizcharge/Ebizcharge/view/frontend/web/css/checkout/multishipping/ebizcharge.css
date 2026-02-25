@@ -1,0 +1,134 @@
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+.tab-container {
+    display: none;
+    clear: both;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+.active-tab-panel {
+    display: block;
+}
+
+.active-tab {
+    display: block;
+    border-bottom: 1px solid #FF0000FF;
+    padding-bottom: 5px;
+    font-weight: bold;
+}
+
+.tab-panels {
+    display: none;
+}
+
+.active-panel {
+    display: block;
+}
+
+.payment-tabs-list {
+
+}
+
+.payment-tabs-list li {
+    list-style: none;
+    margin: 15px 0px;
+}
+
+.label-info {
+    cursor: pointer;
+}
+
+.tab-label {
+    cursor: pointer;
+    margin: 5px 15px;
+    float: left;
+
+}
+
+.payment-methods-panel {
+    margin: 0px 10px;
+    margin-top: 10px;
+}
+
+.ebizs_option_block input[type=radio] {
+    display: none;
+}
+.avs-cvv-warnings-panel {
+    display: none;
+    margin-top: 5%;
+    margin-left: 0%;
+
+}
+.cvv-avs-warnings-box{
+    border: 1px solid #f19898;
+    padding:10px 10px;
+}
+.security-messages-left{
+    width:auto;
+    min-width:45%;
+    max-width:45%;
+    float: left;
+}
+.security-messages-right{
+    width:auto;
+    min-width:50%;
+    max-width:50%;
+    float: left;
+}
+.security-messages-right p{
+    text-align: justify;
+}
+.buttons-panel{
+    float: left;
+    clear: both;
+}
+.clear-line{
+    clear:both;
+}
+.security-msg-title{
+    color:#ff0000;
+}
+.ui-datepicker-trigger span{
+    display:none;
+}
+.re-subscribe-info{
+    clear: both;
+    margin-top:20px;
+}
+.re-subscribe-info label{
+    cursor: pointer;
+}
+.re-subscribe-info input{
+    cursor: pointer;
+}
+.small-title{
+    padding-left:5px;
+    color: #FF0000FF;
+    font-size:9px;
+
+}
+.card-response-warning-message{
+    color: #FF0000FF;
+    display: none;
+}

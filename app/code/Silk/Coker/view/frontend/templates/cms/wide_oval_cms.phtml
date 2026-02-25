@@ -1,0 +1,56 @@
+<link href="<?php echo $block->getViewFileUrl('Silk_Coker::css/wideovalradial.css'); ?>" rel="stylesheet" type="text/css" />
+
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+$url = $storeManager->getStore()->getBaseUrl();
+?>
+	<div id="wrapper">
+		<div id="main">
+			<div id="centercolumn" class="container shadow">
+				<p class="introducing">Introducing the all new</p>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<img class="img-responsive center-block img-inline" src="<?php echo $block->getViewFileUrl('Silk_Coker::images/wideovalradial/fs_wo_logo.png'); ?>" alt="Firestone Wide Oval logo"/>
+						<h1 class="text-center radial img-inline">RADIAL</h1>
+					</div>
+				</div>
+				<p class="subhead">Firestone Heritage Meets Modern Radial Construction to Create the Ultimate Muscle Car Tire</p>
+				<img class="img-responsive center-block" src="<?php echo $block->getViewFileUrl('Silk_Coker::images/wideovalradial/fs_worwl_profile.png'); ?>" alt="Firestone Wide Oval Raised White Letter profile"/>
+				<div class="row midinfo">
+					<div class="col-md-8 col-md-push-4 uldiv">
+						<ul class="text-left">
+							<li>Authentic Tread Pattern and Sidewall Markings</li>
+							<li>Modern Radial Construction</li>
+							<li>Available in Redline and Raised White Letter</li>
+							<li>Made in the USA and DOT Approved</li>
+							<li>Fitments for Common 14- and 15-inch Wheels</li>
+						</ul>
+					</div>
+					<div class="col-md-4 col-md-pull-8 text-center tread">
+						<img class="img-responsive center-block img-inline" src="<?php echo $block->getViewFileUrl('Silk_Coker::images/wideovalradial/fs_worl_angled.png'); ?>" alt="Firestone Wide Oval Redline tread">
+					</div>
+				</div>
+				<div class="paragraphs">
+					<p>Firestone debuted the Wide Oval tire in 1967, making a huge impact on the blossoming muscle car and pony car market. The tires evolved over time, but stayed in production for several years. The tires were original equipment on many of your favorite muscle cars from 1967 to 1974, and of course, they were available to upgrade the original tires on other cars from the era. Firestone Wide Oval tires have long been regarded a popular muscle car tire, and we’ve taken the Firestone legacy and combined it with modern radial construction to create the ultimate muscle car tire.</p>
+					<p>The new Firestone Wide Oval Radial is a breakthrough for muscle car enthusiasts who want authenticity, but also want to get out and drive their car. The new tire is available to fit most muscle car applications, using 14- and 15-inch wheels, including ER70-14, FR70-14, GR70-14, FR70-15, GR70-15 and FR60-15 sizes. The tires are available in redline and raised white letter configurations, and feature authentic sidewall markings and tread pattern.</p>
+					<p>Officially licensed by Firestone, and manufactured in the USA using new molds, the new Wide Oval Radial is ready to hit the road. The tires are S speed rated and DOT approved, so they are a perfect fit for your muscle car. Get yesterday’s look and tomorrow’s ride with a brand new set of Firestone Wide Oval Radial tires! We are now accepting orders!</p>
+				</div>
+				<iframe src="https://www.youtube.com/embed/IJ0eqR8mrkA" frameborder="0" allowfullscreen></iframe>
+				<div class="row moreinfo">
+					<div class="text col-md-6 text-center">
+						<!--<a class="btn btn-primary" href="#" role="button">CLICK HERE FOR PRICING</a>-->
+						<p>CALL TODAY FOR MORE INFO</p>
+						<a class="tel" href="tel:866-516-3215">866-516-3215</a><br>
+						OR <a href="<?php echo $url; ?>tires/brands/firestone-wide-oval.html">PRE-ORDER ONLINE HERE</a>.
+					</div>
+					<div class="col-md-6 pull-right">
+						<img class="img-responsive pull-right mrfix" src="<?php echo $block->getViewFileUrl('Silk_Coker::images/wideovalradial/tire_on_car.png'); ?>" alt="Wide Oval on GTO Judge"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer_push"></div>
+	</div>
+
+

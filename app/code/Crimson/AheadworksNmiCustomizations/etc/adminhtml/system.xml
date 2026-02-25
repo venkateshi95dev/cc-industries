@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="aw_nmi">
+                <field id="validate_only" translate="label" type="select" sortOrder="61" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Validate Only</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="payment_action">authorize</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

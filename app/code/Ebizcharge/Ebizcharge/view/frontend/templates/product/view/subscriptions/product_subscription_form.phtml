@@ -1,0 +1,287 @@
+<?php
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+
+declare(strict_types=1);
+
+/**
+ * @var $block Ebizcharge\Ebizcharge\Block\Subscriptions\Product\SubscriptionProductForm
+ */
+
+/**
+ * Get Product
+ */
+$product = $block->getProduct();
+
+/**
+ * Get Recurring Indefinitely Visibility
+ */
+$visibilityIndefinite = $block->getRecurringIndefiniteVisibility();
+$recurringEndDateDisabled = $block->isEndDateRecurringEnabled();
+$isRecurringEnabled = $block->isRecurringEnabled();
+$infoBuyRequest = $block->getCartRecurringInfo($product->getId());
+$isProductAlreadySubscribed = isset($infoBuyRequest["rec_activate"]) && $infoBuyRequest["rec_activate"] == "1" ? true : false;
+$recurringFrequency = isset($infoBuyRequest["rec_frequency"]) ? $infoBuyRequest["rec_frequency"] : "";
+$recurringStartDate = isset($infoBuyRequest["sdate"]) ? $infoBuyRequest["sdate"] : "";
+$recurringEndDate = isset($infoBuyRequest["edate"]) ? $infoBuyRequest["edate"] : "";
+
+/**
+ * is Product Subscription Enabled
+ */
+?>
+<input type="hidden" id="product" name="product" value="<?= $product->getId() ?>"/>
+<?php
+if ($isRecurringEnabled) {
+    ?>
+    <div class="product-options-wrapper recurring-options-wrapper"
+         id="product-options-wrapper"
+         data-hasrequired="* Required Fields">
+        <input type="hidden" id="currentpid" name="currentpid"/>
+        <input type="hidden" id="product_id" name="product_id" value="<?= $product->getId() ?>"/>
+
+        <div class="fieldset" tabindex="0">
+            <div class="field activate" id="activate">
+                <div class="control">
+                    <div class="options-list nested" id="options-rec-activate">
+
+                        <div class="field choice admin__field admin__field-option">
+                            <input type="radio"
+                                   class="radio admin__control-radio subscription-control-option product-custom-option"
+                                   id="options_rec_activate_false"
+                                   name="recurring[rec_activate]"
+                                   value="0"
+                                   data-selector="options[rec_activate]"
+                                <?= !$isProductAlreadySubscribed ? "checked" : "" ?>
+                            />
+                            <label class="label admin__field-label"
+                                   for="options_rec_activate_false">
+                                <?= /** @noEscape */
+                                __("One time purchase") ?></label>
+                        </div>
+
+                        <div class="field choice admin__field admin__field-option">
+                            <input
+                                    type="radio"
+                                    class="radio admin__control-radio subscription-control-option product-custom-option"
+                                    id="options_rec_activate" name="recurring[rec_activate]"
+                                    value="1"
+                                    data-selector="options[rec_activate]"
+                                <?= $isProductAlreadySubscribed ? "checked" : "" ?>
+                            />
+                            <label class="label admin__field-label" for="options_rec_activate">
+                                <?= /** @noEscape */
+                                __("Subscribe to product") ?></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+            /**
+             * check if show recurring form is allowed
+             * by default
+             */
+            if ($block->showRecurringForm()) { ?>
+
+                <div class="subscription-form default-not-visible"
+                     style="<?= $isProductAlreadySubscribed ? "display: block;" : "display: none;" ?>"
+                     id="subscription-product-form">
+                    <div class="field-row frequency required" id="frequency">
+                        <fieldset class="fieldset fieldset-product-options-inner required">
+                            <div class="control">
+                                <legend for="select_rec_frequency" class="legend custom-legen-bottm">
+                                    <span><?= /** @noEscape */
+                                        __("Frequency") ?></span>
+                                </legend>
+                                <div class="control">
+                                    <select name="recurring[rec_frequency]" id="select_rec_frequency"
+                                            class="required product-custom-option admin__control-select"
+                                            title="Recurring Frequency"
+                                            data-id="rec_frequency_0"
+                                            data-selector="options[rec_frequency]" aria-required="true">
+                                        <option value="">
+                                            <?= /** @noEscape */
+                                            __("Choose a Frequency") ?>
+                                        </option>
+                                        <?= /** @noEscape */
+                                        $block->getConfiguredFrequencies($recurringFrequency); ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="mage-error default-not-visible" id="invalid-frequency-error"></div>
+                    </div>
+
+                    <div class="field-row dates" id="dates_times_dialog">
+                        <div class="field date left ">
+                            <fieldset class="fieldset fieldset-product-options-inner required">
+                                <div class="dates-start">
+                                    <legend class="legend custom-legen-bottm">
+                                        <span><?= /** @noEscape */
+                                            __("Start Date") ?></span>
+                                    </legend>
+                                    <div class="control">
+                                        <input type="text"
+                                               readonly
+                                               autocomplete="off" id="rec_sdate"
+                                               name="recurring[sdate]"
+                                               class="required product-custom-option admin__control-select date-picker
+                                               rec_sdate"
+                                               value="<?= $recurringStartDate ?>"
+                                               data-selector="recurring[sdate]"
+                                               placeholder="YYYY-MM-DD"
+                                               aria-required="true"
+                                               data-id="start_date_0"
+                                        />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        <div class="field-row date right" id="rec_edate_div">
+                            <fieldset class="fieldset fieldset-product-options-inner required"
+                                      style="<?= $block->escapeHtmlAttr($visibilityIndefinite) ?>">
+                                <legend class="legend custom-legen-bottm">
+                                    <span><?= /** @noEscape */
+                                        __("End Date") ?></span>
+                                </legend>
+                                <div class="control end-date-txt">
+                                    <input type="text"
+
+
+
+
+
+
+                                           readonly
+                                           autocomplete="off"
+                                           id="rec_edate"
+                                           name="recurring[edate]"
+                                           class="product-custom-option required admin__control-select date-picker
+                                           rec_edate"
+                                           value="<?= $recurringEndDate ?>"
+                                           data-selector="recurring[edate]"
+                                           data-id="end_date_0"
+                                           data-item-id="0"
+                                           data-validate="{required: true, 'ebizChargeFrequencyDateRange': true}"
+                                           placeholder="YYYY-MM-DD" <?= /** @noEscape */
+                                    $block->indefiniteRecurring()
+                                        ? ' disabled' : ''; ?>
+                                    />
+                                </div>
+
+                            </fieldset>
+                        </div>
+                        <div class="mage-error default-not-visible" id="invalid-date-error"></div>
+                    </div>
+
+                    <div class="field-row indefinitely" id="indefinitely">
+                        <div class="control">
+                            <div class="options-list nested" id="options-rec-indefinitely">
+                                <div class="field choice admin__field admin__field-option">
+                                    <input
+                                            type="checkbox"
+                                            class="checkbox admin__control-checkbox product-custom-option"
+                                            name="recurring[rec_indefinitely]"
+                                            id="options_rec_indefinitely"
+                                            value="1"
+                                            data-id="rec_indefinite_0"
+                                            data-selector="recurring[rec_indefinitely]" <?= /** @noEscape */
+                                    $block->indefiniteRecurring() ? ' checked' : ''; ?>
+                                    />
+                                    <label class="label admin__field-label" for="options_rec_indefinitely">
+                                        <span><?= /** @noEscape */
+                                            __("Recur indefinitely") ?></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="rec_message" style="display:none;" class="field-row control custom-color-item">
+                        <?= /** @noEscape */ /* phpcs:ignore */
+                        __("Please select the start date when you want to receive the next subscription. You will receive the shipment for today date as well."); ?>
+                    </div>
+
+                </div>
+
+            <?php } ?>
+        </div>
+    </div>
+    <!-- messages for Recurring -->
+    <div id="un-registered-customer-popup" class="error-popup-modal default-not-visible">
+        <?= /** @noEscape */
+        __(
+            "Want to subscribe to this product? You’ll need to log into your account first."
+        ) ?>
+    </div>
+
+    <div id="error-popup-modal-already-exists" class="error-popup-modal default-not-visible">
+        <?= /** @noEscape */ /* phpcs:ignore */
+        __("Recurring against this product already exists between selected dates.  Please choose other date or edit existing recurring in <br> <strong>(My Account -> Manage Subscriptions)</strong>"); ?>
+    </div>
+
+    <div id="error-popup-modal-already-added" class="error-popup-modal-exist default-not-visible">
+        <?= /** @noEscape */ /* phpcs:ignore */
+        __("This product already added to the cart. Please choose other product or update this product in the cart."); ?>
+    </div>
+
+    <!--Magento init Javascript Script -->
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "ebizchargeValidationRules": {},
+                "Ebizcharge_Ebizcharge/js/recurring" : {
+                    "productActionUrl" : "<?= $block->escapeUrl($block->getUrl('ebizcharge/recurrings/productaction'))?>",
+                    "productUpdateActionUrl" : "<?= $block->escapeUrl($block->getUrl('ebizcharge/recurrings/productupdateaction')) ?>",
+                    "productUpdateDbActionUrl" : "<?= $block->escapeUrl($block->getUrl('ebizcharge/recurrings/productupdatedbaction')) ?>",
+                    "currentProductType" : "<?= $block->escapeHtml($product->getTypeId()) ?>",
+                    "currentProductId" : "<?= $block->escapeHtml($product->getId()) ?>",
+                    "getLoggedInCustomerId" : "<?= $block->escapeHtml($block->getLoggedInCustomerId()) ?>",
+                    "sendDbUpdate" : "<?= $block->escapeHtml($block->updateRecurringInDb()) ?>",
+                    "cartItemID" : "<?= $block->escapeHtml($block->getCartItemId()) ?>",
+                    "cartProductID" : "<?= $block->escapeHtml($block->getCartProductId()) ?>",
+                    "unRegisteredCustomerPopup" : "un-registered-customer-popup",
+                    "customerLoginButton": "customer-login-button",
+                    "customerRegisterButton": "customer-register-button",
+                    "customerLoginButtonUrl": "<?= $block->escapeUrl($block->getUrl()) ?>",
+                    "customerRegisterButtonUrl": "<?= $block->escapeUrl($block->getUrl('customer/account/create/')) ?>",
+                    "subscriptionProductForm" : "subscription-product-form",
+                    "subscriptionControlOptions": "subscription-control-option",
+                    "productAddtoCartForm": "product_addtocart_form",
+                    "productUpdateCartButton" : "product-updatecart-button",
+                    "productAddToCartButton" : "product-addtocart-button",
+                    "recurringDateDialog" : "dates_times_dialog",
+                    "recurringFrequency": "select_rec_frequency",
+                    "recurringStartDate": "rec_sdate",
+                    "recurringEndDate": "rec_edate",
+                    "recurringIndefinitely": "options_rec_indefinitely",
+                    "invalidFrequencyError": "invalid-frequency-error",
+                    "invalidDatesError": "invalid-date-error",
+                    "mageError": "mage-error",
+                    "errorPopupModelAlreadyAdded":"error-popup-modal-already-added",
+                    "errorPopupModelAlreadyExists":"error-popup-modal-already-exists",
+                    "recEndDateDisabled": "<?= $block->escapeHtml($recurringEndDateDisabled) ?>"
+                }
+            }
+        }
+    </script>
+
+<?php } ?>

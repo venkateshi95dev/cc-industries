@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <system>
+            <media_storage_configuration>
+                <allowed_resources>
+                    <media_gallery_image_folders>
+                        <amasty>amasty</amasty>
+                        <analytics>analytics</analytics>
+                        <blocks>blocks</blocks>
+                        <brand>brand</brand>
+                        <captcha>captcha</captcha>
+                        <cms_pages>cms_pages</cms_pages>
+                        <critical-css>critical-css</critical-css>
+                        <custom_options>custom_options</custom_options>
+                        <customer>customer</customer>
+                        <downloadable>downloadable</downloadable>
+                        <feeds>feeds</feeds>
+                        <ga4Export>ga4Export</ga4Export>
+                        <home>home</home>
+                        <import>import</import>
+                        <main_slider>main_slider</main_slider>
+                        <menu>menu</menu>
+                        <sitemap>sitemap</sitemap>
+                        <sitemaps>sitemaps</sitemaps>
+                        <testimonials>testimonials</testimonials>
+                        <theme>theme</theme>
+                        <theme_customization>theme_customization</theme_customization>
+                        <ves>ves</ves>
+                        <year_landing>year_landing</year_landing>
+                    </media_gallery_image_folders>
+                </allowed_resources>
+            </media_storage_configuration>
+        </system>
+    </default>
+</config>

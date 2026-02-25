@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mach">
+            <group id="order" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Order Integration Settings</label>
+                <field id="export_schedule" type="text" translate="label comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Export Orders To MACH Cron Schedule</label>
+                    <comment><![CDATA[This is the cron that sends orders to MACH.]]></comment>
+                </field>
+
+                <field id="update_from_mach_short_term_number_months" type="text" translate="label comment" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Number Of Month(s) For Short Term Cron</label>
+                    <comment><![CDATA[This is the number of month(s) that the cron will use to get orders back. Default 1 month.]]></comment>
+                </field>
+                <field id="update_from_mach_short_term_schedule" type="text" translate="label comment" sortOrder="17" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Update Orders From MACH Short Term Cron Schedule</label>
+                    <comment><![CDATA[This is the cron that updates orders in Magento from MACH looking in a short term.]]></comment>
+                </field>
+
+                <field id="update_from_mach_long_term_number_months" type="text" translate="label comment" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Number Of Months For Long Term Cron</label>
+                    <comment><![CDATA[This is the number of months that the cron will use to get orders back. Default 3 months.]]></comment>
+                </field>
+                <field id="update_from_mach_long_term_schedule" type="text" translate="label comment" sortOrder="23" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Update Orders From MACH Long Term Cron Schedule</label>
+                    <comment><![CDATA[This is the cron that updates orders in Magento from MACH looking in a long term.]]></comment>
+                </field>
+
+                <field id="mach_order_update_scheduled" type="text" translate="label comment" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Update Scheduled Orders From MACH Cron Schedule</label>
+                    <comment><![CDATA[This is the cron that updates only scheduled orders in Magento from MACH.]]></comment>
+                </field>
+                <field id="add_order_error_threshold" translate="label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Add Order Error Threshold</label>
+                    <comment>After number of attempts listed here we will place the order on hold and no further attempts will be made.</comment>
+                    <validate>validate-zero-or-greater validate-digits</validate>
+                </field>
+                <field id="atypical_shipping_method_mach_code" translate="label" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>MACH Shipping Code - Atypical Shipping</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

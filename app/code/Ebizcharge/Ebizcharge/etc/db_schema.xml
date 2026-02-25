@@ -1,0 +1,645 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Century Business Solutions
+ *
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the centurybizsolutions.com license that is
+ * available through the URL:  https://www.centurybizsolutions/License.txt
+ *
+ * DISCLAIMER
+ *
+ * Please do not edit or add to this file to upgrade this extension to newer
+ * version in the future please contact to CENTURY BUSINESS SOLUTIONS.
+ *
+ * @category    Ebizcharge
+ * @package     Ebizcharge_Ebizcharge
+ * @copyright   Copyright (c) 2024 Century Business Solutions (https://www.centurybizsolutions.com/)
+ * @license     https://www.centurybizsolutions.com/License.txt
+ * @author      Century Business Solutions
+ * @email       <support@centurybizsolutions.com>
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <!-- Adding new ebizcharge_recurring_dates Table-->
+    <table name="ebizcharge_recurring_dates" resource="default" engine="innodb" comment="Ebizcharge recurring_dates">
+        <column xsi:type="int" name="entity_id" nullable="false" identity="true"
+                comment="entity_id"/>
+        <column xsi:type="text" name="recurring_id" nullable="true"
+                comment="recurring_id"/>
+        <column xsi:type="datetime" name="recurring_date" nullable="true" comment="EBizCharge recurring date"/>
+        <column xsi:type="int" name="customer_id" nullable="false" default="0"
+                comment="Customer ID"/>
+        <column xsi:type="int" name="store_id" nullable="true" default="0"
+                comment="Store ID"/>
+        <column xsi:type="float" name="ordered_qty" nullable="true" default="0"
+                comment="Ordered Quantity"/>
+        <column xsi:type="float" name="ordered_product_final_price" nullable="true" default="0"
+                comment="Ordered Product Final Price"/>
+        <column xsi:type="float" name="ordered_product_id" nullable="true" default="0"
+                comment="Ordered Product Id"/>
+        <column xsi:type="text" name="coupon_code"  nullable="true"
+                comment="Coupon Code"/>
+        <column xsi:type="float" name="discount" nullable="true" default="0"
+                comment="Ordered Discount"/>
+        <column xsi:type="float" name="amount" nullable="true" default="0"
+                comment="Amount"/>
+        <column xsi:type="float" name="shipping_amount" nullable="true" default="0"
+                comment="Shipping Amount"/>
+        <column xsi:type="float" name="tax_amount" nullable="true" default="0"
+                comment="Tax Amount"/>
+        <column xsi:type="float" name="surcharge_amount" nullable="true" default="0"
+                comment="Surcharge Amount"/>
+        <column xsi:type="float" name="item_price" nullable="true" default="0"
+                comment="Item Price"/>
+        <column xsi:type="float" name="subtotal" nullable="true" default="0"
+                comment="Sub Total"/>
+        <column xsi:type="float" name="grand_total" nullable="true" default="0"
+                comment="Grand Total"/>
+        <column xsi:type="int" name="ordered_status" nullable="false" default="0"
+                comment="Ordered Status"/>
+        <column xsi:type="text" name="remarks" nullable="true"
+                comment="Recurred ordered remarks"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false"  on_update="true"
+                comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="EBIZCHARGE_RECURRING_DATES_RECURRING_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+
+    </table>
+
+    <!-- Adding new ebizcharge_recurring_order Table-->
+
+    <table name="ebizcharge_recurring_order" resource="default" engine="innodb" comment="Ebizcharge recurring_dates">
+        <column xsi:type="int" name="entity_id" nullable="false" identity="true"
+                comment="Entity Id"/>
+        <column xsi:type="int" name="recurring_id" nullable="false" default="0"
+                comment="recurring_id"/>
+        <column xsi:type="text" name="recurring_date" nullable="true"
+                comment="EBizCharge recurring date"/>
+        <column xsi:type="text" name="rec_order_id" nullable="true"
+                comment="EBizCharge recurring id"/>
+        <column xsi:type="int" name="store_id" nullable="false" default="0"
+                comment="Store ID"/>
+        <column xsi:type="varchar" name="coupon_code" length="255" nullable="true" default="0"
+                comment="Coupon Code"/>
+        <column xsi:type="float" name="discount" nullable="false" default="0"
+                comment="Ordered Discount"/>
+        <column xsi:type="float" name="shipping_amount" nullable="true" default="0"
+                comment="Shipping Amount"/>
+        <column xsi:type="float" name="surcharge_amount" nullable="true" default="0"
+                comment="Surcharge Amount"/>
+        <column xsi:type="float" name="item_price" nullable="true" default="0"
+                comment="Item Price"/>
+        <column xsi:type="float" name="tax_amount" nullable="true" default="0"
+                comment="Tax Amount"/>
+        <column xsi:type="float" name="subtotal" nullable="true" default="0"
+                comment="Subtotal"/>
+        <column xsi:type="float" name="grand_total" nullable="true" default="0"
+                comment="Grand Total"/>
+        <column xsi:type="timestamp" name="created_date" nullable="false" default="CURRENT_TIMESTAMP" on_update="true"
+                comment="EBizCharge Order created date"/>
+        <column xsi:type="text" name="order_date" nullable="true" comment="Order Date"/>
+        <column xsi:type="int" name="status" nullable="false" default="0"
+                comment="EBizCharge Order created status 0|1 "/>
+        <column xsi:type="varchar" name="payment_method_name" nullable="true" length="255"
+                comment="EBizCharge Payment Method Name"/>
+        <column xsi:type="varchar" name="shipping_method" length="255" nullable="true"
+                comment="EBizCharge Shipping Method Name"/>
+        <column xsi:type="varchar" name="scheduled_payment_internal_id" length="255" nullable="true"
+                comment="EBizCharge Payment Sheduled Reference Id"/>
+        <column xsi:type="varchar" name="ebiz_recurring_payment_id" length="255" nullable="true"
+                comment="EBizCharge Recurring Payment Id"/>
+        <column xsi:type="varchar" name="ebiz_method_id" nullable="true" length="255"
+                comment="EBizCharge Recurring Method Id"/>
+        <column xsi:type="text" name="message" nullable="true" comment="message"/>
+        <column xsi:type="varchar" name="order_entity_id" nullable="true" length="255"
+                comment="Recurring order entity Id"/>
+        <column xsi:type="datetime" name="created_at" nullable="false"  on_update="true"
+                comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+
+    </table>
+
+    <!-- Adding new ebizcharge_recurring Table-->
+    <table name="ebizcharge_recurring" resource="default" engine="innodb" comment="Ebizcharge ebizcharge recurring">
+        <column xsi:type="int" name="entity_id" nullable="false" identity="true"
+                comment="entity_id"/>
+        <column xsi:type="text" name="rec_id" nullable="true"
+                comment="rec_id"/>
+        <column xsi:type="text" name="rec_status" nullable="true"
+                comment="Recurring Payment Status"/>
+        <column xsi:type="int" name="rec_indefinitely" nullable="true" default="0"
+                comment="Recurring Indefinitely"/>
+        <column xsi:type="text" name="mage_cust_id" nullable="true"
+                comment="Magento Customer ID"/>
+        <column xsi:type="text" name="mage_order_id" nullable="true"
+                comment="Magento Order ID"/>
+        <column xsi:type="text" name="mage_item_id" nullable="true"
+                comment="Magento Item ID"/>
+        <column xsi:type="text" name="mage_item_name" nullable="true"
+                comment="Item Name"/>
+        <column xsi:type="text" name="mage_item_sku" nullable="true"
+                comment="Item SKU"/>
+        <column xsi:type="text" name="qty_ordered" nullable="true"
+                comment="Quantity Ordered"/>
+        <column xsi:type="int" name="store_id" nullable="false" default="0"
+                comment="Store ID"/>
+        <column xsi:type="int" name="quote_id" nullable="false" default="0"
+                comment="Quote ID"/>
+        <column xsi:type="text" name="coupon_code"  nullable="false"
+                comment="Coupon Code"/>
+        <column xsi:type="int" name="cart_rule_id" nullable="false" default="0"
+                comment="Cart Rule Id"/>
+        <column xsi:type="int" name="product_rule_id" nullable="false" default="0"
+                comment="Product Rule Id"/>
+        <column xsi:type="float" name="discount" nullable="false" default="0"
+                comment="Ordered Discount"/>
+        <column xsi:type="float" name="shipping_amount" nullable="true" default="0"
+                comment="Shipping Amount"/>
+        <column xsi:type="float" name="tax_amount" nullable="true" default="0"
+                comment="Tax Amount"/>
+        <column xsi:type="float" name="surcharge_amount" nullable="true" default="0"
+                comment="Surcharge Amount"/>
+        <column xsi:type="float" name="item_price" nullable="true" default="0"
+                comment="Item Price"/>
+        <column xsi:type="float" name="subtotal" nullable="true" default="0"
+                comment="Subtotal"/>
+        <column xsi:type="float" name="grand_total" nullable="true" default="0"
+                comment="Grand Total"/>
+        <column xsi:type="datetime" name="eb_rec_start_date" nullable="true"
+                comment="EBizCharge Recurring Start Date"/>
+        <column xsi:type="datetime" name="eb_rec_end_date" nullable="true"
+                comment="EBizCharge Recurring End Date"/>
+        <column xsi:type="text" name="eb_rec_frequency" nullable="true"
+                comment="EBizCharge Recurring Frequency"/>
+        <column xsi:type="text" name="eb_rec_method_id" nullable="true"
+                comment="EBizCharge Recurring MethodId"/>
+
+        <column xsi:type="text" name="eb_rec_scheduled_payment_internal_id" nullable="true"
+                comment="EBizCharge Scheduled Payment InternalId"/>
+        <column xsi:type="int" name="eb_rec_total" nullable="true" default="0"
+                comment="Total Recurrings"/>
+        <column xsi:type="int" name="eb_rec_processed" nullable="true" default="0"
+                comment="Processed Recurrings"/>
+        <column xsi:type="datetime" name="eb_rec_next" nullable="false" default="CURRENT_TIMESTAMP" on_update="true"
+                comment="Next Recurring"/>
+
+        <column xsi:type="int" name="eb_rec_remaining" nullable="true" default="0"
+                comment="Remaining Recurrings"/>
+        <column xsi:type="text" name="eb_rec_due_dates" nullable="true"
+                comment="Recurring Due Dates"/>
+        <column xsi:type="text" name="mage_parent_item_id" nullable="true"
+                comment="Magento Parent Item ID"/>
+        <column xsi:type="int" name="billing_address_id" nullable="true" default="0"
+                comment="Billing Address ID"/>
+        <column xsi:type="int" name="shipping_address_id" nullable="true" default="0"
+                comment="Shipping Address ID"/>
+        <column xsi:type="text" name="amount" nullable="true"
+                comment="Recurring amount"/>
+        <column xsi:type="text" name="payment_method_name" nullable="true"
+                comment="Recurring payment method name"/>
+        <column xsi:type="text" name="shipping_method" nullable="true"
+                comment="Subscription shipping method"/>
+        <column xsi:type="int" name="failed_attempts" nullable="false" default="0"
+                comment="Recurring order failed attempts"/>
+        <column xsi:type="text" name="order_date" nullable="true"
+                comment="Recurring order due date"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false"  on_update="true"
+                comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Updated At"/>
+
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="FULLTEXT_INDENTIFIER" indexType="fulltext">
+
+            <column name="rec_status"/>
+            <column name="mage_order_id"/>
+            <column name="mage_item_name"/>
+            <column name="rec_status"/>
+            <column name="coupon_code" />
+            <column name="eb_rec_scheduled_payment_internal_id"/>
+            <column name="payment_method_name"/>
+
+        </index>
+    </table>
+
+    <!-- Adding new ebizcharge_recurring_payment_history Table-->
+    <table name="ebizcharge_recurring_payment_history" resource="default" engine="innodb"
+           comment="Ebizcharge ebizcharge recurring Payment History">
+        <column xsi:type="int" name="entity_id" nullable="false" identity="true"
+                comment="entity_id"/>
+        <column xsi:type="text" name="payment_ref_number" nullable="true"
+                comment="Payment reference Number"/>
+        <column xsi:type="text" name="eb_rec_scheduled_payment_internal_id" nullable="true"
+                comment="EBizCharge Scheduled Payment InternalId"/>
+        <column xsi:type="text" name="eb_rec_payment_internal_id" nullable="true"
+                comment="EBizCharge Payment InternalId"/>
+        <column xsi:type="text" name="eb_payment_cust_number" nullable="true"
+                comment="EBizCharge Payment Customer Number"/>
+
+        <column xsi:type="text" name="customer_id" nullable="true"
+                comment="customer_id"/>
+        <column xsi:type="text" name="customer_email" nullable="true"
+                comment="Customer Email"/>
+        <column xsi:type="text" name="customer_name" nullable="true"
+                comment="Customer Name"/>
+        <column xsi:type="text" name="payment_source" nullable="true"
+                comment="Payment Source"/>
+        <column xsi:type="text" name="payment_amount" nullable="true"
+                comment="Payment Amount"/>
+        <column xsi:type="text" name="payment_card_info" nullable="true"
+                comment="Payment Card Info"/>
+        <column xsi:type="text" name="payment_datetime" nullable="true"
+                comment="Payment Date Time"/>
+        <column xsi:type="text" name="store_id" nullable="false"
+                comment="Store ID"/>
+        <column xsi:type="text" name="server_ip" nullable="false"
+                comment="Payment Server IP"/>
+        <column xsi:type="text" name="payment_response" nullable="false"
+                comment="Payment Response"/>
+        <column xsi:type="text" name="payment_line_items" nullable="false"
+                comment="Payment Line Items"/>
+        <column xsi:type="text" name="payment_detail" nullable="false"
+                comment="Payment Detail"/>
+        <column xsi:type="text" name="payment_detail_user" nullable="false"
+                comment="Payment Detail User"/>
+        <column xsi:type="text" name="payment_detail_customer_id" nullable="true"
+                comment="Payment Detail Customer Id"/>
+        <column xsi:type="text" name="payment_detail_client_ip" nullable="true"
+                comment="Payment detail Client IP"/>
+        <column xsi:type="text" name="payment_detail_card_data" nullable="true"
+                comment="Payment Detail Card Data"/>
+        <column xsi:type="text" name="payment_check_trace" nullable="true"
+                comment="Payment Check Trace"/>
+        <column xsi:type="text" name="payment_check_data" nullable="true"
+                comment="Payment Check Data"/>
+        <column xsi:type="text" name="payment_shipping_address" nullable="false"
+                comment="Payment Shipping Address"/>
+        <column xsi:type="text" name="payment_billing_address" nullable="false"
+                comment="Payment Billing Address"/>
+        <column xsi:type="text" name="payment_account_holder" nullable="true"
+                comment="Payment Account Holder"/>
+        <column xsi:type="text" name="payment_status" nullable="true"
+                comment="Payment Status"/>
+        <column xsi:type="text" name="payment_result" nullable="true" comment="Payment Results"/>
+        <column xsi:type="text" name="eb_payment_method_id" nullable="true" comment="Payment Method Id"/>
+        <column xsi:type="text" name="avs_result" nullable="true" comment="Payment AVS Results"/>
+        <column xsi:type="text" name="card_code_result" nullable="true" comment="Payment Card Code Results"/>
+        <column xsi:type="text" name="status_code" nullable="true" comment="Status Code "/>
+        <column xsi:type="text" name="result_card_info" nullable="true" comment="Result Card Info "/>
+        <column xsi:type="text" name="result_status" nullable="true" comment="Result Status "/>
+        <column xsi:type="text" name="last_downloaded_counter" nullable="true"
+                comment="Payment Transaction Last Downloaded Counter"/>
+        <column xsi:type="text" name="last_downloaded_payments" nullable="true"
+                comment="Payment Transaction Last Downloaded Payments"/>
+        <column xsi:type="datetime" name="last_synced_date_time" nullable="true"
+                comment="Payment Transaction Last Downloaded Payments"/>
+
+        <column xsi:type="text" name="payment_error" nullable="true" comment="Payment Error"/>
+        <column xsi:type="text" name="payment_error_code" nullable="true" comment="Payment Error Code "/>
+        <column xsi:type="text" name="payment_transaction_type" nullable="true"
+                comment="Payment Transaction Type"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created AT"/>
+        <column xsi:type="datetime" name="modified_at" nullable="true"
+                comment="Modified At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"  comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="FULLTEXT_INDENTIFIER" indexType="fulltext">
+
+            <column name="customer_id"/>
+            <column name="payment_ref_number"/>
+            <column name="eb_rec_scheduled_payment_internal_id"/>
+            <column name="eb_rec_payment_internal_id"/>
+            <column name="eb_payment_cust_number"/>
+            <column name="customer_name"/>
+            <column name="customer_email"/>
+            <column name="result_status"/>
+            <column name="payment_card_info"/>
+            <column name="payment_transaction_type"/>
+            <column name="result_status"/>
+            <column name="card_code_result"/>
+            <column name="avs_result"/>
+            <column name="payment_account_holder"/>
+            <column name="payment_datetime"/>
+            <column name="payment_source"/>
+        </index>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Sales Order Payment Table-->
+    <table name="sales_order_payment">
+        <column xsi:type="text" name="ebzc_payment_command" nullable="true"
+                comment="EBizCharge Payment Command"/>
+        <column xsi:type="text" name="cc_type_2" nullable="true"
+                comment="CC Type with 2 Characters"/>
+        <column xsi:type="text" name="ebzc_option" nullable="true"
+                comment="EBizCharge Payment Option"/>
+        <column xsi:type="text" name="ebzc_cust_id" nullable="true"
+                comment="EBizCharge Customer ID"/>
+        <column xsi:type="text" name="ebzc_method_id" nullable="true"
+                comment="EBizCharge Payment Method ID"/>
+        <column xsi:type="text" name="ebzc_avs_street" nullable="true"
+                comment="AVS Street"/>
+        <column xsi:type="text" name="ebzc_avs_zip" nullable="true"
+                comment="AVS Zip"/>
+        <column xsi:type="text" name="ebzc_customer_number" nullable="true"
+                comment="Payment Customer Number"/>
+        <column xsi:type="text" name="ebzc_result_code" nullable="true"
+                comment="Payment Result code"/>
+        <column xsi:type="text" name="ebzc_result" nullable="true"
+                comment="Payment Result "/>
+        <column xsi:type="text" name="ebzc_payment_reference_number" nullable="true"
+                comment="Payment Reference Number"/>
+        <column xsi:type="text" name="ebzc_payment_is_duplicate" nullable="true"
+                comment="Payment is Duplicate"/>
+        <column xsi:type="text" name="ebzc_payment_error_code" nullable="true"
+                comment="Payment Error Code "/>
+        <column xsi:type="text" name="ebzc_payment_error" nullable="true"
+                comment="Payment Error "/>
+        <column xsi:type="text" name="ebzc_card_level_result_code" nullable="true"
+                comment="Ebiz Payment Card Level Result Code"/>
+        <column xsi:type="text" name="ebzc_card_level_result" nullable="true"
+                comment="Ebiz Payment Card Level Result"/>
+        <column xsi:type="text" name="ebzc_card_code_result" nullable="true"
+                comment="Ebiz Payment Card Code Result"/>
+        <column xsi:type="text" name="ebzc_card_code_result_code" nullable="true"
+                comment="Ebiz Payment Card Code Result Code"/>
+        <column xsi:type="text" name="ebzc_batch_ref_number" nullable="true"
+                comment="Ebiz Payment Batch Reference Number"/>
+        <column xsi:type="text" name="ebzc_batch_number" nullable="true"
+                comment="Ebiz Payment Batch Number"/>
+        <column xsi:type="text" name="ebzc_authcode" nullable="true"
+                comment="Ebiz Payment Auth Code"/>
+        <column xsi:type="text" name="ebzc_avs_result" nullable="true"
+                comment="Ebiz Avs Result"/>
+        <column xsi:type="text" name="ebzc_avs_result_code" nullable="true"
+                comment="Ebiz Avs Result Code"/>
+        <column xsi:type="text" name="ebzc_auth_amount" nullable="true"
+                comment="Ebiz Auth Amount"/>
+        <column xsi:type="text" name="ebzc_payment_status" nullable="true"
+                comment="Ebiz Payment Status"/>
+        <column xsi:type="text" name="ebzc_payment_status_code" nullable="true"
+                comment="Ebiz Payment Status Code"/>
+        <column xsi:type="text" name="ebzc_parent_order_id" nullable="true"
+                comment="Ebiz parent order id"/>
+        <column xsi:type="smallint" name="ebzc_save_payment" nullable="false" default="0" identity="false"
+                comment="EBizCharge - Save Payment Info"/>
+        <column xsi:type="text" name="ebzc_application_payment_ref_id" nullable="true"
+                comment="Ebiz Application payment Reference ID"/>
+        <column xsi:type="varchar" name="bill_to_customer" nullable="true" length="255"
+                comment="Ebiz Bill to Customer"/>
+        <column xsi:type="decimal" name="ec_surcharge_amount" scale="4" precision="20" unsigned="true"
+                nullable="true" default="0" comment="Econnect Surcharge Amount"/>
+        <column xsi:type="decimal" name="ec_surcharge_percentage" scale="4" precision="20" unsigned="true"
+                nullable="true" default="0" comment="Econnect Surcharge Percentage"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Quote Payment Table-->
+    <table name="quote_payment">
+        <column xsi:type="text" name="ebzc_option" nullable="true" comment="EBizCharge Payment Option"/>
+        <column xsi:type="varchar" name="ebzc_cust_id" length="255" nullable="true" comment="EBizCharge Customer ID"/>
+        <column xsi:type="varchar" name="ebzc_method_id" length="255" nullable="true" comment="EBizCharge Payment Method ID"/>
+        <column xsi:type="text" name="ebzc_avs_street" nullable="true" comment="AVS Street"/>
+        <column xsi:type="text" name="ebzc_avs_zip" nullable="true" comment="AVS Zip"/>
+        <column xsi:type="varchar" name="ebzc_save_payment" length="255" nullable="true" comment="EBizCharge - Save Payment Info"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Customer Entity Table-->
+    <table name="customer_entity">
+        <column xsi:type="varchar" name="ec_cust_sync_status" nullable="true"
+                comment="EEconnect Customer Sync Status"/>
+        <column xsi:type="varchar" name="ec_cust_internalid" nullable="true"
+                comment="Econnect Customer Internalid"/>
+        <column xsi:type="varchar" name="ec_cust_id" nullable="true"
+                comment="Econnect CustomerID"/>
+        <column xsi:type="varchar" name="ec_cust_token" nullable="true"
+                comment="Econnect Customer Token/Number"/>
+        <column xsi:type="varchar" name="ec_software_id" nullable="true"
+                comment="Econnect Software ID"/>
+        <column xsi:type="varchar" name="ec_division_id" nullable="true"
+                comment="Econnect Division ID"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"  comment="Updated At"/>
+        <column xsi:type="datetime" name="ec_cust_lastsyncdate" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Econnect Customer Last Sync Date"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Catalog Product Entity Table-->
+    <table name="catalog_product_entity">
+        <column xsi:type="varchar" name="ec_item_sync_status" nullable="true" length="255"
+                comment="Econnect Item Sync Status"/>
+        <column xsi:type="varchar" name="ec_item_internalid" nullable="true" length="255"
+                comment="Econnect Item Internalid"/>
+        <column xsi:type="varchar" name="ec_item_id" nullable="true" length="255"
+                comment="Econnect ItemId"/>
+        <column xsi:type="varchar" name="ec_created_in" nullable="true" length="255"
+                comment="Econnect Created In"/>
+        <column xsi:type="varchar" name="ec_software_id" nullable="true" length="255"
+                comment="Econnect Software ID"/>
+        <column xsi:type="varchar" name="ec_division_id" nullable="true" length="255"
+                comment="Econnect Division ID"/>
+        <column xsi:type="datetime" name="ec_item_lastsyncdate" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Econnect Item Last Sync Date"/>
+    </table>
+
+
+    <!-- Adding Custom EBizCharge columns to Quote Table-->
+    <table name="quote">
+        <column xsi:type="varchar" length="255" name="ec_order_sync_status" nullable="true"
+                comment="Econnect Order Sync Status"/>
+        <column xsi:type="varchar" length="255" name="ec_order_internalid" nullable="true"
+                comment="Econnect Order Internalid"/>
+        <column xsi:type="varchar" length="255" name="ec_po_number" nullable="true"
+                comment="Econnect PO Number"/>
+        <column xsi:type="varchar" length="255" name="ec_order_id" nullable="true"
+                comment="Econnect OrderId"/>
+        <column xsi:type="varchar" length="255" name="ec_cust_id" nullable="true"
+                comment="Econnect CustId"/>
+        <column xsi:type="varchar" name="ec_software_id" nullable="true"  length="255"
+                comment="Econnect Software ID"/>
+        <column xsi:type="varchar" name="ec_division_id" nullable="true" length="255"
+                comment="Econnect Division ID"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"  comment="Updated At"/>
+        <column xsi:type="datetime" name="ec_order_lastsyncdate" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Econnect Order Last Sync Date"/>
+        <column xsi:type="datetime" name="ec_date_uploaded" nullable="false"
+                comment="Econnect Date Uploaded"/>
+        <column xsi:type="datetime" name="ec_due_date" nullable="false"
+                comment="Econnect Due Date"/>
+        <column xsi:type="varchar" name="ec_created_in" length="255" nullable="true"
+                comment="Econnect Created In "/>
+        <column xsi:type="varchar" name="ec_surcharge_amount" length="255"
+                nullable="true" default="0" comment="Econnect Surcharge Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_percentage" length="255"
+                nullable="true"  comment="Econnect Surcharge Percentage"/>
+        <column xsi:type="varchar" name="ec_surcharge_ineligible" nullable="true" length="255"
+                comment="Econnect Surcharge is Ineligible?"/>
+        <column xsi:type="text" name="ebiz_3d_secure_data" nullable="true"  comment="EBizCharge 3DSecure Data"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Quote Item Table-->
+    <table name="quote_item">
+        <column xsi:type="decimal" name="qty_to_invoiced"  scale="4" precision="20" unsigned="true"
+                nullable="true" default="0"
+                comment="Ebiz Quantity To Invoiced"/>
+        <column xsi:type="decimal" name="ec_shipping_amount"  scale="4" precision="20" unsigned="true"
+                nullable="true" default="0"
+                comment="Custom Shipping Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_amount" length="255"
+                nullable="true"
+                comment="Custom Surcharge Amount"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Sales_order Table-->
+    <table name="sales_order">
+        <column xsi:type="varchar" length="255" name="ec_order_sync_status" nullable="true"
+                comment="Econnect Order Sync Status"/>
+        <column xsi:type="varchar" length="255" name="ec_order_internalid" nullable="true"
+                comment="Econnect Order Internalid"/>
+        <column xsi:type="varchar" length="255" name="ec_po_number" nullable="true"
+                comment="Econnect PO Number"/>
+        <column xsi:type="varchar" length="255" name="ec_order_id" nullable="true"
+                comment="Econnect OrderId"/>
+        <column xsi:type="varchar" length="255" name="recurring_parent_order" nullable="true"
+                comment="Recurring Parent Order Number"/>
+        <column xsi:type="varchar" length="255" name="recurring_additional_info" nullable="true"
+                comment="Recurring Additional Info"/>
+        <column xsi:type="varchar" length="255" name="ec_cust_id" nullable="true"
+                comment="Econnect CustId"/>
+        <column xsi:type="varchar" name="ec_software_id" nullable="true" length="255"
+                comment="Econnect Software ID"/>
+        <column xsi:type="varchar" length="255" name="ec_division_id" nullable="true"
+                comment="Econnect Division ID"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"  comment="Updated At"/>
+        <column xsi:type="datetime" name="ec_order_lastsyncdate" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Econnect Order Last Sync Date"/>
+        <column xsi:type="datetime" name="ec_date_uploaded" nullable="false"
+                comment="Econnect Date Uploaded"/>
+        <column xsi:type="datetime" name="ec_due_date" nullable="false"
+                comment="Econnect Due Date"/>
+        <column xsi:type="varchar" name="ec_created_in" length="255" nullable="true"
+                comment="Econnect Created In "/>
+        <column xsi:type="varchar" name="ec_surcharge_amount" nullable="true" length="255" comment="Econnect Surcharge Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_percentage" nullable="true" length="255" comment="Econnect Surcharge Percentage"/>
+        <column xsi:type="varchar" name="ec_surcharge_ineligible" length="255" nullable="true"
+                comment="Econnect Surcharge is Ineligible?"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to Sales Order Item Table-->
+    <table name="sales_order_item">
+        <column xsi:type="decimal" name="qty_to_invoiced"  scale="4" precision="20" unsigned="true"
+                nullable="true" default="0"
+                comment="Ebiz Quantity To Invoiced"/>
+        <column xsi:type="decimal" name="ec_shipping_amount"  scale="4" precision="20" unsigned="true"
+                nullable="true" default="0"
+                comment="Custom Shipping Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_amount" nullable="true" length="255" comment="Custom Surcharge Amount"/>
+
+    </table>
+
+
+    <!-- Adding Custom EBizCharge columns to sales_invoice Table-->
+    <table name="sales_invoice">
+        <column xsi:type="varchar" name="ec_invoice_sync_status" nullable="true" length="255"
+                comment="Econnect Invoice Sync Status"/>
+        <column xsi:type="varchar" name="ec_invoice_internalid" nullable="true" length="255"
+                comment="Econnect Invoice Internalid"/>
+        <column xsi:type="varchar" name="ec_invoice_id" nullable="true" length="255"
+                comment="Econnect Invoice"/>
+        <column xsi:type="varchar" name="ec_cust_id" nullable="true" length="255"
+                comment="Econnect CustId"/>
+        <column xsi:type="varchar" name="ec_software_id" nullable="true" length="255"
+                comment="Econnect Software ID"/>
+        <column xsi:type="varchar" name="ec_division_id" nullable="true" length="255"
+                comment="Econnect Division ID"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"  comment="Updated At"/>
+        <column xsi:type="datetime" name="ec_invoice_lastsyncdate" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Econnect Invoice Last Sync Date"/>
+        <column xsi:type="varchar" name="ec_surcharge_amount"
+                nullable="true" length="255" comment="Econnect Surcharge Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_percentage"
+                nullable="true" length="255" comment="Econnect Surcharge Percentage"/>
+        <column xsi:type="varchar" name="ec_surcharge_ineligible" length="255" nullable="true"
+                default="0" comment="Econnect Surcharge is Ineligible?"/>
+    </table>
+    <!-- Adding Custom EBizCharge columns to Sales Invoice Item Table-->
+    <table name="sales_invoice_item">
+        <column xsi:type="decimal" name="qty_to_invoiced"  scale="4" precision="20" unsigned="true"
+                nullable="true" default="0"
+                comment="Ebiz Quantity To Invoiced"/>
+        <column xsi:type="decimal" name="ec_shipping_amount"  scale="4" precision="20" unsigned="true"
+                nullable="true" default="0"
+                comment="Custom Shipping Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_amount" length="255"
+                nullable="true"
+                comment="Custom Surcharge Amount"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to sales_creditmemo Table-->
+    <table name="sales_creditmemo">
+        <column xsi:type="varchar" name="ec_surcharge_amount" length="255"
+                nullable="true" comment="Econnect Surcharge Amount"/>
+        <column xsi:type="varchar" name="ec_surcharge_percentage" length="255"
+                nullable="true" comment="Econnect Surcharge Percentage"/>
+    </table>
+
+    <!-- Adding Custom EBizCharge columns to sales_creditmemo_grid Table-->
+    <table name="sales_creditmemo_grid">
+        <column xsi:type="varchar" name="ec_surcharge_amount" length="255"
+                nullable="true"  comment="Econnect Surcharge Amount"/>
+        <column xsi:type="varchar" length="255" name="ec_surcharge_percentage" nullable="true"  comment="Econnect Surcharge Percentage"/>
+    </table>
+
+
+    <!--EBizCharge Sync Assets from Gateway Table-->
+
+    <table name="ebizcharge_sync_assets_cron" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" nullable="false" comment="Entity ID"/>
+        <column xsi:type="varchar" name="process_code" length="255" nullable="false"
+                comment="CRON Process Code"/>
+        <column xsi:type="varchar" name="process_name" length="255" nullable="false"
+                comment="CRON Process Name"/>
+        <column xsi:type="varchar" name="process_group" length="255" nullable="false"
+                comment="CRON Process Group"/>
+        <column xsi:type="varchar" name="asset_type" length="255" nullable="false"   comment="Asset Type"/>
+        <column xsi:type="datetime" name="start_time" nullable="true" comment="CRON Process Start Time"/>
+        <column xsi:type="datetime" name="end_time" nullable="true" comment="CRON Process End Time"/>
+        <column xsi:type="varchar" name="process_current_status" length="255" nullable="false"
+                comment="CRON Process current status"/>
+        <column xsi:type="varchar" name="total_time" length="255" nullable="true"  comment="Total Time"/>
+        <column xsi:type="varchar" name="last_sync_total_records" length="255" nullable="true"
+                comment="Last Sync Total Records"/>
+        <column xsi:type="int" name="remote_total_records" nullable="false" default="0" comment="Remote Total Records"/>
+        <column xsi:type="int" name="total_downloaded_records" nullable="false" default="0"
+                comment="Total Downloaded Records"/>
+        <column xsi:type="varchar" name="sync_remarks" length="500"  nullable="true" comment="Sync Remarks"/>
+        <column xsi:type="int" name="status" nullable="true" default="0" comment="Status"/>
+        <column xsi:type="int" name="failed_counter" nullable="true" default="0" comment="Failed synced record counterr"/>
+
+        <column xsi:type="int" name="last_sync_counter" nullable="true" default="0" comment="last_sync_counter"/>
+        <column xsi:type="timestamp" name="created_at" nullable="false" default="CURRENT_TIMESTAMP" on_update="true" comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="false" default="CURRENT_TIMESTAMP"  comment="Updated At"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+
+
+</schema>
