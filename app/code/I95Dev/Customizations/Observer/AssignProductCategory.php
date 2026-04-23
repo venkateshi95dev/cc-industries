@@ -96,7 +96,6 @@ class AssignProductCategory implements ObserverInterface
         }
         
     }
-
     public function getCategoryIdsBySku($sku)
     {
         try {
